@@ -38,12 +38,12 @@ $ source env/bin/activate
 
 #### Install requirements
 ```bash
-$(env) python -r requirements.txt
+$(env) cd modernism/
+$(env) pip install -r requirements.txt
 ```
 
 #### Run migrations to setup the database 
 ```bash
-$(env) cd modernism/
 $(env) python manage.py migrate
 ```
 
