@@ -1,8 +1,9 @@
 from django.core.validators import RegexValidator
 from django.db import models
-from wagtail.admin.edit_handlers import FieldPanel
-from wagtail.core.fields import RichTextField
+from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
+from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Page
+from wagtail.images.blocks import ImageChooserBlock
 
 from architects.models import ArchitectPage
 
@@ -29,7 +30,7 @@ class BuildingsIndexPage(Page):
 
 
 class BuildingPage(Page):
-    # TODO: Add InformationSource, Images, Catalog Number
+    # TODO: Add InformationSource, Catalog Number
     name = models.CharField(max_length=250)
     building_type = models.ForeignKey(
         BuildingType, on_delete=models.SET_NULL, null=True, blank=True,
@@ -53,6 +54,7 @@ class BuildingPage(Page):
             ),
         ],
     )
+    images = StreamField([("image", ImageChooserBlock(required=False)),])
 
     content_panels = Page.content_panels + [
         FieldPanel("name"),
@@ -63,4 +65,5 @@ class BuildingPage(Page):
         FieldPanel("directions", classname="full"),
         FieldPanel("address"),
         FieldPanel("lat_long"),
+        StreamFieldPanel("images"),
     ]
