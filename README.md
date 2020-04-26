@@ -47,9 +47,9 @@ $(env) cd modernism/
 $(env) python manage.py migrate
 ```
 
-#### Create a superuser
+#### Insert testdata
 ```bash
-$(env) python manage.py createsuperuser
+$(env) python manage.py add_testdata
 ```
 
 #### Run the development server
