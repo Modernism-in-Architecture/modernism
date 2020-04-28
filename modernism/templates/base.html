@@ -1,40 +1,77 @@
 {% load static wagtailuserbar %}
+{% load wagtailcore_tags %}
 
 <!DOCTYPE html>
 <html class="no-js" lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <title>
-            {% block title %}
-                {% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}
-            {% endblock %}
-            {% block title_suffix %}
-                {% with self.get_site.site_name as site_name %}
-                    {% if site_name %}- {{ site_name }}{% endif %}
-                {% endwith %}
-            {% endblock %}
-        </title>
-        <meta name="description" content="" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        {# Global stylesheets #}
-        <link rel="stylesheet" type="text/css" href="{% static 'css/modernism.css' %}">
-
-        {% block extra_css %}
-            {# Override this in templates to add extra stylesheets #}
+<head>
+    <meta charset="utf-8" />
+    <title>
+        {% block title %}
+        {% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}
         {% endblock %}
-    </head>
-
-    <body class="{% block body_class %}{% endblock %}">
-        {% wagtailuserbar %}
-
-        {% block content %}{% endblock %}
-
-        {# Global javascript #}
-        <script type="text/javascript" src="{% static 'js/modernism.js' %}"></script>
-
-        {% block extra_js %}
-            {# Override this in templates to add extra javascript #}
+        {% block title_suffix %}
+        {% with self.get_site.site_name as site_name %}
+        {% if site_name %}- {{ site_name }}{% endif %}
+        {% endwith %}
         {% endblock %}
-    </body>
+    </title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet" />
+
+    {# Global stylesheets #}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/modernism.css' %}" />
+
+    {% block extra_css %}
+    {# Override this in templates to add extra stylesheets #}
+    {% endblock %}
+</head>
+
+<body class="{% block body_class %}{% endblock %}">
+    {% wagtailuserbar %}
+    <header>
+        <nav>
+            <div class="navigation-logo">
+                <img src="{% static 'img/mia-1.png' %}" alt="MIA Logo" />
+            </div>
+            <div class="navigation-menu-desktop">
+                <ul>
+                    <li><a href="{% pageurl page.buildings_index_page %}">BUILDING</a></li>
+                    <li><a href="{% pageurl page.architects_index_page %}">ARCHITECTS</a></li>
+                    <li><a href="{% pageurl page.knowledge_page %}">KNOWLEDGE</a></li>
+                    <li><a href="{% pageurl page.map_page %}">MAP</a></li>
+                </ul>
+            </div>
+            <div class="navigation-instagram"><i class="fab fa-instagram"></i></div>
+            <div class="navigation-search"><i class="fas fa-search"></i></div>
+        </nav>
+    </header>
+
+    {% block content %}{% endblock %}
+
+    <footer>
+        <div class="footer-inner-container">
+            <div class="footer-copyright">
+                <p>Designed and Built by Norma & Christina</p>
+                <p>Copyright © 2020 All Rights Reserved</p>
+            </div>
+            <div class="footer-links">
+                <ul>
+                    <li>
+                        <a href="#" target="_blank">Impressum</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    {# Global javascript #}
+    <script type="text/javascript" src="{% static 'js/modernism.js' %}"></script>
+
+    {% block extra_js %}
+    {# Override this in templates to add extra javascript #}
+    {% endblock %}
+</body>
+
 </html>
