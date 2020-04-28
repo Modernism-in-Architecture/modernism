@@ -22,6 +22,9 @@
     --text-color-primary: rgb(8, 8, 8);
     --text-color-medium: rgb(131, 130, 129);
     --text-color-light: rgb(250, 248, 248);
+    --text-color-blue: blue;
+    --text-color-red: red;
+    --text-color-yellow: yellow;
     --bg-color-light: rgb(252, 245, 245);
     --bg-color-secondary: rgb(242, 245, 246);
     --bg-color-dark: rgb(8, 8, 8);
