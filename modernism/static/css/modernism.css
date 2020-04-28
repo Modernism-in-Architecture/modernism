@@ -78,3 +78,37 @@
   .footer-links li:not(:first-child) {
     margin-left: 1em;
   }
+
+  .navigation-logo {
+    font-size: 3rem;
+  }
+
+  nav {
+    max-width: 70rem;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+  }
+
+  .navigation-menu-desktop li {
+    display: inline;
+  }
+  
+  .navigation-menu-desktop li:not(:first-child) {
+    margin-left: 2rem;
+  }
+
+  nav a {
+    color: var(--text-color-light);
+  }
+  
+  nav a:hover {
+    color: var(--theme-color-primary);
+    text-decoration: none;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
