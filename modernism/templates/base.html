@@ -45,8 +45,26 @@
                     <li><a href="{% slugurl map_page %}">MAP</a></li>
                 </ul>
             </div>
-            <div class="navigation-instagram"><i class="fab fa-instagram"></i></div>
-            <div class="navigation-search"><i class="fas fa-search"></i></div>
+            <div class="navigation-menu-mobile-collapsed">
+                <button class="navigation-button" id="expand-mobile-navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <div class="navigation-menu-mobile">
+                <button class="navigation-button" id="collapse-mobile-navigation">
+                    <i class="fa fa-angle-right"></i>
+                </button>
+                <ul>
+                    <li><a href="{% slugurl 'building-index' %}">BUILDINGS</a></li>
+                    <li><a href="{% slugurl 'architect-index' %}">ARCHITECTS</a></li>
+                    <li><a href="{% slugurl knowledge_page %}">KNOWLEDGE</a></li>
+                    <li><a href="{% slugurl map_page %}">MAP</a></li>
+                </ul>
+            </div>
+            <div class="navigation-search-insta">
+                <div class="navigation-instagram"><i class="fab fa-instagram"></i></div>
+                <div class="navigation-search"><i class="fas fa-search"></i></div>
+            </div>
         </nav>
     </header>
 
