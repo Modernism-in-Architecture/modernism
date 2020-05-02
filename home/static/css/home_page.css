@@ -1,0 +1,14 @@
+.home-page {
+    max-width: 66rem;
+    margin: auto;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.home-page img {
+    /* justify-self: center;
+    align-self: center; */
+    max-width: 1056vx;
+}

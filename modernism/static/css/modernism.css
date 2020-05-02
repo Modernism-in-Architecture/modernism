@@ -53,10 +53,21 @@ a:hover {
     margin-left: 1.5rem;
 }
 
+html, body {
+    height: 100%;
+}
+
+#wrapper {
+    position: relative;
+    min-height: 100%;
+}
+
 footer {
     background-color: var(--bg-color-dark);
     color: var(--text-color-light);
     font-size: 1rem;
+    position: absolute;
+    bottom: 0;
 }
 
 footer a {
