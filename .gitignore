@@ -1,5 +1,8 @@
 .DS_Store
+.env
 *.pyc
 __pycache__
 db.sqlite3
 env
+media/
+node_modules/
