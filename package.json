@@ -1,0 +1,37 @@
+{
+    "name": "modernism",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "dependencies": {},
+    "devDependencies": {
+        "autoprefixer": "^9.7.6",
+        "babel-cli": "^6.26.0",
+        "babel-preset-env": "^1.7.0",
+        "babel-preset-es2015-ie": "^6.7.0",
+        "bulma": "^0.8.2",
+        "node-sass": "^4.13.1",
+        "npm-run-all": "^4.1.5",
+        "postcss-cli": "^7.1.0"
+    },
+    "scripts": {
+        "css-build": "node-sass modernism/static/_sass/modernism.scss modernism/static/css/modernism.css",
+        "css-deploy": "npm run css-build && npm run css-postcss",
+        "css-postcss": "postcss --use autoprefixer --output modernism/static/css/main.css modernism/static/css/main.css",
+        "css-watch": "npm run css-build -- --watch",
+        "deploy": "npm run css-deploy && npm run js-build",
+        "js-build": "babel modernism/static/_js --out-dir modernism/static/lib",
+        "js-watch": "npm run js-build -- --watch",
+        "start": "npm-run-all --parallel css-watch js-watch"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+git@github.com:normade/modernism.git"
+    },
+    "author": "Norma Driske",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/normade/modernism/issues"
+    },
+    "homepage": "https://github.com/normade/modernism#readme"
+}
