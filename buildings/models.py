@@ -1,9 +1,13 @@
 from django.core.validators import RegexValidator
 from django.db import models
+from modelcluster.contrib.taggit import ClusterTaggableManager
+from modelcluster.fields import ParentalKey
+from taggit.models import TaggedItemBase
 from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Page
 from wagtail.images.blocks import ImageChooserBlock
+from wagtail.images.edit_handlers import ImageChooserPanel
 
 from architects.models import ArchitectPage
 
@@ -27,6 +31,12 @@ class BuildingsIndexPage(Page):
     subpage_types = ["BuildingPage"]
 
     content_panels = Page.content_panels + [FieldPanel("intro", classname="full")]
+
+
+class BuildingPageTag(TaggedItemBase):
+    content_object = ParentalKey(
+        "buildings.BuildingPage", on_delete=models.CASCADE, related_name="tagged_items"
+    )
 
 
 class BuildingPage(Page):
@@ -54,7 +64,15 @@ class BuildingPage(Page):
             ),
         ],
     )
-    images = StreamField([("image", ImageChooserBlock(required=False)),])
+    tags = ClusterTaggableManager(through=BuildingPageTag, blank=True)
+    feed_image = models.ForeignKey(
+        "wagtailimages.Image",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+    )
+    gallery_images = StreamField([("image", ImageChooserBlock()),], blank=True)
 
     content_panels = Page.content_panels + [
         FieldPanel("name"),
@@ -65,5 +83,19 @@ class BuildingPage(Page):
         FieldPanel("directions", classname="full"),
         FieldPanel("address"),
         FieldPanel("lat_long"),
-        StreamFieldPanel("images"),
+        ImageChooserPanel("feed_image"),
+        StreamFieldPanel("gallery_images"),
+        FieldPanel("tags"),
     ]
+
+    parent_page_types = ["buildings.BuildingsIndexPage"]
+    subpage_types = []
+
+    @property
+    def get_tags(self):
+        tags = self.tags.all()
+        for tag in tags:
+            tag.url = "/" + "/".join(
+                s.strip("/") for s in [self.get_parent().url, "tags", tag.slug]
+            )
+        return tags
