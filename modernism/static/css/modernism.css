@@ -7137,12 +7137,15 @@ label.panel-block {
   font-family: "Righteous";
   font-size: 1.3rem; }
 
+.buildings .section, .architects .section, .knowledge .section {
+  padding-top: 1rem; }
+
 .home h1, .home h2 {
   font-family: "Righteous";
   color: #0a0a0a; }
 
 .home .hero {
-  background: url(../img/ross-sokolovski-T7gZJdvRxGo-unsplash.jpg);
+  background: url(../img/dirty-scan-JVRPGBnCL2s-unsplash.jpg);
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

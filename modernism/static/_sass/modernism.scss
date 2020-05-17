@@ -57,13 +57,19 @@ $footer-padding: 2rem 1.5rem 1.5rem;
     font-size: 1.3rem;
 }
 
+.buildings, .architects, .knowledge {
+    .section {
+        padding-top: 1rem;
+    }
+}
+
 .home {
     h1, h2 {
         font-family: $righteous;
         color: $black;
     }
     .hero {
-        background: url(../img/ross-sokolovski-T7gZJdvRxGo-unsplash.jpg);
+        background: url(../img/dirty-scan-JVRPGBnCL2s-unsplash.jpg);
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;

@@ -1,6 +1,6 @@
 {% load navigation_tags wagtailcore_tags %}
 {% get_site_root as site_root %}
-<nav class="breadcrumb has-arrow-separator is-small is-marginless" aria-label="breadcrumbs">
+<nav class="breadcrumb has-bullet-separator is-right is-small" aria-label="breadcrumbs">
   <ul>
     <li>
       <a href="{% pageurl site_root %}">
@@ -10,7 +10,7 @@
     {% for ancestor in ancestors|slice:"1:" %}
     {% if forloop.last %}
     <li class="is-active" aria-level="{{ancestors|length}}">
-      {{ ancestor|truncatechars:50 }}
+      {{ ancestor }}
     </li>
     {% else %}
     <li><a href="{% pageurl ancestor %}" aria-level="{% cycle 1 2 3 4 5 %}">{{ ancestor }}</a></li>
