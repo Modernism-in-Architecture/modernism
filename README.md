@@ -38,12 +38,12 @@ $ source env/bin/activate
 
 #### Install requirements
 ```bash
-$(env) python -r requirements.txt
+$(env) cd modernism/
+$(env) pip install -r requirements.txt
 ```
 
 #### Run migrations to setup the database 
 ```bash
-$(env) cd modernism/
 $(env) python manage.py migrate
 ```
 
@@ -58,7 +58,7 @@ $(env) python manage.py runserver
 ```
 
 #### Admin login
-You can login into the project's admin with your created superuser at `http://127.0.0.1:8000/admin`.
+You can login into the project's admin with the created superuser (superuser, PW: superuser) at `http://127.0.0.1:8000/admin`.
 
 
 
