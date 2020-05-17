@@ -8,6 +8,7 @@ INSTALLED_APPS = [
     "home",
     "buildings",
     "base",
+    "knowledge",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
     "wagtail.contrib.modeladmin",
