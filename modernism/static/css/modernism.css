@@ -8,14 +8,14 @@
   src: local("Righteous"), local("Righteous-Regular"), url("../fonts/righteous-v8-latin-regular.eot?#iefix") format("embedded-opentype"), url("../fonts/righteous-v8-latin-regular.woff2") format("woff2"), url("../fonts/righteous-v8-latin-regular.woff") format("woff"), url("../fonts/righteous-v8-latin-regular.ttf") format("truetype"), url("../fonts/righteous-v8-latin-regular.svg#Righteous") format("svg");
   /* Legacy iOS */ }
 
-/* roboto-regular - latin */
+/* roboto-regular - latin-ext_latin_cyrillic */
 @font-face {
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 400;
-  src: url("../fonts/roboto-v20-latin-regular.eot");
+  src: url("../fonts/roboto-v20-latin-ext_latin_cyrillic-regular.eot");
   /* IE9 Compat Modes */
-  src: local("Roboto"), local("Roboto-Regular"), url("../fonts/roboto-v20-latin-regular.eot?#iefix") format("embedded-opentype"), url("../fonts/roboto-v20-latin-regular.woff2") format("woff2"), url("../fonts/roboto-v20-latin-regular.woff") format("woff"), url("../fonts/roboto-v20-latin-regular.ttf") format("truetype"), url("../fonts/roboto-v20-latin-regular.svg#Roboto") format("svg");
+  src: local("Roboto"), local("Roboto-Regular"), url("../fonts/roboto-v20-latin-ext_latin_cyrillic-regular.eot?#iefix") format("embedded-opentype"), url("../fonts/roboto-v20-latin-ext_latin_cyrillic-regular.woff2") format("woff2"), url("../fonts/roboto-v20-latin-ext_latin_cyrillic-regular.woff") format("woff"), url("../fonts/roboto-v20-latin-ext_latin_cyrillic-regular.ttf") format("truetype"), url("../fonts/roboto-v20-latin-ext_latin_cyrillic-regular.svg#Roboto") format("svg");
   /* Legacy iOS */ }
 
 /*! bulma.io v0.8.2 | MIT License | github.com/jgthms/bulma */
@@ -7134,14 +7134,17 @@ label.panel-block {
   padding: 2rem 1.5rem 1.5rem; }
 
 .navbar {
-  font-family: "Righteous";
-  font-size: 1.3rem; }
+  font-family: "Righteous"; }
 
 .breadcrumb li + li::before {
   padding-right: 0.75em; }
 
-.buildings .section, .architects .section, .knowledge .section {
-  padding-top: 1rem; }
+.buildings .section, .building .section, .architects .section, .architect .section, .knowledge .section {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem; }
+
+img {
+  border-radius: 10px; }
 
 .card {
   border-radius: 10px;
@@ -7164,9 +7167,6 @@ label.panel-block {
 
 .home nav.navbar {
   background-color: transparent; }
-  .home nav.navbar .navbar-burger span {
-    height: 3px;
-    width: 24px; }
   .home nav.navbar .navbar-menu.is-active {
     color: white;
     background-color: #0a0a0a; }
@@ -7185,9 +7185,12 @@ label.panel-block {
   -o-background-size: cover;
   background-size: cover; }
   .home .hero .content {
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 0, 0.5);
     padding: 2rem;
     border-radius: 10px; }
+
+.building .building-address {
+  margin-top: 2rem; }
 
 footer {
   font-family: "Righteous"; }

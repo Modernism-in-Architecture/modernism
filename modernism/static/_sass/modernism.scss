@@ -15,18 +15,18 @@
          url('../fonts/righteous-v8-latin-regular.svg#Righteous') format('svg'); /* Legacy iOS */
 }
 
-/* roboto-regular - latin */
+/* roboto-regular - latin-ext_latin_cyrillic */
 @font-face {
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 400;
-    src: url('../fonts/roboto-v20-latin-regular.eot'); /* IE9 Compat Modes */
+    src: url('../fonts/roboto-v20-latin-ext_latin_cyrillic-regular.eot'); /* IE9 Compat Modes */
     src: local('Roboto'), local('Roboto-Regular'),
-         url('../fonts/roboto-v20-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-         url('../fonts/roboto-v20-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
-         url('../fonts/roboto-v20-latin-regular.woff') format('woff'), /* Modern Browsers */
-         url('../fonts/roboto-v20-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
-         url('../fonts/roboto-v20-latin-regular.svg#Roboto') format('svg'); /* Legacy iOS */
+         url('../fonts/roboto-v20-latin-ext_latin_cyrillic-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('../fonts/roboto-v20-latin-ext_latin_cyrillic-regular.woff2') format('woff2'), /* Super Modern Browsers */
+         url('../fonts/roboto-v20-latin-ext_latin_cyrillic-regular.woff') format('woff'), /* Modern Browsers */
+         url('../fonts/roboto-v20-latin-ext_latin_cyrillic-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+         url('../fonts/roboto-v20-latin-ext_latin_cyrillic-regular.svg#Roboto') format('svg'); /* Legacy iOS */
 }
 
 $tablet: 767px;
@@ -55,17 +55,21 @@ $footer-padding: 2rem 1.5rem 1.5rem;
 
 .navbar {
     font-family: $righteous;
-    font-size: 1.3rem;
 }
 
 .breadcrumb li + li::before {
     padding-right: 0.75em;
 }
 
-.buildings, .architects, .knowledge {
+.buildings, .building, .architects, .architect, .knowledge {
     .section {
-        padding-top: 1rem;
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
     }
+}
+
+img {
+    border-radius: $border-radius;
 }
 
 .card {
@@ -90,17 +94,12 @@ $footer-padding: 2rem 1.5rem 1.5rem;
     }
 }
 
-
 .home {
     &.has-navbar-fixed-top {
         padding-top: 0;
     }
     nav.navbar {
         background-color: transparent;
-        .navbar-burger span { 
-            height: 3px;
-            width: 24px;
-        }
         .navbar-menu.is-active {
             color: $white;
             background-color: $black;
@@ -120,10 +119,16 @@ $footer-padding: 2rem 1.5rem 1.5rem;
         -o-background-size: cover;
         background-size: cover;
         .content {
-            background-color: rgba($white, 0.5);
+            background-color: rgba($yellow, 0.5);
             padding: 2rem;
             border-radius: $border-radius;
         }
+    }
+}
+
+.building {
+    .building-address {
+        margin-top: 2rem;
     }
 }
 

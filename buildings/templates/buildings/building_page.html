@@ -4,6 +4,10 @@
 
 {% block body_class %}building{% endblock %}
 
+{% block navigation %}
+{% include "includes/navigation.html" with parent=site_root calling_page=self %}
+{% endblock navigation %}
+
 {% block breadcrumbs %}
 <section class="section">
   <div class="container">
@@ -17,4 +21,49 @@
 {% endblock breadcrumbs %}
 
 {% block content %}
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-6">
+        {% image page.feed_image width-600 %}
+      </div>
+      <div class="column is-4">
+        <div class="content">
+          <h1>{{page.title}}, {{page.architect}}</h1>
+          <p>{{page.building_type}}, {{page.year_of_construction}}</p>
+          <p class="building-address">{{page.address}}</p>
+          <p><i class="fa fa-map-marker-alt"></i> {{page.lat_long}}</p>
+          <div class="is-hidden-tablet-only">{{page.directions|richtext}}</div>
+        </div>
+      </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-10">
+        <div class="content">
+          <div class="is-hidden-mobile is-hidden-desktop">{{page.directions|richtext}}</div>
+          <h3>About</h3>
+          {{page.description|richtext}}
+        </div>
+      </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-10">
+        <div class="content">
+          <h3>[Images]</h3>
+        </div>
+      </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-10">
+        <div class="content">
+          {% for tag in page.get_tags %}
+          <!-- <a href="{{tag.url}}"># {{tag}}</a> -->
+          <a href="#"> #{{tag}} </a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+</section>
+
+
 {% endblock content %}
