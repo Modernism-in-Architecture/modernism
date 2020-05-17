@@ -34,14 +34,18 @@ $tablet: 767px;
 $roboto: "Roboto";
 $righteous: "Righteous";
 
+$yellow: rgb(255,255,0);
+$blue: rgb(0,0,255);
+$red: rgb(255,0,0);
+
 $text: $grey;
 $family-sans-serif: $roboto;
 $navbar-background-color: $black;
 $navbar-item-img-max-height: 4rem;
 $navbar-item-color: $white;
 $navbar-item-active-color: $grey-dark;
-$navbar-item-hover-color: #0000ff;
-$navbar-item-hover-background-color: $white;
+$navbar-item-hover-color: $yellow;
+$navbar-item-hover-background-color: transparent;
 $footer-background-color: $black;
 $footer-padding: 2rem 1.5rem 1.5rem;
 
@@ -59,4 +63,7 @@ footer {
     position: fixed;
     right: 0;
     z-index: 30;
+    a {
+        color: $white;
+    }
 }
