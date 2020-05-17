@@ -1,0 +1,7 @@
+{% load wagtailcore_tags %}
+
+{% for menuitem in menuitems %}
+<a class="navbar-item is-uppercase {% if menuitem.active %} is-active{% endif %}" href="{% pageurl menuitem %}">
+  {{ menuitem.title }}
+</a>
+{% endfor %}
