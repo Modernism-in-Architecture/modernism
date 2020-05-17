@@ -161,7 +161,7 @@
   -webkit-appearance: none;
   align-items: center;
   border: 1px solid transparent;
-  border-radius: 4px;
+  border-radius: 10px;
   box-shadow: none;
   display: inline-flex;
   font-size: 1rem;
@@ -2331,7 +2331,7 @@ a.box:active {
 
 .notification {
   background-color: whitesmoke;
-  border-radius: 4px;
+  border-radius: 10px;
   padding: 1.25rem 2.5rem 1.25rem 1.5rem;
   position: relative; }
   .notification a:not(.button):not(.dropdown-item) {
@@ -2697,7 +2697,7 @@ a.box:active {
 .tag:not(body) {
   align-items: center;
   background-color: whitesmoke;
-  border-radius: 4px;
+  border-radius: 10px;
   color: #7a7a7a;
   display: inline-flex;
   font-size: 0.75rem;
@@ -2906,7 +2906,7 @@ a.tag:hover {
 .input, .textarea, .select select {
   background-color: white;
   border-color: #dbdbdb;
-  border-radius: 4px;
+  border-radius: 10px;
   color: #363636; }
   .input::-moz-placeholder, .textarea::-moz-placeholder, .select select::-moz-placeholder {
     color: rgba(54, 54, 54, 0.3); }
@@ -3381,7 +3381,7 @@ a.tag:hover {
     border-bottom-left-radius: 0;
     border-top-left-radius: 0; }
   .file.has-name.is-empty .file-cta {
-    border-radius: 4px; }
+    border-radius: 10px; }
   .file.has-name.is-empty .file-name {
     display: none; }
   .file.is-boxed .file-label {
@@ -3404,9 +3404,9 @@ a.tag:hover {
   .file.is-boxed.is-large .file-icon .fa {
     font-size: 35px; }
   .file.is-boxed.has-name .file-cta {
-    border-radius: 4px 4px 0 0; }
+    border-radius: 10px 10px 0 0; }
   .file.is-boxed.has-name .file-name {
-    border-radius: 0 0 4px 4px;
+    border-radius: 0 0 10px 10px;
     border-width: 0 1px 1px; }
   .file.is-centered {
     justify-content: center; }
@@ -3418,9 +3418,9 @@ a.tag:hover {
   .file.is-right {
     justify-content: flex-end; }
     .file.is-right .file-cta {
-      border-radius: 0 4px 4px 0; }
+      border-radius: 0 10px 10px 0; }
     .file.is-right .file-name {
-      border-radius: 4px 0 0 4px;
+      border-radius: 10px 0 0 10px;
       border-width: 1px 0 1px 1px;
       order: -1; }
 
@@ -3454,7 +3454,7 @@ a.tag:hover {
 .file-cta,
 .file-name {
   border-color: #dbdbdb;
-  border-radius: 4px;
+  border-radius: 10px;
   font-size: 1em;
   padding-left: 1em;
   padding-right: 1em;
@@ -3844,7 +3844,7 @@ a.tag:hover {
 
 .dropdown-content {
   background-color: white;
-  border-radius: 4px;
+  border-radius: 10px;
   box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02);
   padding-bottom: 0.5rem;
   padding-top: 0.5rem; }
@@ -3883,7 +3883,7 @@ button.dropdown-item {
   align-items: center;
   justify-content: space-between; }
   .level code {
-    border-radius: 4px; }
+    border-radius: 10px; }
   .level img {
     display: inline-block;
     vertical-align: top; }
@@ -3951,7 +3951,7 @@ button.dropdown-item {
 
 .list {
   background-color: white;
-  border-radius: 4px;
+  border-radius: 10px;
   box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1); }
 
 .list-item {
@@ -3960,11 +3960,11 @@ button.dropdown-item {
   .list-item:not(a) {
     color: #7a7a7a; }
   .list-item:first-child {
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px; }
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px; }
   .list-item:last-child {
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px; }
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px; }
   .list-item:not(:last-child) {
     border-bottom: 1px solid #dbdbdb; }
   .list-item.is-active {
@@ -4061,7 +4061,7 @@ a.list-item {
 
 .message {
   background-color: whitesmoke;
-  border-radius: 4px;
+  border-radius: 10px;
   font-size: 1rem; }
   .message strong {
     color: currentColor; }
@@ -4154,7 +4154,7 @@ a.list-item {
 .message-header {
   align-items: center;
   background-color: #7a7a7a;
-  border-radius: 4px 4px 0 0;
+  border-radius: 10px 10px 0 0;
   color: #fff;
   display: flex;
   font-weight: 700;
@@ -4173,7 +4173,7 @@ a.list-item {
 
 .message-body {
   border-color: #dbdbdb;
-  border-radius: 4px;
+  border-radius: 10px;
   border-style: solid;
   border-width: 0 0 0 4px;
   color: #7a7a7a;
@@ -4826,7 +4826,7 @@ a.navbar-item,
   flex-grow: 0;
   flex-shrink: 0; }
   .navbar-item img {
-    max-height: 4rem; }
+    max-height: 2rem; }
   .navbar-item.has-dropdown {
     padding: 0; }
   .navbar-item.is-expanded {
@@ -4926,7 +4926,7 @@ a.navbar-item,
         align-items: center; }
       .navbar.is-spaced a.navbar-item,
       .navbar.is-spaced .navbar-link {
-        border-radius: 4px; }
+        border-radius: 10px; }
     .navbar.is-transparent a.navbar-item:focus, .navbar.is-transparent a.navbar-item:hover, .navbar.is-transparent a.navbar-item.is-active,
     .navbar.is-transparent .navbar-link:focus,
     .navbar.is-transparent .navbar-link:hover,
@@ -5381,7 +5381,7 @@ label.panel-block {
     justify-content: flex-end; }
   .tabs.is-boxed a {
     border: 1px solid transparent;
-    border-radius: 4px 4px 0 0; }
+    border-radius: 10px 10px 0 0; }
     .tabs.is-boxed a:hover {
       background-color: whitesmoke;
       border-bottom-color: #dbdbdb; }
@@ -5405,9 +5405,9 @@ label.panel-block {
   .tabs.is-toggle li + li {
     margin-left: -1px; }
   .tabs.is-toggle li:first-child a {
-    border-radius: 4px 0 0 4px; }
+    border-radius: 10px 0 0 10px; }
   .tabs.is-toggle li:last-child a {
-    border-radius: 0 4px 4px 0; }
+    border-radius: 0 10px 10px 0; }
   .tabs.is-toggle li.is-active a {
     background-color: blue;
     border-color: blue;
@@ -7137,12 +7137,22 @@ label.panel-block {
   font-family: "Righteous";
   font-size: 1.3rem; }
 
-footer {
+.home h1, .home h2 {
   font-family: "Righteous";
-  bottom: 0;
-  left: 0;
-  position: fixed;
-  right: 0;
-  z-index: 30; }
+  color: #0a0a0a; }
+
+.home .hero {
+  background: url(../img/ross-sokolovski-T7gZJdvRxGo-unsplash.jpg);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover; }
+  .home .hero .content {
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 2rem;
+    border-radius: 10px; }
+
+footer {
+  font-family: "Righteous"; }
   footer a {
     color: white; }

@@ -39,9 +39,10 @@ $blue: rgb(0,0,255);
 $red: rgb(255,0,0);
 
 $text: $grey;
+$radius: 10px;
 $family-sans-serif: $roboto;
 $navbar-background-color: $black;
-$navbar-item-img-max-height: 4rem;
+$navbar-item-img-max-height: 2rem;
 $navbar-item-color: $white;
 $navbar-item-active-color: $grey-dark;
 $navbar-item-hover-color: $yellow;
@@ -56,13 +57,28 @@ $footer-padding: 2rem 1.5rem 1.5rem;
     font-size: 1.3rem;
 }
 
+.home {
+    h1, h2 {
+        font-family: $righteous;
+        color: $black;
+    }
+    .hero {
+        background: url(../img/ross-sokolovski-T7gZJdvRxGo-unsplash.jpg);
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        .content {
+            background-color: rgba($white, 0.5);
+            
+            padding: 2rem;
+            border-radius: $radius;
+        }
+    }
+}
+
 footer {
     font-family: $righteous;
-    bottom: 0;
-    left: 0;
-    position: fixed;
-    right: 0;
-    z-index: 30;
     a {
         color: $white;
     }
