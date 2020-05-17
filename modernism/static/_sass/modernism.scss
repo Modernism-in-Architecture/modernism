@@ -39,6 +39,7 @@ $blue: rgb(0,0,255);
 $red: rgb(255,0,0);
 
 $text: $grey;
+$link: $blue;
 $radius: 10px;
 $family-sans-serif: $roboto;
 $navbar-background-color: $black;
@@ -55,6 +56,10 @@ $footer-padding: 2rem 1.5rem 1.5rem;
 .navbar {
     font-family: $righteous;
     font-size: 1.3rem;
+}
+
+.breadcrumb li + li::before {
+    padding-right: 0.75em;
 }
 
 .buildings, .architects, .knowledge {

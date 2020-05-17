@@ -7137,6 +7137,9 @@ label.panel-block {
   font-family: "Righteous";
   font-size: 1.3rem; }
 
+.breadcrumb li + li::before {
+  padding-right: 0.75em; }
+
 .buildings .section, .architects .section, .knowledge .section {
   padding-top: 1rem; }
 
