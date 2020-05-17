@@ -32,6 +32,12 @@ class BuildingsIndexPage(Page):
 
     content_panels = Page.content_panels + [FieldPanel("intro", classname="full")]
 
+    def get_context(self, request):
+        context = super().get_context(request)
+
+        context["buildings"] = BuildingPage.objects.child_of(self).live()
+        return context
+
 
 class BuildingPageTag(TaggedItemBase):
     content_object = ParentalKey(

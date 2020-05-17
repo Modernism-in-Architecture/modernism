@@ -39,11 +39,11 @@ $blue: rgb(0,0,255);
 $red: rgb(255,0,0);
 
 $text: $grey;
-$link: $blue;
-$radius: 10px;
+$link: $black;
+$border-radius: 10px;
 $family-sans-serif: $roboto;
-$navbar-background-color: $black;
-$navbar-item-img-max-height: 2rem;
+$navbar-item-img-max-height: 3rem;
+$navbar-background-color: black;
 $navbar-item-color: $white;
 $navbar-item-active-color: $grey-dark;
 $navbar-item-hover-color: $yellow;
@@ -68,7 +68,47 @@ $footer-padding: 2rem 1.5rem 1.5rem;
     }
 }
 
+.card {
+    border-radius: $border-radius;
+    overflow: hidden;
+    .card-content {
+        padding: 0.8rem;
+    }
+    .card-image {
+        overflow: hidden;
+    }
+    .image {
+        transition: transform 0.7s ease;
+    }
+    .image img {
+        border-radius: 0;
+        border-top-left-radius: $border-radius;
+        border-top-right-radius: $border-radius;
+    }
+    .image:hover {
+        transform: scale(1.08);
+    }
+}
+
+
 .home {
+    &.has-navbar-fixed-top {
+        padding-top: 0;
+    }
+    nav.navbar {
+        background-color: transparent;
+        .navbar-burger span { 
+            height: 3px;
+            width: 24px;
+        }
+        .navbar-menu.is-active {
+            color: $white;
+            background-color: $black;
+        }
+        @include from($desktop) {
+            background-color: rgba($black, 0.4);
+        }
+    }
     h1, h2 {
         font-family: $righteous;
         color: $black;
@@ -81,9 +121,8 @@ $footer-padding: 2rem 1.5rem 1.5rem;
         background-size: cover;
         .content {
             background-color: rgba($white, 0.5);
-            
             padding: 2rem;
-            border-radius: $radius;
+            border-radius: $border-radius;
         }
     }
 }
@@ -92,5 +131,9 @@ footer {
     font-family: $righteous;
     a {
         color: $white;
+    }
+    .disclaimer {
+        font-size: 0.8rem;
+        font-family: $roboto;
     }
 }

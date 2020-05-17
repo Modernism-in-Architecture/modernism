@@ -22,10 +22,9 @@
   {% block extra_css %}{% endblock %}
 </head>
 
-<body class="{% block body_class %}{% endblock %}">
+<body class="{% block body_class %}{% endblock %} has-navbar-fixed-top">
 
-  {% include "includes/navigation.html" with parent=site_root calling_page=self %}
-
+  {% block navigation %}{% endblock %}
   {% block breadcrumbs %}{% endblock breadcrumbs %}
 
   {% block content %}{% endblock %}
