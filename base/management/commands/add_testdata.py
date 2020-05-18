@@ -24,7 +24,7 @@ def setup_test_data():
     home.save()
 
     architect_index = ArchitectsIndexPage(
-        title="Architect Index",
+        title="Architects",
         intro="Cake tiramisu dragée jujubes candy chocolate cake. Bonbon toffee jelly tootsie roll apple pie croissant. Wafer jelly-o pastry fruitcake toffee macaroon muffin. Sesame snaps cookie caramels cheesecake cupcake pastry cake chupa chups danish. Jelly bear claw cake caramels jelly-o brownie. Jelly bear claw sweet roll ice cream dessert tart gingerbread fruitcake. Carrot cake cupcake sugar plum jujubes chocolate cake pudding cake. Pie candy sweet roll liquorice gingerbread bear claw liquorice cake. Bear claw fruitcake soufflé.",
         slug="architects",
         show_in_menus=True,
@@ -32,14 +32,14 @@ def setup_test_data():
     home.add_child(instance=architect_index)
 
     building_index = BuildingsIndexPage(
-        title="Building Index",
+        title="Buildings",
         intro="Cake tiramisu dragée jujubes candy chocolate cake. Bonbon toffee jelly tootsie roll apple pie croissant. Wafer jelly-o pastry fruitcake toffee macaroon muffin. Sesame snaps cookie caramels cheesecake cupcake pastry cake chupa chups danish. Jelly bear claw cake caramels jelly-o brownie. Jelly bear claw sweet roll ice cream dessert tart gingerbread fruitcake. Carrot cake cupcake sugar plum jujubes chocolate cake pudding cake. Pie candy sweet roll liquorice gingerbread bear claw liquorice cake. Bear claw fruitcake soufflé.",
         slug="buildings",
         show_in_menus=True,
     )
     home.add_child(instance=building_index)
     knowledge_index = KnowledgeIndexPage(
-        title="Building Index",
+        title="Knowledge",
         intro="Cake tiramisu dragée jujubes candy chocolate cake. Bonbon toffee jelly tootsie roll apple pie croissant. Wafer jelly-o pastry fruitcake toffee macaroon muffin. Sesame snaps cookie caramels cheesecake cupcake pastry cake chupa chups danish. Jelly bear claw cake caramels jelly-o brownie. Jelly bear claw sweet roll ice cream dessert tart gingerbread fruitcake. Carrot cake cupcake sugar plum jujubes chocolate cake pudding cake. Pie candy sweet roll liquorice gingerbread bear claw liquorice cake. Bear claw fruitcake soufflé.",
         slug="knowledge",
         show_in_menus=True,

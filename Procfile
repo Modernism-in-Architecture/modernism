@@ -1,0 +1,1 @@
+web: gunicorn modernism.wsgi --log-file -
