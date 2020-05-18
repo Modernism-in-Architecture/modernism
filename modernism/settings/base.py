@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     "wagtail.core",
     "modelcluster",
     "taggit",
+    "storages",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -113,3 +114,6 @@ MEDIA_URL = "/media/"
 WAGTAIL_SITE_NAME = "modernism"
 
 BASE_URL = "http://example.com"
+
+TAGGIT_CASE_INSENSITIVE = True
+TAG_SPACES_ALLOWED = True

@@ -26,6 +26,16 @@ COMPRESS_CSS_FILTERS = [
 ]
 COMPRESS_CSS_HASHING_METHOD = "content"
 
+AWS_STORAGE_BUCKET_NAME = "modernism"
+AWS_ACCESS_KEY_ID = env["AWS_ACCESS_KEY_ID"]
+AWS_SECRET_ACCESS_KEY = env["AWS_SECRET_ACCESS_KEY"]
+AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
+AWS_DEFAULT_ACL = None
+
+MEDIA_ROOT = ""
+MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/"
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+
 try:
     from .local import *
 except ImportError:
