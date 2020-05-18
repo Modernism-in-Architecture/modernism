@@ -53,8 +53,25 @@ $footer-padding: 2rem 1.5rem 1.5rem;
 
 @import "../../../node_modules/bulma/bulma";
 
+
+img {
+    border-radius: $border-radius;
+}
+
 .navbar {
     font-family: $righteous;
+    .navbar-brand {
+        img {
+            border-radius: 0;
+            max-height: 1.3rem;
+        }
+    }
+    .navbar-burger span {
+        height: 2px;
+    }
+    .navbar-burger:hover {
+        background-color: transparent;
+    }
 }
 
 .breadcrumb li + li::before {
@@ -66,10 +83,6 @@ $footer-padding: 2rem 1.5rem 1.5rem;
         padding-top: 1.5rem;
         padding-bottom: 1.5rem;
     }
-}
-
-img {
-    border-radius: $border-radius;
 }
 
 .card {
@@ -106,6 +119,12 @@ img {
         }
         @include from($desktop) {
             background-color: rgba($black, 0.4);
+        }
+        .navbar-brand {
+            img {
+                border-radius: 0;
+                max-height: 4rem;
+            }
         }
     }
     h1, h2 {

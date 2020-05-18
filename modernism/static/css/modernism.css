@@ -7133,8 +7133,18 @@ label.panel-block {
   background-color: #0a0a0a;
   padding: 2rem 1.5rem 1.5rem; }
 
+img {
+  border-radius: 10px; }
+
 .navbar {
   font-family: "Righteous"; }
+  .navbar .navbar-brand img {
+    border-radius: 0;
+    max-height: 1.3rem; }
+  .navbar .navbar-burger span {
+    height: 2px; }
+  .navbar .navbar-burger:hover {
+    background-color: transparent; }
 
 .breadcrumb li + li::before {
   padding-right: 0.75em; }
@@ -7142,9 +7152,6 @@ label.panel-block {
 .buildings .section, .building .section, .architects .section, .architect .section, .knowledge .section {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem; }
-
-img {
-  border-radius: 10px; }
 
 .card {
   border-radius: 10px;
@@ -7173,6 +7180,9 @@ img {
   @media screen and (min-width: 1024px) {
     .home nav.navbar {
       background-color: rgba(10, 10, 10, 0.4); } }
+  .home nav.navbar .navbar-brand img {
+    border-radius: 0;
+    max-height: 4rem; }
 
 .home h1, .home h2 {
   font-family: "Righteous";
