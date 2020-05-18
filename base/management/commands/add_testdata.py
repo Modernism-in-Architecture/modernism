@@ -8,6 +8,7 @@ from wagtail.core.models import Page, Site
 from architects.models import ArchitectPage, ArchitectsIndexPage
 from buildings.models import BuildingPage, BuildingsIndexPage, BuildingType
 from home.models import HomePage
+from knowledge.models import KnowledgeIndexPage
 
 
 @transaction.atomic
@@ -25,17 +26,25 @@ def setup_test_data():
     architect_index = ArchitectsIndexPage(
         title="Architect Index",
         intro="Cake tiramisu dragée jujubes candy chocolate cake. Bonbon toffee jelly tootsie roll apple pie croissant. Wafer jelly-o pastry fruitcake toffee macaroon muffin. Sesame snaps cookie caramels cheesecake cupcake pastry cake chupa chups danish. Jelly bear claw cake caramels jelly-o brownie. Jelly bear claw sweet roll ice cream dessert tart gingerbread fruitcake. Carrot cake cupcake sugar plum jujubes chocolate cake pudding cake. Pie candy sweet roll liquorice gingerbread bear claw liquorice cake. Bear claw fruitcake soufflé.",
-        slug="architect-index",
+        slug="architects",
+        show_in_menus=True,
     )
     home.add_child(instance=architect_index)
 
     building_index = BuildingsIndexPage(
         title="Building Index",
         intro="Cake tiramisu dragée jujubes candy chocolate cake. Bonbon toffee jelly tootsie roll apple pie croissant. Wafer jelly-o pastry fruitcake toffee macaroon muffin. Sesame snaps cookie caramels cheesecake cupcake pastry cake chupa chups danish. Jelly bear claw cake caramels jelly-o brownie. Jelly bear claw sweet roll ice cream dessert tart gingerbread fruitcake. Carrot cake cupcake sugar plum jujubes chocolate cake pudding cake. Pie candy sweet roll liquorice gingerbread bear claw liquorice cake. Bear claw fruitcake soufflé.",
-        slug="building-index",
+        slug="buildings",
+        show_in_menus=True,
     )
     home.add_child(instance=building_index)
-
+    knowledge_index = KnowledgeIndexPage(
+        title="Building Index",
+        intro="Cake tiramisu dragée jujubes candy chocolate cake. Bonbon toffee jelly tootsie roll apple pie croissant. Wafer jelly-o pastry fruitcake toffee macaroon muffin. Sesame snaps cookie caramels cheesecake cupcake pastry cake chupa chups danish. Jelly bear claw cake caramels jelly-o brownie. Jelly bear claw sweet roll ice cream dessert tart gingerbread fruitcake. Carrot cake cupcake sugar plum jujubes chocolate cake pudding cake. Pie candy sweet roll liquorice gingerbread bear claw liquorice cake. Bear claw fruitcake soufflé.",
+        slug="knowledge",
+        show_in_menus=True,
+    )
+    home.add_child(instance=knowledge_index)
     architect_1 = ArchitectPage(
         title="Otto Eisler",
         slug="otto-eisler",
