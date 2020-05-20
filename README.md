@@ -1,9 +1,8 @@
 # Modernism in Architecture
 
-## Setup the project
+The project is build with [Wagtail](https://wagtail.io/), a CMS powered by [Django](https://www.djangoproject.com/) and [Bulma](https://bulma.io).
 
-The project is build with [Wagtail](https://wagtail.io/), a CMS powered by [Django](https://www.djangoproject.com/).
-
+## Setup the backend
 
 ### Prerequisites
 - Python version >= 3.6
@@ -60,5 +59,18 @@ $(env) python manage.py runserver
 #### Admin login
 You can login into the project's admin with the created superuser (superuser, PW: superuser) at `http://127.0.0.1:8000/admin`.
 
+## Setup the frontend
 
+Generally the project extends and overrides the Bulma Sass variables in the file `modernism.static._sass.modernism.scss`.
+Javascript functions can be found in `modernism.static._js.modernism.js`.
+
+#### Install requirements
+```bash
+$ npm install .
+```
+
+### Start development server
+```bash
+$ npm start
+```
 
