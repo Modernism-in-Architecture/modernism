@@ -108,25 +108,6 @@ img {
 }
 
 .home {
-    &.has-navbar-fixed-top {
-        padding-top: 0;
-    }
-    nav.navbar {
-        background-color: transparent;
-        .navbar-menu.is-active {
-            color: $white;
-            background-color: $black;
-        }
-        @include from($desktop) {
-            background-color: rgba($black, 0.4);
-        }
-        .navbar-brand {
-            img {
-                border-radius: 0;
-                max-height: 4rem;
-            }
-        }
-    }
     h1, h2 {
         font-family: $righteous;
         color: $black;
@@ -137,6 +118,9 @@ img {
         -moz-background-size: cover;
         -o-background-size: cover;
         background-size: cover;
+        .navbar {
+            background: $black;
+        }
         .content {
             background-color: rgba($yellow, 0.5);
             padding: 2rem;

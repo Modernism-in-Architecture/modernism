@@ -7169,21 +7169,6 @@ img {
   .card .image:hover {
     transform: scale(1.08); }
 
-.home.has-navbar-fixed-top {
-  padding-top: 0; }
-
-.home nav.navbar {
-  background-color: transparent; }
-  .home nav.navbar .navbar-menu.is-active {
-    color: white;
-    background-color: #0a0a0a; }
-  @media screen and (min-width: 1024px) {
-    .home nav.navbar {
-      background-color: rgba(10, 10, 10, 0.4); } }
-  .home nav.navbar .navbar-brand img {
-    border-radius: 0;
-    max-height: 4rem; }
-
 .home h1, .home h2 {
   font-family: "Righteous";
   color: #0a0a0a; }
@@ -7194,6 +7179,8 @@ img {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover; }
+  .home .hero .navbar {
+    background: #0a0a0a; }
   .home .hero .content {
     background-color: rgba(255, 255, 0, 0.5);
     padding: 2rem;
