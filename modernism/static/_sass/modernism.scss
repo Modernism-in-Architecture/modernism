@@ -53,6 +53,15 @@ $footer-padding: 2rem 1.5rem 1.5rem;
 
 @import "../../../node_modules/bulma/bulma";
 
+.yellow {
+    color: $yellow;
+}
+.blue {
+    color: $blue;
+}
+.red {
+    color: $red;
+}
 
 img {
     border-radius: $border-radius;
@@ -110,7 +119,7 @@ img {
 .home {
     h1, h2 {
         font-family: $righteous;
-        color: $black;
+        color: $white;
     }
     .hero {
         background: url(../img/BirgitBoellinger@Pixabay.jpg);
@@ -118,12 +127,9 @@ img {
         -moz-background-size: cover;
         -o-background-size: cover;
         background-size: cover;
-        .navbar {
-            background: $black;
-        }
         .content {
-            background-color: rgba($yellow, 0.5);
-            padding: 2rem;
+            background-color: rgba($black, 0.8);
+            padding: 1.6rem;
             border-radius: $border-radius;
         }
     }

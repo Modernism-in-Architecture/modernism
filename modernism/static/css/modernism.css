@@ -7133,6 +7133,15 @@ label.panel-block {
   background-color: #0a0a0a;
   padding: 2rem 1.5rem 1.5rem; }
 
+.yellow {
+  color: yellow; }
+
+.blue {
+  color: blue; }
+
+.red {
+  color: red; }
+
 img {
   border-radius: 10px; }
 
@@ -7171,7 +7180,7 @@ img {
 
 .home h1, .home h2 {
   font-family: "Righteous";
-  color: #0a0a0a; }
+  color: white; }
 
 .home .hero {
   background: url(../img/BirgitBoellinger@Pixabay.jpg);
@@ -7179,11 +7188,9 @@ img {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover; }
-  .home .hero .navbar {
-    background: #0a0a0a; }
   .home .hero .content {
-    background-color: rgba(255, 255, 0, 0.5);
-    padding: 2rem;
+    background-color: rgba(10, 10, 10, 0.8);
+    padding: 1.6rem;
     border-radius: 10px; }
 
 .building .building-address {
