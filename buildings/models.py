@@ -145,7 +145,6 @@ class BuildingPage(Page):
         FieldPanel("lat_long"),
         ImageChooserPanel("feed_image"),
         StreamFieldPanel("gallery_images"),
-        FieldPanel("tags"),
     ]
 
     api_fields = [
@@ -171,9 +170,18 @@ class BuildingPage(Page):
 
     @property
     def get_tags(self):
-        tags = self.tags.all()
+        tags = self.tags.exclude(name__exact="")
         for tag in tags:
             tag.url = "/" + "/".join(
                 s.strip("/") for s in [self.get_parent().url, "tags", tag.slug]
             )
         return tags
+
+    def save(self, *args, **kwargs):
+        self.tags.add(
+            self.architect.last_name,
+            self.city.name,
+            self.country.country.name,
+            self.year_of_construction,
+        )
+        super(BuildingPage, self).save()
