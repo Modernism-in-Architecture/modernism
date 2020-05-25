@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load navigation_tags static wagtailcore_tags %}
+{% load navigation_tags static wagtailimages_tags wagtailcore_tags %}
 
 {% block body_class %}architect{% endblock %}
 
@@ -15,5 +15,26 @@
 </section>
 {% endblock breadcrumbs %}
 {% block content %}
-<section class="section last-section"></section>
+<section class="section last-section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8-tablet is-5-desktop">
+        <div class="content">
+          <h1>{{page.first_name}} {{page.last_name}}</h1>
+          <p>{% if page.birthday %}* {{page.birthday}} {% endif %}{% if page.place_of_birth %}
+            {{page.place_of_birth}} {% endif %}<br>
+            {% if page.day_of_death %}&#10013 {{page.day_of_death}}
+            {% endif %}{% if page.place_of_death %}
+            {{page.place_of_death}} {% endif %}</p>
+          {% image page.image width-400 %}
+          {{page.description|richtext}}
+          {% for building in page.buildingpage_set.all %}
+          <a href="{% pageurl building %}">{% image building.feed_image fill-100x100 %}</a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
 {% endblock content %}

@@ -7145,6 +7145,14 @@ label.panel-block {
 img {
   border-radius: 10px; }
 
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column; }
+
+.last-section {
+  flex: 1; }
+
 .navbar {
   font-family: "Righteous"; }
   .navbar .navbar-brand img {
@@ -7196,13 +7204,8 @@ img {
 .building .building-address {
   margin-top: 2rem; }
 
-body {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column; }
-
-.last-section {
-  flex: 1; }
+.architect .rich-text {
+  margin: 2rem 0; }
 
 footer {
   font-family: "Righteous"; }

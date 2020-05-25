@@ -67,6 +67,16 @@ img {
     border-radius: $border-radius;
 }
 
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.last-section {
+    flex: 1;
+}
+
 .navbar {
     font-family: $righteous;
     .navbar-brand {
@@ -141,14 +151,10 @@ img {
     }
 }
 
-body {
-    display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-}
-
-.last-section {
-    flex: 1;
+.architect {
+    .rich-text {
+        margin: 2rem 0;
+    }
 }
 
 footer {

@@ -77,12 +77,14 @@ class BuildingsIndexPage(Page):
     def get_context(self, request):
         context = super().get_context(request)
 
-        buildings = BuildingPage.objects.child_of(self).live()
+        buildings = BuildingPage.objects.live()
 
         tag = request.GET.get("tag")
         if tag:
             buildings = buildings.filter(tags__name=tag)
+
         context["buildings"] = buildings
+
         return context
 
 
