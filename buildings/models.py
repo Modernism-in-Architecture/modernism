@@ -170,7 +170,7 @@ class BuildingPage(Page):
 
     @property
     def get_tags(self):
-        tags = self.tags.exclude(name__exact="")
+        tags = self.tags.all()
         for tag in tags:
             tag.url = "/" + "/".join(
                 s.strip("/") for s in [self.get_parent().url, "tags", tag.slug]
@@ -178,10 +178,14 @@ class BuildingPage(Page):
         return tags
 
     def save(self, *args, **kwargs):
-        self.tags.add(
-            self.architect.last_name,
-            self.city.name,
-            self.country.country.name,
-            self.year_of_construction,
-        )
+        self.tags.clear()
+        if self.architect:
+            self.tags.add(self.architect.last_name)
+        if self.city:
+            self.tags.add(self.city.name)
+        if self.country:
+            self.tags.add(self.country.country.name)
+        if self.year_of_construction:
+            self.tags.add(self.year_of_construction)
+
         super(BuildingPage, self).save()
