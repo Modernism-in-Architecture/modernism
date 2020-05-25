@@ -7155,8 +7155,8 @@ img {
   .navbar .navbar-burger:hover {
     background-color: transparent; }
 
-.breadcrumb li + li::before {
-  padding-right: 0.75em; }
+.breadcrumb .inactive {
+  color: #7a7a7a; }
 
 .buildings .section, .building .section, .architects .section, .architect .section, .knowledge .section {
   padding-top: 1.5rem;

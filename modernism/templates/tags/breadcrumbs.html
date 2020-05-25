@@ -9,8 +9,9 @@
     </li>
     {% for ancestor in ancestors|slice:"1:" %}
     {% if forloop.last %}
-    <li class="is-active" aria-level="{{ancestors|length}}">
-      {{ ancestor }}
+    <li><a class="inactive" href="{% pageurl ancestor %}" aria-level="{{ancestors|length}}">
+        {{ ancestor }}
+      </a>
     </li>
     {% else %}
     <li><a href="{% pageurl ancestor %}" aria-level="{% cycle 1 2 3 4 5 %}">{{ ancestor }}</a></li>

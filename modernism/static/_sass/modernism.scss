@@ -83,8 +83,8 @@ img {
     }
 }
 
-.breadcrumb li + li::before {
-    padding-right: 0.75em;
+.breadcrumb .inactive {
+    color: $grey;
 }
 
 .buildings, .building, .architects, .architect, .knowledge {
