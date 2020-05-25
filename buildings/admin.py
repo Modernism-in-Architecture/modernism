@@ -20,10 +20,7 @@ class CityAdmin(ModelAdmin):
     menu_order = 291
     add_to_settings_menu = False
     exclude_from_explorer = False
-    list_display = (
-        "name",
-        "zip_code",
-    )
+    list_display = ("name",)
 
 
 class CountryAdmin(ModelAdmin):
