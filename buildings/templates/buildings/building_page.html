@@ -45,7 +45,9 @@
     <div class="columns is-centered">
       <div class="column is-10">
         <div class="content">
-          <h3>[Images]</h3>
+          {% for gallery_image in page.gallery_images %}
+          {% image gallery_image.value fill-80x80 %}
+          {% endfor %}
         </div>
       </div>
     </div>
@@ -53,8 +55,7 @@
       <div class="column is-10">
         <div class="content">
           {% for tag in page.get_tags %}
-          <!-- <a href="{{tag.url}}"># {{tag}}</a> -->
-          <a href="#"> #{{tag}} </a>
+          <a href="{% slugurl 'buildings' %}?tag={{ tag }}"> #{{tag}} </a>
           {% endfor %}
         </div>
       </div>
