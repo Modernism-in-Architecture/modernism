@@ -3,13 +3,17 @@ from django.db import models
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import TaggedItemBase
-from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, StreamFieldPanel
+from wagtail.api import APIField
+from wagtail.core.blocks import CharBlock, TextBlock
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Page
+from wagtail.images.api.fields import ImageRenditionField
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 from architects.models import ArchitectPage
+from django_countries.fields import CountryField
 
 
 class BuildingType(models.Model):
@@ -26,6 +30,52 @@ class BuildingType(models.Model):
         verbose_name_plural = "Building types"
 
 
+class Country(models.Model):
+    country = CountryField(blank_label="(Select Country)", unique=True)
+
+    panels = [
+        FieldPanel("country"),
+    ]
+
+    def __str__(self):
+        return self.country.name
+
+    class Meta:
+        verbose_name_plural = "Countries"
+
+
+class City(models.Model):
+    name = models.CharField(max_length=100)
+    zip_code = models.CharField(
+        max_length=10,
+        default="D-00000",
+        unique=True,
+        help_text="This field needs to be unique. Add the country code to avoid mistakes.",
+    )
+    country = models.ForeignKey(
+        Country, on_delete=models.SET_NULL, null=True, blank=True,
+    )
+    image = models.ForeignKey(
+        "wagtailimages.Image",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+    )
+    panels = [
+        FieldPanel("name"),
+        FieldPanel("zip_code"),
+        FieldPanel("country"),
+        ImageChooserPanel("image"),
+    ]
+
+    def __str__(self):
+        return f"{self.zip_code} {self.name}"
+
+    class Meta:
+        verbose_name_plural = "Cities"
+
+
 class BuildingsIndexPage(Page):
     intro = RichTextField(blank=True)
     subpage_types = ["BuildingPage"]
@@ -35,7 +85,12 @@ class BuildingsIndexPage(Page):
     def get_context(self, request):
         context = super().get_context(request)
 
-        context["buildings"] = BuildingPage.objects.child_of(self).live()
+        buildings = BuildingPage.objects.child_of(self).live()
+
+        tag = request.GET.get("tag")
+        if tag:
+            buildings = buildings.filter(tags__name=tag)
+        context["buildings"] = buildings
         return context
 
 
@@ -57,6 +112,10 @@ class BuildingPage(Page):
     description = RichTextField(blank=True)
     year_of_construction = models.CharField(max_length=4, blank=True)
     directions = RichTextField(blank=True)
+    city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True, blank=True)
+    country = models.ForeignKey(
+        Country, on_delete=models.SET_NULL, null=True, blank=True
+    )
     address = models.TextField(blank=True)
     lat_long = models.CharField(
         max_length=36,
@@ -78,7 +137,14 @@ class BuildingPage(Page):
         on_delete=models.SET_NULL,
         related_name="+",
     )
-    gallery_images = StreamField([("image", ImageChooserBlock()),], blank=True)
+    gallery_images = StreamField(
+        [
+            ("image", ImageChooserBlock()),
+            ("description", TextBlock(required=False)),
+            ("photographer", CharBlock(required=False)),
+        ],
+        blank=True,
+    )
 
     content_panels = Page.content_panels + [
         FieldPanel("name"),
@@ -87,11 +153,31 @@ class BuildingPage(Page):
         FieldPanel("description", classname="full"),
         FieldPanel("year_of_construction"),
         FieldPanel("directions", classname="full"),
+        FieldPanel("city"),
+        FieldPanel("country"),
         FieldPanel("address"),
         FieldPanel("lat_long"),
         ImageChooserPanel("feed_image"),
         StreamFieldPanel("gallery_images"),
         FieldPanel("tags"),
+    ]
+
+    api_fields = [
+        APIField("name"),
+        APIField("building_type"),
+        APIField("architect"),
+        APIField("description"),
+        APIField("year_of_construction"),
+        APIField("city"),
+        APIField("country"),
+        APIField("address"),
+        APIField("lat_long"),
+        APIField("tags"),
+        APIField("feed_image"),
+        APIField(
+            "feed_image_thumbnail",
+            serializer=ImageRenditionField("fill-400x400", source="feed_image"),
+        ),
     ]
 
     parent_page_types = ["buildings.BuildingsIndexPage"]
