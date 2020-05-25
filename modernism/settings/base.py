@@ -9,6 +9,7 @@ INSTALLED_APPS = [
     "buildings",
     "base",
     "knowledge",
+    "wagtail.api.v2",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
     "wagtail.contrib.modeladmin",
@@ -21,9 +22,12 @@ INSTALLED_APPS = [
     "wagtail.search",
     "wagtail.admin",
     "wagtail.core",
+    "debug_toolbar",
     "modelcluster",
+    "rest_framework",
     "taggit",
     "storages",
+    "django_countries",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -40,6 +44,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.security.SecurityMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "wagtail.core.middleware.SiteMiddleware",
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
@@ -117,3 +122,7 @@ BASE_URL = "http://example.com"
 
 TAGGIT_CASE_INSENSITIVE = True
 TAG_SPACES_ALLOWED = True
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
