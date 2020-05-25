@@ -141,6 +141,16 @@ img {
     }
 }
 
+body {
+    display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.last-section {
+    flex: 1;
+}
+
 footer {
     font-family: $righteous;
     a {

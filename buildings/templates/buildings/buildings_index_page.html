@@ -17,7 +17,7 @@
 {% endblock breadcrumbs %}
 
 {% block content %}
-<section class="section">
+<section class="section last-section">
   <div class="container">
     <div class="content">
       <div class="columns is-multiline is-centered">
@@ -32,7 +32,7 @@
               </div>
               <div class="card-content">
                 <div class="content">
-                  <h5 class="is-marginless">{{building.title}}</h5>
+                  <h5 class="is-marginless">{{building.title}}, {{building.architect}}</h5>
                   {% for tag in building.get_tags %}
                   <a href="{% pageurl page %}?tag={{ tag }}"> #{{tag}} </a>
                   {% endfor %}

@@ -17,33 +17,32 @@
 {% endblock breadcrumbs %}
 
 {% block content %}
-<section class="section">
+<section class="section last-section">
   <div class="container">
     <div class="columns is-centered">
-      <div class="column is-6">
+      <div class="column is-5-desktop">
         {% image page.feed_image width-600 %}
       </div>
-      <div class="column is-4">
+      <div class="column is-5-desktop">
         <div class="content">
-          <h1>{{page.title}}, {{page.architect}}</h1>
+          <h1>{{page.title}},<br>{{page.architect}}</h1>
           <p>{{page.building_type}}, {{page.year_of_construction}}</p>
-          <p class="building-address">{{page.address}}</p>
-          <p><i class="fa fa-map-marker-alt"></i> {{page.lat_long}}</p>
-          <div class="is-hidden-tablet-only">{{page.directions|richtext}}</div>
+          <p class="building-address">{{page.address}}<br>{{page.zip_code}} {{page.city}}<br><i
+              class="fa fa-map-marker-alt"></i>
+            {{page.lat_long}}</p>
         </div>
       </div>
     </div>
     <div class="columns is-centered">
-      <div class="column is-10">
+      <div class="column is-10-desktop">
         <div class="content">
-          <div class="is-hidden-mobile is-hidden-desktop">{{page.directions|richtext}}</div>
           <h3>About</h3>
           {{page.description|richtext}}
         </div>
       </div>
     </div>
     <div class="columns is-centered">
-      <div class="column is-10">
+      <div class="column is-10-desktop">
         <div class="content">
           {% for gallery_image in page.gallery_images %}
           {% if gallery_image.block_type == 'image' %}
@@ -53,8 +52,18 @@
         </div>
       </div>
     </div>
+    {% if page.directions %}
     <div class="columns is-centered">
-      <div class="column is-10">
+      <div class="column is-10-desktop">
+        <div class="content">
+          <h3>How to find</h3>
+          {{page.directions|richtext}}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    <div class="columns is-centered">
+      <div class="column is-10-desktop">
         <div class="content">
           {% for tag in page.get_tags %}
           <a href="{% slugurl 'buildings' %}?tag={{ tag }}"> #{{tag}} </a>
@@ -63,6 +72,4 @@
       </div>
     </div>
 </section>
-
-
 {% endblock content %}
