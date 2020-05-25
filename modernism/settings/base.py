@@ -122,7 +122,3 @@ BASE_URL = "http://example.com"
 
 TAGGIT_CASE_INSENSITIVE = True
 TAG_SPACES_ALLOWED = True
-
-INTERNAL_IPS = [
-    "127.0.0.1",
-]
