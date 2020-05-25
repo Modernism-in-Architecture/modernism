@@ -5,14 +5,13 @@ from modelcluster.fields import ParentalKey
 from taggit.models import TaggedItemBase
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, StreamFieldPanel
 from wagtail.api import APIField
-from wagtail.core.blocks import CharBlock, TextBlock
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Page
 from wagtail.images.api.fields import ImageRenditionField
-from wagtail.images.blocks import ImageChooserBlock
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 from architects.models import ArchitectPage
+from buildings.blocks import GalleryImageBlock
 from django_countries.fields import CountryField
 
 
@@ -137,14 +136,7 @@ class BuildingPage(Page):
         on_delete=models.SET_NULL,
         related_name="+",
     )
-    gallery_images = StreamField(
-        [
-            ("image", ImageChooserBlock()),
-            ("description", TextBlock(required=False)),
-            ("photographer", CharBlock(required=False)),
-        ],
-        blank=True,
-    )
+    gallery_images = StreamField([("image", GalleryImageBlock()),], blank=True,)
 
     content_panels = Page.content_panels + [
         FieldPanel("name"),

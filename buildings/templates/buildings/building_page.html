@@ -46,7 +46,9 @@
       <div class="column is-10">
         <div class="content">
           {% for gallery_image in page.gallery_images %}
-          {% image gallery_image.value fill-80x80 %}
+          {% if gallery_image.block_type == 'image' %}
+          {% image gallery_image.value.image fill-100x100 %}
+          {% endif %}
           {% endfor %}
         </div>
       </div>
