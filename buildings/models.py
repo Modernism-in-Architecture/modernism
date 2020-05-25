@@ -45,12 +45,6 @@ class Country(models.Model):
 
 class City(models.Model):
     name = models.CharField(max_length=100)
-    zip_code = models.CharField(
-        max_length=10,
-        default="D-00000",
-        unique=True,
-        help_text="This field needs to be unique. Add the country code to avoid mistakes.",
-    )
     country = models.ForeignKey(
         Country, on_delete=models.SET_NULL, null=True, blank=True,
     )
@@ -63,13 +57,12 @@ class City(models.Model):
     )
     panels = [
         FieldPanel("name"),
-        FieldPanel("zip_code"),
         FieldPanel("country"),
         ImageChooserPanel("image"),
     ]
 
     def __str__(self):
-        return f"{self.zip_code} {self.name}"
+        return f"{self.name}, {self.country}"
 
     class Meta:
         verbose_name_plural = "Cities"
@@ -100,7 +93,6 @@ class BuildingPageTag(TaggedItemBase):
 
 
 class BuildingPage(Page):
-    # TODO: Add InformationSource, Catalog Number
     name = models.CharField(max_length=250)
     building_type = models.ForeignKey(
         BuildingType, on_delete=models.SET_NULL, null=True, blank=True,
@@ -111,6 +103,7 @@ class BuildingPage(Page):
     description = RichTextField(blank=True)
     year_of_construction = models.CharField(max_length=4, blank=True)
     directions = RichTextField(blank=True)
+    zip_code = models.CharField(max_length=10, default="00000",)
     city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True, blank=True)
     country = models.ForeignKey(
         Country, on_delete=models.SET_NULL, null=True, blank=True
@@ -145,6 +138,7 @@ class BuildingPage(Page):
         FieldPanel("description", classname="full"),
         FieldPanel("year_of_construction"),
         FieldPanel("directions", classname="full"),
+        FieldPanel("zip_code"),
         FieldPanel("city"),
         FieldPanel("country"),
         FieldPanel("address"),
