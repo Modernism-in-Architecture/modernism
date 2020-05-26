@@ -5,13 +5,9 @@
 {% block body_class %}building{% endblock %}
 
 {% block breadcrumbs %}
-<section class="section">
+<section class="breadcrumbs-section">
   <div class="container">
-    <div class="columns is-centered">
-      <div class="column">
-        {% breadcrumbs %}
-      </div>
-    </div>
+    {% breadcrumbs %}
   </div>
 </section>
 {% endblock breadcrumbs %}
