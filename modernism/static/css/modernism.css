@@ -7204,7 +7204,7 @@ body {
 .building .building-address {
   margin-top: 2rem; }
 
-.architect .rich-text {
+.architect .rich-text, .facts .rich-text {
   margin: 2rem 0; }
 
 footer {
