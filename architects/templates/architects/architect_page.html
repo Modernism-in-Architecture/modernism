@@ -23,7 +23,7 @@
           <h1>{{page.first_name}} {{page.last_name}}</h1>
           <p>{% if page.birthday %}* {{page.birthday}} {% endif %}{% if page.place_of_birth %}
             {{page.place_of_birth}} {% endif %}<br>
-            {% if page.day_of_death %}&#10013 {{page.day_of_death}}
+            {% if page.day_of_death %}✝ {{page.day_of_death}}
             {% endif %}{% if page.place_of_death %}
             {{page.place_of_death}} {% endif %}</p>
           {% image page.image width-400 %}
