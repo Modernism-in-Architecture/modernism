@@ -120,4 +120,5 @@ WAGTAIL_SITE_NAME = "modernism"
 
 BASE_URL = "http://example.com"
 
+TAGGIT_CASE_INSENSITIVE = True
 TAG_SPACES_ALLOWED = True

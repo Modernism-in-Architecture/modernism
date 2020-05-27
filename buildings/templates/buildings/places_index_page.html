@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% load navigation_tags static wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}places{% endblock %}
+
+{% block breadcrumbs %}
+<section class="breadcrumbs-section">
+  <div class="container">
+    {% breadcrumbs %}
+  </div>
+</section>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<section class="section last-section">
+  <div class="container">
+    <div class="content">
+    </div>
+  </div>
+</section>
+{% endblock content %}

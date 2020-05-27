@@ -3,8 +3,7 @@ from django.db import models
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import TaggedItemBase
-from wagtail.admin.edit_handlers import (FieldPanel, InlinePanel,
-                                         StreamFieldPanel)
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, StreamFieldPanel
 from wagtail.api import APIField
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Page
@@ -47,7 +46,7 @@ class Country(models.Model):
 class City(models.Model):
     name = models.CharField(max_length=100)
     country = models.ForeignKey(
-        Country, on_delete=models.SET_NULL, null=True, blank=True,
+        Country, on_delete=models.SET_NULL, null=True, blank=True, related_name="cities"
     )
     image = models.ForeignKey(
         "wagtailimages.Image",
@@ -85,7 +84,11 @@ class BuildingsIndexPage(Page):
             buildings = buildings.filter(tags__name=tag)
 
         context["buildings"] = buildings
-
+        context["countries"] = (
+            Country.objects.annotate(number_buildings=models.Count("buildingpage"))
+            .filter(number_buildings__gt=0)
+            .prefetch_related("cities")
+        )
         return context
 
 
@@ -192,3 +195,9 @@ class BuildingPage(Page):
             self.tags.add(self.year_of_construction)
 
         super(BuildingPage, self).save()
+
+
+class PlacesIndexPage(Page):
+    parent_page_types = ["home.HomePage"]
+    subpage_types = []
+    show_in_menus = True
