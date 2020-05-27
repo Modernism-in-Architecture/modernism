@@ -200,4 +200,3 @@ class BuildingPage(Page):
 class PlacesIndexPage(Page):
     parent_page_types = ["home.HomePage"]
     subpage_types = []
-    show_in_menus = True

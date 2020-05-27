@@ -326,7 +326,7 @@ a {
   a strong {
     color: currentColor; }
   a:hover {
-    color: #363636; }
+    color: blue; }
 
 code {
   background-color: whitesmoke;
@@ -1203,7 +1203,7 @@ a.box:active {
     margin-right: calc(-0.5em - 1px); }
   .button:hover, .button.is-hovered {
     border-color: #b5b5b5;
-    color: #363636; }
+    color: blue; }
   .button:focus, .button.is-focused {
     border-color: blue;
     color: #363636; }
@@ -3716,7 +3716,7 @@ a.tag:hover {
     justify-content: center;
     padding: 0 0.75em; }
     .breadcrumb a:hover {
-      color: #363636; }
+      color: blue; }
   .breadcrumb li {
     align-items: center;
     display: flex; }
@@ -4037,7 +4037,7 @@ a.list-item {
     border-radius: 2px;
     color: #7a7a7a;
     display: block;
-    padding: 0.5em 0.75em; }
+    padding: 0em 0.75em; }
     .menu-list a:hover {
       background-color: whitesmoke;
       color: #363636; }
@@ -4047,7 +4047,7 @@ a.list-item {
   .menu-list li ul {
     border-left: 1px solid #dbdbdb;
     margin: 0.75em;
-    padding-left: 0.75em; }
+    padding-left: 0; }
 
 .menu-label {
   color: #7a7a7a;
@@ -5098,7 +5098,7 @@ a.navbar-item,
   .pagination-next:hover,
   .pagination-link:hover {
     border-color: #b5b5b5;
-    color: #363636; }
+    color: blue; }
   .pagination-previous:focus,
   .pagination-next:focus,
   .pagination-link:focus {
@@ -7207,6 +7207,25 @@ body {
     padding: 1.6rem;
     border-radius: 10px; }
 
+.buildings .menu a.button {
+  margin-bottom: 1em; }
+
+.buildings .menu a:hover {
+  color: blue;
+  background-color: transparent; }
+
+.buildings .menu .svg-inline--fa.fa-w-14 {
+  width: 0.6em; }
+
+.buildings .menu .active {
+  color: blue; }
+
+.buildings .menu .content {
+  display: none; }
+
+.buildings .menu .show {
+  display: block; }
+
 .building .building-address {
   margin-top: 2rem; }
 
@@ -7217,6 +7236,8 @@ footer {
   font-family: "Righteous"; }
   footer a {
     color: white; }
+  footer a:hover {
+    color: yellow; }
   footer .disclaimer {
     font-size: 0.8rem;
     font-family: "Roboto"; }

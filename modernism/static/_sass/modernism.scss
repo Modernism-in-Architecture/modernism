@@ -40,6 +40,7 @@ $red: rgb(255,0,0);
 
 $text: $grey;
 $link: $black;
+$link-hover: $blue;
 $border-radius: 10px;
 $family-sans-serif: $roboto;
 $navbar-item-img-max-height: 3rem;
@@ -48,8 +49,11 @@ $navbar-item-color: $white;
 $navbar-item-active-color: $grey-dark;
 $navbar-item-hover-color: $yellow;
 $navbar-item-hover-background-color: transparent;
+$menu-nested-list-padding-left: 0;
+$menu-list-link-padding: 0em 0.75em;
 $footer-background-color: $black;
 $footer-padding: 2rem 1.5rem 1.5rem;
+
 
 @import "../../../node_modules/bulma/bulma";
 
@@ -152,10 +156,35 @@ body {
     }
 }
 
+.buildings {
+    .menu {
+        a.button {
+            margin-bottom: 1em;
+        }
+        a:hover {
+        color: $blue;
+        background-color:transparent;
+        }
+        .svg-inline--fa.fa-w-14 {
+            width: 0.6em;
+        }
+        .active {
+            color: $blue;
+        }
+        .content {
+            display: none;
+        }
+        .show {
+            display: block;
+        }
+    }
+}
+
 .building {
     .building-address {
         margin-top: 2rem;
     }
+
 }
 
 .architect, .facts {
@@ -168,6 +197,9 @@ footer {
     font-family: $righteous;
     a {
         color: $white;
+    }
+    a:hover {
+        color: $yellow;
     }
     .disclaimer {
         font-size: 0.8rem;

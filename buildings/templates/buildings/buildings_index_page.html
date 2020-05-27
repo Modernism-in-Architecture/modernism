@@ -13,43 +13,64 @@
 {% endblock breadcrumbs %}
 
 {% block content %}
-{% if request.GET.tag %}
-<section class="filter-section">
-  <div class="container">
-    <div class="content">
-      <p class="is-centered is-size-7">Filtered by #{{ request.GET.tag }}</p>
-      <p><a class="button is-small" href="{% pageurl page %}">Remove filter</a></p>
-    </div>
-  </div>
-</section>
-{% endif %}
+
+
 <section class="section last-section">
   <div class="container">
-    <div class="content">
-      <div class="columns is-multiline is-centered">
-        {% for building in buildings %}
-        <div class="column column is-half-tablet is-one-third-desktop">
-          <a href="{% pageurl building %}" alt="{{building.title}}">
-            <div class="card">
-              <div class="card-image">
-                <figure class="image is-marginless is-square">
-                  {% image building.feed_image fill-500x500-c100 %}
-                </figure>
-              </div>
-              <div class="card-content">
-                <div class="content">
-                  <h5 class="is-marginless">{{building.title}}, {{building.architect}}</h5>
-                  {% for tag in building.get_tags %}
-                  <a href="{% pageurl page %}?tag={{ tag }}"> #{{tag}} </a>
-                  {% endfor %}
+    <div class="columns">
+      <div class="column is-narrow">
+        <aside class="menu">
+          <p class="menu-label">
+            Filter
+          </p>
+          <ul class="menu-list">
+            <li><a href="{% pageurl page %}" class="item {% if not request.GET.tag %}active{% endif %}">All
+                buildings</a></li>
+            {% for country in countries %}
+            <li><a class="dropdown-link">{{country.country.name}}
+                <i class="fas fa-chevron-down"></i></a>
+              <ul class="content">
+                <li><a class="item {% if request.GET.tag == country.country.name %}active{% endif %}"
+                    href="{% pageurl page %}?tag={{country.country.name}}">Show all</a></li>
+                {% for city in country.cities.all %}
+                <li><a class="item {% if request.GET.tag == city.name %}active{% endif %}"
+                    href="{% pageurl page %}?tag={{city.name}}">#{{city.name}}</a></li>
+                {% endfor %}
+              </ul>
+            </li>
+            {% endfor %}
+          </ul>
+        </aside>
+      </div>
+      <div class="column">
+        <div class="content">
+          <div class="columns is-multiline is-centered">
+            {% for building in buildings %}
+            <div class="column column is-half-tablet is-one-third-desktop">
+              <a href="{% pageurl building %}" alt="{{building.title}}">
+                <div class="card">
+                  <div class="card-image">
+                    <figure class="image is-marginless is-square">
+                      {% image building.feed_image fill-500x500-c100 %}
+                    </figure>
+                  </div>
+                  <div class="card-content">
+                    <div class="content">
+                      <h5 class="is-marginless">{{building.title}}, {{building.architect}}</h5>
+                      {% for tag in building.get_tags %}
+                      <a href="{% pageurl page %}?tag={{ tag }}"> #{{tag}} </a>
+                      {% endfor %}
+                    </div>
+                  </div>
                 </div>
-              </div>
+              </a>
             </div>
-          </a>
+            {% endfor %}
+          </div>
         </div>
-        {% endfor %}
       </div>
     </div>
+
   </div>
 </section>
 {% endblock content %}
