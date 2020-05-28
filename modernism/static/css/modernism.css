@@ -7207,23 +7207,23 @@ body {
     padding: 1.6rem;
     border-radius: 10px; }
 
-.buildings .menu a.button {
+.buildings .menu a.button, .facts .menu a.button {
   margin-bottom: 1em; }
 
-.buildings .menu a:hover {
+.buildings .menu a:hover, .facts .menu a:hover {
   color: blue;
   background-color: transparent; }
 
-.buildings .menu .svg-inline--fa.fa-w-14 {
+.buildings .menu .svg-inline--fa.fa-w-14, .facts .menu .svg-inline--fa.fa-w-14 {
   width: 0.6em; }
 
-.buildings .menu .active {
+.buildings .menu .active, .facts .menu .active {
   color: blue; }
 
-.buildings .menu .content {
+.buildings .menu .link-content, .facts .menu .link-content {
   display: none; }
 
-.buildings .menu .show {
+.buildings .menu .show, .facts .menu .show {
   display: block; }
 
 .building .building-address {
@@ -7231,6 +7231,12 @@ body {
 
 .architect .rich-text, .facts .rich-text {
   margin: 2rem 0; }
+
+.facts .facts-content {
+  display: none; }
+
+.facts .show {
+  display: block; }
 
 .places #mapid {
   height: 80vh; }

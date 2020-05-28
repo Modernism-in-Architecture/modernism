@@ -11,43 +11,51 @@
 </section>
 {% endblock breadcrumbs %}
 {% block content %}
-{% if request.GET.tag %}
-<section class="filter-section">
-  <div class="container">
-    <div class="content">
-      <p class="is-centered is-size-7">Filtered by the tag #{{ request.GET.tag }}</p>
-      <p><a class="button is-small" href="{% pageurl page %}">Remove filter</a></p>
-    </div>
-  </div>
-</section>
-{% endif %}
 <section class="section last-section">
   <div class="container">
-    <div class="content">
-      <div class="columns is-multiline is-centered">
-        {% for fact in facts %}
-        <div class="column column is-half-tablet is-3-desktop">
-          <div class="card">
-            <div class="card-image">
-              <figure class="image is-marginless is-square">
-                {% image fact.image fill-200x200-c100 %}
-              </figure>
-            </div>
-            <div class="card-content">
-              <div class="content">
-                <h1 class="is-marginless">{{ fact.title }}</h1>
-                {% for tag in fact.get_tags %}
-                <a href="{% pageurl page %}?tag={{ tag }}">
-                  #{{tag}}</a>
-                {% endfor %}
-                {{ fact.description|richtext }}
+    <div class="columns">
+      <div class="column is-narrow">
+        <aside class="menu">
+          <p class="menu-label">
+            Filter by
+          </p>
+          <ul class="menu-list">
+            <li><a href="{% pageurl page %}" class="item {% if not request.GET.tag %}active{% endif %}">All</a></li>
+            {% for category in categories %}
+            <li><a class="item {% if request.GET.tag == category.category %}active{% endif %}"
+                href="{% pageurl page %}?tag={{category.category}}">{{category.category}}</a></li>
+            {% endfor %}
+          </ul>
+        </aside>
+      </div>
+      <div class="column">
+        <div class="content">
+          <div class="columns is-multiline is-centered">
+            {% for fact in facts %}
+            <div class="column column is-half-tablet is-3-desktop">
+              <div class="card">
+                <div class="card-image">
+                  <figure class="image is-marginless is-square">
+                    {% image fact.image fill-200x200-c100 %}
+                  </figure>
+                </div>
+                <div class="card-content">
+                  <div class="content">
+                    <h3 class="is-marginless">{{ fact.category.category }}: {{ fact.title }}</h3>
+                    {% for tag in fact.get_tags %}
+                    <a href="{% pageurl page %}?tag={{ tag }}">
+                      #{{tag}}</a>
+                    {% endfor %}
+                    <br>
+                    <a class="is-pulled-right dropdown-link"><i class="fas fa-chevron-down"></i></a>
+                    <div class="facts-content">{{ fact.description|richtext }}</div>
+                  </div>
+                </div>
               </div>
             </div>
+            {% endfor %}
           </div>
         </div>
-        {% endfor %}
       </div>
-    </div>
-  </div>
 </section>
 {% endblock content %}

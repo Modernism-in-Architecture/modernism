@@ -13,15 +13,13 @@
 {% endblock breadcrumbs %}
 
 {% block content %}
-
-
 <section class="section last-section">
   <div class="container">
     <div class="columns">
       <div class="column is-narrow">
         <aside class="menu">
           <p class="menu-label">
-            Filter
+            Filter by
           </p>
           <ul class="menu-list">
             <li><a href="{% pageurl page %}" class="item {% if not request.GET.tag %}active{% endif %}">All
@@ -29,9 +27,9 @@
             {% for country in countries %}
             <li><a class="dropdown-link">{{country.country.name}}
                 <i class="fas fa-chevron-down"></i></a>
-              <ul class="content">
+              <ul class="link-content">
                 <li><a class="item {% if request.GET.tag == country.country.name %}active{% endif %}"
-                    href="{% pageurl page %}?tag={{country.country.name}}">Show all</a></li>
+                    href="{% pageurl page %}?tag={{country.country.name}}">All places</a></li>
                 {% for city in country.cities.all %}
                 <li><a class="item {% if request.GET.tag == city.name %}active{% endif %}"
                     href="{% pageurl page %}?tag={{city.name}}">#{{city.name}}</a></li>

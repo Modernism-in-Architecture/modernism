@@ -10,11 +10,16 @@ const addClickEventListenerToBurgerMenu = () => {
 };
 
 const addClickEventListenerToDropdownLinks = () => {
-    const dropdownLinks = document.querySelectorAll('.dropdown-link');
-    dropdownLinks.forEach(link => {
+    const dropdownLinksBuildings = document.querySelectorAll('.dropdown-link');
+    dropdownLinksBuildings.forEach(link => {
         link.addEventListener('click', event => {
             event.preventDefault();
             link.nextElementSibling.classList.toggle('show');
+            if (link.children[0].classList.contains('fa-chevron-down')) {
+                link.children[0].classList.replace("fa-chevron-down", "fa-chevron-up");
+            } else {
+                link.children[0].classList.replace("fa-chevron-up", "fa-chevron-down");
+            }
         });
     });
 };

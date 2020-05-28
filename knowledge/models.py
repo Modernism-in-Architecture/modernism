@@ -16,8 +16,14 @@ class KnowledgeIndexPage(Page):
     def get_context(self, request):
         context = super().get_context(request)
 
-        context["facts"] = KnowledgePage.objects.live().order_by("title")
+        facts = KnowledgePage.objects.live().order_by("title")
 
+        tag = request.GET.get("tag")
+        if tag:
+            facts = facts.filter(tags__name=tag)
+
+        context["facts"] = facts
+        context["categories"] = FactCategory.objects.order_by("category")
         return context
 
 
@@ -25,6 +31,19 @@ class KnowledgePageTag(TaggedItemBase):
     content_object = ParentalKey(
         "knowledge.KnowledgePage", on_delete=models.CASCADE, related_name="tagged_items"
     )
+
+
+class FactCategory(models.Model):
+    category = models.CharField(max_length=250, unique=True)
+    panels = [
+        FieldPanel("category"),
+    ]
+
+    def __str__(self):
+        return self.category
+
+    class Meta:
+        verbose_name_plural = "Categories"
 
 
 class KnowledgePage(Page):
@@ -36,11 +55,14 @@ class KnowledgePage(Page):
         on_delete=models.SET_NULL,
         related_name="+",
     )
+    category = models.ForeignKey(
+        FactCategory, on_delete=models.SET_NULL, null=True, blank=True,
+    )
     tags = ClusterTaggableManager(through=KnowledgePageTag, blank=True)
     content_panels = Page.content_panels + [
         FieldPanel("description", classname="full"),
+        FieldPanel("category"),
         ImageChooserPanel("image"),
-        FieldPanel("tags"),
     ]
 
     @property
@@ -51,3 +73,11 @@ class KnowledgePage(Page):
                 s.strip("/") for s in [self.get_parent().url, "tags", tag.slug]
             )
         return tags
+
+    def save(self, *args, **kwargs):
+        self.tags.clear()
+        self.tags.add(self.title)
+        if self.category:
+            self.tags.add(self.category.category)
+
+        super(KnowledgePage, self).save()
