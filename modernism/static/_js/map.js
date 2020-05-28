@@ -19,7 +19,13 @@ getBuildingData().then(data => {
         let langLong = buildings[i].lat_long.split(",")
         coord.push(langLong[0]);
         coord.push(langLong[1]);
-        markers.addLayer(L.marker(coord));
+        let marker = L.marker(coord);
+        if (buildings[i].architect) {
+            marker.bindPopup('<a href=' + buildings[i].meta.html_url + '><p>' + buildings[i].name + ", " + buildings[i].architect.title + ",<br>" + buildings[i].address + '</p></>').openPopup();
+        } else {
+            marker.bindPopup('<a href=' + buildings[i].meta.html_url + '><p>' + buildings[i].name + ",<br>" + buildings[i].address + '</p></>').openPopup();
+        }
+        markers.addLayer(marker);
         map.addLayer(markers);
     }
 });
