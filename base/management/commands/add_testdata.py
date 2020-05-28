@@ -6,7 +6,12 @@ from django.db import transaction
 from wagtail.core.models import Page, Site
 
 from architects.models import ArchitectPage, ArchitectsIndexPage
-from buildings.models import BuildingPage, BuildingsIndexPage, BuildingType
+from buildings.models import (
+    BuildingPage,
+    BuildingsIndexPage,
+    BuildingType,
+    PlacesIndexPage,
+)
 from home.models import HomePage
 from knowledge.models import KnowledgeIndexPage
 
@@ -70,6 +75,7 @@ def setup_test_data():
     BuildingType.objects.bulk_create(
         [BuildingType(name="School"), BuildingType(name="Apartment Block"),]
     )
+
     building_1 = BuildingPage(
         title="A House",
         name="A House",
@@ -79,7 +85,7 @@ def setup_test_data():
         description="Cake tiramisu dragée jujubes candy chocolate cake. Bonbon toffee jelly tootsie roll apple pie croissant. Wafer jelly-o pastry fruitcake toffee macaroon muffin. I tootsie roll apple pie croissant. Wafer jelly-o pastry fruitcake toffee macaroon muffin.",
         year_of_construction="1924",
         directions="Cake tiramisu dragée jujubes candy chocolate cake. Bonbon toffee jelly tootsie roll apple pie croissant.",
-        address="Tůmova 2261/36, (Žabovřesky), Brno, Czech Republic",
+        address="Tůmova 2261/36c",
         lat_long="49.205307, 16.582682",
     )
     building_2 = BuildingPage(
@@ -91,7 +97,7 @@ def setup_test_data():
         description="Cake tiramisu dragée jujubes candy chocolate cake. Bonbon toffee jelly tootsie roll apple pie croissant. Wafer jelly-o pastry fruitcake toffee macaroon muffin.",
         year_of_construction="1934",
         directions="Cake tiramisu dragée jujubes candy chocolate cake. Bonbon toffee jelly tootsie roll apple pie croissant.",
-        address="Demmeringstraße 8, 04177 Leipzig, Germany",
+        address="Demmeringstraße 8",
         lat_long="51.338705, 12.336127",
     )
     building_3 = BuildingPage(
@@ -103,7 +109,7 @@ def setup_test_data():
         description="Cake tiramisu dragée jujubes candy chocolate cake. Bonbon toffee jelly tootsie roll apple pie croissant. Wafer jelly-o pastry fruitcake toffee macaroon muffin. Bonbon toffee jelly tootsie roll apple pie croissant. Wafer jelly-o pastry fruitcake toffee macaroon muffin. Cake tiramisu dragée jujubes candy chocolate cake. Bonbon toffee jelly tootsie roll apple pie croissant. Wafer jelly-o pastry fruitcake toffee macaroon muffin.",
         year_of_construction="1920",
         directions="Cake tiramisu dragée jujubes candy chocolate cake.",
-        address="Wachsmuthstraße 20, 04229 Leipzig, Germany",
+        address="Wachsmuthstraße 20",
         lat_long="51.321032, 12.328984",
     )
     building_4 = BuildingPage(
@@ -115,13 +121,16 @@ def setup_test_data():
         description="Cake tiramisu dragée jujubes candy chocolate cake. Bonbon toffee jelly tootsie roll apple pie croissant. Wafer jelly-o pastry fruitcake toffee macaroon muffin. Bonbon toffee jelly tootsie roll apple pie croissant. Wafer jelly-o pastry fruitcake toffee macaroon muffin. Cake tiramisu dragée jujubes candy chocolate cake. Bonbon toffee jelly tootsie roll apple pie croissant. Wafer jelly-o pastry fruitcake toffee macaroon muffin.",
         year_of_construction="1920",
         directions="Cake tiramisu dragée jujubes candy chocolate cake.",
-        address="Marschnerstraße 25, 04109 Leipzig, Germany",
+        address="Marschnerstraße 25",
         lat_long="51.337229, 12.355656",
     )
     building_index.add_child(instance=building_1)
     building_index.add_child(instance=building_2)
     building_index.add_child(instance=building_3)
     building_index.add_child(instance=building_4)
+
+    places_index = PlacesIndexPage(title="Map", slug="maps", show_in_menus=True)
+    home.add_child(instance=places_index)
 
 
 class Command(BaseCommand):
