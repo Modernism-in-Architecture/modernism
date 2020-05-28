@@ -10,7 +10,8 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 
 class KnowledgeIndexPage(Page):
     intro = RichTextField(blank=True)
-    subpage_types = ["KnowledgePage"]
+    parent_page_types = ["home.HomePage"]
+    subpage_types = ["knowledge.KnowledgePage"]
     content_panels = Page.content_panels + [FieldPanel("intro", classname="full")]
 
     def get_context(self, request):
@@ -64,6 +65,8 @@ class KnowledgePage(Page):
         FieldPanel("category"),
         ImageChooserPanel("image"),
     ]
+    parent_page_types = ["knowledge.KnowledgeIndexPage"]
+    subpage_types = []
 
     @property
     def get_tags(self):

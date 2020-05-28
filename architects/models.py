@@ -8,6 +8,9 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 class ArchitectsIndexPage(Page):
     intro = RichTextField(blank=True)
 
+    parent_page_types = ["home.HomePage"]
+    subpage_types = ["architects.ArchitectPage"]
+
     content_panels = Page.content_panels + [FieldPanel("intro", classname="full")]
 
     def get_context(self, request):
@@ -33,6 +36,8 @@ class ArchitectPage(Page):
         on_delete=models.SET_NULL,
         related_name="+",
     )
+    parent_page_types = ["architects.ArchitectsIndexPage"]
+    subpage_types = []
     content_panels = Page.content_panels + [
         FieldPanel("first_name"),
         FieldPanel("last_name"),

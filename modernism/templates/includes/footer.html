@@ -1,31 +1,31 @@
+{% load wagtailcore_tags %}
 <footer class="footer">
   <div class="content has-text-centered">
     <div class="columns is-mobile is-centered">
       <div class="column is-narrow">
-        <a class="" href="">
+        <a class="{% if page.slug == 'about'%}active{% endif %}" href="{% slugurl 'about' %}">
           About
         </a>
       </div>
       <div class="column is-narrow">
-        <a class="" href="">
+        <a class="{% if page.slug == 'imprint'%}active{% endif %}" href="{% slugurl 'imprint' %}">
           Imprint
         </a>
       </div>
       <div class="column is-narrow">
-        <a class="" href="">
+        <a class="{% if page.slug == 'data-privacy'%}active{% endif %}" href="{% slugurl 'data-privacy' %}">
           Data Privacy
         </a>
       </div>
     </div>
     <div class="columns is-mobile is-centered">
       <div class="column is-narrow">
-        <a class="" href="https://www.instagram.com/modernism_in_architecture/" target="_blank"
-          rel="noreferrer noopener">
+        <a href="https://www.instagram.com/modernism_in_architecture/" target="_blank" rel="noreferrer noopener">
           <i class="fab fa-instagram is-size-4"></i>
         </a>
       </div>
       <div class="column is-narrow">
-        <a class="" href="https://github.com/normade/modernism/" target="_blank" rel="noreferrer noopener">
+        <a href="https://github.com/normade/modernism/" target="_blank" rel="noreferrer noopener">
           <i class="fab fa-github is-size-4"></i>
         </a>
       </div>

@@ -7250,3 +7250,5 @@ footer {
   footer .disclaimer {
     font-size: 0.8rem;
     font-family: "Roboto"; }
+  footer .active {
+    color: yellow; }

@@ -11,3 +11,12 @@ class HomePage(Page):
         FieldPanel("hero_text", classname="full"),
         FieldPanel("body", classname="full"),
     ]
+
+
+class GeneralPage(Page):
+    body = RichTextField(blank=True)
+    subpage_types = []
+    parent_page_types = ["home.HomePage"]
+    content_panels = Page.content_panels + [
+        FieldPanel("body", classname="full"),
+    ]

@@ -71,7 +71,7 @@ class City(models.Model):
 class BuildingsIndexPage(Page):
     intro = RichTextField(blank=True)
     subpage_types = ["BuildingPage"]
-
+    parent_page_types = ["home.HomePage"]
     content_panels = Page.content_panels + [FieldPanel("intro", classname="full")]
 
     def get_context(self, request):
