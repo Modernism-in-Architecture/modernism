@@ -41,7 +41,7 @@
                 </div>
                 <div class="card-content">
                   <div class="content">
-                    <h3 class="is-marginless">{{ fact.category.category }}: {{ fact.title }}</h3>
+                    <h5 class="is-marginless">{{ fact.category.category }}: {{ fact.title }}</h5>
                     {% for tag in fact.get_tags %}
                     <a href="{% pageurl page %}?tag={{ tag }}">
                       #{{tag}}</a>

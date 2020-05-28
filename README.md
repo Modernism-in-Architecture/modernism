@@ -69,7 +69,7 @@ Javascript functions can be found in `modernism.static._js.modernism.js`.
 $ npm install .
 ```
 
-### Start development server
+#### Start development server
 ```bash
 $ npm start
 ```
