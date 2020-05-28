@@ -7232,6 +7232,9 @@ body {
 .architect .rich-text, .facts .rich-text {
   margin: 2rem 0; }
 
+.places #mapid {
+  height: 80vh; }
+
 footer {
   font-family: "Righteous"; }
   footer a {

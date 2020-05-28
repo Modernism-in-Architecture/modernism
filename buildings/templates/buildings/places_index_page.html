@@ -4,6 +4,14 @@
 
 {% block body_class %}places{% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+  integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+  crossorigin="" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/MarkerCluster.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/MarkerCluster.Default.css' %}">
+{% endblock %}
+
 {% block breadcrumbs %}
 <section class="breadcrumbs-section">
   <div class="container">
@@ -16,7 +24,16 @@
 <section class="section last-section">
   <div class="container">
     <div class="content">
+      <div id="mapid"></div>
     </div>
   </div>
 </section>
 {% endblock content %}
+
+{% block extra_js %}
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+  integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+  crossorigin=""></script>
+<script type="application/javascript" src="{% static 'lib/leaflet.markercluster.js' %}"></script>
+<script type="application/javascript" src="{% static 'lib/map.js' %}"></script>
+{% endblock %}
