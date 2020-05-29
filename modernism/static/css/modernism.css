@@ -7161,6 +7161,8 @@ body {
   .navbar .navbar-brand img {
     border-radius: 0;
     max-height: 1.3rem; }
+  .navbar.is-fixed-top {
+    z-index: 999; }
   .navbar .navbar-burger span {
     height: 2px; }
   .navbar .navbar-burger:hover {
@@ -7240,6 +7242,9 @@ body {
 
 .places #mapid {
   height: 80vh; }
+
+.places .leaflet-top {
+  z-index: 950; }
 
 footer {
   font-family: "Righteous"; }

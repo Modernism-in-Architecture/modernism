@@ -93,6 +93,9 @@ body {
             max-height: 1.3rem;
         }
     }
+    &.is-fixed-top {
+        z-index: 999;
+    }
     .navbar-burger span {
         height: 2px;
     }
@@ -204,6 +207,9 @@ body {
 
 .places {
     #mapid { height: 80vh; }
+    .leaflet-top {
+        z-index: 950;
+    }
 }
 
 footer {
