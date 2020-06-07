@@ -21,7 +21,8 @@
       </div>
       <div class="column is-5-desktop">
         <div class="content">
-          <h1>{{page.title}},<br>{{page.architect}}</h1>
+          <h1>{{page.title}}{% if building.architect %},
+            {{building.architect}},<br>{{page.architect}}{% endif %}</h1>
           <p>{{page.building_type}}, {{page.year_of_construction}}</p>
           <p class="building-address">{{page.address}}<br>{{page.zip_code}} {{page.city}}, {{page.country}}<br><i
               class="fa fa-map-marker-alt"></i>

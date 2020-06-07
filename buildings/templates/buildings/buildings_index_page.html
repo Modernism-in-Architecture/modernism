@@ -54,7 +54,8 @@
                   </div>
                   <div class="card-content">
                     <div class="content">
-                      <h5 class="is-marginless">{{building.title}}, {{building.architect}}</h5>
+                      <h5 class="is-marginless">{{building.title}}{% if building.architect %},
+                        {{building.architect}}{% endif %}</h5>
                       {% for tag in building.get_tags %}
                       <a href="{% pageurl page %}?tag={{ tag }}"> #{{tag}} </a>
                       {% endfor %}
