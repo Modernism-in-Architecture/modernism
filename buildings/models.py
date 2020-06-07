@@ -2,6 +2,7 @@ from django.core.validators import RegexValidator
 from django.db import models
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
+from taggit.models import Tag as TaggitTag
 from taggit.models import TaggedItemBase
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, StreamFieldPanel
 from wagtail.api import APIField
@@ -9,6 +10,7 @@ from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Page
 from wagtail.images.api.fields import ImageRenditionField
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.snippets.models import register_snippet
 
 from architects.models import ArchitectPage
 from buildings.blocks import GalleryImageBlock
@@ -96,6 +98,12 @@ class BuildingPageTag(TaggedItemBase):
     content_object = ParentalKey(
         "buildings.BuildingPage", on_delete=models.CASCADE, related_name="tagged_items"
     )
+
+
+@register_snippet
+class Tag(TaggitTag):
+    class Meta:
+        proxy = True
 
 
 class BuildingPage(Page):
