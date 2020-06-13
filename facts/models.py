@@ -8,16 +8,16 @@ from wagtail.core.models import Page
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 
-class KnowledgeIndexPage(Page):
+class FactsIndexPage(Page):
     intro = RichTextField(blank=True)
     parent_page_types = ["home.HomePage"]
-    subpage_types = ["knowledge.KnowledgePage"]
+    subpage_types = ["facts.FactPage"]
     content_panels = Page.content_panels + [FieldPanel("intro", classname="full")]
 
     def get_context(self, request):
         context = super().get_context(request)
 
-        facts = KnowledgePage.objects.live().order_by("title")
+        facts = FactPage.objects.live().order_by("title")
 
         tag = request.GET.get("tag")
         if tag:
@@ -28,9 +28,9 @@ class KnowledgeIndexPage(Page):
         return context
 
 
-class KnowledgePageTag(TaggedItemBase):
+class FactPageTag(TaggedItemBase):
     content_object = ParentalKey(
-        "knowledge.KnowledgePage", on_delete=models.CASCADE, related_name="tagged_items"
+        "facts.FactPage", on_delete=models.CASCADE, related_name="tagged_items"
     )
 
 
@@ -47,7 +47,7 @@ class FactCategory(models.Model):
         verbose_name_plural = "Categories"
 
 
-class KnowledgePage(Page):
+class FactPage(Page):
     description = RichTextField(blank=True)
     image = models.ForeignKey(
         "wagtailimages.Image",
@@ -59,13 +59,13 @@ class KnowledgePage(Page):
     category = models.ForeignKey(
         FactCategory, on_delete=models.SET_NULL, null=True, blank=True,
     )
-    tags = ClusterTaggableManager(through=KnowledgePageTag, blank=True)
+    tags = ClusterTaggableManager(through=FactPageTag, blank=True)
     content_panels = Page.content_panels + [
         FieldPanel("description", classname="full"),
         FieldPanel("category"),
         ImageChooserPanel("image"),
     ]
-    parent_page_types = ["knowledge.KnowledgeIndexPage"]
+    parent_page_types = ["facts.FactsIndexPage"]
     subpage_types = []
 
     @property
@@ -83,4 +83,4 @@ class KnowledgePage(Page):
         if self.category:
             self.tags.add(self.category.category)
 
-        super(KnowledgePage, self).save()
+        super(FactPage, self).save()

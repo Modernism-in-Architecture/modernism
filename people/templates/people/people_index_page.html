@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load navigation_tags static wagtailcore_tags %}
 
-{% block body_class %}architects{% endblock %}
+{% block body_class %}people-index{% endblock %}
 
 {% block breadcrumbs %}
 <section class="breadcrumbs-section">
@@ -14,14 +14,15 @@
 <section class="section last-section">
   <div class="container">
     <div class="content">
+      <h1>{{page.title}}</h1>
       <div class="columns is-multiline is-centered">
-        {% for architect in architects %}
+        {% for person in persons %}
         <div class="column column is-half-tablet is-one-third-desktop">
-          <a href="{% pageurl architect %}" alt="{{architect.last_name}}">
+          <a href="{% pageurl person %}" alt="{{person.person.last_name}}">
             <div class="card">
               <div class="card-content">
                 <div class="content">
-                  <h5 class="is-marginless">{{architect.last_name}}, {{architect.first_name}}</h5>
+                  <h5 class="is-marginless">{{person.person.last_name}}, {{person.person.first_name}}</h5>
                 </div>
               </div>
             </div>

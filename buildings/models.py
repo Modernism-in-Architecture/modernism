@@ -1,7 +1,7 @@
 from django.core.validators import RegexValidator
 from django.db import models
 from modelcluster.contrib.taggit import ClusterTaggableManager
-from modelcluster.fields import ParentalKey
+from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from taggit.models import Tag as TaggitTag
 from taggit.models import TaggedItemBase
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, StreamFieldPanel
@@ -12,9 +12,9 @@ from wagtail.images.api.fields import ImageRenditionField
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.models import register_snippet
 
-from architects.models import ArchitectPage
 from buildings.blocks import GalleryImageBlock
 from django_countries.fields import CountryField
+from people.models import ArchitectPage, BuildingOwnerPage, DeveloperPage
 
 
 class BuildingType(models.Model):
@@ -111,9 +111,9 @@ class BuildingPage(Page):
     building_type = models.ForeignKey(
         BuildingType, on_delete=models.SET_NULL, null=True, blank=True,
     )
-    architect = models.ForeignKey(
-        ArchitectPage, on_delete=models.SET_NULL, null=True, blank=True,
-    )
+    architects = ParentalManyToManyField("people.Architect", blank=True)
+    developers = ParentalManyToManyField("people.Developer", blank=True)
+    owners = ParentalManyToManyField("people.BuildingOwner", blank=True)
     description = RichTextField(blank=True)
     year_of_construction = models.CharField(max_length=4, blank=True)
     directions = RichTextField(blank=True)
@@ -148,10 +148,11 @@ class BuildingPage(Page):
     content_panels = Page.content_panels + [
         FieldPanel("name"),
         FieldPanel("building_type"),
-        FieldPanel("architect"),
+        FieldPanel("architects"),
+        FieldPanel("developers"),
+        FieldPanel("owners"),
         FieldPanel("description", classname="full"),
         FieldPanel("year_of_construction"),
-        FieldPanel("directions", classname="full"),
         FieldPanel("zip_code"),
         FieldPanel("city"),
         FieldPanel("country"),
@@ -164,7 +165,6 @@ class BuildingPage(Page):
     api_fields = [
         APIField("name"),
         APIField("building_type"),
-        APIField("architect"),
         APIField("description"),
         APIField("year_of_construction"),
         APIField("city"),
@@ -172,11 +172,6 @@ class BuildingPage(Page):
         APIField("address"),
         APIField("lat_long"),
         APIField("tags"),
-        APIField("feed_image"),
-        APIField(
-            "feed_image_thumbnail",
-            serializer=ImageRenditionField("fill-400x400", source="feed_image"),
-        ),
     ]
 
     parent_page_types = ["buildings.BuildingsIndexPage"]
@@ -191,10 +186,30 @@ class BuildingPage(Page):
             )
         return tags
 
+    def get_context(self, request):
+        context = super().get_context(request)
+
+        context["architects"] = [
+            architect.architectpage
+            for architect in self.architects.order_by("last_name")
+            if hasattr(architect, "architectpage")
+        ]
+        context["developers"] = [
+            developer.developerpage
+            for developer in self.developers.order_by("last_name")
+            if hasattr(developer, "developerpage")
+        ]
+        context["owners"] = [
+            owner.buildingownerpage
+            for owner in self.owners.order_by("last_name")
+            if hasattr(owner, "buildingownerpage")
+        ]
+        return context
+
     def save(self, *args, **kwargs):
         self.tags.clear()
-        if self.architect:
-            self.tags.add(self.architect.last_name)
+        if self.building_type:
+            self.tags.add(self.building_type.name)
         if self.city:
             self.tags.add(self.city.name)
         if self.country:

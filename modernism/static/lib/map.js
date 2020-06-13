@@ -20,11 +20,7 @@ getBuildingData().then(data => {
         coord.push(langLong[0]);
         coord.push(langLong[1]);
         let marker = L.marker(coord);
-        if (buildings[i].architect) {
-            marker.bindPopup('<a href=' + buildings[i].meta.html_url + '><p>' + buildings[i].name + ", " + buildings[i].architect.title + ",<br>" + buildings[i].address + '</p></>').openPopup();
-        } else {
-            marker.bindPopup('<a href=' + buildings[i].meta.html_url + '><p>' + buildings[i].name + ",<br>" + buildings[i].address + '</p></>').openPopup();
-        }
+        marker.bindPopup('<a href=' + buildings[i].meta.html_url + '><p>' + buildings[i].name + ",<br>" + buildings[i].address + '</p></>').openPopup();
         markers.addLayer(marker);
         map.addLayer(markers);
     }

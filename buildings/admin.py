@@ -5,7 +5,7 @@ from .models import BuildingType, City, Country
 
 class BuildingTypeAdmin(ModelAdmin):
     model = BuildingType
-    menu_label = "Building Type"
+    menu_label = "Building Types"
     menu_icon = "placeholder"
     menu_order = 290
     add_to_settings_menu = False
@@ -15,7 +15,7 @@ class BuildingTypeAdmin(ModelAdmin):
 
 class CityAdmin(ModelAdmin):
     model = City
-    menu_label = "City"
+    menu_label = "Cities"
     menu_icon = "placeholder"
     menu_order = 291
     add_to_settings_menu = False
@@ -25,7 +25,7 @@ class CityAdmin(ModelAdmin):
 
 class CountryAdmin(ModelAdmin):
     model = Country
-    menu_label = "Country"
+    menu_label = "Countries"
     menu_icon = "placeholder"
     menu_order = 292
     add_to_settings_menu = False

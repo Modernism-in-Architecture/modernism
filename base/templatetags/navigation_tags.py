@@ -17,6 +17,7 @@ def get_site_root(context):
 def main_menu(context, parent, calling_page=None):
     menuitems = parent.get_children().live().in_menu()
     for menuitem in menuitems:
+        menuitem.show_dropdown = has_menu_children(menuitem)
         menuitem.active = (
             calling_page.url_path.startswith(menuitem.url_path)
             if calling_page
@@ -25,6 +26,33 @@ def main_menu(context, parent, calling_page=None):
     return {
         "calling_page": calling_page,
         "menuitems": menuitems,
+        "request": context["request"],
+    }
+
+
+def has_menu_children(page):
+    return page.get_children().live().in_menu().exists()
+
+
+def has_children(page):
+    return page.get_children().live().exists()
+
+
+@register.inclusion_tag("tags/main_menu_children.html", takes_context=True)
+def main_menu_children(context, parent, calling_page=None):
+    menuitems_children = parent.get_children()
+    menuitems_children = menuitems_children.live().in_menu()
+    for menuitem in menuitems_children:
+        menuitem.has_dropdown = has_menu_children(menuitem)
+        menuitem.active = (
+            calling_page.url_path.startswith(menuitem.url_path)
+            if calling_page
+            else False
+        )
+        # menuitem.children = menuitem.get_children().live().in_menu()
+    return {
+        "parent": parent,
+        "menuitems_children": menuitems_children,
         "request": context["request"],
     }
 

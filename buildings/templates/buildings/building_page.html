@@ -15,25 +15,60 @@
 {% block content %}
 <section class="section last-section">
   <div class="container">
-    <div class="columns is-centered">
+    <div class="columns is-centered reverse-column-order">
       <div class="column is-5-desktop">
         {% image page.feed_image width-600 %}
+        <p>
+          {% for tag in page.get_tags %}
+          <a href="{% slugurl 'buildings' %}?tag={{ tag }}"> #{{tag}} </a>
+          {% endfor %}
+        </p>
       </div>
       <div class="column is-5-desktop">
         <div class="content">
-          <h1>{{page.title}}{% if building.architect %},
-            {{building.architect}},<br>{{page.architect}}{% endif %}</h1>
-          <p>{{page.building_type}}, {{page.year_of_construction}}</p>
-          <p class="building-address">{{page.address}}<br>{{page.zip_code}} {{page.city}}, {{page.country}}<br><i
-              class="fa fa-map-marker-alt"></i>
+          <h1>
+            {{page.title}}{% if page.year_of_construction %} ({{page.year_of_construction}}){% endif %}
+          </h1>
+          <p class="building-address">{{page.address}}<br>{{page.zip_code}} {{page.city}}, {{page.country}}
+          <p>
+            <i class="fa fa-map-marker-alt"></i>
             {{page.lat_long}}</p>
+          {% if architects %}
+          <h4 class="people">Architects</h4>
+          <p>
+            {% for architect in architects %}
+            <a href="{% pageurl architect %}" alt="{{architect.person.first_name}} {{architect.person.last_name}}">
+              {{architect.person.first_name}} {{architect.person.last_name}}
+            </a>{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+          </p>
+          {% endif %}
+          {% if developers %}
+          <h4 class="people">Developers</h4>
+          <p>
+            {% for developer in developers %}
+            <a href="{% pageurl developer %}" alt="{{developer.person.first_name}} {{developer.person.last_name}}">
+              {{developer.person.first_name}} {{developer.person.last_name}}
+            </a>{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+          </p>
+          {% endif %}
+          {% if owners %}
+          <h4 class="people">Owners</h4>
+          <p>
+            {% for owner in owners %}
+            <a href="{% pageurl owner %}" alt="{{owner.person.first_name}} {{owner.person.last_name}}">
+              {{owner.person.first_name}} {{owner.person.last_name}}
+            </a>{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+          </p>
+          {% endif %}
         </div>
       </div>
     </div>
     <div class="columns is-centered">
       <div class="column is-10-desktop">
         <div class="content">
-          <h3>About</h3>
           {{page.description|richtext}}
         </div>
       </div>
@@ -45,25 +80,6 @@
           {% if gallery_image.block_type == 'image' %}
           {% image gallery_image.value.image fill-100x100 %}
           {% endif %}
-          {% endfor %}
-        </div>
-      </div>
-    </div>
-    {% if page.directions %}
-    <div class="columns is-centered">
-      <div class="column is-10-desktop">
-        <div class="content">
-          <h3>How to find</h3>
-          {{page.directions|richtext}}
-        </div>
-      </div>
-    </div>
-    {% endif %}
-    <div class="columns is-centered">
-      <div class="column is-10-desktop">
-        <div class="content">
-          {% for tag in page.get_tags %}
-          <a href="{% slugurl 'buildings' %}?tag={{ tag }}"> #{{tag}} </a>
           {% endfor %}
         </div>
       </div>

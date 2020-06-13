@@ -30,6 +30,7 @@
 }
 
 $tablet: 767px;
+$desktop: 1050px + (2 * $gap);
 
 $roboto: "Roboto";
 $righteous: "Righteous";
@@ -49,6 +50,9 @@ $navbar-item-color: $white;
 $navbar-item-active-color: $grey-dark;
 $navbar-item-hover-color: $yellow;
 $navbar-item-hover-background-color: transparent;
+$navbar-dropdown-background-color: black;
+$navbar-dropdown-item-hover-background-color: transparent;
+$navbar-dropdown-item-hover-color: $yellow;
 $menu-nested-list-padding-left: 0;
 $menu-list-link-padding: 0em 0.75em;
 $footer-background-color: $black;
@@ -108,10 +112,15 @@ body {
     color: $grey;
 }
 
-.buildings, .building, .architects, .architect, .knowledge {
+.buildings, .building, .people-index, .people, .knowledge {
     .section {
         padding-top: 1.5rem;
         padding-bottom: 1.5rem;
+    }
+    .content {
+        a:hover {
+            color: $red;
+        }
     }
 }
 
@@ -185,9 +194,19 @@ body {
 
 .building {
     .building-address {
-        margin-top: 2rem;
+        margin-top: 1rem;
     }
+    .content .people {
+        margin-top: 1rem;
+        margin-bottom: 0;
+    }
+}
 
+@media screen and (max-width: 840px) {
+    .reverse-column-order {
+      display: flex;
+      flex-direction: column-reverse;
+    }
 }
 
 .architect, .facts {

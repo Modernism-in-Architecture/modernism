@@ -5,7 +5,7 @@ from .models import FactCategory
 
 class FactCategoryAdmin(ModelAdmin):
     model = FactCategory
-    menu_label = "Fact Category"
+    menu_label = "Fact Categories"
     menu_icon = "placeholder"
     menu_order = 293
     add_to_settings_menu = False
