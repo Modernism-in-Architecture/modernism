@@ -18,14 +18,16 @@
     <div class="columns">
       <div class="column is-narrow">
         <aside class="menu">
+          {% if request.GET.tag %}
+          <p class="menu-label"><a href="{% pageurl page %}"><i class="fa fa-times"></i> Clear filters</a></p>
+          {% endif %}
           <p class="menu-label">
             Filter by
           </p>
           <ul class="menu-list">
-            <li><a href="{% pageurl page %}" class="item {% if not request.GET.tag %}active{% endif %}">All
-                buildings</a></li>
+
             {% for country in countries %}
-            <li><a class="dropdown-link">{{country.country.name}}
+            <li><a class="dropdown-link filter-category">{{country.country.name}}
                 <i class="fas fa-chevron-down"></i></a>
               <ul class="link-content">
                 <li><a class="item {% if request.GET.tag == country.country.name %}active{% endif %}"
@@ -37,6 +39,25 @@
               </ul>
             </li>
             {% endfor %}
+
+            <li><a class="dropdown-link filter-category">Building Type <i class="fas fa-chevron-down"></i></a>
+              <ul class="link-content">
+                {% for type in types %}
+                <li><a class="item {% if request.GET.tag == type.name %}active{% endif %}"
+                    href="{% pageurl page %}?tag={{type.name}}">#{{type.name}}</a></li>
+                {% endfor %}
+              </ul>
+            </li>
+
+            <li><a class="dropdown-link filter-category">Year <i class="fas fa-chevron-down"></i></a>
+              <ul class="link-content">
+                {% for year in years %}
+                <li><a class="item {% if request.GET.tag == year %}active{% endif %}"
+                    href="{% pageurl page %}?tag={{year}}">#{{year}}</a></li>
+                {% endfor %}
+              </ul>
+            </li>
+
           </ul>
         </aside>
       </div>

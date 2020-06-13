@@ -7231,6 +7231,10 @@ body {
 .buildings .menu .show, .facts .menu .show {
   display: block; }
 
+.buildings .menu .filter-category, .facts .menu .filter-category {
+  margin-top: 0.5em;
+  letter-spacing: 0.1em; }
+
 .building .building-address {
   margin-top: 1rem; }
 

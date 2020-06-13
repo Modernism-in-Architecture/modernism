@@ -91,6 +91,12 @@ class BuildingsIndexPage(Page):
             .filter(number_buildings__gt=0)
             .prefetch_related("cities")
         )
+        context["types"] = BuildingType.objects.all()
+        context["years"] = (
+            BuildingPage.objects.order_by("year_of_construction")
+            .distinct("year_of_construction")
+            .values_list("year_of_construction", flat=True)
+        )
         return context
 
 

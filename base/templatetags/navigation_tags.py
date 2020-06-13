@@ -49,7 +49,6 @@ def main_menu_children(context, parent, calling_page=None):
             if calling_page
             else False
         )
-        # menuitem.children = menuitem.get_children().live().in_menu()
     return {
         "parent": parent,
         "menuitems_children": menuitems_children,
