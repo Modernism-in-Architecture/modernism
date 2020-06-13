@@ -16,11 +16,13 @@
     <div class="columns">
       <div class="column is-narrow">
         <aside class="menu">
+          {% if request.GET.tag %}
+          <p class="menu-label"><a href="{% pageurl page %}"><i class="fa fa-times"></i> Clear filters</a></p>
+          {% endif %}
           <p class="menu-label">
             Filter by
           </p>
           <ul class="menu-list">
-            <li><a href="{% pageurl page %}" class="item {% if not request.GET.tag %}active{% endif %}">All</a></li>
             {% for category in categories %}
             <li><a class="item {% if request.GET.tag == category.category %}active{% endif %}"
                 href="{% pageurl page %}?tag={{category.category}}">{{category.category}}</a></li>
@@ -34,21 +36,27 @@
             {% for fact in facts %}
             <div class="column column is-half-tablet is-3-desktop">
               <div class="card">
+                {% if fact.image %}
                 <div class="card-image">
                   <figure class="image is-marginless is-square">
                     {% image fact.image fill-200x200-c100 %}
                   </figure>
                 </div>
+                {% endif %}
                 <div class="card-content">
                   <div class="content">
-                    <h5 class="is-marginless">{{ fact.category.category }}: {{ fact.title }}</h5>
+                    <h5 class="is-marginless">{{ fact.title }}</h5>
                     {% for tag in fact.get_tags %}
                     <a href="{% pageurl page %}?tag={{ tag }}">
                       #{{tag}}</a>
                     {% endfor %}
                     <br>
-                    <a class="is-pulled-right dropdown-link"><i class="fas fa-chevron-down"></i></a>
+                    {% if fact.description %}
+                    <div class="has-text-centered fact-dropdown-link">
+                      <a><i class="fas fa-chevron-down"></i></a>
+                    </div>
                     <div class="facts-content">{{ fact.description|richtext }}</div>
+                    {% endif %}
                   </div>
                 </div>
               </div>

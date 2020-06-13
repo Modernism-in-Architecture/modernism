@@ -79,7 +79,6 @@ class FactPage(Page):
 
     def save(self, *args, **kwargs):
         self.tags.clear()
-        self.tags.add(self.title)
         if self.category:
             self.tags.add(self.category.category)
 
