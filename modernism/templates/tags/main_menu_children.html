@@ -1,0 +1,8 @@
+{% load navigation_tags wagtailcore_tags %}
+<div class="navbar-dropdown is-boxed">
+  {% for child in menuitems_children %}
+  <a class="navbar-item{% if child.active %} is-active{% endif %}" href="{% pageurl child %}">
+    {{ child.title }}
+  </a>
+  {% endfor %}
+</div>

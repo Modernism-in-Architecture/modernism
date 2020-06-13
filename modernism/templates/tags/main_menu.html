@@ -1,7 +1,20 @@
-{% load wagtailcore_tags %}
+{% load navigation_tags wagtailcore_tags %}
+
 
 {% for menuitem in menuitems %}
+
+{% if menuitem.show_dropdown %}
+<div class="navbar-item is-uppercase {% if menuitem.show_dropdown %}has-dropdown is-hoverable{% endif %}"
+  href="{% pageurl menuitem %}">
+  <a class="navbar-item is-uppercase is-arrowless{% if menuitem.active %} is-active{% endif %}" href="">
+    {{ menuitem.title }}
+  </a>
+  {% main_menu_children parent=menuitem %}
+</div>
+{% else %}
 <a class="navbar-item is-uppercase {% if menuitem.active %} is-active{% endif %}" href="{% pageurl menuitem %}">
   {{ menuitem.title }}
 </a>
+{% endif %}
+
 {% endfor %}
