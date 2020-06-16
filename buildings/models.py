@@ -1,7 +1,7 @@
 from django.core.validators import RegexValidator
 from django.db import models
 from modelcluster.contrib.taggit import ClusterTaggableManager
-from modelcluster.fields import ParentalKey, ParentalManyToManyField
+from modelcluster.fields import ParentalKey
 from taggit.models import Tag as TaggitTag
 from taggit.models import TaggedItemBase
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, StreamFieldPanel
@@ -10,16 +10,19 @@ from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Page
 from wagtail.images.api.fields import ImageRenditionField
 from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.snippets.models import register_snippet
 
 from buildings.blocks import GalleryImageBlock
 from django_countries.fields import CountryField
 from people.models import ArchitectPage, BuildingOwnerPage, DeveloperPage
 
 
+class Tag(TaggitTag):
+    class Meta:
+        proxy = True
+
+
 class BuildingType(models.Model):
     name = models.CharField(max_length=255)
-
     panels = [
         FieldPanel("name"),
     ]
@@ -32,11 +35,9 @@ class BuildingType(models.Model):
 
 
 class Country(models.Model):
-    country = CountryField(blank_label="(Select Country)", unique=True)
+    country = CountryField(blank_label="(Select a Country)", unique=True)
 
-    panels = [
-        FieldPanel("country"),
-    ]
+    panels = [FieldPanel("country")]
 
     def __str__(self):
         return self.country.name
@@ -50,17 +51,10 @@ class City(models.Model):
     country = models.ForeignKey(
         Country, on_delete=models.SET_NULL, null=True, blank=True, related_name="cities"
     )
-    image = models.ForeignKey(
-        "wagtailimages.Image",
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="+",
-    )
+
     panels = [
         FieldPanel("name"),
         FieldPanel("country"),
-        ImageChooserPanel("image"),
     ]
 
     def __str__(self):
@@ -70,11 +64,14 @@ class City(models.Model):
         verbose_name_plural = "Cities"
 
 
+class PlacesIndexPage(Page):
+    parent_page_types = ["home.HomePage"]
+    subpage_types = []
+
+
 class BuildingsIndexPage(Page):
-    intro = RichTextField(blank=True)
     subpage_types = ["BuildingPage"]
     parent_page_types = ["home.HomePage"]
-    content_panels = Page.content_panels + [FieldPanel("intro", classname="full")]
 
     def get_context(self, request):
         context = super().get_context(request)
@@ -106,29 +103,65 @@ class BuildingPageTag(TaggedItemBase):
     )
 
 
-@register_snippet
-class Tag(TaggitTag):
+class BuildingPageArchitectRelation(models.Model):
+    page = ParentalKey(
+        "buildings.BuildingPage", on_delete=models.CASCADE, related_name="architects"
+    )
+    architect = ParentalKey(
+        "people.ArchitectPage", on_delete=models.CASCADE, related_name="buildings"
+    )
+    panels = [
+        FieldPanel("architect"),
+    ]
+
     class Meta:
-        proxy = True
+        unique_together = ("page", "architect")
+
+
+class BuildingPageOwnerRelation(models.Model):
+    page = ParentalKey(
+        "buildings.BuildingPage", on_delete=models.CASCADE, related_name="owners"
+    )
+    owner = ParentalKey(
+        "people.BuildingOwnerPage", on_delete=models.CASCADE, related_name="buildings"
+    )
+    panels = [
+        FieldPanel("owner"),
+    ]
+
+    class Meta:
+        unique_together = ("page", "owner")
+
+
+class BuildingPageDeveloperRelation(models.Model):
+    page = ParentalKey(
+        "buildings.BuildingPage", on_delete=models.CASCADE, related_name="developers"
+    )
+    developer = ParentalKey(
+        "people.DeveloperPage", on_delete=models.CASCADE, related_name="buildings"
+    )
+    panels = [
+        FieldPanel("developer"),
+    ]
+
+    class Meta:
+        unique_together = ("page", "developer")
 
 
 class BuildingPage(Page):
-    name = models.CharField(max_length=250)
+    name = models.CharField(max_length=250, unique=True)
     building_type = models.ForeignKey(
         BuildingType, on_delete=models.SET_NULL, null=True, blank=True,
     )
-    architects = ParentalManyToManyField("people.Architect", blank=True)
-    developers = ParentalManyToManyField("people.Developer", blank=True)
-    owners = ParentalManyToManyField("people.BuildingOwner", blank=True)
     description = RichTextField(blank=True)
     year_of_construction = models.CharField(max_length=4, blank=True)
     directions = RichTextField(blank=True)
+    address = models.TextField(blank=True)
     zip_code = models.CharField(max_length=10, default="00000",)
     city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True, blank=True)
     country = models.ForeignKey(
         Country, on_delete=models.SET_NULL, null=True, blank=True
     )
-    address = models.TextField(blank=True)
     lat_long = models.CharField(
         max_length=36,
         help_text="Comma separated lat/long. (Ex. 64.144367, -21.939182) \
@@ -154,13 +187,13 @@ class BuildingPage(Page):
     content_panels = Page.content_panels + [
         FieldPanel("name"),
         FieldPanel("building_type"),
-        FieldPanel("architects"),
-        FieldPanel("developers"),
-        FieldPanel("owners"),
+        InlinePanel("architects", label="Architects"),
+        InlinePanel("owners", label="Owners"),
+        InlinePanel("developers", label="Developers"),
         FieldPanel("description", classname="full"),
         FieldPanel("year_of_construction"),
-        FieldPanel("zip_code"),
         FieldPanel("city"),
+        FieldPanel("zip_code"),
         FieldPanel("country"),
         FieldPanel("address"),
         FieldPanel("lat_long"),
@@ -170,14 +203,10 @@ class BuildingPage(Page):
 
     api_fields = [
         APIField("name"),
-        APIField("building_type"),
-        APIField("description"),
-        APIField("year_of_construction"),
         APIField("city"),
         APIField("country"),
         APIField("address"),
         APIField("lat_long"),
-        APIField("tags"),
     ]
 
     parent_page_types = ["buildings.BuildingsIndexPage"]
@@ -192,26 +221,6 @@ class BuildingPage(Page):
             )
         return tags
 
-    def get_context(self, request):
-        context = super().get_context(request)
-
-        context["architects"] = [
-            architect.architectpage
-            for architect in self.architects.order_by("last_name")
-            if hasattr(architect, "architectpage")
-        ]
-        context["developers"] = [
-            developer.developerpage
-            for developer in self.developers.order_by("last_name")
-            if hasattr(developer, "developerpage")
-        ]
-        context["owners"] = [
-            owner.buildingownerpage
-            for owner in self.owners.order_by("last_name")
-            if hasattr(owner, "buildingownerpage")
-        ]
-        return context
-
     def save(self, *args, **kwargs):
         self.tags.clear()
         if self.building_type:
@@ -224,8 +233,3 @@ class BuildingPage(Page):
             self.tags.add(self.year_of_construction)
 
         super(BuildingPage, self).save()
-
-
-class PlacesIndexPage(Page):
-    parent_page_types = ["home.HomePage"]
-    subpage_types = []

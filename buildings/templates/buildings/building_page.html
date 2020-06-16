@@ -26,23 +26,23 @@
       </div>
       <div class="column is-5-desktop">
         <div class="content">
-          <h1>
+          <h1>{{page.architects.all.first.architect}}
             {{page.title}}{% if page.year_of_construction %} ({{page.year_of_construction}}){% endif %}
           </h1>
           <p class="building-address">{{page.address}}<br>{{page.zip_code}} {{page.city}}, {{page.country}}
           <p>
             <i class="fa fa-map-marker-alt"></i>
             {{page.lat_long}}</p>
-          {% if architects %}
+
           <h4 class="people">Architects</h4>
           <p>
-            {% for architect in architects %}
-            <a href="{% pageurl architect %}" alt="{{architect.person.first_name}} {{architect.person.last_name}}">
-              {{architect.person.first_name}} {{architect.person.last_name}}
+            {% for architect in page.architects.all %}
+            <a href="{% pageurl architect.architect %}" alt="{{architect.architect}}">
+              {{architect.architect}}
             </a>{% if not forloop.last %}, {% endif %}
             {% endfor %}
           </p>
-          {% endif %}
+
           {% if developers %}
           <h4 class="people">Developers</h4>
           <p>

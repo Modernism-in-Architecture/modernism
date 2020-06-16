@@ -3,12 +3,17 @@ from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.models import ClusterableModel
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel
 from wagtail.core.fields import RichTextField
-from wagtail.core.models import Orderable, Page
+from wagtail.core.models import Orderable, Page, PageManager
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.models import register_snippet
 
 
-class Person(models.Model):
+class PeoplePageManager(PageManager):
+    def get_queryset(self):
+        return super().get_queryset().order_by("last_name", "first_name")
+
+
+class PersonPage(Page):
     first_name = models.CharField(max_length=250)
     last_name = models.CharField(max_length=250)
     birthday = models.DateField("Birthday", blank=True, null=True)
@@ -23,7 +28,9 @@ class Person(models.Model):
         on_delete=models.SET_NULL,
         related_name="+",
     )
-    panels = [
+    objects = PeoplePageManager()
+
+    content_panels = Page.content_panels + [
         FieldPanel("first_name"),
         FieldPanel("last_name"),
         FieldPanel("birthday"),
@@ -35,19 +42,22 @@ class Person(models.Model):
     ]
 
     def __str__(self):
-        return self.last_name
+        return f"{self.first_name} {self.last_name}"
+
+    def get_template(self, request):
+        return "people/people_page.html"
 
 
-class Architect(Person):
-    pass
+class PersonsIndexPage(Page):
+    parent_page_types = ["home.HomePage"]
+    subpage_types = [
+        "people.DevelopersIndexPage",
+        "people.BuildingOwnersIndexPage",
+        "people.ArchitectsIndexPage",
+    ]
 
-
-class Developer(Person):
-    pass
-
-
-class BuildingOwner(Person):
-    pass
+    def get_template(self, request):
+        return "people/people_index_page.html"
 
 
 class ArchitectsIndexPage(Page):
@@ -61,18 +71,6 @@ class ArchitectsIndexPage(Page):
 
     def get_template(self, request):
         return "people/people_index_page.html"
-
-
-class ArchitectPage(Page):
-    person = models.OneToOneField(Architect, null=True, on_delete=models.SET_NULL)
-    parent_page_types = ["people.ArchitectsIndexPage"]
-    subpage_types = []
-    content_panels = Page.content_panels + [
-        FieldPanel("person"),
-    ]
-
-    def get_template(self, request):
-        return "people/people_page.html"
 
 
 class BuildingOwnersIndexPage(Page):
@@ -90,18 +88,6 @@ class BuildingOwnersIndexPage(Page):
         return "people/people_index_page.html"
 
 
-class BuildingOwnerPage(Page):
-    person = models.OneToOneField(BuildingOwner, null=True, on_delete=models.SET_NULL)
-    parent_page_types = ["people.BuildingOwnersIndexPage"]
-    subpage_types = []
-    content_panels = Page.content_panels + [
-        FieldPanel("person"),
-    ]
-
-    def get_template(self, request):
-        return "people/people_page.html"
-
-
 class DevelopersIndexPage(Page):
     parent_page_types = ["people.PersonsIndexPage"]
     subpage_types = ["people.DeveloperPage"]
@@ -115,25 +101,16 @@ class DevelopersIndexPage(Page):
         return "people/people_index_page.html"
 
 
-class DeveloperPage(Page):
-    person = models.OneToOneField(Developer, null=True, on_delete=models.SET_NULL)
+class ArchitectPage(PersonPage):
+    parent_page_types = ["people.ArchitectsIndexPage"]
+    subpage_types = []
+
+
+class BuildingOwnerPage(PersonPage):
+    parent_page_types = ["people.BuildingOwnersIndexPage"]
+    subpage_types = []
+
+
+class DeveloperPage(PersonPage):
     parent_page_types = ["people.DevelopersIndexPage"]
     subpage_types = []
-    content_panels = Page.content_panels + [
-        FieldPanel("person"),
-    ]
-
-    def get_template(self, request):
-        return "people/people_page.html"
-
-
-class PersonsIndexPage(Page):
-    parent_page_types = ["home.HomePage"]
-    subpage_types = [
-        "people.DevelopersIndexPage",
-        "people.BuildingOwnersIndexPage",
-        "people.ArchitectsIndexPage",
-    ]
-
-    def get_template(self, request):
-        return "people/people_index_page.html"
