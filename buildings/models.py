@@ -1,6 +1,7 @@
 from django.core.validators import RegexValidator
 from django.db import models
 from django.utils.text import slugify
+from django_countries.fields import CountryField
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import Tag as TaggitTag
@@ -13,7 +14,6 @@ from wagtail.images.api.fields import ImageRenditionField
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 from buildings.blocks import GalleryImageBlock
-from django_countries.fields import CountryField
 from people.models import ArchitectPage, BuildingOwnerPage, DeveloperPage
 
 
@@ -257,6 +257,3 @@ class BuildingPage(Page):
             self.tags.add(self.year_of_construction)
 
         super(BuildingPage, self).save()
-
-
-BuildingPage._meta.get_field("slug").default = "default-blank-slug"
