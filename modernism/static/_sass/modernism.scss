@@ -116,12 +116,13 @@ body {
     .section {
         padding-top: 1.5rem;
         padding-bottom: 1.5rem;
-    }
-    .content {
-        a:hover {
-            color: $red;
+        .content {
+            a:hover {
+                color: $red;
+            }
         }
     }
+   
 }
 
 .card {
@@ -241,7 +242,7 @@ footer {
         color: $white;
     }
     a:hover {
-        color: $yellow;
+            color: $yellow;
     }
     .disclaimer {
         font-size: 0.8rem;

@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.text import slugify
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.models import ClusterableModel
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel
@@ -14,6 +15,7 @@ class PeoplePageManager(PageManager):
 
 
 class PersonPage(Page):
+    is_creatable = False
     first_name = models.CharField(max_length=250)
     last_name = models.CharField(max_length=250)
     birthday = models.DateField("Birthday", blank=True, null=True)
@@ -30,7 +32,7 @@ class PersonPage(Page):
     )
     objects = PeoplePageManager()
 
-    content_panels = Page.content_panels + [
+    content_panels = [
         FieldPanel("first_name"),
         FieldPanel("last_name"),
         FieldPanel("birthday"),
@@ -44,6 +46,13 @@ class PersonPage(Page):
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 
+    def clean(self):
+        """Override title and slug."""
+        super().clean()
+        new_title = f"{self.first_name} {self.last_name}"
+        self.title = new_title
+        self.slug = slugify(new_title)
+
     def get_template(self, request):
         return "people/people_page.html"
 
@@ -55,6 +64,7 @@ class PersonsIndexPage(Page):
         "people.BuildingOwnersIndexPage",
         "people.ArchitectsIndexPage",
     ]
+    max_count = 1
 
     def get_template(self, request):
         return "people/people_index_page.html"
@@ -63,10 +73,11 @@ class PersonsIndexPage(Page):
 class ArchitectsIndexPage(Page):
     parent_page_types = ["people.PersonsIndexPage"]
     subpage_types = ["people.ArchitectPage"]
+    max_count = 1
 
     def get_context(self, request):
         context = super().get_context(request)
-        context["persons"] = ArchitectPage.objects.live().order_by("person__last_name")
+        context["persons"] = ArchitectPage.objects.live().order_by("last_name")
         return context
 
     def get_template(self, request):
@@ -76,12 +87,11 @@ class ArchitectsIndexPage(Page):
 class BuildingOwnersIndexPage(Page):
     parent_page_types = ["people.PersonsIndexPage"]
     subpage_types = ["people.BuildingOwnerPage"]
+    max_count = 1
 
     def get_context(self, request):
         context = super().get_context(request)
-        context["persons"] = BuildingOwnerPage.objects.live().order_by(
-            "person__last_name"
-        )
+        context["persons"] = BuildingOwnerPage.objects.live().order_by("last_name")
         return context
 
     def get_template(self, request):
@@ -94,7 +104,7 @@ class DevelopersIndexPage(Page):
 
     def get_context(self, request):
         context = super().get_context(request)
-        context["persons"] = DeveloperPage.objects.live().order_by("person__last_name")
+        context["persons"] = DeveloperPage.objects.live().order_by("last_name")
         return context
 
     def get_template(self, request):

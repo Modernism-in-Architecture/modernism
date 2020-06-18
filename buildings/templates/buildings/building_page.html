@@ -26,14 +26,12 @@
       </div>
       <div class="column is-5-desktop">
         <div class="content">
-          <h1>{{page.architects.all.first.architect}}
+          <h1>
             {{page.title}}{% if page.year_of_construction %} ({{page.year_of_construction}}){% endif %}
           </h1>
           <p class="building-address">{{page.address}}<br>{{page.zip_code}} {{page.city}}, {{page.country}}
-          <p>
-            <i class="fa fa-map-marker-alt"></i>
-            {{page.lat_long}}</p>
-
+          <p><i class="fa fa-map-marker-alt"></i> {{page.lat_long}}</p>
+          {% if page.architects.count > 0 %}
           <h4 class="people">Architects</h4>
           <p>
             {% for architect in page.architects.all %}
@@ -42,23 +40,24 @@
             </a>{% if not forloop.last %}, {% endif %}
             {% endfor %}
           </p>
-
-          {% if developers %}
+          {% endif %}
+          {% if page.developers.count > 0 %}
           <h4 class="people">Developers</h4>
           <p>
-            {% for developer in developers %}
-            <a href="{% pageurl developer %}" alt="{{developer.person.first_name}} {{developer.person.last_name}}">
-              {{developer.person.first_name}} {{developer.person.last_name}}
+            {% for developer in page.developers.all %}
+            <a href="{% pageurl developer.developer %}"
+              alt="{{developer.developer.first_name}} {{developer.developer.last_name}}">
+              {{developer.developer.first_name}} {{developer.developer.last_name}}
             </a>{% if not forloop.last %}, {% endif %}
             {% endfor %}
           </p>
           {% endif %}
-          {% if owners %}
+          {% if page.owners.count > 0 %}
           <h4 class="people">Owners</h4>
           <p>
-            {% for owner in owners %}
-            <a href="{% pageurl owner %}" alt="{{owner.person.first_name}} {{owner.person.last_name}}">
-              {{owner.person.first_name}} {{owner.person.last_name}}
+            {% for owner in page.owners.all %}
+            <a href="{% pageurl owner.owner %}" alt="{{owner.owner.first_name}} {{owner.owner.last_name}}">
+              {{owner.owner.first_name}} {{owner.owner.last_name}}
             </a>{% if not forloop.last %}, {% endif %}
             {% endfor %}
           </p>

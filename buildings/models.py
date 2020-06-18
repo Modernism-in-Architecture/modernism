@@ -1,5 +1,6 @@
 from django.core.validators import RegexValidator
 from django.db import models
+from django.utils.text import slugify
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import Tag as TaggitTag
@@ -65,13 +66,20 @@ class City(models.Model):
 
 
 class PlacesIndexPage(Page):
+    max_count = 1
     parent_page_types = ["home.HomePage"]
     subpage_types = []
+
+    def clean(self):
+        """Override slug."""
+        super().clean()
+        self.slug = slugify(self.title)
 
 
 class BuildingsIndexPage(Page):
     subpage_types = ["BuildingPage"]
     parent_page_types = ["home.HomePage"]
+    max_count = 1
 
     def get_context(self, request):
         context = super().get_context(request)
@@ -90,11 +98,17 @@ class BuildingsIndexPage(Page):
         )
         context["types"] = BuildingType.objects.all()
         context["years"] = (
-            BuildingPage.objects.order_by("year_of_construction")
+            BuildingPage.objects.exclude(year_of_construction__exact="")
+            .order_by("year_of_construction")
             .distinct("year_of_construction")
             .values_list("year_of_construction", flat=True)
         )
         return context
+
+    def clean(self):
+        """Override slug."""
+        super().clean()
+        self.slug = slugify(self.title)
 
 
 class BuildingPageTag(TaggedItemBase):
@@ -156,7 +170,9 @@ class BuildingPage(Page):
     description = RichTextField(blank=True)
     year_of_construction = models.CharField(max_length=4, blank=True)
     directions = RichTextField(blank=True)
-    address = models.TextField(blank=True)
+    address = models.TextField(
+        blank=True, help_text="Please, provide a street name and number."
+    )
     zip_code = models.CharField(max_length=10, default="00000",)
     city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True, blank=True)
     country = models.ForeignKey(
@@ -181,22 +197,23 @@ class BuildingPage(Page):
         blank=True,
         on_delete=models.SET_NULL,
         related_name="+",
+        help_text="This image will be used to preview the building on the buildings overview page.",
     )
     gallery_images = StreamField([("image", GalleryImageBlock()),], blank=True,)
 
-    content_panels = Page.content_panels + [
+    content_panels = [
         FieldPanel("name"),
         FieldPanel("building_type"),
         InlinePanel("architects", label="Architects"),
-        InlinePanel("owners", label="Owners"),
         InlinePanel("developers", label="Developers"),
-        FieldPanel("description", classname="full"),
+        InlinePanel("owners", label="Owners"),
         FieldPanel("year_of_construction"),
+        FieldPanel("address"),
         FieldPanel("city"),
         FieldPanel("zip_code"),
         FieldPanel("country"),
-        FieldPanel("address"),
         FieldPanel("lat_long"),
+        FieldPanel("description", classname="full"),
         ImageChooserPanel("feed_image"),
         StreamFieldPanel("gallery_images"),
     ]
@@ -221,7 +238,14 @@ class BuildingPage(Page):
             )
         return tags
 
+    def clean(self):
+        """Override title and slug."""
+        super().clean()
+        self.title = self.name
+        self.slug = slugify(self.title)
+
     def save(self, *args, **kwargs):
+        """Add tags from new values."""
         self.tags.clear()
         if self.building_type:
             self.tags.add(self.building_type.name)
@@ -233,3 +257,6 @@ class BuildingPage(Page):
             self.tags.add(self.year_of_construction)
 
         super(BuildingPage, self).save()
+
+
+BuildingPage._meta.get_field("slug").default = "default-blank-slug"

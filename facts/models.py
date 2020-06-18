@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.text import slugify
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import TaggedItemBase
@@ -9,6 +10,7 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 
 
 class FactsIndexPage(Page):
+    max_count = 1
     intro = RichTextField(blank=True)
     parent_page_types = ["home.HomePage"]
     subpage_types = ["facts.FactPage"]
@@ -26,6 +28,11 @@ class FactsIndexPage(Page):
         context["facts"] = facts
         context["categories"] = FactCategory.objects.order_by("category")
         return context
+
+    def clean(self):
+        """Override slug."""
+        super().clean()
+        self.slug = slugify(self.title)
 
 
 class FactPageTag(TaggedItemBase):
@@ -77,7 +84,13 @@ class FactPage(Page):
             )
         return tags
 
+    def clean(self):
+        """Override slug."""
+        super().clean()
+        self.slug = slugify(self.title)
+
     def save(self, *args, **kwargs):
+        """Add tags from new values."""
         self.tags.clear()
         if self.category:
             self.tags.add(self.category.category)

@@ -7174,9 +7174,8 @@ body {
 .buildings .section, .building .section, .people-index .section, .people .section, .knowledge .section {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem; }
-
-.buildings .content a:hover, .building .content a:hover, .people-index .content a:hover, .people .content a:hover, .knowledge .content a:hover {
-  color: red; }
+  .buildings .section .content a:hover, .building .section .content a:hover, .people-index .section .content a:hover, .people .section .content a:hover, .knowledge .section .content a:hover {
+    color: red; }
 
 .card {
   border-radius: 10px;
