@@ -5,7 +5,7 @@ The project is build with [Wagtail](https://wagtail.io/), a CMS powered by [Djan
 ## Setup the backend
 
 ### Prerequisites
-- Python version >= 3.6
+#### Python version >= 3.6
 
 To check the Python version on your system, run
 ```bash
@@ -19,6 +19,12 @@ Python 3.7.2
 ```
 
 If an older version than 3.6 or nothing is found you will need to [update or install Python](https://realpython.com/installing-python/) first. 
+
+#### PostgreSQL
+Create a [postgreSQL](https://www.postgresqltutorial.com/install-postgresql/) database named "modernism". If you use `psql`, you can run
+```bash
+username=# CREATE DATABASE modernism;
+```
 
 ### Install the project on your machine
 
