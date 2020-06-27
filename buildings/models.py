@@ -91,12 +91,10 @@ class BuildingsIndexPage(Page):
             buildings = buildings.filter(tags__name=tag)
 
         context["buildings"] = buildings
-        context["countries"] = (
-            Country.objects.annotate(number_buildings=models.Count("buildingpage"))
-            .filter(number_buildings__gt=0)
-            .prefetch_related("cities")
-        )
-        context["types"] = BuildingType.objects.all()
+        context["countries"] = Country.objects.exclude(
+            buildingpage=None
+        ).prefetch_related("cities")
+        context["types"] = BuildingType.objects.exclude(buildingpage=None)
         context["years"] = (
             BuildingPage.objects.exclude(year_of_construction__exact="")
             .order_by("year_of_construction")

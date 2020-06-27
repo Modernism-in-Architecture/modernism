@@ -55,8 +55,8 @@ def setup_test_data():
     home.add_child(instance=facts_index)
 
     country = Country.objects.create(country="DE")
-    City.objects.create(name="Leipzig", country=country)
-    City.objects.create(name="Berlin", country=country)
+    leipzig = City.objects.create(name="Leipzig", country=country)
+    berlin = City.objects.create(name="Berlin", country=country)
 
     building_index = BuildingsIndexPage(
         title="Buildings", slug="buildings", show_in_menus=True,
@@ -108,6 +108,8 @@ def setup_test_data():
         title="A House",
         name="A House",
         slug="a-house",
+        country=country,
+        city=leipzig,
         building_type=BuildingType.objects.last(),
         description="Cake tiramisu dragée jujubes candy chocolate cake. Bonbon toffee jelly tootsie roll apple pie croissant. Wafer jelly-o pastry fruitcake toffee macaroon muffin. I tootsie roll apple pie croissant. Wafer jelly-o pastry fruitcake toffee macaroon muffin.",
         year_of_construction="1924",
@@ -120,6 +122,8 @@ def setup_test_data():
         title="Another House",
         name="Another House",
         slug="another-house",
+        country=country,
+        city=leipzig,
         building_type=BuildingType.objects.last(),
         description="Cake tiramisu dragée jujubes candy chocolate cake. Bonbon toffee jelly tootsie roll apple pie croissant. Wafer jelly-o pastry fruitcake toffee macaroon muffin.",
         year_of_construction="1934",
@@ -132,6 +136,8 @@ def setup_test_data():
         title="A School",
         name="A School",
         slug="a-school",
+        country=country,
+        city=leipzig,
         building_type=BuildingType.objects.first(),
         description="Cake tiramisu dragée jujubes candy chocolate cake. Bonbon toffee jelly tootsie roll apple pie croissant. Wafer jelly-o pastry fruitcake toffee macaroon muffin. Bonbon toffee jelly tootsie roll apple pie croissant. Wafer jelly-o pastry fruitcake toffee macaroon muffin. Cake tiramisu dragée jujubes candy chocolate cake. Bonbon toffee jelly tootsie roll apple pie croissant. Wafer jelly-o pastry fruitcake toffee macaroon muffin.",
         year_of_construction="1920",
@@ -144,6 +150,8 @@ def setup_test_data():
         title="Wonderful new house",
         name="Wonderful new house",
         slug="wonderful-new-house",
+        country=country,
+        city=berlin,
         building_type=BuildingType.objects.first(),
         description="Cake tiramisu dragée jujubes candy chocolate cake. Bonbon toffee jelly tootsie roll apple pie croissant. Wafer jelly-o pastry fruitcake toffee macaroon muffin. Bonbon toffee jelly tootsie roll apple pie croissant. Wafer jelly-o pastry fruitcake toffee macaroon muffin. Cake tiramisu dragée jujubes candy chocolate cake. Bonbon toffee jelly tootsie roll apple pie croissant. Wafer jelly-o pastry fruitcake toffee macaroon muffin.",
         year_of_construction="1920",
