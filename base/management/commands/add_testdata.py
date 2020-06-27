@@ -5,15 +5,27 @@ from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
 from wagtail.core.models import Page, Site
 
-from architects.models import ArchitectPage, ArchitectsIndexPage
 from buildings.models import (
     BuildingPage,
+    BuildingPageArchitectRelation,
     BuildingsIndexPage,
     BuildingType,
+    City,
+    Country,
     PlacesIndexPage,
 )
+from facts.models import FactsIndexPage
 from home.models import HomePage
-from knowledge.models import KnowledgeIndexPage
+from people.models import (
+    ArchitectPage,
+    ArchitectsIndexPage,
+    BuildingOwnerPage,
+    BuildingOwnersIndexPage,
+    DeveloperPage,
+    DevelopersIndexPage,
+    PersonPage,
+    PersonsIndexPage,
+)
 
 
 @transaction.atomic
@@ -23,34 +35,49 @@ def setup_test_data():
     User.objects.create_superuser(
         username="superuser", password="superuser",
     )
+    root = Page.get_first_root_node()
+    site = Site.objects.first()
 
-    home = HomePage.objects.first()
-    home.hero_text = "Modernism in Architecture is awesome!"
-    home.save()
+    old_rootpage = site.root_page
+    old_rootpage.slug = "homepage"
+    old_rootpage.save()
+
+    home = HomePage(title="Home", slug="home")
+    root.add_child(instance=home)
+
+    site.root_page = home
+    site.save()
+
+    places_index = PlacesIndexPage(title="Map", slug="maps", show_in_menus=True)
+    home.add_child(instance=places_index)
+
+    facts_index = FactsIndexPage(title="Facts", slug="facts", show_in_menus=True,)
+    home.add_child(instance=facts_index)
+
+    country = Country.objects.create(country="DE")
+    City.objects.create(name="Leipzig", country=country)
+    City.objects.create(name="Berlin", country=country)
 
     building_index = BuildingsIndexPage(
-        title="Buildings",
-        intro="Cake tiramisu dragée jujubes candy chocolate cake. Bonbon toffee jelly tootsie roll apple pie croissant. Wafer jelly-o pastry fruitcake toffee macaroon muffin. Sesame snaps cookie caramels cheesecake cupcake pastry cake chupa chups danish. Jelly bear claw cake caramels jelly-o brownie. Jelly bear claw sweet roll ice cream dessert tart gingerbread fruitcake. Carrot cake cupcake sugar plum jujubes chocolate cake pudding cake. Pie candy sweet roll liquorice gingerbread bear claw liquorice cake. Bear claw fruitcake soufflé.",
-        slug="buildings",
-        show_in_menus=True,
+        title="Buildings", slug="buildings", show_in_menus=True,
     )
     home.add_child(instance=building_index)
 
-    architect_index = ArchitectsIndexPage(
-        title="Architects",
-        intro="Cake tiramisu dragée jujubes candy chocolate cake. Bonbon toffee jelly tootsie roll apple pie croissant. Wafer jelly-o pastry fruitcake toffee macaroon muffin. Sesame snaps cookie caramels cheesecake cupcake pastry cake chupa chups danish. Jelly bear claw cake caramels jelly-o brownie. Jelly bear claw sweet roll ice cream dessert tart gingerbread fruitcake. Carrot cake cupcake sugar plum jujubes chocolate cake pudding cake. Pie candy sweet roll liquorice gingerbread bear claw liquorice cake. Bear claw fruitcake soufflé.",
-        slug="architects",
-        show_in_menus=True,
-    )
-    home.add_child(instance=architect_index)
+    person_index = PersonsIndexPage(title="People", slug="people", show_in_menus=True,)
+    home.add_child(instance=person_index)
 
-    knowledge_index = KnowledgeIndexPage(
-        title="Knowledge",
-        intro="Cake tiramisu dragée jujubes candy chocolate cake. Bonbon toffee jelly tootsie roll apple pie croissant. Wafer jelly-o pastry fruitcake toffee macaroon muffin. Sesame snaps cookie caramels cheesecake cupcake pastry cake chupa chups danish. Jelly bear claw cake caramels jelly-o brownie. Jelly bear claw sweet roll ice cream dessert tart gingerbread fruitcake. Carrot cake cupcake sugar plum jujubes chocolate cake pudding cake. Pie candy sweet roll liquorice gingerbread bear claw liquorice cake. Bear claw fruitcake soufflé.",
-        slug="knowledge",
-        show_in_menus=True,
+    architect_index = ArchitectsIndexPage(
+        title="Architects", slug="architects", show_in_menus=True
     )
-    home.add_child(instance=knowledge_index)
+    developer_index = DevelopersIndexPage(
+        title="Developers", slug="developers", show_in_menus=True
+    )
+    owner_index = BuildingOwnersIndexPage(
+        title="Owners", slug="owners", show_in_menus=True
+    )
+    person_index.add_child(instance=architect_index)
+    person_index.add_child(instance=developer_index)
+    person_index.add_child(instance=owner_index)
 
     architect_1 = ArchitectPage(
         title="Otto Eisler",
@@ -72,6 +99,7 @@ def setup_test_data():
     )
     architect_index.add_child(instance=architect_1)
     architect_index.add_child(instance=architect_2)
+
     BuildingType.objects.bulk_create(
         [BuildingType(name="School"), BuildingType(name="Apartment Block"),]
     )
@@ -81,56 +109,58 @@ def setup_test_data():
         name="A House",
         slug="a-house",
         building_type=BuildingType.objects.last(),
-        architect=architect_2,
         description="Cake tiramisu dragée jujubes candy chocolate cake. Bonbon toffee jelly tootsie roll apple pie croissant. Wafer jelly-o pastry fruitcake toffee macaroon muffin. I tootsie roll apple pie croissant. Wafer jelly-o pastry fruitcake toffee macaroon muffin.",
         year_of_construction="1924",
         directions="Cake tiramisu dragée jujubes candy chocolate cake. Bonbon toffee jelly tootsie roll apple pie croissant.",
         address="Tůmova 2261/36c",
         lat_long="49.205307, 16.582682",
     )
+
     building_2 = BuildingPage(
         title="Another House",
         name="Another House",
         slug="another-house",
         building_type=BuildingType.objects.last(),
-        architect=architect_1,
         description="Cake tiramisu dragée jujubes candy chocolate cake. Bonbon toffee jelly tootsie roll apple pie croissant. Wafer jelly-o pastry fruitcake toffee macaroon muffin.",
         year_of_construction="1934",
         directions="Cake tiramisu dragée jujubes candy chocolate cake. Bonbon toffee jelly tootsie roll apple pie croissant.",
         address="Demmeringstraße 8",
         lat_long="51.338705, 12.336127",
     )
+
     building_3 = BuildingPage(
         title="A School",
         name="A School",
         slug="a-school",
         building_type=BuildingType.objects.first(),
-        architect=architect_1,
         description="Cake tiramisu dragée jujubes candy chocolate cake. Bonbon toffee jelly tootsie roll apple pie croissant. Wafer jelly-o pastry fruitcake toffee macaroon muffin. Bonbon toffee jelly tootsie roll apple pie croissant. Wafer jelly-o pastry fruitcake toffee macaroon muffin. Cake tiramisu dragée jujubes candy chocolate cake. Bonbon toffee jelly tootsie roll apple pie croissant. Wafer jelly-o pastry fruitcake toffee macaroon muffin.",
         year_of_construction="1920",
         directions="Cake tiramisu dragée jujubes candy chocolate cake.",
         address="Wachsmuthstraße 20",
         lat_long="51.321032, 12.328984",
     )
+
     building_4 = BuildingPage(
         title="Wonderful new house",
         name="Wonderful new house",
         slug="wonderful-new-house",
         building_type=BuildingType.objects.first(),
-        architect=architect_1,
         description="Cake tiramisu dragée jujubes candy chocolate cake. Bonbon toffee jelly tootsie roll apple pie croissant. Wafer jelly-o pastry fruitcake toffee macaroon muffin. Bonbon toffee jelly tootsie roll apple pie croissant. Wafer jelly-o pastry fruitcake toffee macaroon muffin. Cake tiramisu dragée jujubes candy chocolate cake. Bonbon toffee jelly tootsie roll apple pie croissant. Wafer jelly-o pastry fruitcake toffee macaroon muffin.",
         year_of_construction="1920",
         directions="Cake tiramisu dragée jujubes candy chocolate cake.",
         address="Marschnerstraße 25",
         lat_long="51.337229, 12.355656",
     )
+
     building_index.add_child(instance=building_1)
     building_index.add_child(instance=building_2)
     building_index.add_child(instance=building_3)
     building_index.add_child(instance=building_4)
 
-    places_index = PlacesIndexPage(title="Map", slug="maps", show_in_menus=True)
-    home.add_child(instance=places_index)
+    BuildingPageArchitectRelation.objects.create(page=building_1, architect=architect_1)
+    BuildingPageArchitectRelation.objects.create(page=building_2, architect=architect_1)
+    BuildingPageArchitectRelation.objects.create(page=building_3, architect=architect_2)
+    BuildingPageArchitectRelation.objects.create(page=building_4, architect=architect_1)
 
 
 class Command(BaseCommand):
