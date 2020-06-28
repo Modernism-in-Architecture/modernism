@@ -84,20 +84,30 @@ class BuildingsIndexPage(Page):
     def get_context(self, request):
         context = super().get_context(request)
 
-        buildings = BuildingPage.objects.live()
+        architect_id = request.GET.get("architect")
         tag = request.GET.get("tag")
+        buildings = BuildingPage.objects.live()
+
         if tag:
             buildings = buildings.filter(tags__name=tag)
 
+        if architect_id:
+            buildings = buildings.filter(architects__architect__id=architect_id)
+
         context["buildings"] = buildings
+        context["architects"] = ArchitectPage.objects.exclude(buildings=None).order_by(
+            "last_name"
+        )
         context["countries"] = Country.objects.exclude(
             buildingpage=None
         ).prefetch_related("cities")
-        context["types"] = BuildingType.objects.exclude(buildingpage=None)
+        context["types"] = BuildingType.objects.exclude(buildingpage=None).order_by(
+            "name"
+        )
         context["years"] = (
             BuildingPage.objects.exclude(year_of_construction__exact="")
-            .order_by("year_of_construction")
             .distinct("year_of_construction")
+            .order_by("year_of_construction")
             .values_list("year_of_construction", flat=True)
         )
         return context
@@ -234,6 +244,10 @@ class BuildingPage(Page):
                 s.strip("/") for s in [self.get_parent().url, "tags", tag.slug]
             )
         return tags
+
+    @property
+    def get_architects(self):
+        return BuildingPageArchitectRelation.objects.filter(page=self)
 
     def clean(self):
         """Override title and slug."""

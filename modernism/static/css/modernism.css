@@ -7249,7 +7249,7 @@ body {
     display: flex;
     flex-direction: column-reverse; } }
 
-.architect .rich-text, .facts .rich-text {
+.people .rich-text, .facts .rich-text {
   margin: 2rem 0; }
 
 .facts .facts-content {
