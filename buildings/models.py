@@ -85,7 +85,6 @@ class BuildingsIndexPage(Page):
         context = super().get_context(request)
 
         buildings = BuildingPage.objects.live()
-
         tag = request.GET.get("tag")
         if tag:
             buildings = buildings.filter(tags__name=tag)
