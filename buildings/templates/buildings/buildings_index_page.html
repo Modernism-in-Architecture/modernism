@@ -27,20 +27,6 @@
           </p>
           <ul class="menu-list">
 
-            {% for country in countries %}
-            <li><a class="dropdown-link filter-category">{{country.country.name}}
-                <i class="fas fa-chevron-down"></i></a>
-              <ul class="link-content">
-                <li><a class="item {% if selected_tag == country.country.name %}active{% endif %}"
-                    href="{% pageurl page %}?tag={{country.country.name}}">All places</a></li>
-                {% for city in country.cities.all %}
-                <li><a class="item {% if selected_tag == city.name %}active{% endif %}"
-                    href="{% pageurl page %}?tag={{city.name}}">#{{city.name}}</a></li>
-                {% endfor %}
-              </ul>
-            </li>
-            {% endfor %}
-
             <li><a class="dropdown-link filter-category">Architects <i class="fas fa-chevron-down"></i></a>
               <ul class="link-content">
                 {% for architect in architects %}
@@ -70,6 +56,20 @@
                 {% endfor %}
               </ul>
             </li>
+
+            {% for country in countries %}
+            <li><a class="dropdown-link filter-category">{{country.country.name}}
+                <i class="fas fa-chevron-down"></i></a>
+              <ul class="link-content">
+                <li><a class="item {% if selected_tag == country.country.name %}active{% endif %}"
+                    href="{% pageurl page %}?tag={{country.country.name}}">All places</a></li>
+                {% for city in country.cities.all %}
+                <li><a class="item {% if selected_tag == city.name %}active{% endif %}"
+                    href="{% pageurl page %}?tag={{city.name}}">#{{city.name}}</a></li>
+                {% endfor %}
+              </ul>
+            </li>
+            {% endfor %}
 
           </ul>
         </aside>

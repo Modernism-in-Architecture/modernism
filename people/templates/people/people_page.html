@@ -24,9 +24,13 @@
             {{page.place_of_death}} {% endif %}</p>
           {% image page.image width-400 %}
           {{page.description|richtext}}
-          {% for building in page.buildingpage_set.all %}
-          <a href="{% pageurl building %}">{% image building.feed_image fill-100x100 %}</a>
+
+          {% for building in page.buildings.all %}
+          {% if building.page.feed_image %}
+          <a href="{% pageurl building.page %}">{% image building.page.feed_image fill-100x100 %}</a>
+          {% endif %}
           {% endfor %}
+
         </div>
       </div>
     </div>
