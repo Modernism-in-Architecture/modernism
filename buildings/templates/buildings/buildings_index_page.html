@@ -17,8 +17,9 @@
   <div class="container">
     <div class="columns">
       <div class="column is-narrow">
+        {% with selected_architect_id=request.GET.architect selected_tag=request.GET.tag %}
         <aside class="menu">
-          {% if request.GET.tag %}
+          {% if selected_tag or selected_architect_id %}
           <p class="menu-label"><a href="{% pageurl page %}"><i class="fa fa-times"></i> Clear filters</a></p>
           {% endif %}
           <p class="menu-label">
@@ -30,20 +31,32 @@
             <li><a class="dropdown-link filter-category">{{country.country.name}}
                 <i class="fas fa-chevron-down"></i></a>
               <ul class="link-content">
-                <li><a class="item {% if request.GET.tag == country.country.name %}active{% endif %}"
+                <li><a class="item {% if selected_tag == country.country.name %}active{% endif %}"
                     href="{% pageurl page %}?tag={{country.country.name}}">All places</a></li>
                 {% for city in country.cities.all %}
-                <li><a class="item {% if request.GET.tag == city.name %}active{% endif %}"
+                <li><a class="item {% if selected_tag == city.name %}active{% endif %}"
                     href="{% pageurl page %}?tag={{city.name}}">#{{city.name}}</a></li>
                 {% endfor %}
               </ul>
             </li>
             {% endfor %}
 
+            <li><a class="dropdown-link filter-category">Architects <i class="fas fa-chevron-down"></i></a>
+              <ul class="link-content">
+                {% for architect in architects %}
+                <li>
+                  <a class="item {% if selected_architect_id == architect.id|stringformat:'s' %}active{% endif %}"
+                    href="{% pageurl page %}?architect={{architect.id}}">#{{architect.last_name}},
+                    {{architect.first_name}}</a>
+                </li>
+                {% endfor %}
+              </ul>
+            </li>
+
             <li><a class="dropdown-link filter-category">Building Type <i class="fas fa-chevron-down"></i></a>
               <ul class="link-content">
                 {% for type in types %}
-                <li><a class="item {% if request.GET.tag == type.name %}active{% endif %}"
+                <li><a class="item {% if selected_tag == type.name %}active{% endif %}"
                     href="{% pageurl page %}?tag={{type.name}}">#{{type.name}}</a></li>
                 {% endfor %}
               </ul>
@@ -52,7 +65,7 @@
             <li><a class="dropdown-link filter-category">Year <i class="fas fa-chevron-down"></i></a>
               <ul class="link-content">
                 {% for year in years %}
-                <li><a class="item {% if request.GET.tag == year %}active{% endif %}"
+                <li><a class="item {% if selected_tag == year %}active{% endif %}"
                     href="{% pageurl page %}?tag={{year}}">#{{year}}</a></li>
                 {% endfor %}
               </ul>
@@ -60,6 +73,7 @@
 
           </ul>
         </aside>
+        {% endwith %}
       </div>
       <div class="column">
         <div class="content">
