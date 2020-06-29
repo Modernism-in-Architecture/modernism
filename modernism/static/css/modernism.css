@@ -7237,6 +7237,9 @@ body {
 .buildings .menu .item, .facts .menu .item {
   letter-spacing: 0.04em; }
 
+.buildings .content .rich-text, .facts .content .rich-text {
+  margin-bottom: 2rem; }
+
 .building .building-address {
   margin-top: 1rem; }
 

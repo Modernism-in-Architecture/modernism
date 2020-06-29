@@ -15,9 +15,9 @@
 {% block content %}
 <section class="section last-section">
   <div class="container">
+    {% with selected_architect_id=request.GET.architect selected_tag=request.GET.tag %}
     <div class="columns">
       <div class="column is-narrow">
-        {% with selected_architect_id=request.GET.architect selected_tag=request.GET.tag %}
         <aside class="menu">
           {% if selected_tag or selected_architect_id %}
           <p class="menu-label"><a href="{% pageurl page %}"><i class="fa fa-times"></i> Clear filters</a></p>
@@ -73,10 +73,25 @@
 
           </ul>
         </aside>
-        {% endwith %}
       </div>
       <div class="column">
         <div class="content">
+          {% with country=buildings.first.country city=buildings.first.city %}
+          {% if selected_tag == country.country.name %}
+          <h2>{{country.country.name}}</h2>
+          {{country.description|richtext}}
+          {% endif %}
+          {% if selected_tag == city.name %}
+          <h2>{{city.name}}</h2>
+          {{city.description|richtext}}
+          {% endif %}
+          {% if selected_tag and selected_tag != city.name and selected_tag != country.country.name %}
+          <h2>{{selected_tag}}</h2>
+          {% endif %}
+          {% endwith %}
+          {% if active_architect %}
+          <h2>{{active_architect}}</h2>
+          {% endif %}
           <div class="columns is-multiline is-centered">
             {% for building in buildings %}
             <div class="column column is-half-tablet is-one-third-desktop">
@@ -104,6 +119,7 @@
         </div>
       </div>
     </div>
+    {% endwith %}
   </div>
 </section>
 {% endblock content %}

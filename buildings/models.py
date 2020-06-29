@@ -94,6 +94,9 @@ class BuildingsIndexPage(Page):
 
         if architect_id:
             buildings = buildings.filter(architects__architect__id=architect_id)
+            context["active_architect"] = ArchitectPage.objects.filter(
+                id=architect_id
+            ).first()
 
         context["buildings"] = buildings
         context["architects"] = ArchitectPage.objects.exclude(buildings=None).order_by(
