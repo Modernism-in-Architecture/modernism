@@ -37,8 +37,8 @@ class BuildingType(models.Model):
 
 class Country(models.Model):
     country = CountryField(blank_label="(Select a Country)", unique=True)
-
-    panels = [FieldPanel("country")]
+    description = RichTextField(blank=True)
+    panels = [FieldPanel("country"), FieldPanel("description", classname="full")]
 
     def __str__(self):
         return self.country.name
@@ -52,10 +52,11 @@ class City(models.Model):
     country = models.ForeignKey(
         Country, on_delete=models.SET_NULL, null=True, blank=True, related_name="cities"
     )
-
+    description = RichTextField(blank=True)
     panels = [
         FieldPanel("name"),
         FieldPanel("country"),
+        FieldPanel("description", classname="full"),
     ]
 
     def __str__(self):
