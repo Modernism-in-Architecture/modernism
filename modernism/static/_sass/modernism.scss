@@ -237,6 +237,9 @@ body {
     .leaflet-top {
         z-index: 950;
     }
+    .leaflet-container{
+        border-radius: $border-radius;
+    }
 }
 
 footer {

@@ -7264,6 +7264,9 @@ body {
 .places .leaflet-top {
   z-index: 950; }
 
+.places .leaflet-container {
+  border-radius: 10px; }
+
 footer {
   font-family: "Righteous"; }
   footer a {
