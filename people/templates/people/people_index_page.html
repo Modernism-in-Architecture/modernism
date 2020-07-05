@@ -22,7 +22,8 @@
             <div class="card">
               <div class="card-content">
                 <div class="content">
-                  <h5 class="is-marginless">{{person.last_name}}, {{person.first_name}}</h5>
+                  <h5 class="is-marginless">{{person.last_name}}{% if person.first_name %},
+                    {{person.first_name}}{% endif %}</h5>
                 </div>
               </div>
             </div>
