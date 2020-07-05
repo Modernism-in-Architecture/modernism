@@ -68,6 +68,9 @@
     <div class="columns is-centered">
       <div class="column is-10-desktop">
         <div class="content">
+          {% if page.todays_use %}
+          <p><strong>Today's use:</strong> {{page.todays_use}}</p>
+          {% endif %}
           {{page.description|richtext}}
         </div>
       </div>

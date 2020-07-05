@@ -7247,6 +7247,9 @@ body {
   margin-top: 1rem;
   margin-bottom: 0; }
 
+.building .content .rich-text {
+  margin-bottom: 1rem; }
+
 @media screen and (max-width: 840px) {
   .reverse-column-order {
     display: flex;
