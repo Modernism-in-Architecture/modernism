@@ -16,12 +16,29 @@
     <div class="columns is-centered">
       <div class="column is-8-tablet is-5-desktop">
         <div class="content">
-          <h1>{{page.first_name}} {{page.last_name}}</h1>
-          <p>{% if page.birthday %}* {{page.birthday}} {% endif %}{% if page.place_of_birth %}
-            {{page.place_of_birth}} {% endif %}<br>
-            {% if page.day_of_death %} &#10015; {{page.day_of_death}}
-            {% endif %}{% if page.place_of_death %}
-            {{page.place_of_death}} {% endif %}</p>
+          <h1>{% if page.first_name %}{{page.first_name}} {% endif %}{{page.last_name}}</h1>
+          <p>
+            {% if page.birthday %}*
+            {% if page.birth_year_known_only %}
+            {{page.birthday|date:"Y"}}
+            {% else %}
+            {{page.birthday}}
+            {% endif %}
+            {% endif %}
+            {% if page.place_of_birth %}
+            in {{page.place_of_birth}}
+            {% endif %}<br>
+            {% if page.day_of_death %} &#10015;
+            {% if page.death_year_known_only %}
+            {{page.day_of_death|date:"Y"}}
+            {% else %}
+            {{page.day_of_death}}
+            {% endif %}
+            {% endif %}
+            {% if page.place_of_death %}
+            in {{page.place_of_death}}
+            {% endif %}
+          </p>
           {% image page.image width-400 %}
           {{page.description|richtext}}
 

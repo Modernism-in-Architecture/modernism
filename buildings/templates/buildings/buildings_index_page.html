@@ -32,8 +32,8 @@
                 {% for architect in architects %}
                 <li>
                   <a class="item {% if selected_architect_id == architect.id|stringformat:'s' %}active{% endif %}"
-                    href="{% pageurl page %}?architect={{architect.id}}">#{{architect.last_name}},
-                    {{architect.first_name}}</a>
+                    href="{% pageurl page %}?architect={{architect.id}}">#{{architect.last_name}}{% if architect.first_name %},
+                    {{architect.first_name}}{% endif %}</a>
                 </li>
                 {% endfor %}
               </ul>
