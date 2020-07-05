@@ -23,14 +23,36 @@ class PersonPage(Page):
     is_creatable = False
     first_name = models.CharField(max_length=250, blank=True)
     last_name = models.CharField(
-        max_length=250, help_text="You can add a company name here if appropriate."
+        max_length=250, help_text="You can add a company name here too if appropriate."
     )
-    birthday = models.DateField("Birthday", blank=True, null=True)
-    birth_year_known_only = models.BooleanField(default=False)
-    place_of_birth = models.CharField(max_length=100, blank=True)
-    place_of_death = models.CharField(max_length=100, blank=True)
-    day_of_death = models.DateField("Day of Death", blank=True, null=True)
-    death_year_known_only = models.BooleanField(default=False)
+    birthday = models.DateField(
+        "Birthday",
+        blank=True,
+        null=True,
+        help_text="If you only know the year, just set a random value for month and day, but tick the following box.",
+    )
+    birth_year_known_only = models.BooleanField(
+        default=False, help_text="Tick the box if you only know the birth year."
+    )
+    place_of_birth = models.CharField(
+        max_length=100,
+        blank=True,
+        help_text="Add in following format: city, country. E.g. 'Leipzig, Germany'",
+    )
+    place_of_death = models.CharField(
+        max_length=100,
+        blank=True,
+        help_text="Add in following format: city, country. E.g. 'Leipzig, Germany'",
+    )
+    day_of_death = models.DateField(
+        "Day of Death",
+        blank=True,
+        null=True,
+        help_text="If you only know the year, just set a random value for month and day, but tick the following box.",
+    )
+    death_year_known_only = models.BooleanField(
+        default=False, help_text="Tick the box if you only know the birth year."
+    )
     description = RichTextField(blank=True)
     image = models.ForeignKey(
         "wagtailimages.Image",
