@@ -41,6 +41,19 @@ class BuildingType(models.Model):
         verbose_name_plural = "Building types"
 
 
+class AccessType(models.Model):
+    name = models.CharField(max_length=255)
+    panels = [
+        FieldPanel("name"),
+    ]
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = "Access types"
+
+
 class Country(models.Model):
     country = CountryField(blank_label="(Select a Country)", unique=True)
     description = RichTextField(blank=True)
@@ -184,10 +197,16 @@ class BuildingPage(Page):
     building_type = models.ForeignKey(
         BuildingType, on_delete=models.SET_NULL, null=True, blank=True,
     )
+    access_type = models.ForeignKey(
+        AccessType, on_delete=models.SET_NULL, null=True, blank=True,
+    )
     todays_use = models.CharField(max_length=300, blank=True)
     description = RichTextField(blank=True)
     year_of_construction = models.CharField(max_length=4, blank=True)
-    directions = RichTextField(blank=True)
+    directions = models.TextField(
+        blank=True,
+        help_text="Note here how to get there, public transport information or alike.",
+    )
     address = models.TextField(
         blank=True, help_text="Please, provide a street name and/or number."
     )
@@ -222,20 +241,22 @@ class BuildingPage(Page):
     content_panels = [
         FieldPanel("name"),
         FieldPanel("building_type"),
-        FieldPanel("todays_use"),
+        MultiFieldPanel(
+            [
+                FieldRowPanel([FieldPanel("zip_code"), FieldPanel("country"),]),
+                FieldRowPanel([FieldPanel("city"), FieldPanel("address"),]),
+                FieldRowPanel([FieldPanel("lat_long"),]),
+                FieldRowPanel([FieldPanel("directions"),]),
+            ],
+            heading="Address",
+        ),
         InlinePanel("architects", label="Architects"),
         InlinePanel("developers", label="Developers"),
         InlinePanel("owners", label="Owners"),
         FieldPanel("year_of_construction"),
+        FieldPanel("access_type"),
+        FieldPanel("todays_use"),
         ImageChooserPanel("feed_image"),
-        MultiFieldPanel(
-            [
-                FieldRowPanel([FieldPanel("address"), FieldPanel("city"),]),
-                FieldRowPanel([FieldPanel("zip_code"), FieldPanel("country"),]),
-                FieldRowPanel([FieldPanel("lat_long"),]),
-            ],
-            heading="Address",
-        ),
         FieldPanel("description", classname="full"),
         StreamFieldPanel("gallery_images"),
     ]

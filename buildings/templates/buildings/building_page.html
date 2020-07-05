@@ -71,6 +71,12 @@
           {% if page.todays_use %}
           <p><strong>Today's use:</strong> {{page.todays_use}}</p>
           {% endif %}
+          {% if page.access_type %}
+          <p><strong>Access:</strong> {{page.access_type}}</p>
+          {% endif %}
+          {% if page.directions %}
+          <p><strong>Directions:</strong> {{page.directions}}</p>
+          {% endif %}
           {{page.description|richtext}}
         </div>
       </div>
