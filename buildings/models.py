@@ -6,7 +6,13 @@ from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import Tag as TaggitTag
 from taggit.models import TaggedItemBase
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, StreamFieldPanel
+from wagtail.admin.edit_handlers import (
+    FieldPanel,
+    FieldRowPanel,
+    InlinePanel,
+    MultiFieldPanel,
+    StreamFieldPanel,
+)
 from wagtail.api import APIField
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Page
@@ -178,11 +184,12 @@ class BuildingPage(Page):
     building_type = models.ForeignKey(
         BuildingType, on_delete=models.SET_NULL, null=True, blank=True,
     )
+    todays_use = models.CharField(max_length=300, blank=True)
     description = RichTextField(blank=True)
     year_of_construction = models.CharField(max_length=4, blank=True)
     directions = RichTextField(blank=True)
     address = models.TextField(
-        blank=True, help_text="Please, provide a street name and number."
+        blank=True, help_text="Please, provide a street name and/or number."
     )
     zip_code = models.CharField(max_length=10, default="00000",)
     city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True, blank=True)
@@ -215,17 +222,21 @@ class BuildingPage(Page):
     content_panels = [
         FieldPanel("name"),
         FieldPanel("building_type"),
+        FieldPanel("todays_use"),
         InlinePanel("architects", label="Architects"),
         InlinePanel("developers", label="Developers"),
         InlinePanel("owners", label="Owners"),
         FieldPanel("year_of_construction"),
-        FieldPanel("address"),
-        FieldPanel("city"),
-        FieldPanel("zip_code"),
-        FieldPanel("country"),
-        FieldPanel("lat_long"),
-        FieldPanel("description", classname="full"),
         ImageChooserPanel("feed_image"),
+        MultiFieldPanel(
+            [
+                FieldRowPanel([FieldPanel("address"), FieldPanel("city"),]),
+                FieldRowPanel([FieldPanel("zip_code"), FieldPanel("country"),]),
+                FieldRowPanel([FieldPanel("lat_long"),]),
+            ],
+            heading="Address",
+        ),
+        FieldPanel("description", classname="full"),
         StreamFieldPanel("gallery_images"),
     ]
 
