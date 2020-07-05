@@ -2,7 +2,12 @@ from django.db import models
 from django.utils.text import slugify
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.models import ClusterableModel
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel
+from wagtail.admin.edit_handlers import (
+    FieldPanel,
+    FieldRowPanel,
+    InlinePanel,
+    MultiFieldPanel,
+)
 from wagtail.core.fields import RichTextField
 from wagtail.core.models import Orderable, Page, PageManager
 from wagtail.images.edit_handlers import ImageChooserPanel
@@ -16,12 +21,16 @@ class PeoplePageManager(PageManager):
 
 class PersonPage(Page):
     is_creatable = False
-    first_name = models.CharField(max_length=250)
-    last_name = models.CharField(max_length=250)
+    first_name = models.CharField(max_length=250, blank=True)
+    last_name = models.CharField(
+        max_length=250, help_text="You can add a company name here if appropriate."
+    )
     birthday = models.DateField("Birthday", blank=True, null=True)
+    birth_year_known_only = models.BooleanField(default=False)
     place_of_birth = models.CharField(max_length=100, blank=True)
     place_of_death = models.CharField(max_length=100, blank=True)
     day_of_death = models.DateField("Day of Death", blank=True, null=True)
+    death_year_known_only = models.BooleanField(default=False)
     description = RichTextField(blank=True)
     image = models.ForeignKey(
         "wagtailimages.Image",
@@ -33,23 +42,50 @@ class PersonPage(Page):
     objects = PeoplePageManager()
 
     content_panels = [
-        FieldPanel("first_name"),
-        FieldPanel("last_name"),
-        FieldPanel("birthday"),
-        FieldPanel("place_of_birth"),
-        FieldPanel("day_of_death"),
-        FieldPanel("place_of_death"),
+        MultiFieldPanel(
+            [FieldRowPanel([FieldPanel("last_name"), FieldPanel("first_name")])],
+            heading="Name",
+        ),
+        MultiFieldPanel(
+            [
+                FieldRowPanel(
+                    [
+                        FieldPanel("birthday", classname="col6"),
+                        FieldPanel("birth_year_known_only", classname="col6"),
+                    ]
+                ),
+                FieldPanel("place_of_birth"),
+            ],
+            heading="Birthday",
+        ),
+        MultiFieldPanel(
+            [
+                FieldRowPanel(
+                    [
+                        FieldPanel("day_of_death", classname="col6"),
+                        FieldPanel("death_year_known_only", classname="col6"),
+                    ]
+                ),
+                FieldPanel("place_of_death"),
+            ],
+            heading="Death",
+        ),
         FieldPanel("description", classname="full"),
         ImageChooserPanel("image"),
     ]
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name}"
+        name = self.last_name
+        if self.first_name:
+            name = f"{self.first_name} {self.last_name}"
+        return name
 
     def clean(self):
         """Override title and slug."""
         super().clean()
-        new_title = f"{self.first_name} {self.last_name}"
+        new_title = self.last_name
+        if self.first_name:
+            new_title = f"{self.first_name} {self.last_name}"
         self.title = new_title
         self.slug = slugify(new_title)
 
