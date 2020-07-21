@@ -33,7 +33,7 @@ sqlparse==0.3.1
 static3==0.7.0
 Unidecode==1.1.1
 urllib3==1.25.9
-wagtail==2.8.1
+wagtail==2.9.3
 webencodings==0.5.1
 whitenoise==5.0.1
 Willow==1.3
