@@ -118,3 +118,5 @@ WAGTAIL_SITE_NAME = "modernism"
 BASE_URL = "https://modernism-in-architecture.org"
 
 TAG_SPACES_ALLOWED = True
+
+WAGTAILAPI_LIMIT_MAX = 100
