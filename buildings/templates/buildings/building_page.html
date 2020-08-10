@@ -17,7 +17,7 @@
   <div class="container">
     <div class="columns is-centered reverse-column-order">
       <div class="column is-5-desktop">
-        {% image page.feed_image width-600 %}
+        {% image page.feed_image fill-600x400 %}
         <p>
           {% for tag in page.get_tags %}
           <a href="{% slugurl 'buildings' %}?tag={{ tag }}"> #{{tag}} </a>
