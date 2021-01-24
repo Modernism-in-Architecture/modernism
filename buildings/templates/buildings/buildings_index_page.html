@@ -32,8 +32,9 @@
                 {% for architect in architects %}
                 <li>
                   <a class="item {% if selected_architect_id == architect.id|stringformat:'s' %}active{% endif %}"
-                    href="{% pageurl page %}?architect={{architect.id}}">#{{architect.last_name}}{% if architect.first_name %},
-                    {{architect.first_name}}{% endif %}</a>
+                    href="{% pageurl page %}?architect={{architect.id}}">
+                    #{{architect.last_name}}{% if architect.first_name %},{{architect.first_name}}{% endif %}
+                  </a>
                 </li>
                 {% endfor %}
               </ul>
@@ -93,28 +94,7 @@
           <h2>{{active_architect}}</h2>
           {% endif %}
           <div class="columns is-multiline is-centered">
-            {% for building in buildings %}
-            <div class="column column is-half-tablet is-one-third-desktop">
-              <a href="{% pageurl building %}" alt="{{building.title}}">
-                <div class="card">
-                  <div class="card-image">
-                    <figure class="image is-marginless is-square">
-                      {% image building.feed_image fill-500x500-c100 %}
-                    </figure>
-                  </div>
-                  <div class="card-content">
-                    <div class="content">
-                      <h5 class="is-marginless">{{building.title}}{% if building.architect %},
-                        {{building.architect}}{% endif %}</h5>
-                      {% for tag in building.get_tags %}
-                      <a href="{% pageurl page %}?tag={{ tag }}"> #{{tag}} </a>
-                      {% endfor %}
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            {% endfor %}
+            {% include "buildings/buildings_list_page.html" %}
           </div>
         </div>
       </div>
@@ -123,3 +103,13 @@
   </div>
 </section>
 {% endblock content %}
+{% block extra_js %}
+{{ block.super }}
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="{% static 'el-pagination/js/el-pagination.js' %}"></script>
+<script>
+  $.endlessPaginate({
+    paginateOnScroll: true
+  });
+</script>
+{% endblock %}

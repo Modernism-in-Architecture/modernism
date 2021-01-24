@@ -4,6 +4,7 @@ from django.utils.text import slugify
 from django_countries.fields import CountryField
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
+from people.models import ArchitectPage, BuildingOwnerPage, DeveloperPage
 from taggit.models import Tag as TaggitTag
 from taggit.models import TaggedItemBase
 from wagtail.admin.edit_handlers import (
@@ -20,7 +21,6 @@ from wagtail.images.api.fields import ImageRenditionField
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 from buildings.blocks import GalleryImageBlock
-from people.models import ArchitectPage, BuildingOwnerPage, DeveloperPage
 
 
 class Tag(TaggitTag):
@@ -100,6 +100,9 @@ class BuildingsIndexPage(Page):
     subpage_types = ["BuildingPage"]
     parent_page_types = ["home.HomePage"]
     max_count = 1
+
+    ajax_template = "buildings/buildings_list_page.html"
+    template = "buildings/buildings_index_page.html"
 
     def get_context(self, request):
         context = super().get_context(request)
