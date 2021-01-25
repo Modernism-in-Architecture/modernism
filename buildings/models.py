@@ -109,7 +109,7 @@ class BuildingsIndexPage(Page):
 
         architect_id = request.GET.get("architect")
         tag = request.GET.get("tag")
-        buildings = BuildingPage.objects.live().order_by("first_published_at")
+        buildings = BuildingPage.objects.live().order_by("-first_published_at")
 
         if tag:
             buildings = buildings.filter(tags__name=tag)
