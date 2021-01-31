@@ -124,9 +124,13 @@ class BuildingsIndexPage(Page):
         context["architects"] = ArchitectPage.objects.exclude(buildings=None).order_by(
             "last_name"
         )
-        context["countries"] = Country.objects.exclude(
-            buildingpage=None
-        ).prefetch_related("cities")
+        context["countries"] = (
+            Country.objects.exclude(buildingpage=None)
+            .prefetch_related(
+                models.Prefetch("cities", queryset=City.objects.order_by("name"))
+            )
+            .order_by("country")
+        )
         context["types"] = BuildingType.objects.exclude(buildingpage=None).order_by(
             "name"
         )
