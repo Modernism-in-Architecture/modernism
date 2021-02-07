@@ -29,6 +29,7 @@
   <link rel="icon" type="image/png" sizes="96x96" href="{% static 'img/favicon-96x96.png'%}">
   <link rel="stylesheet" type="text/css" href="{% static 'css/modernism.css' %}">
   <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  <script type="application/javascript">let pageId = "{% if page %}{{ page.pk }}{% endif %}"</script>
   {% block extra_css %}{% endblock %}
 </head>
 

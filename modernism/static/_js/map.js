@@ -8,7 +8,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 const markers = L.markerClusterGroup();
 
 async function getBuildingData() {
-    let response = await fetch(window.location.origin + "/api/v2/pages/?type=buildings.BuildingPage&fields=*");
+    let response = await fetch(window.location.origin + "/api/v2/pages/?type=buildings.BuildingPage&fields=-gallery_images,lat_long");
     let data = await response.json();
     return data;
 }

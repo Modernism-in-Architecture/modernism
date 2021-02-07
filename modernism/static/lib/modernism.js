@@ -3,10 +3,12 @@ let currentBuilding = {};
 let galleryImages = [];
 
 async function getBuildingObject() {
-    let response = await fetch(window.location.origin + "/api/v2/pages/" + buildingId + "/");
-    let data = await response.json();
-    currentBuilding = data;
-    galleryImages = data["gallery_images"];
+    if (pageId) {
+        let response = await fetch(window.location.origin + "/api/v2/pages/" + pageId + "/");
+        let data = await response.json();
+        currentBuilding = data;
+        galleryImages = data["gallery_images"];
+    }
 }
 
 const NAV_BURGER = document.querySelector('.navbar-burger');
@@ -48,6 +50,7 @@ const addClickEventListenerToDropdownLinks = () => {
 
 const addClickEventListenerToBuildingImages = () => {
     const previewImageBuildings = document.querySelectorAll('.preview-image');
+
     previewImageBuildings.forEach(image => {
         image.addEventListener('click', event => {
             event.preventDefault();
@@ -71,13 +74,15 @@ const addClickEventListenerToBuildingImages = () => {
 
 const addClickEventListenerToModalCloseButton = () => {
     let closeButton = document.getElementById("close-button");
-    closeButton.addEventListener('click', event => {
-        event.preventDefault();
-        let imageModal = document.getElementById("image-modal");
-        if (imageModal.classList.contains("is-active")) {
-            imageModal.classList.toggle("is-active");
-        }
-    });
+    if (closeButton) {
+        closeButton.addEventListener('click', event => {
+            event.preventDefault();
+            let imageModal = document.getElementById("image-modal");
+            if (imageModal.classList.contains("is-active")) {
+                imageModal.classList.toggle("is-active");
+            }
+        });
+    }
 };
 
 const setModalImage = direction => {

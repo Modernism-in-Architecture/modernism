@@ -3,11 +3,7 @@
 {% load navigation_tags static wagtailcore_tags wagtailimages_tags %}
 
 {% block body_class %}building{% endblock %}
-{% block extra_css %}
-<script type="application/javascript">
-  const buildingId = "{{ page.pk }}"
-</script>
-{% endblock %}
+
 {% block breadcrumbs %}
 <section class="breadcrumbs-section">
   <div class="container">
