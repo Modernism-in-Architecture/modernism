@@ -214,6 +214,28 @@ body {
     .content .rich-text {
         margin-bottom: 1rem;
     }
+    .modal {
+        padding: 1rem;
+    }
+    .modal-content {
+        width: 100%;
+        .modal-close, figure {
+            margin-top: 2.5rem;
+        }
+        .image-nav-btn {
+            margin-top: 2rem;
+        }
+        button {
+            border-radius: 10px;
+        }
+        #image-description, #image-photographer {
+            color: $white;
+        }
+        #image-photographer { 
+            font-size: small;
+            font-style: italic;
+        }
+    }
 }
 
 @media screen and (max-width: 840px) {

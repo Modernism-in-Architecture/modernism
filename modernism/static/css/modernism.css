@@ -7250,6 +7250,23 @@ body {
 .building .content .rich-text {
   margin-bottom: 1rem; }
 
+.building .modal {
+  padding: 1rem; }
+
+.building .modal-content {
+  width: 100%; }
+  .building .modal-content .modal-close, .building .modal-content figure {
+    margin-top: 2.5rem; }
+  .building .modal-content .image-nav-btn {
+    margin-top: 2rem; }
+  .building .modal-content button {
+    border-radius: 10px; }
+  .building .modal-content #image-description, .building .modal-content #image-photographer {
+    color: white; }
+  .building .modal-content #image-photographer {
+    font-size: small;
+    font-style: italic; }
+
 @media screen and (max-width: 840px) {
   .reverse-column-order {
     display: flex;

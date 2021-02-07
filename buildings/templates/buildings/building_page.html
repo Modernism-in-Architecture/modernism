@@ -3,7 +3,11 @@
 {% load navigation_tags static wagtailcore_tags wagtailimages_tags %}
 
 {% block body_class %}building{% endblock %}
-
+{% block extra_css %}
+<script type="application/javascript">
+  const buildingId = "{{ page.pk }}"
+</script>
+{% endblock %}
 {% block breadcrumbs %}
 <section class="breadcrumbs-section">
   <div class="container">
@@ -86,9 +90,25 @@
         <div class="content">
           {% for gallery_image in page.gallery_images %}
           {% if gallery_image.block_type == 'image' %}
-          {% image gallery_image.value.image fill-100x100 %}
+          {% image gallery_image.value.image max-1300x700 as large_img %}
+          {% image gallery_image.value.image fill-150x150 as thumb_img %}
+          <img src="{{ thumb_img.url }}" large-url="{{ large_img.url }}" index="{{ forloop.counter0 }}"
+            class="preview-image" />
           {% endif %}
           {% endfor %}
+        </div>
+      </div>
+    </div>
+    <div id="image-modal" class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-content has-text-centered">
+        <button id="close-button" class="modal-close is-large" aria-label="close">CLOSE</button>
+        <figure><img id="modal-image" src="" /></figure>
+        <p id="image-description"></p>
+        <p id="image-photographer"></p>
+        <div class="image-nav-btn">
+          <button id="btn-prev" class="button prev" onclick="setModalImage('prev')">&#10094;</button>
+          <button id="btn-next" class="button next" onclick="setModalImage('next')">&#10095;</button>
         </div>
       </div>
     </div>
