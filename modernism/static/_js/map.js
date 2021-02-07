@@ -8,7 +8,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 const markers = L.markerClusterGroup();
 
 async function getBuildingData() {
-    let response = await fetch(window.location.origin + "/api/v2/pages/?type=buildings.BuildingPage&fields=-gallery_images,lat_long");
+    let response = await fetch(window.location.origin + "/api/v2/pages/?type=buildings.BuildingPage&fields=-gallery_images,lat_long,name,address");
     let data = await response.json();
     return data;
 }
@@ -20,7 +20,7 @@ getBuildingData().then(data => {
         coord.push(langLong[0]);
         coord.push(langLong[1]);
         let marker = L.marker(coord);
-        marker.bindPopup('<a href=' + buildings[i].meta.html_url + '><p>' + buildings[i].name + ",<br>" + buildings[i].address + '</p></>').openPopup();
+        marker.bindPopup('<a href=' + window.location.origin + '/buildings/' + buildings[i].meta.slug + '><p>' + buildings[i].name + ",<br>" + buildings[i].address + '</p></>').openPopup();
         markers.addLayer(marker);
         map.addLayer(markers);
     }
