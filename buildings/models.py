@@ -274,6 +274,7 @@ class BuildingPage(Page):
         APIField("country"),
         APIField("address"),
         APIField("lat_long"),
+        APIField("gallery_images"),
     ]
 
     parent_page_types = ["buildings.BuildingsIndexPage"]
