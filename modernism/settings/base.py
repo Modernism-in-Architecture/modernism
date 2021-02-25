@@ -120,4 +120,4 @@ BASE_URL = "https://modernism-in-architecture.org"
 
 TAG_SPACES_ALLOWED = True
 
-WAGTAILAPI_LIMIT_MAX = 100
+WAGTAILAPI_LIMIT_MAX = 150
