@@ -59,7 +59,7 @@ $(env) python manage.py migrate
 ```bash
 $(env) python manage.py createsuperuser
 ```
-Please get in touch and we can provide a database dump to load into your local database, so do not need to create pages manually.
+Please get in touch and we can provide a database dump to load into your local database, so you do not need to create pages manually.
 
 ```bash
 $(env) python manage.py loaddata test_data.json
