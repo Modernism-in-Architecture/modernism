@@ -20,7 +20,7 @@ $ python3 --version
 Python 3.7.2
 ```
 
-If an older version nothing is found you will need to [update or install Python](https://realpython.com/installing-python/) first. 
+If an older version or nothing is found you will need to [update or install Python](https://realpython.com/installing-python/) first. 
 
 #### PostgreSQL
 Create a [postgreSQL](https://www.postgresqltutorial.com/install-postgresql/) database named "modernism". If you use `psql`, you can run
