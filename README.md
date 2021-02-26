@@ -7,7 +7,7 @@ The project is build with [Wagtail](https://wagtail.io/), a CMS powered by [Djan
 ## Setup the backend
 
 ### Prerequisites
-#### Python version >= 3.6
+#### Python version == 3.7.2 (runs on production atm with 3.7.6)
 
 To check the Python version on your system, run
 ```bash
@@ -20,7 +20,7 @@ $ python3 --version
 Python 3.7.2
 ```
 
-If an older version than 3.6 or nothing is found you will need to [update or install Python](https://realpython.com/installing-python/) first. 
+If an older version nothing is found you will need to [update or install Python](https://realpython.com/installing-python/) first. 
 
 #### PostgreSQL
 Create a [postgreSQL](https://www.postgresqltutorial.com/install-postgresql/) database named "modernism". If you use `psql`, you can run
@@ -55,8 +55,11 @@ $(env) python manage.py migrate
 ```
 
 #### Insert testdata
+
+Please get in touch and we can provide a database dump to load into your local database.
+
 ```bash
-$(env) python manage.py add_testdata
+$(env) python manage.py loaddata test_data.json
 ```
 
 #### Run the development server
