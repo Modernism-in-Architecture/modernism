@@ -54,21 +54,26 @@ $(env) pip install -r requirements.txt
 $(env) python manage.py migrate
 ```
 
-#### Insert testdata
+#### Create a superuser and insert testdata
 
-Please get in touch and we can provide a database dump to load into your local database.
+```bash
+$(env) python manage.py createsuperuser
+```
+Please get in touch and we can provide a database dump to load into your local database, so do not need to create pages manually.
 
 ```bash
 $(env) python manage.py loaddata test_data.json
 ```
 
 #### Run the development server
+
 ```bash
 $(env) python manage.py runserver
 ```
 
 #### Admin login
-You can login into the project's admin with the created superuser (superuser, PW: superuser) at `http://127.0.0.1:8000/admin`.
+
+You can login into the project's admin with the created superuser at `http://127.0.0.1:8000/admin`.
 
 ## Setup the frontend
 
