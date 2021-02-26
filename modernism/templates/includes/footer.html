@@ -8,6 +8,11 @@
         </a>
       </div>
       <div class="column is-narrow">
+        <a class="{% if page.slug == 'intro'%}active{% endif %}" href="{% slugurl 'intro' %}">
+          Intro
+        </a>
+      </div>
+      <div class="column is-narrow">
         <a class="{% if page.slug == 'legal-info'%}active{% endif %}" href="{% slugurl 'legal-info' %}">
           Legal info
         </a>
