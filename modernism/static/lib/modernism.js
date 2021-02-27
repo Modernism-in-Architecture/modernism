@@ -21,6 +21,13 @@ const addClickEventListenerToBurgerMenu = () => {
     NAV_BURGER.addEventListener('click', toggleBurgerMenu);
 };
 
+const showCityMenu = () => {
+    if (countryTag) {
+        let countryList = document.getElementById(countryTag);
+        countryList.classList.toggle('show');
+    }
+};
+
 const addClickEventListenerToDropdownLinks = () => {
     const dropdownLinksBuildings = document.querySelectorAll('.dropdown-link');
     const dropdownLinksFacts = document.querySelectorAll('.fact-dropdown-link');
@@ -119,6 +126,7 @@ addClickEventListenerToDropdownLinks();
 addClickEventListenerToBuildingImages();
 addClickEventListenerToModalCloseButton();
 getBuildingObject();
+showCityMenu();
 
 window.onload = () => {
     const currentMenuItem = document.querySelector(".active");
