@@ -23,12 +23,19 @@ const addClickEventListenerToBurgerMenu = () => {
     NAV_BURGER.addEventListener('click', toggleBurgerMenu);
 }
 
+const showCityMenu = () => {
+    if (countryTag) {
+        let countryList = document.getElementById(countryTag);
+        countryList.classList.toggle('show');
+    }
+}
+
 const addClickEventListenerToDropdownLinks = () => {
     const dropdownLinksBuildings = document.querySelectorAll('.dropdown-link');
     const dropdownLinksFacts = document.querySelectorAll('.fact-dropdown-link');
     dropdownLinksBuildings.forEach(link => {
         link.addEventListener('click', (event) => {
-            event.preventDefault();
+            event.preventDefault();            
             link.nextElementSibling.classList.toggle('show');
             if (link.children[0].classList.contains('fa-chevron-down')) {
                 link.children[0].classList.replace("fa-chevron-down", "fa-chevron-up");
@@ -124,6 +131,7 @@ addClickEventListenerToDropdownLinks();
 addClickEventListenerToBuildingImages();
 addClickEventListenerToModalCloseButton();
 getBuildingObject();
+showCityMenu();
 
 window.onload = () => {
     const currentMenuItem = document.querySelector(".active")

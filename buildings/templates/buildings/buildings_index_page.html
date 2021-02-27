@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 
 {% load navigation_tags static wagtailcore_tags wagtailimages_tags %}
-
+{% block extra_css %}
+<script>
+  const countryTag = "{{ tag_country_name }}"
+</script>
+{% endblock %}
 {% block body_class %}buildings{% endblock %}
 
 {% block breadcrumbs %}
@@ -33,7 +37,7 @@
                 <li>
                   <a class="item {% if selected_architect_id == architect.id|stringformat:'s' %}active{% endif %}"
                     href="{% pageurl page %}?architect={{architect.id}}">
-                    #{{architect.last_name}}{% if architect.first_name %},{{architect.first_name}}{% endif %}
+                    {{architect.last_name}}{% if architect.first_name %}, {{architect.first_name}}{% endif %}
                   </a>
                 </li>
                 {% endfor %}
@@ -44,7 +48,7 @@
               <ul class="link-content">
                 {% for type in types %}
                 <li><a class="item {% if selected_tag == type.name %}active{% endif %}"
-                    href="{% pageurl page %}?tag={{type.name}}">#{{type.name}}</a></li>
+                    href="{% pageurl page %}?tag={{type.name}}">{{type.name}}</a></li>
                 {% endfor %}
               </ul>
             </li>
@@ -53,20 +57,24 @@
               <ul class="link-content">
                 {% for year in years %}
                 <li><a class="item {% if selected_tag == year %}active{% endif %}"
-                    href="{% pageurl page %}?tag={{year}}">#{{year}}</a></li>
+                    href="{% pageurl page %}?tag={{year}}">{{year}}</a></li>
                 {% endfor %}
               </ul>
             </li>
 
             {% for country in countries %}
-            <li><a href="" class="dropdown-link filter-category">{{country.country.name}}
-                <i class="fas fa-chevron-down"></i></a>
-              <ul class="link-content">
-                <li><a class="item {% if selected_tag == country.country.name %}active{% endif %}"
-                    href="{% pageurl page %}?tag={{country.country.name}}">All places</a></li>
+            <li class="country-list">
+              <a href="{% pageurl page %}?tag={{country.country.name}}" class="filter-category item {% if selected_tag == country.country.name %}active{% endif %}">
+                {{country.country.name}}
+                <i class="fas fa-chevron-down"></i>
+              </a>
+              <ul id="{{country.country.name}}" class="link-content">
                 {% for city in country.cities.all %}
-                <li><a class="item {% if selected_tag == city.name %}active{% endif %}"
-                    href="{% pageurl page %}?tag={{city.name}}">#{{city.name}}</a></li>
+                <li>
+                  <a class="item {% if selected_tag == city.name %}active{% endif %}" href="{% pageurl page %}?tag={{city.name}}">
+                    {{city.name}}
+                  </a>
+                </li>
                 {% endfor %}
               </ul>
             </li>
