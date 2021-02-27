@@ -31,9 +31,8 @@ class Tag(TaggitTag):
 
 class BuildingType(models.Model):
     name = models.CharField(max_length=255)
-    panels = [
-        FieldPanel("name"),
-    ]
+    description = RichTextField(blank=True)
+    panels = [FieldPanel("name"), FieldPanel("description", classname="full")]
 
     def __str__(self):
         return self.name
@@ -117,6 +116,7 @@ class BuildingsIndexPage(Page):
         tag = request.GET.get("tag")
         buildings = BuildingPage.objects.live().order_by("-first_published_at")
         tag_country_name = ""
+        tag_building_type = BuildingType.objects.filter(name=tag).first()
 
         if tag:
             buildings = buildings.filter(tags__name=tag)
@@ -132,6 +132,7 @@ class BuildingsIndexPage(Page):
 
         context["buildings"] = buildings
         context["tag_country_name"] = tag_country_name
+        context["tag_building_type"] = tag_building_type
         context["architects"] = ArchitectPage.objects.exclude(buildings=None).order_by(
             "last_name"
         )
@@ -294,6 +295,16 @@ class BuildingPage(Page):
     @property
     def get_tags(self):
         tags = self.tags.all()
+        for tag in tags:
+            tag.url = "/" + "/".join(
+                s.strip("/") for s in [self.get_parent().url, "tags", tag.slug]
+            )
+        return tags
+
+    @property
+    def get_teaser_tags(self):
+        types = BuildingType.objects.all().values_list("name", flat=True)
+        tags = self.tags.exclude(name__in=types)
         for tag in tags:
             tag.url = "/" + "/".join(
                 s.strip("/") for s in [self.get_parent().url, "tags", tag.slug]

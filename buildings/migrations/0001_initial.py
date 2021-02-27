@@ -15,118 +15,260 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('wagtailcore', '0045_assign_unlock_grouppagepermission'),
-        ('taggit', '0003_taggeditem_add_unique_index'),
+        ("wagtailcore", "0045_assign_unlock_grouppagepermission"),
+        ("taggit", "0003_taggeditem_add_unique_index"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='BuildingPage',
+            name="BuildingPage",
             fields=[
-                ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
-                ('name', models.CharField(max_length=250, unique=True)),
-                ('description', wagtail.core.fields.RichTextField(blank=True)),
-                ('year_of_construction', models.CharField(blank=True, max_length=4)),
-                ('directions', wagtail.core.fields.RichTextField(blank=True)),
-                ('address', models.TextField(blank=True, help_text='Please, provide a street name and number.')),
-                ('zip_code', models.CharField(default='00000', max_length=10)),
-                ('lat_long', models.CharField(help_text="Comma separated lat/long. (Ex. 64.144367, -21.939182)                    Right click Google Maps and select 'What's Here'", max_length=36, validators=[django.core.validators.RegexValidator(code='invalid_lat_long', message='Lat Long must be a comma-separated numeric lat and long', regex='^(\\-?\\d+(\\.\\d+)?),\\s*(\\-?\\d+(\\.\\d+)?)$')])),
-                ('gallery_images', wagtail.core.fields.StreamField([('image', wagtail.core.blocks.StructBlock([('image', wagtail.images.blocks.ImageChooserBlock()), ('description', wagtail.core.blocks.TextBlock(required=False)), ('photographer', wagtail.core.blocks.CharBlock(required=False))]))], blank=True)),
+                (
+                    "page_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="wagtailcore.Page",
+                    ),
+                ),
+                ("name", models.CharField(max_length=250, unique=True)),
+                ("description", wagtail.core.fields.RichTextField(blank=True)),
+                ("year_of_construction", models.CharField(blank=True, max_length=4)),
+                ("directions", wagtail.core.fields.RichTextField(blank=True)),
+                (
+                    "address",
+                    models.TextField(
+                        blank=True,
+                        help_text="Please, provide a street name and number.",
+                    ),
+                ),
+                ("zip_code", models.CharField(default="00000", max_length=10)),
+                (
+                    "lat_long",
+                    models.CharField(
+                        help_text="Comma separated lat/long. (Ex. 64.144367, -21.939182)                    Right click Google Maps and select 'What's Here'",
+                        max_length=36,
+                        validators=[
+                            django.core.validators.RegexValidator(
+                                code="invalid_lat_long",
+                                message="Lat Long must be a comma-separated numeric lat and long",
+                                regex="^(\\-?\\d+(\\.\\d+)?),\\s*(\\-?\\d+(\\.\\d+)?)$",
+                            )
+                        ],
+                    ),
+                ),
+                (
+                    "gallery_images",
+                    wagtail.core.fields.StreamField(
+                        [
+                            (
+                                "image",
+                                wagtail.core.blocks.StructBlock(
+                                    [
+                                        (
+                                            "image",
+                                            wagtail.images.blocks.ImageChooserBlock(),
+                                        ),
+                                        (
+                                            "description",
+                                            wagtail.core.blocks.TextBlock(
+                                                required=False
+                                            ),
+                                        ),
+                                        (
+                                            "photographer",
+                                            wagtail.core.blocks.CharBlock(
+                                                required=False
+                                            ),
+                                        ),
+                                    ]
+                                ),
+                            )
+                        ],
+                        blank=True,
+                    ),
+                ),
             ],
-            options={
-                'abstract': False,
-            },
-            bases=('wagtailcore.page',),
+            options={"abstract": False,},
+            bases=("wagtailcore.page",),
         ),
         migrations.CreateModel(
-            name='BuildingPageArchitectRelation',
+            name="BuildingPageArchitectRelation",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='BuildingPageDeveloperRelation',
+            name="BuildingPageDeveloperRelation",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='BuildingPageOwnerRelation',
+            name="BuildingPageOwnerRelation",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='BuildingsIndexPage',
+            name="BuildingsIndexPage",
             fields=[
-                ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
+                (
+                    "page_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="wagtailcore.Page",
+                    ),
+                ),
             ],
-            options={
-                'abstract': False,
-            },
-            bases=('wagtailcore.page',),
+            options={"abstract": False,},
+            bases=("wagtailcore.page",),
         ),
         migrations.CreateModel(
-            name='BuildingType',
+            name="BuildingType",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=255)),
             ],
-            options={
-                'verbose_name_plural': 'Building types',
-            },
+            options={"verbose_name_plural": "Building types",},
         ),
         migrations.CreateModel(
-            name='Country',
+            name="Country",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('country', django_countries.fields.CountryField(max_length=2, unique=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "country",
+                    django_countries.fields.CountryField(max_length=2, unique=True),
+                ),
             ],
-            options={
-                'verbose_name_plural': 'Countries',
-            },
+            options={"verbose_name_plural": "Countries",},
         ),
         migrations.CreateModel(
-            name='PlacesIndexPage',
+            name="PlacesIndexPage",
             fields=[
-                ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
+                (
+                    "page_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="wagtailcore.Page",
+                    ),
+                ),
             ],
-            options={
-                'abstract': False,
-            },
-            bases=('wagtailcore.page',),
+            options={"abstract": False,},
+            bases=("wagtailcore.page",),
         ),
         migrations.CreateModel(
-            name='Tag',
-            fields=[
-            ],
-            options={
-                'proxy': True,
-                'indexes': [],
-                'constraints': [],
-            },
-            bases=('taggit.tag',),
+            name="Tag",
+            fields=[],
+            options={"proxy": True, "indexes": [], "constraints": [],},
+            bases=("taggit.tag",),
         ),
         migrations.CreateModel(
-            name='City',
+            name="City",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100)),
-                ('country', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='cities', to='buildings.Country')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=100)),
+                (
+                    "country",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="cities",
+                        to="buildings.Country",
+                    ),
+                ),
             ],
-            options={
-                'verbose_name_plural': 'Cities',
-            },
+            options={"verbose_name_plural": "Cities",},
         ),
         migrations.CreateModel(
-            name='BuildingPageTag',
+            name="BuildingPageTag",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('content_object', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='tagged_items', to='buildings.BuildingPage')),
-                ('tag', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='buildings_buildingpagetag_items', to='taggit.Tag')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "content_object",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="tagged_items",
+                        to="buildings.BuildingPage",
+                    ),
+                ),
+                (
+                    "tag",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="buildings_buildingpagetag_items",
+                        to="taggit.Tag",
+                    ),
+                ),
             ],
-            options={
-                'abstract': False,
-            },
+            options={"abstract": False,},
         ),
     ]

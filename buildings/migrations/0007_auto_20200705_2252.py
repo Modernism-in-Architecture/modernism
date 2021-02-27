@@ -6,13 +6,16 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('buildings', '0006_buildingpage_access_type'),
+        ("buildings", "0006_buildingpage_access_type"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='buildingpage',
-            name='directions',
-            field=models.TextField(blank=True, help_text='Note here how to get there, public transport information or alike.'),
+            model_name="buildingpage",
+            name="directions",
+            field=models.TextField(
+                blank=True,
+                help_text="Note here how to get there, public transport information or alike.",
+            ),
         ),
     ]

@@ -1,26 +1,29 @@
 {% load el_pagination_tags static wagtailcore_tags wagtailimages_tags %}
+
 {% lazy_paginate 6 buildings %}
+
 {% for building in buildings %}
-<div class="column column is-half-tablet is-one-third-desktop">
-  <a href="{% pageurl building %}" alt="{{building.title}}">
-    <div class="card">
-      <div class="card-image">
-        <figure class="image is-marginless is-square">
-          {% image building.feed_image fill-500x500-c100 %}
-        </figure>
-      </div>
-      <div class="card-content">
-        <div class="content">
-          <h5 class="is-marginless">{{building.title}}{% if building.architect %},
-            {{building.architect}}{% endif %}</h5>
-          {% for tag in building.get_tags %}
-          <a href="{% pageurl page %}?tag={{ tag }}"> #{{tag}} </a>
-          {% endfor %}
-        </div>
-      </div>
+    <div class="column column is-half-tablet is-one-third-desktop">
+        <a href="{% pageurl building %}" alt="{{building.title}}">
+            <div class="card">
+                <div class="card-image">
+                    <figure class="image is-marginless is-square">
+                        {% image building.feed_image fill-500x500-c100 %}
+                    </figure>
+                </div>
+                <div class="card-content">
+                    <div class="content">
+                    <h5 class="is-marginless">
+                    {{building.title}}{% if building.architect %}, {{building.architect}}{% endif %}
+                    </h5>
+                    {% for tag in building.get_teaser_tags %}
+                        <a href="{% pageurl page %}?tag={{ tag }}"> #{{tag}} </a>
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </a>
     </div>
-  </a>
-</div>
 {% endfor %}
 
 {% show_more %}

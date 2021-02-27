@@ -6,28 +6,31 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('people', '0001_initial'),
+        ("people", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='personpage',
-            name='birth_year_known_only',
+            model_name="personpage",
+            name="birth_year_known_only",
             field=models.BooleanField(default=False),
         ),
         migrations.AddField(
-            model_name='personpage',
-            name='death_year_known_only',
+            model_name="personpage",
+            name="death_year_known_only",
             field=models.BooleanField(default=False),
         ),
         migrations.AlterField(
-            model_name='personpage',
-            name='first_name',
+            model_name="personpage",
+            name="first_name",
             field=models.CharField(blank=True, max_length=250),
         ),
         migrations.AlterField(
-            model_name='personpage',
-            name='last_name',
-            field=models.CharField(help_text='You can add a company name here if appropriate.', max_length=250),
+            model_name="personpage",
+            name="last_name",
+            field=models.CharField(
+                help_text="You can add a company name here if appropriate.",
+                max_length=250,
+            ),
         ),
     ]

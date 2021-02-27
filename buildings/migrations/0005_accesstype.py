@@ -6,18 +6,24 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('buildings', '0004_auto_20200705_1938'),
+        ("buildings", "0004_auto_20200705_1938"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='AccessType',
+            name="AccessType",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=255)),
             ],
-            options={
-                'verbose_name_plural': 'Access types',
-            },
+            options={"verbose_name_plural": "Access types",},
         ),
     ]

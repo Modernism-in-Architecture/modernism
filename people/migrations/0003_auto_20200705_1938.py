@@ -6,43 +6,68 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('people', '0002_auto_20200705_1658'),
+        ("people", "0002_auto_20200705_1658"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='personpage',
-            name='birth_year_known_only',
-            field=models.BooleanField(default=False, help_text='Tick the box if you only know the birth year.'),
+            model_name="personpage",
+            name="birth_year_known_only",
+            field=models.BooleanField(
+                default=False, help_text="Tick the box if you only know the birth year."
+            ),
         ),
         migrations.AlterField(
-            model_name='personpage',
-            name='birthday',
-            field=models.DateField(blank=True, help_text='If you only know the year, just set a random value for month and day, but tick the following box.', null=True, verbose_name='Birthday'),
+            model_name="personpage",
+            name="birthday",
+            field=models.DateField(
+                blank=True,
+                help_text="If you only know the year, just set a random value for month and day, but tick the following box.",
+                null=True,
+                verbose_name="Birthday",
+            ),
         ),
         migrations.AlterField(
-            model_name='personpage',
-            name='day_of_death',
-            field=models.DateField(blank=True, help_text='If you only know the year, just set a random value for month and day, but tick the following box.', null=True, verbose_name='Day of Death'),
+            model_name="personpage",
+            name="day_of_death",
+            field=models.DateField(
+                blank=True,
+                help_text="If you only know the year, just set a random value for month and day, but tick the following box.",
+                null=True,
+                verbose_name="Day of Death",
+            ),
         ),
         migrations.AlterField(
-            model_name='personpage',
-            name='death_year_known_only',
-            field=models.BooleanField(default=False, help_text='Tick the box if you only know the birth year.'),
+            model_name="personpage",
+            name="death_year_known_only",
+            field=models.BooleanField(
+                default=False, help_text="Tick the box if you only know the birth year."
+            ),
         ),
         migrations.AlterField(
-            model_name='personpage',
-            name='last_name',
-            field=models.CharField(help_text='You can add a company name here too if appropriate.', max_length=250),
+            model_name="personpage",
+            name="last_name",
+            field=models.CharField(
+                help_text="You can add a company name here too if appropriate.",
+                max_length=250,
+            ),
         ),
         migrations.AlterField(
-            model_name='personpage',
-            name='place_of_birth',
-            field=models.CharField(blank=True, help_text="Add in following format: city, country. E.g. 'Leipzig, Germany'", max_length=100),
+            model_name="personpage",
+            name="place_of_birth",
+            field=models.CharField(
+                blank=True,
+                help_text="Add in following format: city, country. E.g. 'Leipzig, Germany'",
+                max_length=100,
+            ),
         ),
         migrations.AlterField(
-            model_name='personpage',
-            name='place_of_death',
-            field=models.CharField(blank=True, help_text="Add in following format: city, country. E.g. 'Leipzig, Germany'", max_length=100),
+            model_name="personpage",
+            name="place_of_death",
+            field=models.CharField(
+                blank=True,
+                help_text="Add in following format: city, country. E.g. 'Leipzig, Germany'",
+                max_length=100,
+            ),
         ),
     ]

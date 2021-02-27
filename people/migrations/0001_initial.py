@@ -10,97 +10,178 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('wagtailcore', '0045_assign_unlock_grouppagepermission'),
-        ('wagtailimages', '0001_squashed_0021'),
+        ("wagtailcore", "0045_assign_unlock_grouppagepermission"),
+        ("wagtailimages", "0001_squashed_0021"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='ArchitectsIndexPage',
+            name="ArchitectsIndexPage",
             fields=[
-                ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
+                (
+                    "page_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="wagtailcore.Page",
+                    ),
+                ),
             ],
-            options={
-                'abstract': False,
-            },
-            bases=('wagtailcore.page',),
+            options={"abstract": False,},
+            bases=("wagtailcore.page",),
         ),
         migrations.CreateModel(
-            name='BuildingOwnersIndexPage',
+            name="BuildingOwnersIndexPage",
             fields=[
-                ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
+                (
+                    "page_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="wagtailcore.Page",
+                    ),
+                ),
             ],
-            options={
-                'abstract': False,
-            },
-            bases=('wagtailcore.page',),
+            options={"abstract": False,},
+            bases=("wagtailcore.page",),
         ),
         migrations.CreateModel(
-            name='DevelopersIndexPage',
+            name="DevelopersIndexPage",
             fields=[
-                ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
+                (
+                    "page_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="wagtailcore.Page",
+                    ),
+                ),
             ],
-            options={
-                'abstract': False,
-            },
-            bases=('wagtailcore.page',),
+            options={"abstract": False,},
+            bases=("wagtailcore.page",),
         ),
         migrations.CreateModel(
-            name='PersonPage',
+            name="PersonPage",
             fields=[
-                ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
-                ('first_name', models.CharField(max_length=250)),
-                ('last_name', models.CharField(max_length=250)),
-                ('birthday', models.DateField(blank=True, null=True, verbose_name='Birthday')),
-                ('place_of_birth', models.CharField(blank=True, max_length=100)),
-                ('place_of_death', models.CharField(blank=True, max_length=100)),
-                ('day_of_death', models.DateField(blank=True, null=True, verbose_name='Day of Death')),
-                ('description', wagtail.core.fields.RichTextField(blank=True)),
-                ('image', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailimages.Image')),
+                (
+                    "page_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="wagtailcore.Page",
+                    ),
+                ),
+                ("first_name", models.CharField(max_length=250)),
+                ("last_name", models.CharField(max_length=250)),
+                (
+                    "birthday",
+                    models.DateField(blank=True, null=True, verbose_name="Birthday"),
+                ),
+                ("place_of_birth", models.CharField(blank=True, max_length=100)),
+                ("place_of_death", models.CharField(blank=True, max_length=100)),
+                (
+                    "day_of_death",
+                    models.DateField(
+                        blank=True, null=True, verbose_name="Day of Death"
+                    ),
+                ),
+                ("description", wagtail.core.fields.RichTextField(blank=True)),
+                (
+                    "image",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="+",
+                        to="wagtailimages.Image",
+                    ),
+                ),
             ],
-            options={
-                'abstract': False,
-            },
-            bases=('wagtailcore.page',),
+            options={"abstract": False,},
+            bases=("wagtailcore.page",),
         ),
         migrations.CreateModel(
-            name='PersonsIndexPage',
+            name="PersonsIndexPage",
             fields=[
-                ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
+                (
+                    "page_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="wagtailcore.Page",
+                    ),
+                ),
             ],
-            options={
-                'abstract': False,
-            },
-            bases=('wagtailcore.page',),
+            options={"abstract": False,},
+            bases=("wagtailcore.page",),
         ),
         migrations.CreateModel(
-            name='ArchitectPage',
+            name="ArchitectPage",
             fields=[
-                ('personpage_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='people.PersonPage')),
+                (
+                    "personpage_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="people.PersonPage",
+                    ),
+                ),
             ],
-            options={
-                'abstract': False,
-            },
-            bases=('people.personpage',),
+            options={"abstract": False,},
+            bases=("people.personpage",),
         ),
         migrations.CreateModel(
-            name='BuildingOwnerPage',
+            name="BuildingOwnerPage",
             fields=[
-                ('personpage_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='people.PersonPage')),
+                (
+                    "personpage_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="people.PersonPage",
+                    ),
+                ),
             ],
-            options={
-                'abstract': False,
-            },
-            bases=('people.personpage',),
+            options={"abstract": False,},
+            bases=("people.personpage",),
         ),
         migrations.CreateModel(
-            name='DeveloperPage',
+            name="DeveloperPage",
             fields=[
-                ('personpage_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='people.PersonPage')),
+                (
+                    "personpage_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="people.PersonPage",
+                    ),
+                ),
             ],
-            options={
-                'abstract': False,
-            },
-            bases=('people.personpage',),
+            options={"abstract": False,},
+            bases=("people.personpage",),
         ),
     ]

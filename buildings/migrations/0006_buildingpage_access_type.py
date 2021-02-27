@@ -7,13 +7,18 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('buildings', '0005_accesstype'),
+        ("buildings", "0005_accesstype"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='buildingpage',
-            name='access_type',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='buildings.AccessType'),
+            model_name="buildingpage",
+            name="access_type",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to="buildings.AccessType",
+            ),
         ),
     ]

@@ -34,4 +34,3 @@ class Command(BaseCommand):
                 image.save()
 
         self.stdout.write(self.style.SUCCESS("Successfully updated tags of images."))
-

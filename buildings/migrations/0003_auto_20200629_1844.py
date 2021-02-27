@@ -7,18 +7,18 @@ import wagtail.core.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('buildings', '0002_auto_20200618_2247'),
+        ("buildings", "0002_auto_20200618_2247"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='city',
-            name='description',
+            model_name="city",
+            name="description",
             field=wagtail.core.fields.RichTextField(blank=True),
         ),
         migrations.AddField(
-            model_name='country',
-            name='description',
+            model_name="country",
+            name="description",
             field=wagtail.core.fields.RichTextField(blank=True),
         ),
     ]

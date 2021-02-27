@@ -26,4 +26,3 @@ class Command(BaseCommand):
                     f"Successfully added feed image to {building.name} gallery."
                 )
             )
-
