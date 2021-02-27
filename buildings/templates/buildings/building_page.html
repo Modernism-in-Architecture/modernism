@@ -36,8 +36,7 @@
           <p>
             {% for architect in page.architects.all %}
             <a href="{% pageurl architect.architect %}" alt="{{architect.architect}}">
-              {{architect.architect}}
-            </a>{% if not forloop.last %}, {% endif %}
+              {{architect.architect}}</a>{% if not forloop.last %},{% endif %}
             {% endfor %}
           </p>
           {% endif %}
