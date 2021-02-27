@@ -1,6 +1,7 @@
 from django.core.validators import RegexValidator
 from django.db import models
 from django.utils.text import slugify
+from django_countries import countries
 from django_countries.fields import CountryField
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
@@ -104,15 +105,24 @@ class BuildingsIndexPage(Page):
     ajax_template = "buildings/buildings_list_page.html"
     template = "buildings/buildings_index_page.html"
 
+    def _get_country_code(self, tag_country):
+        for code, country in dict(countries).items():
+            if tag_country == country:
+                return code
+
     def get_context(self, request):
         context = super().get_context(request)
 
         architect_id = request.GET.get("architect")
         tag = request.GET.get("tag")
         buildings = BuildingPage.objects.live().order_by("-first_published_at")
+        tag_country_name = ""
 
         if tag:
             buildings = buildings.filter(tags__name=tag)
+            country_code = self._get_country_code(tag)
+            if Country.objects.filter(country=country_code).exists():
+                tag_country_name = tag
 
         if architect_id:
             buildings = buildings.filter(architects__architect__id=architect_id)
@@ -121,6 +131,7 @@ class BuildingsIndexPage(Page):
             ).first()
 
         context["buildings"] = buildings
+        context["tag_country_name"] = tag_country_name
         context["architects"] = ArchitectPage.objects.exclude(buildings=None).order_by(
             "last_name"
         )
