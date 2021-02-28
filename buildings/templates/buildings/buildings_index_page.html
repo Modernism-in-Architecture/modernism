@@ -65,7 +65,7 @@
             </li>
 
             {% for country in countries %}
-                <li class="country-list">
+                <li class="country-list {% if forloop.first %}country-on-top{% endif %}">
                     <a href="{% pageurl page %}?tag={{country.country.name}}"
                         class="filter-category item {% if selected_tag == country.country.name %}active{% endif %}">
                         {{country.country.name}}
