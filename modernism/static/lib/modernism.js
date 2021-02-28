@@ -121,6 +121,26 @@ const setModalImage = direction => {
     }
 };
 
+//Get the button
+let mybutton = document.getElementById("myBtn");
+// When scroll down 100px from the top of the document, show the button
+window.onscroll = function () {
+    scrollFunction();
+};
+
+function scrollFunction() {
+    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+        mybutton.style.display = "block";
+    } else {
+        mybutton.style.display = "none";
+    }
+}
+// When clicks on the button, scroll to the top of the document
+function topFunction() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+}
+
 addClickEventListenerToBurgerMenu();
 addClickEventListenerToDropdownLinks();
 addClickEventListenerToBuildingImages();
