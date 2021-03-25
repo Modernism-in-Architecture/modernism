@@ -7910,6 +7910,9 @@ body {
 .building .building-address {
   margin-top: 1rem; }
 
+.building .building-tag {
+  text-decoration: none; }
+
 .building .content .people {
   margin-top: 1rem;
   margin-bottom: 0; }

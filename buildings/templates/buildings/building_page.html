@@ -20,7 +20,7 @@
         {% image page.feed_image fill-600x400 %}
         <p>
           {% for tag in page.get_tags %}
-          <a href="{% slugurl 'buildings' %}?tag={{ tag }}"> #{{tag}} </a>
+          <a class="building-tag" href="{% slugurl 'buildings' %}?tag={{ tag }}"> #{{tag}} </a>
           {% endfor %}
         </p>
       </div>
@@ -47,16 +47,6 @@
             <a href="{% pageurl developer.developer %}"
               alt="{{developer.developer.first_name}} {{developer.developer.last_name}}">
               {{developer.developer.first_name}} {{developer.developer.last_name}}
-            </a>{% if not forloop.last %}, {% endif %}
-            {% endfor %}
-          </p>
-          {% endif %}
-          {% if page.owners.count > 0 %}
-          <h4 class="people">Owners</h4>
-          <p>
-            {% for owner in page.owners.all %}
-            <a href="{% pageurl owner.owner %}" alt="{{owner.owner.first_name}} {{owner.owner.last_name}}">
-              {{owner.owner.first_name}} {{owner.owner.last_name}}
             </a>{% if not forloop.last %}, {% endif %}
             {% endfor %}
           </p>
