@@ -1,0 +1,12 @@
+{% load navigation_tags wagtailcore_tags %}
+
+
+{% for menuitem in menuitems %}
+    <a class="navbar-item is-uppercase {% if menuitem.active %} is-active{% endif %}" href="{% pageurl menuitem %}">
+        {{ menuitem.title }}
+    </a>
+{% endfor %}
+    <a class="navbar-item" href="https://www.instagram.com/modernism_in_architecture/" target="_blank"
+        rel="noreferrer noopener"><i class="fab fa-instagram"></i></a>
+    <a class="navbar-item" href="https://github.com/normade/modernism/" target="_blank" rel="noreferrer noopener"><i
+        class="fab fa-github"></i></a>
