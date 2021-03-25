@@ -34,33 +34,32 @@
         <div class="content">
           <div class="columns is-multiline is-centered">
             {% for fact in facts %}
-            <div class="column column is-half-tablet is-3-desktop">
-              <div class="card">
-                {% if fact.image %}
-                <div class="card-image">
-                  <figure class="image is-marginless is-square">
-                    {% image fact.image fill-200x200-c100 %}
-                  </figure>
-                </div>
-                {% endif %}
-                <div class="card-content">
-                  <div class="content">
-                    <h5 class="is-marginless">{{ fact.title }}</h5>
-                    {% for tag in fact.get_tags %}
-                    <a href="{% pageurl page %}?tag={{ tag }}">
-                      #{{tag}}</a>
-                    {% endfor %}
-                    <br>
-                    {% if fact.description %}
-                    <div class="has-text-centered fact-dropdown-link">
-                      <a><i class="fas fa-chevron-down"></i></a>
-                    </div>
-                    <div class="facts-content">{{ fact.description|richtext }}</div>
+                <div class="column column is-half-tablet is-5-desktop">
+                <div class="card">
+                    {% if fact.image %}
+                        <div class="card-image">
+                            <figure class="image is-marginless is-square">
+                                {% image fact.image fill-200x200-c100 %}
+                            </figure>
+                        </div>
                     {% endif %}
-                  </div>
+                    <div class="card-content">
+                    <div class="content">
+                        <h5 class="is-marginless">{{ fact.title }}</h5>
+                        {% comment %} {% for tag in fact.get_tags %}
+                            <a class="facts-tag" href="{% pageurl page %}?tag={{ tag }}">
+                            #{{tag|lower}}</a>
+                        {% endfor %} {% endcomment %}
+                        {% if fact.description %}
+                            <div class="has-text-centered fact-dropdown-link">
+                                <a><i class="fas fa-chevron-down"></i></a>
+                            </div>
+                            <div class="facts-content">{{ fact.description|richtext }}</div>
+                        {% endif %}
+                    </div>
+                    </div>
                 </div>
-              </div>
-            </div>
+                </div>
             {% endfor %}
           </div>
         </div>
