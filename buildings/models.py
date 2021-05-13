@@ -1,10 +1,12 @@
+from django import forms
+from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.core.validators import RegexValidator
 from django.db import models
 from django.utils.text import slugify
 from django_countries import countries
 from django_countries.fields import CountryField
 from modelcluster.contrib.taggit import ClusterTaggableManager
-from modelcluster.fields import ParentalKey
+from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from people.models import ArchitectPage, BuildingOwnerPage, DeveloperPage
 from taggit.models import Tag as TaggitTag
 from taggit.models import TaggedItemBase
@@ -211,6 +213,44 @@ class BuildingPageDeveloperRelation(models.Model):
         unique_together = ("page", "developer")
 
 
+class Feature(models.Model):
+    name = models.CharField(max_length=250, unique=True)
+
+    class Meta:
+        abstract = True
+
+    def __str__(self):
+        return self.name
+
+    panels = [
+        FieldPanel("name"),
+    ]
+
+
+class ConstructionType(Feature):
+    pass
+
+
+class Facade(Feature):
+    pass
+
+
+class Roof(Feature):
+    pass
+
+
+class Window(Feature):
+    pass
+
+
+class Detail(Feature):
+    pass
+
+
+class Position(Feature):
+    pass
+
+
 class BuildingPage(Page):
     name = models.CharField(max_length=250, unique=True)
     building_type = models.ForeignKey(
@@ -218,6 +258,16 @@ class BuildingPage(Page):
     )
     access_type = models.ForeignKey(
         AccessType, on_delete=models.SET_NULL, null=True, blank=True,
+    )
+    protected_monument = models.BooleanField(default=False)
+    storey = models.IntegerField(null=True, blank=True)
+    positions = ParentalManyToManyField("buildings.Position", blank=True)
+    details = ParentalManyToManyField("buildings.Detail", blank=True)
+    windows = ParentalManyToManyField("buildings.Window", blank=True)
+    roofs = ParentalManyToManyField("buildings.Roof", blank=True)
+    facades = ParentalManyToManyField("buildings.Facade", blank=True)
+    construction_types = ParentalManyToManyField(
+        "buildings.ConstructionType", blank=True
     )
     todays_use = models.CharField(max_length=300, blank=True)
     description = RichTextField(blank=True)
@@ -259,7 +309,6 @@ class BuildingPage(Page):
 
     content_panels = [
         FieldPanel("name"),
-        FieldPanel("building_type"),
         MultiFieldPanel(
             [
                 FieldRowPanel([FieldPanel("zip_code"), FieldPanel("country"),]),
@@ -269,14 +318,39 @@ class BuildingPage(Page):
             ],
             heading="Address",
         ),
-        InlinePanel("architects", label="Architects"),
-        InlinePanel("developers", label="Developers"),
-        InlinePanel("owners", label="Owners"),
-        FieldPanel("year_of_construction"),
-        FieldPanel("access_type"),
-        FieldPanel("todays_use"),
-        ImageChooserPanel("feed_image"),
+        MultiFieldPanel(
+            [
+                FieldPanel("building_type"),
+                FieldPanel("protected_monument"),
+                FieldRowPanel(
+                    [FieldPanel("storey"), FieldPanel("year_of_construction"),]
+                ),
+                FieldRowPanel([FieldPanel("access_type"), FieldPanel("todays_use"),]),
+                FieldPanel(
+                    "positions",
+                    widget=FilteredSelectMultiple("verbose name", is_stacked=False),
+                ),
+                FieldPanel("construction_types", widget=forms.CheckboxSelectMultiple),
+                FieldRowPanel(
+                    [
+                        FieldPanel("windows", widget=forms.CheckboxSelectMultiple),
+                        FieldPanel("roofs", widget=forms.CheckboxSelectMultiple,),
+                        FieldPanel("facades", widget=forms.CheckboxSelectMultiple),
+                    ]
+                ),
+                FieldPanel("details", widget=forms.CheckboxSelectMultiple),
+            ],
+            heading="Features",
+        ),
         FieldPanel("description", classname="full"),
+        MultiFieldPanel(
+            [
+                InlinePanel("architects", label="Architects"),
+                InlinePanel("developers", label="Developers"),
+            ],
+            heading="People",
+        ),
+        ImageChooserPanel("feed_image"),
         StreamFieldPanel("gallery_images"),
     ]
 
