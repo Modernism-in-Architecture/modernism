@@ -17,7 +17,7 @@ DATABASES["default"] = dj_database_url.config()
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 SECURE_SSL_REDIRECT = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = [".modernism-in-architecture.org"]
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
