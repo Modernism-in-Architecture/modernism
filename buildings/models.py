@@ -326,10 +326,6 @@ class BuildingPage(Page):
                     [FieldPanel("storey"), FieldPanel("year_of_construction"),]
                 ),
                 FieldRowPanel([FieldPanel("access_type"), FieldPanel("todays_use"),]),
-                FieldPanel(
-                    "positions",
-                    widget=FilteredSelectMultiple("verbose name", is_stacked=False),
-                ),
                 FieldPanel("construction_types", widget=forms.CheckboxSelectMultiple),
                 FieldRowPanel(
                     [
@@ -338,7 +334,12 @@ class BuildingPage(Page):
                         FieldPanel("facades", widget=forms.CheckboxSelectMultiple),
                     ]
                 ),
-                FieldPanel("details", widget=forms.CheckboxSelectMultiple),
+                FieldRowPanel(
+                    [
+                        FieldPanel("positions", widget=forms.CheckboxSelectMultiple),
+                        FieldPanel("details", widget=forms.CheckboxSelectMultiple),
+                    ]
+                ),
             ],
             heading="Features",
         ),
