@@ -7,15 +7,18 @@
         <span class="hidden" aria-hidden="false">Home</span>
       </a>
     </li>
-    {% for ancestor in ancestors|slice:"1:" %}
-    {% if forloop.last %}
-    <li><a class="inactive" href="{% pageurl ancestor %}" aria-level="{{ancestors|length}}">
-        {{ ancestor }}
-      </a>
-    </li>
-    {% else %}
-    <li><a href="{% pageurl ancestor %}" aria-level="{% cycle 1 2 3 4 5 %}">{{ ancestor }}</a></li>
-    {% endif %}
+    {% for ancestor in ancestors %}
+        {% if ancestor != ancestors.first and ancestor.title != 'People' %}
+            {% if forloop.last %}
+                <li>
+                    <a class="inactive" href="{% pageurl ancestor %}" aria-level="{{ancestors|length}}">
+                        {{ ancestor }}
+                    </a>
+                </li>
+            {% else %}
+                <li><a href="{% pageurl ancestor %}" aria-level="{% cycle 1 2 3 4 5 %}">{{ ancestor }}</a></li>
+            {% endif %}
+        {% endif %}
     {% endfor %}
   </ul>
 </nav>
