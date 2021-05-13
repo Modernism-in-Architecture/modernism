@@ -23,6 +23,7 @@ const addClickEventListenerToBurgerMenu = () => {
 
 const showCityMenu = () => {
     if (countryTag) {
+        console.log("heho: ", countryTag);
         let countryList = document.getElementById(countryTag);
         countryList.classList.toggle('show');
     }

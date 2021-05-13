@@ -14,7 +14,6 @@ async function getBuildingData() {
 }
 getBuildingData().then(data => {
     let buildings = data.items;
-    console.log(buildings.length);
     for (let i = 0; i < buildings.length; i++) {
         let coord = [];
         let langLong = buildings[i].lat_long.split(",");
