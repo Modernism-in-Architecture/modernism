@@ -1,10 +1,12 @@
+.coverage
 .DS_Store
-.idea/
-.vscode/
 .env
+.idea/
 *.pyc
+.vscode/
 __pycache__
 db.sqlite3
 env
+htmlcov/
 media/
 node_modules/

@@ -31,6 +31,44 @@ class Tag(TaggitTag):
         proxy = True
 
 
+class Feature(models.Model):
+    name = models.CharField(max_length=250, unique=True)
+
+    class Meta:
+        abstract = True
+
+    def __str__(self):
+        return self.name
+
+    panels = [
+        FieldPanel("name"),
+    ]
+
+
+class ConstructionType(Feature):
+    pass
+
+
+class Facade(Feature):
+    pass
+
+
+class Roof(Feature):
+    pass
+
+
+class Window(Feature):
+    pass
+
+
+class Detail(Feature):
+    pass
+
+
+class Position(Feature):
+    pass
+
+
 class BuildingType(models.Model):
     name = models.CharField(max_length=255)
     description = RichTextField(blank=True)
@@ -213,44 +251,6 @@ class BuildingPageDeveloperRelation(models.Model):
         unique_together = ("page", "developer")
 
 
-class Feature(models.Model):
-    name = models.CharField(max_length=250, unique=True)
-
-    class Meta:
-        abstract = True
-
-    def __str__(self):
-        return self.name
-
-    panels = [
-        FieldPanel("name"),
-    ]
-
-
-class ConstructionType(Feature):
-    pass
-
-
-class Facade(Feature):
-    pass
-
-
-class Roof(Feature):
-    pass
-
-
-class Window(Feature):
-    pass
-
-
-class Detail(Feature):
-    pass
-
-
-class Position(Feature):
-    pass
-
-
 class BuildingPage(Page):
     name = models.CharField(max_length=250, unique=True)
     building_type = models.ForeignKey(
@@ -296,6 +296,8 @@ class BuildingPage(Page):
             ),
         ],
     )
+    # latitude = models.DecimalField(max_digits=23, decimal_places=20)
+    # longitude = models.DecimalField(max_digits=23, decimal_places=20)
     tags = ClusterTaggableManager(through=BuildingPageTag, blank=True)
     feed_image = models.ForeignKey(
         "wagtailimages.Image",
