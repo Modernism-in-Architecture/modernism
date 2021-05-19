@@ -1,5 +1,8 @@
+import json
+
 from django import forms
 from django.contrib.admin.widgets import FilteredSelectMultiple
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.core.validators import RegexValidator
 from django.db import models
 from django.utils.text import slugify
@@ -140,7 +143,6 @@ class BuildingsIndexPage(Page):
     subpage_types = ["BuildingPage"]
     parent_page_types = ["home.HomePage"]
     max_count = 1
-
     ajax_template = "buildings/buildings_list_page.html"
     template = "buildings/buildings_index_page.html"
 
@@ -149,50 +151,222 @@ class BuildingsIndexPage(Page):
             if tag_country == country:
                 return code
 
+    def _get_filtered_buildings(self, cleaned_form_data, buildings):
+        architects = cleaned_form_data.get("architects")
+        if architects.exists():
+            buildings = buildings.filter(
+                architects__architect_id__in=architects.values_list("id", flat=True)
+            )
+            if not buildings:
+                return buildings.none()
+
+        developers = cleaned_form_data.get("developers")
+        if developers.exists():
+            buildings = buildings.filter(
+                developers__developer_id__in=developers.values_list("id", flat=True)
+            )
+            if not buildings:
+                return buildings.none()
+
+        countries = cleaned_form_data.get("countries")
+        if countries.exists():
+            buildings = buildings.filter(
+                country_id__in=countries.values_list("id", flat=True)
+            )
+            if not buildings:
+                return buildings.none()
+
+        cities = cleaned_form_data.get("cities")
+        if cities.exists():
+            buildings = buildings.filter(
+                city_id__in=cities.values_list("id", flat=True)
+            )
+            if not buildings:
+                return buildings.none()
+
+        positions = cleaned_form_data.get("positions")
+        if positions.exists():
+            buildings = buildings.filter(
+                positions__id__in=positions.values_list("id", flat=True)
+            ).distinct()
+            if not buildings:
+                return buildings.none()
+
+        details = cleaned_form_data.get("details")
+        if details.exists():
+            buildings = buildings.filter(
+                details__id__in=details.values_list("id", flat=True).distinct()
+            )
+            if not buildings:
+                return buildings.none()
+
+        windows = cleaned_form_data.get("windows")
+        if windows.exists():
+            buildings = buildings.filter(
+                windows__id__in=windows.values_list("id", flat=True).distinct()
+            )
+        roofs = cleaned_form_data.get("roofs")
+        if roofs.exists():
+            buildings = buildings.filter(
+                roofs__id__in=roofs.values_list("id", flat=True).distinct()
+            )
+            if not buildings:
+                return buildings.none()
+
+        facades = cleaned_form_data.get("facades")
+        if facades.exists():
+            buildings = buildings.filter(
+                facades__id__in=facades.values_list("id", flat=True).distinct()
+            )
+            if not buildings:
+                return buildings.none()
+
+        construction_types = cleaned_form_data.get("construction_types")
+        if construction_types.exists():
+            buildings = buildings.filter(
+                construction_types__id__in=construction_types.values_list(
+                    "id", flat=True
+                ).distinct()
+            )
+            if not buildings:
+                return buildings.none()
+
+        years = cleaned_form_data.get("years")
+        if years:
+            buildings = buildings.filter(year_of_construction__in=years)
+            if not buildings:
+                return buildings.none()
+
+        building_type = cleaned_form_data.get("building_types")
+        if building_type:
+            buildings = buildings.filter(building_type=building_type)
+            if not buildings:
+                return buildings.none()
+
+        access_type = cleaned_form_data.get("access_type")
+        if access_type:
+            buildings = buildings.filter(access_type=access_type)
+            if not buildings:
+                return buildings.none()
+
+        is_protected_monument = cleaned_form_data.get("protected_monument")
+        if is_protected_monument != "":
+            buildings = buildings.filter(protected_monument=is_protected_monument)
+            if not buildings:
+                return buildings.none()
+
+        storey = cleaned_form_data.get("storey")
+        if storey != "":
+            buildings = buildings.filter(storey=storey)
+            if not buildings:
+                return buildings.none()
+
+        return buildings
+
     def get_context(self, request):
         context = super().get_context(request)
 
-        architect_id = request.GET.get("architect")
-        tag = request.GET.get("tag")
-        buildings = BuildingPage.objects.live().order_by("-first_published_at")
-        tag_country_name = ""
-        tag_building_type = BuildingType.objects.filter(name=tag).first()
+        from buildings.forms import BuildingsFilterForm
 
-        if tag:
-            buildings = buildings.filter(tags__name=tag)
-            country_code = self._get_country_code(tag)
-            if Country.objects.filter(country=country_code).exists():
-                tag_country_name = tag
+        all_buildings = (
+            BuildingPage.objects.live()
+            .prefetch_related("architects")
+            .prefetch_related("developers")
+        )
 
-        if architect_id:
-            buildings = buildings.filter(architects__architect__id=architect_id)
-            context["active_architect"] = ArchitectPage.objects.filter(
-                id=architect_id
-            ).first()
+        if request.method == "POST":
+            page = request.POST.get("page")
+            building_form = BuildingsFilterForm(request.POST)
 
-        context["buildings"] = buildings
-        context["tag_country_name"] = tag_country_name
-        context["tag_building_type"] = tag_building_type
-        context["architects"] = ArchitectPage.objects.exclude(buildings=None).order_by(
-            "last_name"
-        )
-        context["countries"] = (
-            Country.objects.exclude(buildingpage=None)
-            .prefetch_related(
-                models.Prefetch("cities", queryset=City.objects.order_by("name"))
-            )
-            .order_by("country")
-        )
-        context["types"] = BuildingType.objects.exclude(buildingpage=None).order_by(
-            "name"
-        )
-        context["years"] = (
-            BuildingPage.objects.exclude(year_of_construction__exact="")
-            .distinct("year_of_construction")
-            .order_by("year_of_construction")
-            .values_list("year_of_construction", flat=True)
-        )
+            request.session["filter-request"] = dict(request.POST)
+
+            if building_form.is_valid():
+                context["form"] = building_form
+                all_buildings = self._get_filtered_buildings(
+                    building_form.cleaned_data, all_buildings
+                )
+
+        else:
+            page = request.GET.get("page") if request.method == "GET" else ""
+            current_filter_settings = request.session.get("filter-request")
+            if page and current_filter_settings is not None:
+                for setting, value in list(current_filter_settings.items()):
+                    try:
+                        if value[0] == "":
+                            del current_filter_settings[setting]
+                    except KeyError:
+                        continue
+
+                building_form = BuildingsFilterForm(current_filter_settings)
+
+                if building_form.is_valid():
+                    context["form"] = building_form
+                    all_buildings = self._get_filtered_buildings(
+                        building_form.cleaned_data, all_buildings
+                    )
+
+            else:
+                context["form"] = BuildingsFilterForm()
+
+                # Paginate all posts by 2 per page
+            # if all_buildings:
+            # paginator = Paginator(all_buildings, 6)
+            # # Try to get the ?page=x value
+            # try:
+            #     # If the page exists and the ?page=x is an int
+            #     buildings = paginator.page(page)
+            #     import pdb
+
+            #     pdb.set_trace()
+            # except PageNotAnInteger:
+            #     # If the ?page=x is not an int; show the first page
+            #     buildings = paginator.page(1)
+            # except EmptyPage:
+            #     # If the ?page=x is out of range (too high most likely)
+            #     # Then return the last page
+            #     buildings = paginator.page(paginator.num_pages)
+
+        context["buildings"] = all_buildings
         return context
+        # architect_id = request.GET.get("architect")
+        # tag = request.GET.get("tag")
+
+        # tag_country_name = ""
+        # tag_building_type = BuildingType.objects.filter(name=tag).first()
+
+        # if tag:
+        #     buildings = buildings.filter(tags__name=tag)
+        #     country_code = self._get_country_code(tag)
+        #     if Country.objects.filter(country=country_code).exists():
+        #         tag_country_name = tag
+
+        # if architect_id:
+        #     buildings = buildings.filter(architects__architect__id=architect_id)
+        #     context["active_architect"] = ArchitectPage.objects.filter(
+        #         id=architect_id
+        #     ).first()
+
+        # context["tag_country_name"] = tag_country_name
+        # context["tag_building_type"] = tag_building_type
+        # context["architects"] = ArchitectPage.objects.exclude(
+        #     buildings=None
+        # ).order_by("last_name")
+        # context["countries"] = (
+        #     Country.objects.exclude(buildingpage=None)
+        #     .prefetch_related(
+        #         models.Prefetch("cities", queryset=City.objects.order_by("name"))
+        #     )
+        #     .order_by("country")
+        # )
+        # context["types"] = BuildingType.objects.exclude(buildingpage=None).order_by(
+        #     "name"
+        # )
+        # context["years"] = (
+        #     BuildingPage.objects.exclude(year_of_construction__exact="")
+        #     .distinct("year_of_construction")
+        #     .order_by("year_of_construction")
+        #     .values_list("year_of_construction", flat=True)
+        # )
 
     def clean(self):
         """Override slug."""
@@ -379,7 +553,7 @@ class BuildingPage(Page):
         return tags
 
     @property
-    def get_teaser_tags(self):
+    def teaser_tags(self):
         types = BuildingType.objects.all().values_list("name", flat=True)
         tags = self.tags.exclude(name__in=types)
         for tag in tags:
@@ -387,10 +561,6 @@ class BuildingPage(Page):
                 s.strip("/") for s in [self.get_parent().url, "tags", tag.slug]
             )
         return tags
-
-    @property
-    def get_architects(self):
-        return BuildingPageArchitectRelation.objects.filter(page=self)
 
     def clean(self):
         """Override title and slug."""

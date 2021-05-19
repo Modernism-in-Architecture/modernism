@@ -14,7 +14,83 @@
 {% endblock breadcrumbs %}
 
 {% block content %}
-<section class="section last-section">
+
+<div class="container">
+
+    <form class="box" action="{% pageurl page %}" method="post">
+        {% csrf_token %}
+        <div class="is-flex is-flex-direction-row">
+        <div class="p-3">
+        {{ form.architects.label }}
+        <input id="architects-search" class="input" type="text" placeholder="Search...">
+        {{ form.architects }}
+        </div>
+        <div class="p-3">
+        {{ form.years.label }}
+        {{ form.years }}
+        </div>
+        <div class="p-3">
+        {{ form.access_types.label }}
+        {{ form.access_types }}
+        </div>
+        <div class="p-3">
+        {{ form.protected_monument.label }}
+        {{ form.protected_monument }}
+        </div>
+        <div class="p-3">
+        {{ form.storey.label }}
+        {{ form.storey }}
+        </div>
+        </div>
+        <input type="submit" value="Submit">
+    </form>
+
+{# Only show pagination if there is more than one page to click through #}
+  {% comment %} {% if buildings.paginator.num_pages > 1 %}
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="pagination">
+            {% if buildings.has_previous %}
+              <li class="page-item">
+                <a href="?page={{ buildings.previous_page_number }}" class="page-link">
+                  <span>&laquo;</span>
+                </a>
+              </li>
+            {% endif %}
+
+            {% for page_num in buildings.paginator.page_range %}
+              <li class="page-item {% if page_num == buildings.number %} active{% endif %}">
+                <a href="?page={{ page_num }}" class="page-link">
+                  {{ page_num }}
+                </a>
+              </li>
+            {% endfor %}
+
+            {% if buildings.has_next %}
+              <li class="page-item">
+                <a href="?page={{ buildings.next_page_number }}" class="page-link">
+                  <span>&raquo;</span>
+                </a>
+              </li>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %} {% endcomment %}
+
+    <div class="column">
+        <div style="width: 50%" class="content is-centered">
+            <div class="columns is-multiline is-centered">
+            {% include "buildings/buildings_list_page.html" %}
+            </div>
+        </div>
+    </div>
+
+</div>
+   
+{% comment %} <section class="section last-section">
   <div class="container">
     {% with selected_architect_id=request.GET.architect selected_tag=request.GET.tag %}
     <div class="columns">
@@ -119,7 +195,7 @@
     </div>
     {% endwith %}
   </div>
-</section>
+</section> {% endcomment %}
 {% endblock content %}
 {% block extra_js %}
 {{ block.super }}

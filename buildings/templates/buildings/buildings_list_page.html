@@ -2,21 +2,25 @@
 
 {% lazy_paginate 6 buildings %}
 
+{{buildings}}
 {% for building in buildings %}
 <div class="column column is-half-tablet is-one-third-desktop">
   <a href="{% pageurl building %}" alt="{{building.title}}" class="card-title">
     <div class="card">
-      <div class="card-image">
+      {% comment %} <div class="card-image">
         <figure class="image is-marginless is-square">
           {% image building.feed_image fill-500x500-c100 %}
         </figure>
-      </div>
+      </div> {% endcomment %}
       <div class="card-content">
         <div class="content">
           <h5 class="is-marginless">
-            {{building.title}}{% if building.architect %}, {{building.architect}}{% endif %}
+            {{building.title}} <br>
+            {% for architect in building.architects.all %}
+                {{architect.architect.last_name}}
+            {% endfor %}
           </h5>
-          {% for tag in building.get_teaser_tags %}
+          {% for tag in building.teaser_tags %}
           <a class="index-tag" href="{% pageurl page %}?tag={{ tag }}"> #{{tag}} </a>
           {% endfor %}
         </div>
