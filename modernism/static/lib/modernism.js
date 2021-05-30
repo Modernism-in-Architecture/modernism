@@ -4,6 +4,7 @@ let galleryImages = [];
 
 async function getBuildingObject() {
     if (pageId) {
+        console.log("its me");
         let response = await fetch(window.location.origin + "/api/v2/pages/" + pageId + "/");
         let data = await response.json();
         currentBuilding = data;
@@ -16,14 +17,27 @@ const toggleBurgerMenu = () => {
     document.querySelector('.navbar-menu').classList.toggle('is-active');
     NAV_BURGER.classList.toggle('is-active');
 };
-
 const addClickEventListenerToBurgerMenu = () => {
     NAV_BURGER.addEventListener('click', toggleBurgerMenu);
 };
 
+const FILTER_ICON = document.querySelector('.filter-icon');
+const addClickEventListenerToFilterIcon = () => {
+    if (FILTER_ICON) {
+        FILTER_ICON.addEventListener('click', event => {
+            event.preventDefault();
+            let filterFormContainer = document.querySelector('.filter-form');
+            filterFormContainer.classList.toggle('is-hidden');
+            let setFilterBtn = document.querySelector('.set-filter-btn');
+            setFilterBtn.classList.toggle('is-hidden');
+            let removeFilterBtn = document.querySelector('.remove-filter-btn');
+            removeFilterBtn.classList.toggle('is-hidden');
+        });
+    }
+};
+
 const showCityMenu = () => {
     if (countryTag) {
-        console.log("heho: ", countryTag);
         let countryList = document.getElementById(countryTag);
         countryList.classList.toggle('show');
     }
@@ -126,7 +140,11 @@ addClickEventListenerToBurgerMenu();
 addClickEventListenerToDropdownLinks();
 addClickEventListenerToBuildingImages();
 addClickEventListenerToModalCloseButton();
-getBuildingObject();
+addClickEventListenerToFilterIcon();
+if (pageId) {
+    getBuildingObject();
+}
+
 showCityMenu();
 
 window.onload = () => {

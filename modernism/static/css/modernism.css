@@ -7937,6 +7937,52 @@ body {
     font-size: small;
     font-style: italic; }
 
+.building-idx-container {
+  min-height: 75vh; }
+
+#id_architects,
+#id_developers,
+#id_years,
+#id_cities,
+#id_countries {
+  height: 10rem;
+  width: 100%;
+  overflow-y: scroll;
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: lightgrey grey;
+  padding: 1rem;
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.1); }
+
+/* Works on Chrome, Edge, and Safari */
+#id_architects::-webkit-scrollbar,
+#id_developers::-webkit-scrollbar,
+#id_years::-webkit-scrollbar,
+#id_cities::-webkit-scrollbar {
+  width: 12px; }
+
+#id_architects::-webkit-scrollbar-track,
+#id_developers::-webkit-scrollbar-track,
+#id_years::-webkit-scrollbar-track,
+#id_cities::-webkit-scrollbar-track {
+  background: grey; }
+
+#id_architects::-webkit-scrollbar-thumb,
+#id_developers::-webkit-scrollbar-thumb,
+#id_years::-webkit-scrollbar-thumb,
+#id_cities::-webkit-scrollbar-thumb {
+  background-color: lightgray;
+  border-radius: 5px;
+  border: 3px solid grey; }
+
+.filter-label {
+  font-weight: bold; }
+
+.select select {
+  font-size: 0.9em; }
+
 @media screen and (max-width: 840px) {
   .reverse-column-order {
     display: flex;

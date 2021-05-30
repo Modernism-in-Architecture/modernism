@@ -10,3 +10,4 @@ env
 htmlcov/
 media/
 node_modules/
+static/

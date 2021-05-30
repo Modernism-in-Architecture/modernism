@@ -51,19 +51,19 @@ class EmptyChoiceField(forms.ChoiceField):
 class BuildingsFilterForm(forms.Form):
     building_types = forms.ModelChoiceField(
         queryset=BuildingType.objects.all().order_by("name"),
-        widget=forms.Select(attrs={"class": "form-control"}),
+        widget=forms.Select(attrs={"class": "feature-select"}),
         required=False,
     )
     access_types = forms.ModelChoiceField(
         queryset=AccessType.objects.all().order_by("name"),
-        widget=forms.Select(attrs={"class": "form-control"}),
+        widget=forms.Select(attrs={"class": "feature-select"}),
         required=False,
     )
     protected_monument = EmptyChoiceField(
         required=False,
         empty_label="----",
         choices=[(True, "yes"), (False, "no")],
-        widget=forms.Select(attrs={"class": "form-control"}),
+        widget=forms.Select(attrs={"class": "feature-select"}),
     )
 
     storeys = BuildingPage.objects.filter(storey__isnull=False).values_list(
@@ -73,7 +73,7 @@ class BuildingsFilterForm(forms.Form):
         required=False,
         empty_label="----",
         choices=[(storey, storey) for storey in set(storeys)],
-        widget=forms.Select(attrs={"class": "form-control"}),
+        widget=forms.Select(attrs={"class": "feature-select"}),
     )
     architects = forms.ModelMultipleChoiceField(
         queryset=ArchitectPage.objects.filter(buildings__isnull=False).distinct(),

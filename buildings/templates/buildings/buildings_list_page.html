@@ -1,33 +1,38 @@
 {% load el_pagination_tags static wagtailcore_tags wagtailimages_tags %}
 
-{% lazy_paginate 6 buildings %}
+{% lazy_paginate 8 buildings %}
 
-{{buildings}}
-{% for building in buildings %}
-<div class="column column is-half-tablet is-one-third-desktop">
-  <a href="{% pageurl building %}" alt="{{building.title}}" class="card-title">
-    <div class="card">
-      {% comment %} <div class="card-image">
-        <figure class="image is-marginless is-square">
-          {% image building.feed_image fill-500x500-c100 %}
-        </figure>
-      </div> {% endcomment %}
-      <div class="card-content">
-        <div class="content">
-          <h5 class="is-marginless">
-            {{building.title}} <br>
-            {% for architect in building.architects.all %}
-                {{architect.architect.last_name}}
-            {% endfor %}
-          </h5>
-          {% for tag in building.teaser_tags %}
-          <a class="index-tag" href="{% pageurl page %}?tag={{ tag }}"> #{{tag}} </a>
-          {% endfor %}
+
+<div class="columns is-multiline is-centered m-5">
+    {% for building in buildings %}
+        <div class="column is-4-tablet is-3-desktop">
+            <a href="{% pageurl building %}" alt="{{building.title}}" class="card-title">
+                <div class="card">
+                    <div class="card-image">
+                        <figure class="image is-marginless is-square">
+                            {% image building.feed_image fill-500x500-c100 %}
+                        </figure>
+                    </div>
+                    <div class="card-content">
+                        <div class="content">
+                            <h5 class="is-marginless">
+                                {{building.title}} <br>
+                                {% comment %} 
+                                {% for architect in building.architects.all %}
+                                    {{architect.architect.last_name}}
+                                {% endfor %} {% endcomment %}
+                            </h5>
+                            {% for tag in building.teaser_tags %}
+                                <a class="index-tag" href="{% pageurl page %}?tag={{ tag }}"> #{{tag}} </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </a>
         </div>
-      </div>
-    </div>
-  </a>
+    {% endfor %}
 </div>
-{% endfor %}
 
+<div class="has-text-centered m-5">
 {% show_more %}
+</div>

@@ -308,65 +308,8 @@ class BuildingsIndexPage(Page):
             else:
                 context["form"] = BuildingsFilterForm()
 
-                # Paginate all posts by 2 per page
-            # if all_buildings:
-            # paginator = Paginator(all_buildings, 6)
-            # # Try to get the ?page=x value
-            # try:
-            #     # If the page exists and the ?page=x is an int
-            #     buildings = paginator.page(page)
-            #     import pdb
-
-            #     pdb.set_trace()
-            # except PageNotAnInteger:
-            #     # If the ?page=x is not an int; show the first page
-            #     buildings = paginator.page(1)
-            # except EmptyPage:
-            #     # If the ?page=x is out of range (too high most likely)
-            #     # Then return the last page
-            #     buildings = paginator.page(paginator.num_pages)
-
         context["buildings"] = all_buildings
         return context
-        # architect_id = request.GET.get("architect")
-        # tag = request.GET.get("tag")
-
-        # tag_country_name = ""
-        # tag_building_type = BuildingType.objects.filter(name=tag).first()
-
-        # if tag:
-        #     buildings = buildings.filter(tags__name=tag)
-        #     country_code = self._get_country_code(tag)
-        #     if Country.objects.filter(country=country_code).exists():
-        #         tag_country_name = tag
-
-        # if architect_id:
-        #     buildings = buildings.filter(architects__architect__id=architect_id)
-        #     context["active_architect"] = ArchitectPage.objects.filter(
-        #         id=architect_id
-        #     ).first()
-
-        # context["tag_country_name"] = tag_country_name
-        # context["tag_building_type"] = tag_building_type
-        # context["architects"] = ArchitectPage.objects.exclude(
-        #     buildings=None
-        # ).order_by("last_name")
-        # context["countries"] = (
-        #     Country.objects.exclude(buildingpage=None)
-        #     .prefetch_related(
-        #         models.Prefetch("cities", queryset=City.objects.order_by("name"))
-        #     )
-        #     .order_by("country")
-        # )
-        # context["types"] = BuildingType.objects.exclude(buildingpage=None).order_by(
-        #     "name"
-        # )
-        # context["years"] = (
-        #     BuildingPage.objects.exclude(year_of_construction__exact="")
-        #     .distinct("year_of_construction")
-        #     .order_by("year_of_construction")
-        #     .values_list("year_of_construction", flat=True)
-        # )
 
     def clean(self):
         """Override slug."""
