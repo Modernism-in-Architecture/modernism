@@ -7955,10 +7955,9 @@ body {
     /* Firefox */
     scrollbar-width: thin;
     scrollbar-color: lightgrey grey;
-    padding: 1rem;
+    padding: 0.3rem 0.6rem 0.3rem 0.3rem;
     border-bottom-right-radius: 4px;
-    border-bottom-left-radius: 4px;
-    background-color: rgba(0, 0, 0, 0.1); }
+    border-bottom-left-radius: 4px; }
   .building-idx-container #id_architects::-webkit-scrollbar,
   .building-idx-container #id_developers::-webkit-scrollbar,
   .building-idx-container #id_years::-webkit-scrollbar,
@@ -7980,7 +7979,8 @@ body {
     position: absolute;
     z-index: 99; }
   .building-idx-container .has-filter-set {
-    border-color: #0a0a0a; }
+    border-color: blue;
+    color: blue; }
   .building-idx-container .filter-label {
     font-weight: bold; }
   .building-idx-container .select select {
