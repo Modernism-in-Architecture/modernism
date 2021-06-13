@@ -4,7 +4,7 @@
 
 {% block body_class %}building{% endblock %}
 {% block extra_css %}
-<script type="application/javascript">let pageId = "{% if page %}{{ page.pk }}{% endif %}"; console.log(pageId)</script>
+<script type="application/javascript">let pageId = "{% if page %}{{ page.pk }}{% endif %}";</script>
 {% endblock %}
 {% block breadcrumbs %}
 <section class="breadcrumbs-section">
@@ -53,7 +53,7 @@
             {% endfor %}
           </p>
           {% endif %}
-        </div>
+        </div> 
       </div>
     </div>
     <div class="columns is-centered">
@@ -101,3 +101,8 @@
     </div>
 </section>
 {% endblock content %}
+
+{% block extra_js %}
+    {{ block.super }}
+    <script type="application/javascript" src="{% static 'lib/buildingPage.js' %}"></script>
+{% endblock %}

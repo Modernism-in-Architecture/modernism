@@ -23,7 +23,8 @@
                                 {% endfor %} {% endcomment %}
                             </h5>
                             {% for tag in building.teaser_tags %}
-                                <a class="index-tag" href="{% pageurl page %}?tag={{ tag }}"> #{{tag}} </a>
+                                {% comment %}<a class="index-tag" href="{% pageurl page %}?tag={{ tag }}"> #{{tag}} </a>{% endcomment %}
+                                #{{tag}}
                             {% endfor %}
                         </div>
                     </div>

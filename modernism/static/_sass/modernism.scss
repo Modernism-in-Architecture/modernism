@@ -268,7 +268,12 @@ body {
 
 .building-idx-container {
     min-height: 75vh;
-}
+    .button.is-small {
+       border-radius: 10px;
+   }
+   .menu {
+        z-index: 40;
+    }
 
 #id_architects,
 #id_developers,
@@ -310,7 +315,12 @@ body {
     border-radius: 5px;
     border: 3px solid grey;
   }
-
+  .dropdown-content {
+        position: absolute;
+        z-index: 99;
+    }
+.has-filter-set {
+       border-color: $black;    }
 .filter-label {
     font-weight: bold;
 }
@@ -324,7 +334,7 @@ body {
       flex-direction: column-reverse;
     }
 }
-
+}
 .people, .facts {
     .rich-text {
         margin: 2rem 0;
