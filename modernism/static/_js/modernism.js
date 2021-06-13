@@ -2,18 +2,6 @@ let modalImageIndex = 0
 let currentBuilding = {}
 let galleryImages = []
 
-
-async function getBuildingObject() {
-    if (pageId) {
-        console.log("its me")
-        let response = await fetch(window.location.origin + "/api/v2/pages/" + pageId + "/");
-        let data = await response.json();
-        currentBuilding = data;
-        galleryImages = data["gallery_images"];
-    }
-
-}
-
 const NAV_BURGER = document.querySelector('.navbar-burger');
 const toggleBurgerMenu = () => {
     document.querySelector('.navbar-menu').classList.toggle('is-active');
@@ -35,13 +23,6 @@ const addClickEventListenerToFilterIcon = () => {
             let removeFilterBtn = document.querySelector('.remove-filter-btn')
             removeFilterBtn.classList.toggle('is-hidden');
         })
-    }
-}
-
-const showCityMenu = () => {
-    if (countryTag) {
-        let countryList = document.getElementById(countryTag);
-        countryList.classList.toggle('show');
     }
 }
 
@@ -147,11 +128,6 @@ addClickEventListenerToDropdownLinks();
 addClickEventListenerToBuildingImages();
 addClickEventListenerToModalCloseButton();
 addClickEventListenerToFilterIcon();
-if (pageId) {
-    getBuildingObject();
-}
-
-showCityMenu();
 
 window.onload = () => {
     const currentMenuItem = document.querySelector(".active")
