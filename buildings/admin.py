@@ -95,6 +95,7 @@ class FeatureAdmin(ModelAdminGroup):
     menu_label = "Type Definitions"
     menu_order = 200
     items = (
+        BuildingTypeAdmin,
         RoofAdmin,
         WindowAdmin,
         AccessTypeAdmin,
