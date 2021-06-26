@@ -268,11 +268,13 @@ body {
 
 .building-idx-container {
     min-height: 75vh;
+
     .button.is-small {
-        border-radius: 10px;
+        border-radius: 5px;
     }
     .menu {
         z-index: 40;
+        margin-top: 0.2rem;
     }
     #id_architects,
     #id_developers,
@@ -317,8 +319,13 @@ body {
         position: absolute;
         z-index: 99;
     }
-    .has-filter-set {
+    .filter-icon:hover {
         border-color: $blue;
+    }
+    .button:focus, .button.is-focused {
+        border-color: transparent;
+    }
+    .has-filter-set {
         color: $blue;
     }
     .filter-label {

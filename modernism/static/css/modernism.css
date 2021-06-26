@@ -7941,9 +7941,10 @@ body {
   min-height: 75vh;
   /* Works on Chrome, Edge, and Safari */ }
   .building-idx-container .button.is-small {
-    border-radius: 10px; }
+    border-radius: 5px; }
   .building-idx-container .menu {
-    z-index: 40; }
+    z-index: 40;
+    margin-top: 0.2rem; }
   .building-idx-container #id_architects,
   .building-idx-container #id_developers,
   .building-idx-container #id_years,
@@ -7978,8 +7979,11 @@ body {
   .building-idx-container .dropdown-content {
     position: absolute;
     z-index: 99; }
+  .building-idx-container .filter-icon:hover {
+    border-color: blue; }
+  .building-idx-container .button:focus, .building-idx-container .button.is-focused {
+    border-color: transparent; }
   .building-idx-container .has-filter-set {
-    border-color: blue;
     color: blue; }
   .building-idx-container .filter-label {
     font-weight: bold; }
