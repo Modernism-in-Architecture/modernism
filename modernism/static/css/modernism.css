@@ -1967,9 +1967,9 @@ div.icon-text {
 
 .tag:not(body) {
   align-items: center;
-  background-color: whitesmoke;
-  border-radius: 4px;
-  color: #444444;
+  background-color: #4a4a4a;
+  border-radius: 10px;
+  color: white;
   display: inline-flex;
   font-size: 0.75rem;
   height: 2em;
@@ -2065,9 +2065,9 @@ div.icon-text {
       height: 50%;
       width: 1px; }
     .tag:not(body).is-delete:hover, .tag:not(body).is-delete:focus {
-      background-color: #e8e8e8; }
+      background-color: #3d3d3d; }
     .tag:not(body).is-delete:active {
-      background-color: #dbdbdb; }
+      background-color: #303030; }
   .tag:not(body).is-rounded {
     border-radius: 290486px; }
 
@@ -7913,10 +7913,6 @@ body {
 .building .building-tag {
   text-decoration: none; }
 
-.building .content .people {
-  margin-top: 1rem;
-  margin-bottom: 0; }
-
 .building .content .rich-text {
   margin-bottom: 1rem; }
 
@@ -7936,6 +7932,12 @@ body {
   .building .modal-content #image-photographer {
     font-size: small;
     font-style: italic; }
+
+.building .preview-image {
+  cursor: pointer; }
+
+.building span[data-tooltip] {
+  border-bottom: none; }
 
 .building-idx-container {
   min-height: 75vh;

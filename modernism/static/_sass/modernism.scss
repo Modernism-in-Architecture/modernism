@@ -55,6 +55,9 @@ $navbar-dropdown-item-hover-background-color: transparent;
 $navbar-dropdown-item-hover-color: $yellow;
 $menu-nested-list-padding-left: 0;
 $menu-list-link-padding: 0em 0.75em;
+$tag-background-color: $grey-dark;
+$tag-color: $white;
+$tag-radius: $border-radius;
 $footer-background-color: $black;
 $footer-padding: 2rem 1.5rem 1.5rem;
 
@@ -234,10 +237,6 @@ body {
     .building-tag {
       text-decoration: none;
     }
-    .content .people {
-        margin-top: 1rem;
-        margin-bottom: 0;
-    }
     .content .rich-text {
         margin-bottom: 1rem;
     }
@@ -262,6 +261,12 @@ body {
             font-size: small;
             font-style: italic;
         }
+    }
+    .preview-image {
+        cursor: pointer;
+    }
+    span[data-tooltip] {
+        border-bottom: none;
     }
 
 }

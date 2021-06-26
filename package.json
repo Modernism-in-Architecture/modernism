@@ -3,7 +3,9 @@
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
-    "dependencies": {},
+    "dependencies": {
+        "@creativebulma/bulma-tooltip": "^1.2.0"
+    },
     "devDependencies": {
         "autoprefixer": "^10.2.4",
         "babel-cli": "^6.26.0",
