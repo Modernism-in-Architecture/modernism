@@ -105,7 +105,9 @@
     <div class="columns">
         <div class="column">
             <div class="content">
-                <div class="box desription">{{page.description|richtext}}</div>
+                {% if page.description %}
+                    <div class="box desription">{{page.description|richtext}}</div>
+                {% endif %}
                 <h4 class="address mb-3 mt-3">Address and directions</h4>
                 <p class="building-address">{{page.address}}<br>{{page.zip_code}} {{page.city}}, {{page.country}}
                 <p><i class="fa fa-map-marker-alt"></i> {{page.lat_long}}</p>

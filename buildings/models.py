@@ -268,11 +268,7 @@ class BuildingsIndexPage(Page):
 
         from buildings.forms import BuildingsFilterForm
 
-        all_buildings = (
-            BuildingPage.objects.live()
-            .prefetch_related("architects")
-            .prefetch_related("developers")
-        )
+        all_buildings = BuildingPage.objects.live()
 
         if request.method == "POST":
             page = request.POST.get("page")
@@ -425,6 +421,24 @@ class BuildingPage(Page):
         help_text="This image will be used to preview the building on the buildings overview page.",
     )
     gallery_images = StreamField([("image", GalleryImageBlock()),], blank=True,)
+
+    prefetch_related = [
+        "tags",
+        "construction_types",
+        "facades",
+        "roofs",
+        "windows",
+        "details",
+        "positions",
+        "gallery_images",
+    ]
+    select_related = [
+        "feed_image",
+        "country",
+        "city",
+        "access_type",
+        "building_type",
+    ]
 
     content_panels = [
         FieldPanel("name"),
