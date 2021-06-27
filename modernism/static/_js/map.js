@@ -8,13 +8,12 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 const markers = L.markerClusterGroup();
 
 async function getBuildingData() {
-    let response = await fetch(window.location.origin + "/api/v2/pages/?type=buildings.BuildingPage&fields=-gallery_images,lat_long,name,address&limit=140");
+    let response = await fetch(window.location.origin + "/api/v2/pages/?type=buildings.BuildingPage&fields=-gallery_images,lat_long,name,address&limit=250");
     let data = await response.json();
     return data;
 }
 getBuildingData().then(data => {
     let buildings = data.items;
-    console.log(buildings.length)
     for (let i = 0; i < buildings.length; i++) {
         let coord = [];
         let langLong = buildings[i].lat_long.split(",")
