@@ -7991,6 +7991,8 @@ body {
     font-weight: bold; }
   .building-idx-container .select select {
     font-size: 0.9em; }
+  .building-idx-container input[type="checkbox"] {
+    vertical-align: text-top; }
   @media screen and (max-width: 840px) {
     .building-idx-container .reverse-column-order {
       display: flex;

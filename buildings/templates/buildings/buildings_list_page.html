@@ -16,14 +16,9 @@
                     <div class="card-content">
                         <div class="content">
                             <h5 class="is-marginless">
-                                {{building.title}} <br>
-                                {% comment %} 
-                                {% for architect in building.architects.all %}
-                                    {{architect.architect.last_name}}
-                                {% endfor %} {% endcomment %}
+                                {{building.title}}<br>
                             </h5>
                             {% for tag in building.teaser_tags %}
-                                {% comment %}<a class="index-tag" href="{% pageurl page %}?tag={{ tag }}"> #{{tag}} </a>{% endcomment %}
                                 #{{tag}}
                             {% endfor %}
                         </div>

@@ -339,6 +339,9 @@ body {
     .select select{
         font-size: 0.9em;
     }
+    input[type="checkbox"] {
+        vertical-align: text-top;
+    }
 
     @media screen and (max-width: 840px) {
         .reverse-column-order {

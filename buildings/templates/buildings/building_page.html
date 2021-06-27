@@ -103,38 +103,35 @@
         </div>
     </div>
     <div class="columns">
-      <div class="column">
-        <div class="content">
-          <div class="box desription">{{page.description|richtext}}</div>
-
-          <h4 class="address mb-3 mt-3">Address and directions</h4>
-          <p class="building-address">{{page.address}}<br>{{page.zip_code}} {{page.city}}, {{page.country}}
-          <p><i class="fa fa-map-marker-alt"></i> {{page.lat_long}}</p>
-           {% if page.directions %}
-          <p><strong>Public transport:</strong> {{page.directions}}</p>
-          {% endif %}
-          {% if page.access_type %}
-          <p><strong>Access:</strong> {{page.access_type}}</p>
-          {% endif %}
-           {% if page.todays_use %}
-          <p><strong>Today's use:</strong>
-          {{page.todays_use}}
-          </p>
-          {% endif %}
+        <div class="column">
+            <div class="content">
+                <div class="box desription">{{page.description|richtext}}</div>
+                <h4 class="address mb-3 mt-3">Address and directions</h4>
+                <p class="building-address">{{page.address}}<br>{{page.zip_code}} {{page.city}}, {{page.country}}
+                <p><i class="fa fa-map-marker-alt"></i> {{page.lat_long}}</p>
+                {% if page.directions %}
+                    <p><strong>Public transport:</strong> {{page.directions}}</p>
+                {% endif %}
+                {% if page.access_type %}
+                    <p><strong>Access:</strong> {{page.access_type}}</p>
+                {% endif %}
+                {% if page.todays_use %}
+                    <p><strong>Today's use:</strong> {{page.todays_use}}</p>
+                {% endif %}
+            </div>
         </div>
-      </div>
     </div>
     <div class="columns">
       <div class="column">
         <div class="content">
-          {% if page.gallery_images.count > 0 %}<h4 class="impressions mb-3 mt-3">Impressions</h4>{% endif %}
-          {% for gallery_image in page.gallery_images %}
-          {% if gallery_image.block_type == 'image' %}
-          {% image gallery_image.value.image max-1300x700 as large_img %}
-          {% image gallery_image.value.image fill-150x150 as thumb_img %}
-          <img src="{{ thumb_img.url }}" large-url="{{ large_img.url }}" index="{{ forloop.counter0 }}"
-            class="preview-image" />
-          {% endif %}
+          {% if page.gallery_images %}<h4 class="impressions mb-3 mt-3">Impressions</h4>{% endif %}
+            {% for gallery_image in page.gallery_images %}
+                {% if gallery_image.block_type == 'image' %}
+                    {% image gallery_image.value.image max-1300x700 as large_img %}
+                    {% image gallery_image.value.image fill-150x150 as thumb_img %}
+                    <img src="{{ thumb_img.url }}" large-url="{{ large_img.url }}" index="{{ forloop.counter0 }}"
+                        class="preview-image" />
+                {% endif %}
           {% endfor %}
         </div>
       </div>
