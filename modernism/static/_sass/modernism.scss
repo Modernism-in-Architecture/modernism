@@ -55,6 +55,9 @@ $navbar-dropdown-item-hover-background-color: transparent;
 $navbar-dropdown-item-hover-color: $yellow;
 $menu-nested-list-padding-left: 0;
 $menu-list-link-padding: 0em 0.75em;
+$tag-background-color: $grey-dark;
+$tag-color: $white;
+$tag-radius: $border-radius;
 $footer-background-color: $black;
 $footer-padding: 2rem 1.5rem 1.5rem;
 
@@ -234,10 +237,6 @@ body {
     .building-tag {
       text-decoration: none;
     }
-    .content .people {
-        margin-top: 1rem;
-        margin-bottom: 0;
-    }
     .content .rich-text {
         margin-bottom: 1rem;
     }
@@ -263,12 +262,92 @@ body {
             font-style: italic;
         }
     }
+    .preview-image {
+        cursor: pointer;
+    }
+    span[data-tooltip] {
+        border-bottom: none;
+    }
+
 }
 
-@media screen and (max-width: 840px) {
-    .reverse-column-order {
-      display: flex;
-      flex-direction: column-reverse;
+.building-idx-container {
+    min-height: 75vh;
+
+    .button.is-small {
+        border-radius: 5px;
+    }
+    .menu {
+        z-index: 40;
+        margin-top: 0.2rem;
+    }
+    #id_architects,
+    #id_developers,
+    #id_years,
+    #id_cities,
+    #id_countries {
+        height: 10rem;
+        width: 100%;
+        overflow-y: scroll;
+        /* Firefox */
+        scrollbar-width: thin;
+        scrollbar-color: lightgrey grey;
+        padding: 0.3rem 0.6rem 0.3rem 0.3rem;
+        border-bottom-right-radius: 4px;
+        border-bottom-left-radius: 4px;
+    }
+
+    /* Works on Chrome, Edge, and Safari */
+    #id_architects::-webkit-scrollbar,
+    #id_developers::-webkit-scrollbar,
+    #id_years::-webkit-scrollbar,
+    #id_cities::-webkit-scrollbar {
+        width: 12px;
+    }
+    
+    #id_architects::-webkit-scrollbar-track,
+    #id_developers::-webkit-scrollbar-track,
+    #id_years::-webkit-scrollbar-track,
+    #id_cities::-webkit-scrollbar-track {
+        background: grey;
+    }
+    
+    #id_architects::-webkit-scrollbar-thumb,
+    #id_developers::-webkit-scrollbar-thumb,
+    #id_years::-webkit-scrollbar-thumb,
+    #id_cities::-webkit-scrollbar-thumb {
+        background-color: lightgray;
+        border-radius: 5px;
+        border: 3px solid grey;
+    }
+    .dropdown-content {
+        position: absolute;
+        z-index: 99;
+    }
+    .filter-icon:hover {
+        border-color: $blue;
+    }
+    .button:focus, .button.is-focused {
+        border-color: transparent;
+    }
+    .has-filter-set {
+        color: $blue;
+    }
+    .filter-label {
+        font-weight: bold;
+    }
+    .select select{
+        font-size: 0.9em;
+    }
+    input[type="checkbox"] {
+        vertical-align: text-top;
+    }
+
+    @media screen and (max-width: 840px) {
+        .reverse-column-order {
+            display: flex;
+            flex-direction: column-reverse;
+        }
     }
 }
 

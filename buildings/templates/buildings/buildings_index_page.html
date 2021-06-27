@@ -14,117 +14,281 @@
 {% endblock breadcrumbs %}
 
 {% block content %}
-<section class="section last-section">
-  <div class="container">
-    {% with selected_architect_id=request.GET.architect selected_tag=request.GET.tag %}
-    <div class="columns">
-      <div class="column is-narrow">
-        <aside class="menu">
-          {% if selected_tag or selected_architect_id %}
-          <p class="menu-label"><a href="{% pageurl page %}"><i class="fa fa-times"></i> Clear filters</a></p>
-          {% endif %}
-          <p class="menu-label">
-            Filter by
-          </p>
-          <ul class="menu-list">
+<section class="building-idx-container">
+    <div class="container">
+        <form action="{% pageurl page %}" method="post" class="ml-5 mr-5">
+            {% csrf_token %}
+            <div class="is-flex is-flex-direction-row">
+                <div class="p-1">
+                    <button class="button is-small filter-icon is-pulled-right">
+                        <span class="icon is-small">
+                            <i class="fas fa-sliders-h" aria-hidden="true"></i>
+                        </span>
+                    </button>
+                </div>
+                <div class="p-1 set-filter-btn is-hidden">
+                    <button class="button is-small is-link is-black" type="submit">Apply filters</button>
+                </div>
+                <div class="p-1 remove-filter-btn is-hidden">
+                    <a id="remove-filter-btn" class="button is-small is-link is-outlined" href="{% slugurl 'buildings' %}">Remove filters</a>
+                </div>
+            </div>
+            
+            <div class="filter-form is-hidden">
+                <div class="is-flex is-flex-direction-row is-flex-wrap-wrap">
+                    <div class="p-1">
+                        <div class="dropdown-custom">
+                            <div class="dropdown-trigger">
+                                <button class="button is-small" aria-haspopup="true" aria-controls="dropdown-menu-architects">
+                                    <span class="filter-label">{{ form.architects.label }}</span>
+                                    <span class="icon is-small">
+                                        <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                    </span>
+                                </button>
+                            </div>
+                            <div id="dropdown-menu-architects" class="menu is-hidden" role="menu">
+                                <div class="dropdown-content p-2 is-size-7">
+                                    {% comment %} <input id="architects-search" class="input is-small" type="text" placeholder="Search..."> {% endcomment %}
+                                    {{ form.architects }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-            <li><a class="dropdown-link filter-category">Architects <i class="fas fa-chevron-down"></i></a>
-              <ul class="link-content">
-                {% for architect in architects %}
-                <li>
-                  <a class="item {% if selected_architect_id == architect.id|stringformat:'s' %}active{% endif %}"
-                    href="{% pageurl page %}?architect={{architect.id}}">
-                    {{architect.last_name}}{% if architect.first_name %}, {{architect.first_name}}{% endif %}
-                  </a>
-                </li>
-                {% endfor %}
-              </ul>
-            </li>
+                    <div class="p-1">
+                        <div class="dropdown-custom">
+                            <div class="dropdown-trigger">
+                                <button class="button is-small" aria-haspopup="true" aria-controls="dropdown-menu-developers">
+                                    <span class="filter-label">{{ form.developers.label }}</span>
+                                    <span class="icon is-small">
+                                        <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                    </span>
+                                </button>
+                            </div>
+                            <div id="dropdown-menu-developers" class="menu is-hidden" role="menu">
+                                <div class="dropdown-content p-2 is-size-7">
+                                    {% comment %} <input id="developers-search" class="input is-small" type="text" placeholder="Search..."> {% endcomment %}
+                                    {{ form.developers }}
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
 
-            <li>
-                <a class="dropdown-link filter-category">Building Type <i class="fas fa-chevron-down"></i></a>
-                <ul class="link-content">
-                    {% for type in types %}
-                        <li><a class="item {% if selected_tag == type.name %}active{% endif %}"
-                            href="{% pageurl page %}?tag={{type.name}}">{{type.name}}</a></li>
-                    {% endfor %}
-                </ul>
-            </li>
+                    <div class="p-1">
+                        <div class="dropdown-custom">
+                            <div class="dropdown-trigger">
+                                <button class="button is-small" aria-haspopup="true" aria-controls="dropdown-menu-years">
+                                    <span class="filter-label">{{ form.years.label }}</span>
+                                    <span class="icon is-small">
+                                        <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                    </span>
+                                </button>
+                            </div>
+                            <div id="dropdown-menu-years" class="menu is-hidden" role="menu">
+                                <div class="dropdown-content p-2 is-size-7">
+                                    {% comment %} <input id="years-search" class="input is-small" type="text" placeholder="Search..."> {% endcomment %}
+                                    {{ form.years }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-            <li>
-                <a class="dropdown-link filter-category">Year <i class="fas fa-chevron-down"></i></a>
-                <ul class="link-content">
-                    {% for year in years %}
-                        <li><a class="item {% if selected_tag == year %}active{% endif %}"
-                            href="{% pageurl page %}?tag={{year}}">{{year}}</a></li>
-                    {% endfor %}
-                </ul>
-            </li>
+                    <div class="p-1">
+                        <div class="dropdown-custom">
+                            <div class="dropdown-trigger">
+                                <button class="button is-small" aria-haspopup="true" aria-controls="dropdown-menu-countries">
+                                    <span class="filter-label">{{ form.countries.label }}</span>
+                                    <span class="icon is-small">
+                                        <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                    </span>
+                                </button>
+                            </div>
+                            <div id="dropdown-menu-countries" class="menu is-hidden" role="menu">
+                                <div class="dropdown-content p-2 is-size-7">
+                                    {% comment %} <input id="country-search" class="input is-small" type="text" placeholder="Search..."> {% endcomment %}
+                                    {{ form.countries }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-            {% for country in countries %}
-                <li class="country-list {% if forloop.first %}country-on-top{% endif %}">
-                    <a href="{% pageurl page %}?tag={{country.country.name}}"
-                        class="filter-category item {% if selected_tag == country.country.name %}active{% endif %}">
-                        {{country.country.name}}
-                        <i class="fas fa-chevron-down"></i>
-                    </a>
-                    <ul id="{{country.country.name}}" class="link-content">
-                        {% for city in country.cities.all %}
-                            <li>
-                                <a class="item {% if selected_tag == city.name %}active{% endif %}"
-                                    href="{% pageurl page %}?tag={{city.name}}">
-                                    {{city.name}}
-                                </a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </li>
-            {% endfor %}
+                    <div class="p-1">
+                        <div class="dropdown-custom">
+                            <div class="dropdown-trigger">
+                                <button class="button is-small" aria-haspopup="true" aria-controls="dropdown-menu-cities">
+                                    <span class="filter-label">{{ form.cities.label }}</span>
+                                    <span class="icon is-small">
+                                        <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                    </span>
+                                </button>
+                            </div>
+                            <div id="dropdown-menu-cities" class="menu is-hidden" role="menu">
+                                <div class="dropdown-content p-2 is-size-7">
+                                    {% comment %} <input id="cities-search" class="input is-small" type="text" placeholder="Search..."> {% endcomment %}
+                                    {{ form.cities }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-          </ul>
-        </aside>
-      </div>
-      <div class="column">
-        <div class="content">
-          {% with country=buildings.first.country city=buildings.first.city b_type=buildings.first.building_type %}
-            {% if selected_tag == country.country.name %}
-                <h2>{{country.country.name}}</h2>
-                {{country.description|richtext}}
+                    <div class="p-1">
+                        <div class="dropdown-custom">
+                            <div class="dropdown-trigger">
+                                <button class="button is-small" aria-haspopup="true" aria-controls="dropdown-menu-features">
+                                    <span class="filter-label"><span class="filter-label">Features</span></span>
+                                    <span class="icon is-small">
+                                        <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                    </span>
+                                </button>
+                            </div>
+                            <div id="dropdown-menu-features" class="menu is-hidden" role="menu">
+                                <div class="dropdown-content p-2 is-size-7">
+                                    <div class="mt-1">
+                                        {{ form.building_types.label }}<br />
+                                        <div class="select is-small">{{ form.building_types }}</div>
+                                    </div>
+                                    <div class="mt-1">
+                                        {{ form.access_types.label }}<br />
+                                        <span class="select is-small">{{ form.access_types }}</span>
+                                    </div>
+                                    <div class="mt-1">
+                                        {{ form.protected_monument.label }}<br />
+                                        <span class="select is-small">{{ form.protected_monument }}</span>
+                                    </div>
+                                    <div class="mt-1">
+                                        {{ form.storey.label }}<br />
+                                        <span class="select is-small">{{ form.storey }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-1">
+                        <div class="dropdown-custom">
+                            <div class="dropdown-trigger">
+                                <button class="button is-small" aria-haspopup="true" aria-controls="dropdown-menu-construction">
+                                    <span class="filter-label">{{ form.construction_types.label }}</span>
+                                    <span class="icon is-small">
+                                        <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                    </span>
+                                </button>
+                            </div>
+                            <div id="dropdown-menu-construction" class="menu is-hidden" role="menu">
+                                <div class="dropdown-content p-2 is-size-7">
+                                    {{ form.construction_types }}   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-1">
+                        <div class="dropdown-custom">
+                            <div class="dropdown-trigger">
+                                <button class="button is-small" aria-haspopup="true" aria-controls="dropdown-menu-details">
+                                    <span class="filter-label">{{ form.details.label }}</span>
+                                    <span class="icon is-small">
+                                        <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                    </span>
+                                </button>
+                            </div>
+                            <div id="dropdown-menu-details" class="menu is-hidden" role="menu">
+                                <div class="dropdown-content p-2 is-size-7">
+                                    {{ form.details }}  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-1">
+                        <div class="dropdown-custom">
+                            <div class="dropdown-trigger">
+                                <button class="button is-small" aria-haspopup="true" aria-controls="dropdown-menu-windows">
+                                    <span class="filter-label"> {{ form.windows.label }}</span>
+                                    <span class="icon is-small">
+                                        <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                    </span>
+                                </button>
+                            </div>
+                            <div id="dropdown-menu-windows" class="menu is-hidden" role="menu">
+                                <div class="dropdown-content p-2 is-size-7">
+                                    {{ form.windows }} 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-1">
+                        <div class="dropdown-custom">
+                            <div class="dropdown-trigger">
+                                <button class="button is-small" aria-haspopup="true" aria-controls="dropdown-menu-roofs">
+                                    <span class="filter-label">{{ form.roofs.label }}</span>
+                                    <span class="icon is-small">
+                                        <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                    </span>
+                                </button>
+                            </div>
+                            <div id="dropdown-menu-roofs" class="menu is-hidden" role="menu">
+                                <div class="dropdown-content p-2 is-size-7">
+                                    {{ form.roofs }}  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-1">
+                        <div class="dropdown-custom">
+                            <div class="dropdown-trigger">
+                                <button class="button is-small" aria-haspopup="true" aria-controls="dropdown-menu-facades">
+                                    <span class="filter-label">{{ form.facades.label }}</span>
+                                    <span class="icon is-small">
+                                        <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                    </span>
+                                </button>
+                            </div>
+                            <div id="dropdown-menu-facades" class="menu is-hidden" role="menu">
+                                <div class="dropdown-content p-2 is-size-7">
+                                    {{ form.facades }} 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-1">
+                        <div class="dropdown-custom">
+                            <div class="dropdown-trigger">
+                                <button class="button is-small" aria-haspopup="true" aria-controls="dropdown-menu-positions">
+                                    <span class="filter-label">{{ form.positions.label }}</span>
+                                    <span class="icon is-small">
+                                        <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                    </span>
+                                </button>
+                            </div>
+                            <div id="dropdown-menu-positions" class="menu is-hidden" role="menu">
+                                <div class="dropdown-content p-2 is-size-7">
+                                    {{ form.positions }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="ml-5 mr-5 p-1">
+            <p id="filter-description"></p>
+            {% if not buildings %}
+                <p>No results for this selection. Please try other filters.</p>
             {% endif %}
-
-            {% if selected_tag == city.name %}
-                <h2>{{city.name}}</h2>
-                {{city.description|richtext}}
-            {% endif %}
-
-            {% if tag_building_type %}
-                <h2>{{tag_building_type.name}}</h2>
-                {{tag_building_type.description|richtext}}
-            {% endif %}
-
-            {% if selected_tag and selected_tag != city.name and selected_tag != country.country.name and selected_tag != tag_building_type.name %}
-                <h2>{{selected_tag}}</h2>
-            {% endif %}
-          {% endwith %}
-          
-          {% if active_architect %}
-            <h2>{{active_architect}}</h2>
-          {% endif %}
-
-          <div class="columns is-multiline is-centered">
-            {% include "buildings/buildings_list_page.html" %}
-          </div>
         </div>
-      </div>
+        {% include "buildings/buildings_list_page.html" %}
     </div>
-    {% endwith %}
-  </div>
 </section>
 {% endblock content %}
 {% block extra_js %}
 {{ block.super }}
-<script src="https://code.jquery.com/jquery-latest.js"></script>
-<script src="{% static 'el-pagination/js/el-pagination.js' %}"></script>
+<script type="application/javascript" src="https://code.jquery.com/jquery-latest.js"></script>
+<script type="application/javascript" src="{% static 'el-pagination/js/el-pagination.js' %}"></script>
+<script type="application/javascript" src="{% static 'lib/buildingIndex.js' %}"></script>
 <script>
   $.endlessPaginate({
     paginateOnScroll: true,

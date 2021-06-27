@@ -1,11 +1,14 @@
+import json
+
+import requests
 from buildings.tests import factories
-from django.test import TestCase
+from django.test import Client, LiveServerTestCase, TestCase
 from wagtail.core.models import Page, Site
 
 
-class TestPageModels(TestCase):
+class TestPageModels(LiveServerTestCase):
     @classmethod
-    def setUpTestData(cls):
+    def setUp(cls):
         cls.site = Site.objects.create(
             is_default_site=True, root_page=Page.get_first_root_node()
         )
@@ -31,9 +34,11 @@ class TestPageModels(TestCase):
             parent=cls.architectsindexpage
         )
 
-        cls.country = factories.CountryFactory()
-        cls.city_1 = factories.CityFactory(country=cls.country)
-        cls.city_2 = factories.CityFactory(country=cls.country)
+        cls.country_1 = factories.CountryFactory()
+        cls.country_2 = factories.CountryFactory()
+        cls.city_1 = factories.CityFactory(country=cls.country_1)
+        cls.city_2 = factories.CityFactory(country=cls.country_1)
+        cls.city_3 = factories.CityFactory(country=cls.country_2)
 
         cls.construction_type_1 = factories.ConstructionTypeFactory()
         cls.building_type_1 = factories.BuildingTypeFactory()
@@ -48,7 +53,8 @@ class TestPageModels(TestCase):
         cls.roof_2 = factories.RoofFactory()
         cls.facade_1 = factories.FacadeFactory()
 
-        cls.buildingpage = factories.BuildingPageFactory(
+        # Building 1
+        cls.buildingpage_1 = factories.BuildingPageFactory(
             parent=cls.buildingindexpage,
             city=cls.city_1,
             country=cls.country,
@@ -72,6 +78,38 @@ class TestPageModels(TestCase):
             page=cls.buildingpage, developer=cls.developerpage
         )
 
+        # Building 2
+        cls.buildingpage_2 = factories.BuildingPageFactory(
+            parent=cls.buildingindexpage,
+            city=cls.city_2,
+            country=cls.country_1,
+            construction_types=[cls.construction_type_1],
+            building_type=cls.building_type_1,
+            access_type=cls.access_type_1,
+            positions=[cls.position_1, cls.position_2],
+            details=[cls.details_1, cls.details_2, cls.details_3],
+            windows=[cls.window_1],
+            roofs=[cls.roof_1, cls.roof_2],
+            facades=[cls.facade_1],
+        )
+
+        cls.b_a_relation_2 = factories.BuildingPageArchitectRelationFactory(
+            page=cls.buildingpage, architect=cls.architectpage_2
+        )
+        cls.b_d_relation_1 = factories.BuildingPageDeveloperRelationFactory(
+            page=cls.buildingpage, developer=cls.developerpage
+        )
+
     def test_setup(self):
-        pass
+        self.maxDiff = None
+
+        # WHEN
+        c = Client()
+        response = c.post(
+            f"{self.buildingindexpage.url_path}",
+            {"username": "john", "password": "smith"},
+        )
+
+        # THEN
+        self.assertEqual(response.status_code, 200)
 

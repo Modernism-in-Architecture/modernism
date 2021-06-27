@@ -10,6 +10,7 @@ INSTALLED_APPS = [
     "base",
     "people",
     "wagtail.api.v2",
+    "wagtail.contrib.search_promotions",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
     "wagtail.contrib.modeladmin",

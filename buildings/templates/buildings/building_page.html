@@ -3,7 +3,9 @@
 {% load navigation_tags static wagtailcore_tags wagtailimages_tags %}
 
 {% block body_class %}building{% endblock %}
-
+{% block extra_css %}
+<script type="application/javascript">let pageId = "{% if page %}{{ page.pk }}{% endif %}";</script>
+{% endblock %}
 {% block breadcrumbs %}
 <section class="breadcrumbs-section">
   <div class="container">
@@ -13,73 +15,125 @@
 {% endblock breadcrumbs %}
 
 {% block content %}
+
 <section class="section last-section">
   <div class="container">
-    <div class="columns is-centered reverse-column-order">
-      <div class="column is-5-desktop">
-        {% image page.feed_image fill-600x400 %}
-        <p>
-          {% for tag in page.get_tags %}
-          <a class="building-tag" href="{% slugurl 'buildings' %}?tag={{ tag }}"> #{{tag}} </a>
-          {% endfor %}
-        </p>
-      </div>
-      <div class="column is-5-desktop">
-        <div class="content">
-          <h1>
-            {{page.title}}{% if page.year_of_construction %} ({{page.year_of_construction}}){% endif %}
-          </h1>
-          <p class="building-address">{{page.address}}<br>{{page.zip_code}} {{page.city}}, {{page.country}}
-          <p><i class="fa fa-map-marker-alt"></i> {{page.lat_long}}</p>
-          {% if page.architects.count > 0 %}
-          <h4 class="people">Architects</h4>
-          <p>
-            {% for architect in page.architects.all %}
-            <a href="{% pageurl architect.architect %}" alt="{{architect.architect}}">
-              {{architect.architect}}</a>{% if not forloop.last %},{% endif %}
+    <h1 class="is-size-3 mb-5">
+        {{page.title}}{% if page.year_of_construction %} ({{page.year_of_construction}}){% endif %} {% if page.protected_monument %}<span class="has-tooltip-arrow" data-tooltip="Protected monument"><i class="fas fa-landmark"></i></span>{% endif %}
+    </h1>
+    <div class="columns reverse-column-order">
+        <div class="column is-4-desktop">
+            {% image page.feed_image fill-600x600 %}
+            <p>
+            {% for tag in page.get_tags %}
+                #{{tag}}
             {% endfor %}
-          </p>
-          {% endif %}
-          {% if page.developers.count > 0 %}
-          <h4 class="people">Developers</h4>
-          <p>
-            {% for developer in page.developers.all %}
-            <a href="{% pageurl developer.developer %}"
-              alt="{{developer.developer.first_name}} {{developer.developer.last_name}}">
-              {{developer.developer.first_name}} {{developer.developer.last_name}}
-            </a>{% if not forloop.last %}, {% endif %}
-            {% endfor %}
-          </p>
-          {% endif %}
+            </p>
         </div>
-      </div>
-    </div>
-    <div class="columns is-centered">
-      <div class="column is-10-desktop">
-        <div class="content">
-          {% if page.todays_use %}
-          <p><strong>Today's use:</strong> {{page.todays_use}}</p>
-          {% endif %}
-          {% if page.access_type %}
-          <p><strong>Access:</strong> {{page.access_type}}</p>
-          {% endif %}
-          {% if page.directions %}
-          <p><strong>Public transport:</strong> {{page.directions}}</p>
-          {% endif %}
-          <div class="desription">{{page.description|richtext}}</div>
+        <div class="column is-8-desktop">
+            <div class="content">
+                {% if page.architects.count > 0 %}
+                    <h4 class="people mb-3">Architects</h4>
+                    <p>
+                        {% for architect in page.architects.all %}
+                        <a href="{% pageurl architect.architect %}" alt="{{architect.architect}}">
+                        {{architect.architect}}</a>{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </p>
+                {% endif %}
+                {% if page.developers.count > 0 %}
+                    <h4 class="people mb-3">Developers</h4>
+                    <p>
+                        {% for developer in page.developers.all %}
+                        <a href="{% pageurl developer.developer %}"
+                        alt="{{developer.developer.first_name}} {{developer.developer.last_name}}">
+                        {{developer.developer.first_name}} {{developer.developer.last_name}}
+                        </a>{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </p>
+                {% endif %}
+                {% if page.construction_types.count > 0 %}
+                    <p><strong>Construction types</strong>
+                    {% for construction_type in page.construction_types.all %}
+                        <span class="tag">{{construction_type.name}}</span>
+                    {% endfor %}
+                    </p>
+                {% endif %}
+                {% if page.facades.count > 0 %}
+                    <p><strong>Facades</strong>
+                    {% for facade in page.facades.all %}
+                        <span class="tag">{{facade.name}}</span>
+                    {% endfor %}
+                    </p>
+                {% endif %}
+                {% if page.windows.count > 0 %}
+                    <p><strong>Windows</strong>
+                    {% for window in page.windows.all %}
+                            <span class="tag">{{window.name}}</span>
+                        {% endfor %}
+                    </p>
+                {% endif %}
+                {% if page.roofs.count > 0 %}
+                    <p><strong>Roof</strong>
+                    {% for roof in page.roofs.all %}
+                            <span class="tag">{{roof.name}}</span>
+                        {% endfor %}
+                    </p>
+                {% endif %}
+                {% if page.details.count > 0 %}
+                    <p><strong>Detatils</strong>
+                    {% for detail in page.details.all %}
+                            <span class="tag">{{detail.name}}</span>
+                        {% endfor %}
+                    </p>
+                {% endif %}
+                {% if page.positions.count > 0 %}
+                    <p><strong>Position</strong>
+                    {% for position in page.positions.all %}
+                            <span class="tag">{{position.name}}</span>
+                        {% endfor %}
+                    </p>
+                {% endif %}
+                {% if page.storey %}
+                    <p><strong>Storeys</strong>
+                        <span class="tag">{{page.storey}}</span>
+                    </p>
+                {% endif %}
+            </div> 
         </div>
-      </div>
     </div>
-    <div class="columns is-centered">
-      <div class="column is-10-desktop">
+    <div class="columns">
+        <div class="column">
+            <div class="content">
+                {% if page.description %}
+                    <div class="box desription">{{page.description|richtext}}</div>
+                {% endif %}
+                <h4 class="address mb-3 mt-3">Address and directions</h4>
+                <p class="building-address">{{page.address}}<br>{{page.zip_code}} {{page.city}}, {{page.country}}
+                <p><i class="fa fa-map-marker-alt"></i> {{page.lat_long}}</p>
+                {% if page.directions %}
+                    <p><strong>Public transport:</strong> {{page.directions}}</p>
+                {% endif %}
+                {% if page.access_type %}
+                    <p><strong>Access:</strong> {{page.access_type}}</p>
+                {% endif %}
+                {% if page.todays_use %}
+                    <p><strong>Today's use:</strong> {{page.todays_use}}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="columns">
+      <div class="column">
         <div class="content">
-          {% for gallery_image in page.gallery_images %}
-          {% if gallery_image.block_type == 'image' %}
-          {% image gallery_image.value.image max-1300x700 as large_img %}
-          {% image gallery_image.value.image fill-150x150 as thumb_img %}
-          <img src="{{ thumb_img.url }}" large-url="{{ large_img.url }}" index="{{ forloop.counter0 }}"
-            class="preview-image" />
-          {% endif %}
+          {% if page.gallery_images %}<h4 class="impressions mb-3 mt-3">Impressions</h4>{% endif %}
+            {% for gallery_image in page.gallery_images %}
+                {% if gallery_image.block_type == 'image' %}
+                    {% image gallery_image.value.image max-1300x700 as large_img %}
+                    {% image gallery_image.value.image fill-150x150 as thumb_img %}
+                    <img src="{{ thumb_img.url }}" large-url="{{ large_img.url }}" index="{{ forloop.counter0 }}"
+                        class="preview-image" />
+                {% endif %}
           {% endfor %}
         </div>
       </div>
@@ -97,5 +151,11 @@
         </div>
       </div>
     </div>
+    </div>
 </section>
 {% endblock content %}
+
+{% block extra_js %}
+    {{ block.super }}
+    <script type="application/javascript" src="{% static 'lib/buildingPage.js' %}"></script>
+{% endblock %}
