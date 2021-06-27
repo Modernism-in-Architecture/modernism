@@ -6,6 +6,8 @@ const featureSelectFilter = document.querySelectorAll('.feature-select');
 const dropdownFilter = document.querySelectorAll('.dropdown-custom');
 const dropdownTriggers = document.querySelectorAll('.dropdown-trigger');
 const dropdownMenus = document.querySelectorAll('.menu');
+const resetFilterButton = document.querySelector('#reset-filter-btn');
+const applyFilterButton = document.querySelector('#apply-filter-btn');
 
 const getOptionKeyByEventTargetValue = (object, value) => {
     return Object.keys(object).find(key => object[key].value === value);
@@ -128,7 +130,28 @@ const addEventListenerToDropdownFilter = () => {
     });
 };
 
+const resetFilters = () => {
+    checkboxes.forEach(box => {
+        box.checked = false;
+    });
+    featureSelectFilter.forEach(selectField => {
+        let allOptions = selectField.options;
+        for (var i = 0; i < allOptions.length; i++) {
+            allOptions[i].selected = false;
+        }
+    });
+};
+
+const addEventListenerToResetFilterButton = () => {
+    resetFilterButton.addEventListener('click', event => {
+        event.preventDefault();
+        resetFilters();
+        applyFilterButton.click();
+    });
+};
+
 addChangeEventListenerToFilterForm();
 collectAllSelectedFilter();
 addEventListenerToDropdownFilter();
+addEventListenerToResetFilterButton();
 activateFilterButtons();

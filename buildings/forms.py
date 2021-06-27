@@ -18,36 +18,6 @@ from buildings.models import (
 )
 
 
-class EmptyChoiceField(forms.ChoiceField):
-    def __init__(
-        self,
-        choices=(),
-        empty_label=None,
-        required=True,
-        widget=None,
-        label=None,
-        initial=None,
-        help_text=None,
-        *args,
-        **kwargs
-    ):
-
-        # prepend an empty label if it exists (and field is not required!)
-        if not required and empty_label is not None:
-            choices = tuple([(u"", empty_label)] + list(choices))
-
-        super(EmptyChoiceField, self).__init__(
-            choices=choices,
-            required=required,
-            widget=widget,
-            label=label,
-            initial=initial,
-            help_text=help_text,
-            *args,
-            **kwargs
-        )
-
-
 class BuildingsFilterForm(forms.Form):
     building_types = forms.ModelChoiceField(
         queryset=BuildingType.objects.all().order_by("name"),
@@ -59,20 +29,17 @@ class BuildingsFilterForm(forms.Form):
         widget=forms.Select(attrs={"class": "feature-select"}),
         required=False,
     )
-    protected_monument = EmptyChoiceField(
+    protected_monument = forms.ChoiceField(
         required=False,
-        empty_label="----",
-        choices=[(True, "yes"), (False, "no")],
+        choices=[("", "---------"), (True, "yes"), (False, "no")],
         widget=forms.Select(attrs={"class": "feature-select"}),
     )
-
     storeys = BuildingPage.objects.filter(storey__isnull=False).values_list(
         "storey", flat=True
     )
-    storey = EmptyChoiceField(
+    storey = forms.ChoiceField(
         required=False,
-        empty_label="----",
-        choices=[(storey, storey) for storey in set(storeys)],
+        choices=[("", "---------")] + [(storey, storey) for storey in set(storeys)],
         widget=forms.Select(attrs={"class": "feature-select"}),
     )
     architects = forms.ModelMultipleChoiceField(

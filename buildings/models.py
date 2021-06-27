@@ -5,6 +5,7 @@ from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.core.validators import RegexValidator
 from django.db import models
+from django.http.request import MultiValueDict, QueryDict
 from django.utils.text import slugify
 from django_countries import countries
 from django_countries.fields import CountryField
@@ -293,7 +294,9 @@ class BuildingsIndexPage(Page):
                     except KeyError:
                         continue
 
-                building_form = BuildingsFilterForm(current_filter_settings)
+                filter_query_dict = QueryDict("", mutable=True)
+                filter_query_dict.update(MultiValueDict(current_filter_settings))
+                building_form = BuildingsFilterForm(filter_query_dict)
 
                 if building_form.is_valid():
                     context["form"] = building_form
