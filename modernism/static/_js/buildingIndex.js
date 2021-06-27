@@ -34,8 +34,6 @@ const activateFilterButtons = () => {
     dropdownTriggers.forEach(trigger => {
         toggleMenuButtonColor(trigger);
     })
-    // ToDo: Needs to get activated button if selected
-    // console.log(featureSelectFilter)
 }
 
 const addChangeEventListenerToFilterForm = () => {
