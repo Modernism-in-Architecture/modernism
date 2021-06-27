@@ -22,6 +22,7 @@ const renderFilterSelection = selectedFilter => {
     filterDescriptionContainer.innerHTML = filterString;
 };
 
+// ToDo: Set active color for feature dropdown
 const toggleMenuButtonColor = trigger => {
     if (trigger.parentElement.querySelector(".menu").querySelectorAll('input[type=checkbox]:checked').length > 0) {
         let menuButton = trigger.parentElement.querySelector(".button");
