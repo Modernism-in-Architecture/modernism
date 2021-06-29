@@ -1967,8 +1967,8 @@ div.icon-text {
 
 .tag:not(body) {
   align-items: center;
-  background-color: #4a4a4a;
-  border-radius: 10px;
+  background-color: rgba(68, 68, 68, 0.8);
+  border-radius: 4px;
   color: white;
   display: inline-flex;
   font-size: 0.75rem;
@@ -2065,9 +2065,9 @@ div.icon-text {
       height: 50%;
       width: 1px; }
     .tag:not(body).is-delete:hover, .tag:not(body).is-delete:focus {
-      background-color: #3d3d3d; }
+      background-color: rgba(55, 55, 55, 0.8); }
     .tag:not(body).is-delete:active {
-      background-color: #303030; }
+      background-color: rgba(43, 43, 43, 0.8); }
   .tag:not(body).is-rounded {
     border-radius: 290486px; }
 
@@ -7936,8 +7936,12 @@ body {
 .building .preview-image {
   cursor: pointer; }
 
+.building .tags:not(:last-child) {
+  margin-bottom: 0; }
+
 .building span[data-tooltip] {
-  border-bottom: none; }
+  border-bottom: none;
+  font-size: smaller; }
 
 .building-idx-container {
   min-height: 75vh;
@@ -7985,7 +7989,7 @@ body {
     border-color: blue; }
   .building-idx-container .button:focus, .building-idx-container .button.is-focused {
     border-color: transparent; }
-  .building-idx-container .has-filter-set {
+  .building-idx-container .has-filter-set, .building-idx-container .dropdown-trigger > .is-active {
     color: blue; }
   .building-idx-container .filter-label {
     font-weight: bold; }

@@ -22,9 +22,21 @@ const renderFilterSelection = selectedFilter => {
     filterDescriptionContainer.innerHTML = filterString;
 };
 
-// ToDo: Set active color for feature dropdown
 const toggleMenuButtonColor = trigger => {
-    if (trigger.parentElement.querySelector(".menu").querySelectorAll('input[type=checkbox]:checked').length > 0) {
+    let selects = trigger.parentElement.getElementsByTagName("select");
+    let hasSelection = [...selects].find(select => select.selectedIndex);
+    let checkedBoxes = trigger.parentElement.querySelector(".menu").querySelectorAll('input[type=checkbox]:checked');
+
+    if (hasSelection) {
+        let menuButton = trigger.querySelector(".button");
+        menuButton.classList.add("has-filter-set");
+        return;
+    } else {
+        let menuButton = trigger.parentElement.querySelector(".button");
+        menuButton.classList.remove("has-filter-set");
+    }
+
+    if (checkedBoxes.length > 0) {
         let menuButton = trigger.parentElement.querySelector(".button");
         menuButton.classList.add("has-filter-set");
     } else {
@@ -114,7 +126,7 @@ const addEventListenerToDropdownFilter = () => {
             dropdownMenus.forEach(dropMenu => {
                 dropMenu.classList.add("is-hidden");
             });
-            if (Array.from(trigger.classList).includes("is-active")) {
+            if ([...trigger.classList].includes("is-active")) {
                 dropdownTriggers.forEach(trigger => {
                     trigger.classList.remove("is-active");
                     toggleMenuButtonColor(trigger);

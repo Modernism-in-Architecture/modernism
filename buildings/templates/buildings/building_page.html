@@ -52,62 +52,7 @@
                         {% endfor %}
                     </p>
                 {% endif %}
-                {% if page.construction_types.count > 0 %}
-                    <p><strong>Construction types</strong>
-                    {% for construction_type in page.construction_types.all %}
-                        <span class="tag">{{construction_type.name}}</span>
-                    {% endfor %}
-                    </p>
-                {% endif %}
-                {% if page.facades.count > 0 %}
-                    <p><strong>Facades</strong>
-                    {% for facade in page.facades.all %}
-                        <span class="tag">{{facade.name}}</span>
-                    {% endfor %}
-                    </p>
-                {% endif %}
-                {% if page.windows.count > 0 %}
-                    <p><strong>Windows</strong>
-                    {% for window in page.windows.all %}
-                            <span class="tag">{{window.name}}</span>
-                        {% endfor %}
-                    </p>
-                {% endif %}
-                {% if page.roofs.count > 0 %}
-                    <p><strong>Roof</strong>
-                    {% for roof in page.roofs.all %}
-                            <span class="tag">{{roof.name}}</span>
-                        {% endfor %}
-                    </p>
-                {% endif %}
-                {% if page.details.count > 0 %}
-                    <p><strong>Detatils</strong>
-                    {% for detail in page.details.all %}
-                            <span class="tag">{{detail.name}}</span>
-                        {% endfor %}
-                    </p>
-                {% endif %}
-                {% if page.positions.count > 0 %}
-                    <p><strong>Position</strong>
-                    {% for position in page.positions.all %}
-                            <span class="tag">{{position.name}}</span>
-                        {% endfor %}
-                    </p>
-                {% endif %}
-                {% if page.storey %}
-                    <p><strong>Storeys</strong>
-                        <span class="tag">{{page.storey}}</span>
-                    </p>
-                {% endif %}
-            </div> 
-        </div>
-    </div>
-    <div class="columns">
-        <div class="column">
-            <div class="content">
-                {% if page.description %}
-                    <div class="box desription">{{page.description|richtext}}</div>
-                {% endif %}
+
                 <h4 class="address mb-3 mt-3">Address and directions</h4>
                 <p class="building-address">{{page.address}}<br>{{page.zip_code}} {{page.city}}, {{page.country}}
                 <p><i class="fa fa-map-marker-alt"></i> {{page.lat_long}}</p>
@@ -120,9 +65,76 @@
                 {% if page.todays_use %}
                     <p><strong>Today's use:</strong> {{page.todays_use}}</p>
                 {% endif %}
-            </div>
+
+            </div> 
         </div>
     </div>
+    <div class="columns">
+        <div class="column">
+            <div class="content">
+                {% if page.description %}
+                    <div class="box desription">{{page.description|richtext}}</div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="column is-one-quarter">
+            {% if page.construction_types.count > 0 %}
+                <strong>Construction types</strong>
+                <div class="tags">
+                    {% for construction_type in page.construction_types.all %}
+                        <span class="tag">{{construction_type.name}}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% if page.facades.count > 0 %}
+                <strong>Facades</strong>
+                <div class="tags">
+                    {% for facade in page.facades.all %}
+                        <span class="tag">{{facade.name}}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% if page.windows.count > 0 %}
+                <strong>Windows</strong>
+                <div class="tags">
+                    {% for window in page.windows.all %}
+                        <span class="tag">{{window.name}}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% if page.roofs.count > 0 %}
+                <strong>Roof</strong>
+                <div class="tags">
+                    {% for roof in page.roofs.all %}
+                        <span class="tag">{{roof.name}}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% if page.details.count > 0 %}
+                <strong>Details</strong>
+                <div class="tags">
+                    {% for detail in page.details.all %}
+                        <span class="tag">{{detail.name}}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% if page.positions.count > 0 %}
+                <strong>Position</strong>
+                <div class="tags">
+                    {% for position in page.positions.all %}
+                        <span class="tag">{{position.name}}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% if page.storey %}
+                <strong>Storeys</strong>
+                <div class="tags">
+                    <span class="tag">{{page.storey}}</span>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
     <div class="columns">
       <div class="column">
         <div class="content">

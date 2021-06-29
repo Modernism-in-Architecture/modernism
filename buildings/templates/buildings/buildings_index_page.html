@@ -275,11 +275,10 @@
             </div>
         </form>
 
-
         <div class="ml-5 mr-5 p-1">
             <p id="filter-description"></p>
             {% if not buildings %}
-                <p>No results for this selection. Please try other filters.</p>
+                <p class="mt-3">No results for this selection. Please try other filters.</p>
             {% endif %}
         </div>
         {% include "buildings/buildings_list_page.html" %}

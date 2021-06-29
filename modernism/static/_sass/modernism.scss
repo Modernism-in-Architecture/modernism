@@ -55,9 +55,8 @@ $navbar-dropdown-item-hover-background-color: transparent;
 $navbar-dropdown-item-hover-color: $yellow;
 $menu-nested-list-padding-left: 0;
 $menu-list-link-padding: 0em 0.75em;
-$tag-background-color: $grey-dark;
+$tag-background-color: rgba(68,68,68, 0.8);;
 $tag-color: $white;
-$tag-radius: $border-radius;
 $footer-background-color: $black;
 $footer-padding: 2rem 1.5rem 1.5rem;
 
@@ -265,10 +264,13 @@ body {
     .preview-image {
         cursor: pointer;
     }
+    .tags:not(:last-child) {
+        margin-bottom: 0;
+    }
     span[data-tooltip] {
         border-bottom: none;
+        font-size: smaller;
     }
-
 }
 
 .building-idx-container {
@@ -324,13 +326,14 @@ body {
         position: absolute;
         z-index: 99;
     }
+
     .filter-icon:hover {
         border-color: $blue;
     }
     .button:focus, .button.is-focused {
         border-color: transparent;
     }
-    .has-filter-set {
+    .has-filter-set, .dropdown-trigger > .is-active {
         color: $blue;
     }
     .filter-label {
