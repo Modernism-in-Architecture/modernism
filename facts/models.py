@@ -1,7 +1,8 @@
+from django import forms
 from django.db import models
 from django.utils.text import slugify
 from modelcluster.contrib.taggit import ClusterTaggableManager
-from modelcluster.fields import ParentalKey
+from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from taggit.models import TaggedItemBase
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.core.fields import RichTextField
@@ -66,9 +67,13 @@ class FactPage(Page):
     category = models.ForeignKey(
         FactCategory, on_delete=models.SET_NULL, null=True, blank=True,
     )
+    categories = ParentalManyToManyField(
+        "facts.FactCategory", blank=True, related_name="fact"
+    )
     tags = ClusterTaggableManager(through=FactPageTag, blank=True)
     content_panels = Page.content_panels + [
         FieldPanel("description", classname="full"),
+        FieldPanel("categories", widget=forms.CheckboxSelectMultiple),
         FieldPanel("category"),
         ImageChooserPanel("image"),
     ]
@@ -92,7 +97,6 @@ class FactPage(Page):
     def save(self, *args, **kwargs):
         """Add tags from new values."""
         self.tags.clear()
-        if self.category:
-            self.tags.add(self.category.category)
+        self.tags.add(*self.categories.all().values_list("category", flat=True))
 
         super(FactPage, self).save()

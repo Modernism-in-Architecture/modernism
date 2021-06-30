@@ -8005,6 +8005,9 @@ body {
 .people .rich-text, .facts .rich-text {
   margin: 2rem 0; }
 
+.facts .menu-list li {
+  margin-top: 0.6rem; }
+
 .facts .facts-content {
   display: none; }
 
