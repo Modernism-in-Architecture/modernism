@@ -269,7 +269,7 @@ class BuildingsIndexPage(Page):
 
         from buildings.forms import BuildingsFilterForm
 
-        all_buildings = BuildingPage.objects.live()
+        all_buildings = BuildingPage.objects.live().order_by("-first_published_at")
 
         if request.method == "POST":
             page = request.POST.get("page")
