@@ -8011,6 +8011,14 @@ body {
 .facts .facts-content {
   display: none; }
 
+.facts .is-card-equal-height {
+  display: flex;
+  flex-direction: column;
+  height: 100%; }
+
+.facts .fact-dropdown-link {
+  padding-top: 1rem; }
+
 .facts .show {
   display: block; }
 

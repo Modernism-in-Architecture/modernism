@@ -368,6 +368,14 @@ body {
     .facts-content {
         display: none;
     }
+    .is-card-equal-height {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+     }
+     .fact-dropdown-link {
+         padding-top: 1rem;
+     }
     .show {
         display: block;
     }
