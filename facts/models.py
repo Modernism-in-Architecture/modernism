@@ -64,9 +64,6 @@ class FactPage(Page):
         on_delete=models.SET_NULL,
         related_name="+",
     )
-    category = models.ForeignKey(
-        FactCategory, on_delete=models.SET_NULL, null=True, blank=True,
-    )
     categories = ParentalManyToManyField(
         "facts.FactCategory", blank=True, related_name="fact"
     )
@@ -74,7 +71,6 @@ class FactPage(Page):
     content_panels = Page.content_panels + [
         FieldPanel("description", classname="full"),
         FieldPanel("categories", widget=forms.CheckboxSelectMultiple),
-        FieldPanel("category"),
         ImageChooserPanel("image"),
     ]
     parent_page_types = ["facts.FactsIndexPage"]
