@@ -286,7 +286,8 @@ class BuildingsIndexPage(Page):
         else:
             page = request.GET.get("page") if request.method == "GET" else ""
             current_filter_settings = request.session.get("filter-request")
-            if page and current_filter_settings is not None:
+
+            if page or current_filter_settings is not None:
                 for setting, value in list(current_filter_settings.items()):
                     try:
                         if value[0] == "":
