@@ -272,9 +272,7 @@ class BuildingsIndexPage(Page):
         all_buildings = BuildingPage.objects.live().order_by("-first_published_at")
 
         if request.method == "POST":
-            page = request.POST.get("page")
             building_form = BuildingsFilterForm(request.POST)
-
             request.session["filter-request"] = dict(request.POST)
 
             if building_form.is_valid():
@@ -284,8 +282,8 @@ class BuildingsIndexPage(Page):
                 )
 
         else:
-            page = request.GET.get("page") if request.method == "GET" else ""
             current_filter_settings = request.session.get("filter-request")
+            context["form"] = BuildingsFilterForm()
 
             if current_filter_settings is not None:
                 for setting, value in list(current_filter_settings.items()):
@@ -304,9 +302,6 @@ class BuildingsIndexPage(Page):
                     all_buildings = self._get_filtered_buildings(
                         building_form.cleaned_data, all_buildings
                     )
-
-            else:
-                context["form"] = BuildingsFilterForm()
 
         context["buildings"] = all_buildings
         return context
