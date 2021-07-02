@@ -262,7 +262,7 @@ class BuildingsIndexPage(Page):
             if not buildings:
                 return buildings.none()
 
-        return buildings
+        return buildings.distinct()
 
     def get_context(self, request):
         context = super().get_context(request)
