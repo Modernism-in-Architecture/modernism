@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% load navigation_tags static wagtailcore_tags wagtailimages_tags %}
+{% load wagtailroutablepage_tags %}
 {% block extra_css %}
 {% endblock %}
 {% block body_class %}buildings{% endblock %}
@@ -14,8 +15,19 @@
 {% endblock breadcrumbs %}
 
 {% block content %}
-<section class="building-idx-container">
+<section class="building-idx-container mt-3">
     <div class="container">
+        <form role="search" method="get" class="form-search" action="{% pageurl page 'buildings_index' %}" method="get">
+            <div class="field has-addons is-pulled-right mr-5">
+                <div class="control">
+                    <input type="text" class="input is-small" name="q" placeholder="Search" title="Search for:">
+                </div>
+                <div class="control">
+                    <button class="button is-small" type="submit" name="submit" id="searchsubmit" value="Search"><span class="fas fa-search"></span></button>
+                </div>
+            </div>
+        </form>
+
         <form action="{% pageurl page %}" method="post" class="ml-5 mr-5">
             {% csrf_token %}
             <div class="is-flex is-flex-direction-row">
@@ -27,10 +39,10 @@
                     </button>
                 </div>
                 <div class="p-1 set-filter-btn is-hidden">
-                    <button id="apply-filter-btn" class="button is-small is-link is-black" type="submit">Apply filters</button>
+                    <a id="apply-filter-btn" class="button is-small is-black apply-btn" type="submit">Apply filters</a>
                 </div>
                 <div class="p-1 remove-filter-btn is-hidden">
-                    <a id="reset-filter-btn" class="button is-small is-link is-outlined">Remove filters</a>
+                    <a id="reset-filter-btn" class="button is-small is-outlined remove-btn">Remove filters</a>
                 </div>
             </div>
             

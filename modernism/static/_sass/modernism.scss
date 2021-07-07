@@ -276,7 +276,14 @@ body {
 
 .building-idx-container {
     min-height: 75vh;
-
+    a#apply-filter-btn:hover {
+        background-color: rgba($black, 0.9);
+        color: rgba($white, 0.8);
+    };
+    .button.is-outlined.remove-btn {
+        background-color: rgba($black, 0.2);
+        border-color: transparent;
+    }
     .button.is-small {
         border-radius: 5px;
     }

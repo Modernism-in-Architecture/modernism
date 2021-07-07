@@ -22,10 +22,12 @@ from wagtail.admin.edit_handlers import (
     StreamFieldPanel,
 )
 from wagtail.api import APIField
+from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Page
 from wagtail.images.api.fields import ImageRenditionField
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.search import index
 
 from buildings.blocks import GalleryImageBlock
 
@@ -266,6 +268,7 @@ class BuildingsIndexPage(Page):
 
     def get_context(self, request):
         context = super().get_context(request)
+        search_query = request.GET.get("q", None)
 
         from buildings.forms import BuildingsFilterForm
 
@@ -303,7 +306,12 @@ class BuildingsIndexPage(Page):
                         building_form.cleaned_data, all_buildings
                     )
 
+        if search_query:
+            all_buildings.search(search_query)
+
         context["buildings"] = all_buildings
+        context["search_term"] = search_query
+
         return context
 
     def clean(self):
@@ -438,7 +446,6 @@ class BuildingPage(Page):
         "access_type",
         "building_type",
     ]
-
     content_panels = [
         FieldPanel("name"),
         MultiFieldPanel(
@@ -486,7 +493,6 @@ class BuildingPage(Page):
         ImageChooserPanel("feed_image"),
         StreamFieldPanel("gallery_images"),
     ]
-
     api_fields = [
         APIField("name"),
         APIField("city"),
@@ -494,6 +500,23 @@ class BuildingPage(Page):
         APIField("address"),
         APIField("lat_long"),
         APIField("gallery_images"),
+    ]
+    search_fields = Page.search_fields + [
+        index.SearchField("description"),
+        index.RelatedFields(
+            "city", [index.SearchField("name"), index.FilterField("description"),]
+        ),
+        index.RelatedFields(
+            "country", [index.SearchField("country"), index.FilterField("description"),]
+        ),
+        index.RelatedFields(
+            "building_type",
+            [index.SearchField("name"), index.FilterField("description"),],
+        ),
+        index.RelatedFields(
+            "access_type",
+            [index.SearchField("name"), index.FilterField("description"),],
+        ),
     ]
 
     parent_page_types = ["buildings.BuildingsIndexPage"]
