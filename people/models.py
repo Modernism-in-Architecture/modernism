@@ -11,6 +11,7 @@ from wagtail.admin.edit_handlers import (
 from wagtail.core.fields import RichTextField
 from wagtail.core.models import Orderable, Page, PageManager
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 
 
@@ -172,6 +173,11 @@ class DevelopersIndexPage(Page):
 class ArchitectPage(PersonPage):
     parent_page_types = ["people.ArchitectsIndexPage"]
     subpage_types = []
+    search_fields = Page.search_fields + [
+        index.SearchField("last_name"),
+        index.SearchField("first_name"),
+        index.SearchField("description"),
+    ]
 
 
 class BuildingOwnerPage(PersonPage):

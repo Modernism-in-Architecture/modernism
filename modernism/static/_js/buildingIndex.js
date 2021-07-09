@@ -160,6 +160,7 @@ const addEventListenerToResetFilterButton = () => {
         event.preventDefault();
         resetFilters();
         applyFilterButton.click();
+
     })
 }
 

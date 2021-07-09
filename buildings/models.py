@@ -1,8 +1,4 @@
-import json
-
 from django import forms
-from django.contrib.admin.widgets import FilteredSelectMultiple
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.core.validators import RegexValidator
 from django.db import models
 from django.http.request import MultiValueDict, QueryDict
@@ -22,12 +18,11 @@ from wagtail.admin.edit_handlers import (
     StreamFieldPanel,
 )
 from wagtail.api import APIField
-from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Page
-from wagtail.images.api.fields import ImageRenditionField
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
+from wagtail.search.backends import get_search_backend
 
 from buildings.blocks import GalleryImageBlock
 
@@ -307,7 +302,8 @@ class BuildingsIndexPage(Page):
                     )
 
         if search_query:
-            all_buildings.search(search_query)
+            search_backend = get_search_backend()
+            all_buildings = search_backend.search(search_query, all_buildings)
 
         context["buildings"] = all_buildings
         context["search_term"] = search_query
@@ -503,11 +499,28 @@ class BuildingPage(Page):
     ]
     search_fields = Page.search_fields + [
         index.SearchField("description"),
+        index.SearchField("year_of_construction"),
+        index.SearchField("todays_use"),
+        index.SearchField("directions"),
+        index.SearchField("address"),
+        index.FilterField("country_id"),
+        index.FilterField("city_id"),
+        index.FilterField("building_type_id"),
+        index.FilterField("access_type_id"),
+        index.RelatedFields(
+            "developers",
+            [index.SearchField("last_name"), index.SearchField("description"),],
+        ),
+        index.RelatedFields(
+            "architects",
+            [index.SearchField("last_name"), index.SearchField("description"),],
+        ),
         index.RelatedFields(
             "city", [index.SearchField("name"), index.FilterField("description"),]
         ),
         index.RelatedFields(
-            "country", [index.SearchField("country"), index.FilterField("description"),]
+            "country",
+            [index.SearchField("country"), index.FilterField("description"),],
         ),
         index.RelatedFields(
             "building_type",

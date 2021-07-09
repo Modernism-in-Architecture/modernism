@@ -3,7 +3,7 @@
 {% lazy_paginate 8 buildings %}
 
 
-<div class="columns is-multiline is-centered m-5">
+<div class="columns is-multiline is-centered ml-5 mr-5">
     {% for building in buildings %}
         <div class="column is-4-tablet is-3-desktop">
             <a href="{% pageurl building %}" alt="{{building.title}}" class="card-title">

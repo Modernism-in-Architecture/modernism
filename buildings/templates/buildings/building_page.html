@@ -23,7 +23,7 @@
     </h1>
     <div class="columns reverse-column-order">
         <div class="column is-4-desktop">
-            {% image page.feed_image fill-600x600 %}
+            <div class="feed-image">{% image page.feed_image fill-600x600 %}</div>
             <p>
             {% for tag in page.get_tags %}
                 #{{tag}}
