@@ -401,7 +401,7 @@ table th {
 .box {
   background-color: white;
   border-radius: 10px;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
   color: #444444;
   display: block;
   padding: 1.25rem; }
@@ -3038,7 +3038,7 @@ a.tag:hover {
 .card {
   background-color: white;
   border-radius: 0.25rem;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
   color: #444444;
   max-width: 100%;
   position: relative; }
@@ -7917,7 +7917,7 @@ body {
   margin-bottom: 1rem; }
 
 .building .preview-image, .building .feed-image img {
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px; }
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px; }
 
 .building .modal {
   padding: 1rem; }
@@ -7999,10 +7999,13 @@ body {
   .building-idx-container .dropdown-content {
     position: absolute;
     z-index: 99; }
-  .building-idx-container .filter-icon:hover {
-    border-color: blue; }
-  .building-idx-container .button:focus, .building-idx-container .button.is-focused {
-    border-color: transparent; }
+  .building-idx-container .fa-trash-alt {
+    margin-left: 1rem;
+    color: #444444; }
+  .building-idx-container .filter-icon {
+    border-color: #dbdbdb; }
+  .building-idx-container button.filter-on, .building-idx-container .filter-icon:focus {
+    box-shadow: #ccdbe8 1px 1px 2px 0px inset, rgba(255, 255, 255, 0.5) -1px -1px 2px 1px inset; }
   .building-idx-container .has-filter-set, .building-idx-container .dropdown-trigger > .is-active {
     color: blue; }
   .building-idx-container .filter-label {
@@ -8011,9 +8014,13 @@ body {
     font-size: 0.9em; }
   .building-idx-container input[type="checkbox"] {
     vertical-align: text-top; }
+  .building-idx-container .is-small.input, .building-idx-container .is-small.textarea {
+    border-radius: 5px; }
   @media screen and (max-width: 840px) {
-    .building-idx-container .filter-icon, .building-idx-container .form-filter {
+    .building-idx-container .filter-icon {
       margin-left: 0.75rem; }
+    .building-idx-container .form-filter {
+      margin-left: 2rem; }
     .building-idx-container .reverse-column-order {
       display: flex;
       flex-direction: column-reverse; } }

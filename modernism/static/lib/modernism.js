@@ -17,7 +17,10 @@ const addClickEventListenerToFilterIcon = () => {
         FILTER_ICON.addEventListener('click', event => {
             event.preventDefault();
             let filterFormContainer = document.querySelector('.filter-form');
+            let filterColumn = document.querySelector('.filter-column');
             filterFormContainer.classList.toggle('is-hidden');
+            filterColumn.classList.toggle('is-hidden');
+            FILTER_ICON.classList.toggle('filter-on');
             let setFilterBtn = document.querySelector('.set-filter-btn');
             setFilterBtn.classList.toggle('is-hidden');
             let removeFilterBtn = document.querySelector('.remove-filter-btn');

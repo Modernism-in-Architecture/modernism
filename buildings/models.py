@@ -509,26 +509,32 @@ class BuildingPage(Page):
         index.FilterField("access_type_id"),
         index.RelatedFields(
             "developers",
-            [index.SearchField("last_name"), index.SearchField("description"),],
+            [
+                index.SearchField("developer__last_name"),
+                index.SearchField("developer__first_name"),
+            ],
         ),
         index.RelatedFields(
             "architects",
-            [index.SearchField("last_name"), index.SearchField("description"),],
+            [
+                index.SearchField("architect__last_name"),
+                index.SearchField("architect__description"),
+            ],
         ),
         index.RelatedFields(
             "city", [index.SearchField("name"), index.FilterField("description"),]
         ),
         index.RelatedFields(
             "country",
-            [index.SearchField("country"), index.FilterField("description"),],
+            [index.SearchField("country"), index.SearchField("description"),],
         ),
         index.RelatedFields(
             "building_type",
-            [index.SearchField("name"), index.FilterField("description"),],
+            [index.SearchField("name"), index.SearchField("description"),],
         ),
         index.RelatedFields(
             "access_type",
-            [index.SearchField("name"), index.FilterField("description"),],
+            [index.SearchField("name"), index.SearchField("description"),],
         ),
     ]
 

@@ -17,7 +17,7 @@
 {% block content %}
 <section class="building-idx-container mt-3">
     <div class="container">
-        <div class="">
+        <div>
             <div class="columns is-vcentered reverse-column-order">
                 <div class="column is-10">
                     <button class="button is-small filter-icon">
@@ -40,13 +40,10 @@
                             </div>
                         </div>
                     </form>
-                    {% if search_term %}
-                        <a href="{% pageurl page %}">x clear</a>
-                    {% endif %}
                 </div>
             </div>
             <div class="columns is-vcentered">
-                <div class="column">
+                <div class="column filter-column is-hidden">
                     <form action="{% pageurl page %}" method="post" class="form-filter">
                         {% csrf_token %}
                         <div class="is-flex is-flex-direction-row">
@@ -302,7 +299,9 @@
             <div class="m-5">
                 <p id="filter-description"></p>
                 {% if search_term %}
-                    <p id="search-description">You searched for: {{search_term}}</p>
+                    <p id="search-description">
+                    You searched for: {{search_term}} <a href="{% pageurl page %}"><i class="fas fa-trash-alt"></i></a> 
+                     </p>
                 {% endif %}
                 
                 {% if not buildings %}
