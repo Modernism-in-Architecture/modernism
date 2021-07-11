@@ -57,6 +57,7 @@ $menu-nested-list-padding-left: 0;
 $menu-list-link-padding: 0em 0.75em;
 $box-radius: $border-radius;
 $card-shadow:rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+$modal-card-head-radius: $border-radius;
 $box-shadow: $card-shadow;
 $tag-background-color: rgba(68,68,68, 0.8);;
 $tag-color: $white;
@@ -403,12 +404,22 @@ body {
         display: flex;
         flex-direction: column;
         height: 100%;
-     }
-     .fact-dropdown-link {
+    }
+    .fact-dropdown-link {
          padding-top: 1rem;
-     }
+    }
     .show {
         display: block;
+    }
+    .fact-modal {
+        z-index: 999;
+    }
+    .fact-card {
+        cursor: pointer;
+    }
+    .modal-card-body {
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
     }
 }
 

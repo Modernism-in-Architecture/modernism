@@ -35,14 +35,7 @@
           <div class="columns is-multiline is-centered">
             {% for fact in facts %}
                 <div class="column is-half-tablet is-5-desktop">
-                    <div class="card is-card-equal-height">
-                        {% if fact.image %}
-                            <div class="card-image">
-                                <figure class="image is-marginless is-square">
-                                    {% image fact.image fill-200x200-c100 %}
-                                </figure>
-                            </div>
-                        {% endif %}
+                    <div class="card is-card-equal-height fact-card">
                         <div class="card-content">
                             <div class="content has-text-centered">
                                 <div class="tags is-marginless">
@@ -52,13 +45,22 @@
                                     {% endfor %}
                                 </div>
                                 <h5 class="is-marginless">{{ fact.title }}</h5>
-                                {% if fact.description %}
-                                    <div class="fact-dropdown-link">
-                                        <a><i class="fas fa-chevron-down"></i></a>
-                                    </div>
-                                    <div class="facts-content">{{ fact.description|richtext }}</div>
-                                {% endif %}
                             </div>
+                        </div>
+                    </div>
+                    <div class="modal fact-modal">
+                        <div class="modal-background"></div>
+                        <div class="modal-card">
+                            <header class="modal-card-head">
+                                <p class="modal-card-title"></p>
+                                <button class="delete close-button" aria-label="close"></button>
+                            </header>
+                            <section class="modal-card-body">
+                                {% if fact.description %}
+                                    <h5>{{ fact.title }}</h5>
+                                    <div>{{ fact.description|richtext }}</div>
+                                {% endif %}  
+                            </section>
                         </div>
                     </div>
                 </div>
@@ -68,3 +70,8 @@
       </div>
 </section>
 {% endblock content %}
+
+{% block extra_js %}
+    {{ block.super }}
+    <script type="application/javascript" src="{% static 'lib/factsPage.js' %}"></script>
+{% endblock %}

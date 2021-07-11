@@ -3503,8 +3503,8 @@ button.dropdown-item {
 
 .modal-card-head {
   border-bottom: 1px solid #dbdbdb;
-  border-top-left-radius: 6px;
-  border-top-right-radius: 6px; }
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px; }
 
 .modal-card-title {
   color: #363636;
@@ -8044,6 +8044,16 @@ body {
 
 .facts .show {
   display: block; }
+
+.facts .fact-modal {
+  z-index: 999; }
+
+.facts .fact-card {
+  cursor: pointer; }
+
+.facts .modal-card-body {
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px; }
 
 .places #mapid {
   height: 80vh; }
