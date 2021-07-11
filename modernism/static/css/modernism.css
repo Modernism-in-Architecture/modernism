@@ -8005,7 +8005,7 @@ body {
   .building-idx-container .filter-icon {
     border-color: #dbdbdb; }
   .building-idx-container button.filter-on, .building-idx-container .filter-icon:focus {
-    box-shadow: #ccdbe8 1px 1px 2px 0px inset, rgba(255, 255, 255, 0.5) -1px -1px 2px 1px inset; }
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px; }
   .building-idx-container .has-filter-set, .building-idx-container .dropdown-trigger > .is-active {
     color: blue; }
   .building-idx-container .filter-label {
