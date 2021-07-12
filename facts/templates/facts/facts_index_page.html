@@ -34,13 +34,13 @@
         <div class="content">
             <div class="columns">
                 <div class="column">
-                    {% if search_term %}
+                    {% if search_term and facts %}
                         <p id="search-description">
                             You searched for: {{search_term}} <a href="{% pageurl page %}"><i class="fas fa-trash-alt"></i></a> 
                         </p>
                     {% endif %}
                     {% if not facts %}
-                        <p class="mt-3">No results for this selection. Please try again.</p>
+                        <p class="mt-3">No results for this selection. Please try again. <a href="{% pageurl page %}"><i class="fas fa-trash-alt"></i></a></p>
                     {% endif %}
                 </div>
                 <div class="column">

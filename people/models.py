@@ -135,6 +135,7 @@ class ArchitectsIndexPage(Page):
             architects = architects.search(search_query)
 
         context["persons"] = architects
+        context["search_term"] = search_query
         return context
 
     def get_template(self, request):
@@ -168,6 +169,7 @@ class DevelopersIndexPage(Page):
             developers = developers
 
         context["persons"] = developers.search(search_query)
+        context["search_term"] = search_query
         return context
 
     def get_template(self, request):
