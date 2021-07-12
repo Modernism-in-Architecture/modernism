@@ -8,6 +8,8 @@ from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.core.fields import RichTextField
 from wagtail.core.models import Page
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.search import index
+from wagtail.search.backends import get_search_backend
 
 
 class FactsIndexPage(Page):
@@ -19,15 +21,19 @@ class FactsIndexPage(Page):
 
     def get_context(self, request):
         context = super().get_context(request)
+        search_query = request.GET.get("q", None)
 
         facts = FactPage.objects.live().order_by("title")
 
+        if search_query:
+            facts = facts.search(search_query)
         tag = request.GET.get("tag")
         if tag:
             facts = facts.filter(tags__name=tag)
 
         context["facts"] = facts
         context["categories"] = FactCategory.objects.order_by("category")
+        context["search_term"] = search_query
         return context
 
     def clean(self):
@@ -75,6 +81,10 @@ class FactPage(Page):
     ]
     parent_page_types = ["facts.FactsIndexPage"]
     subpage_types = []
+    search_fields = Page.search_fields + [
+        index.SearchField("title"),
+        index.SearchField("description"),
+    ]
 
     @property
     def get_tags(self):

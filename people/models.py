@@ -128,7 +128,13 @@ class ArchitectsIndexPage(Page):
 
     def get_context(self, request):
         context = super().get_context(request)
-        context["persons"] = ArchitectPage.objects.live().order_by("last_name")
+        architects = ArchitectPage.objects.live().order_by("last_name")
+
+        search_query = request.GET.get("q", None)
+        if search_query:
+            architects = architects.search(search_query)
+
+        context["persons"] = architects
         return context
 
     def get_template(self, request):
@@ -155,7 +161,13 @@ class DevelopersIndexPage(Page):
 
     def get_context(self, request):
         context = super().get_context(request)
-        context["persons"] = DeveloperPage.objects.live().order_by("last_name")
+        developers = DeveloperPage.objects.live().order_by("last_name")
+
+        search_query = request.GET.get("q", None)
+        if search_query:
+            developers = developers
+
+        context["persons"] = developers.search(search_query)
         return context
 
     def get_template(self, request):

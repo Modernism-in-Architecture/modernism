@@ -125,7 +125,6 @@ const setModalImage = (direction) => {
 
 }
 
-
 addClickEventListenerToBurgerMenu();
 addClickEventListenerToDropdownLinks();
 addClickEventListenerToBuildingImages();

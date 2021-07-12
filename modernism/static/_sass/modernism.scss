@@ -422,6 +422,14 @@ body {
         border-bottom-right-radius: 10px;
     }
 }
+.people-index, .facts {
+    .is-small.input, .is-small.textarea {
+        border-radius: 5px;
+    }
+    .button.is-small {
+        border-radius: 5px;
+    }
+}
 
 .places {
     #mapid { height: 80vh; }
