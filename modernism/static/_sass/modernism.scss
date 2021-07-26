@@ -441,6 +441,21 @@ body {
     }
 }
 
+.about {
+    .richtext-image {
+        max-width: 300px;
+        width: 100%;
+        float: left;
+        margin-right: 1rem;
+        margin-bottom: 1rem;
+    }
+    @media screen and (max-width: 969px) {
+        .richtext-image ~ .richtext-image {
+            float: none;
+        }
+    }
+}
+
 footer {
     font-family: $righteous;
     a {
