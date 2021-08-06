@@ -1,8 +1,20 @@
 {% extends "wagtailadmin/admin_base.html" %}
 {% load static %}
 
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/widgets.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/admin.css' %}" />
+ {% endblock %}
+
 {% block branding_favicon %}
-<link rel="shortcut icon" href="{% static 'img/favicon-96x96.png' %}" />
+    <link rel="shortcut icon" href="{% static 'img/favicon-96x96.png' %}" />
 {% endblock %}
 
 {% block branding_title %}MIA CMS{% endblock %}
+
+{% block extra_js %}
+    <script type="text/javascript" src="{% url 'admin:jsi18n' %}"></script>
+    <script type="text/javascript" src="{% static 'admin/js/core.js' %}"></script>
+    <script type="text/javascript" src="{% static 'admin/js/SelectBox.js' %}"></script>
+    <script type="text/javascript" src="{% static 'admin/js/SelectFilter2.js' %}"></script>
+{% endblock %}

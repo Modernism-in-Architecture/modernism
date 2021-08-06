@@ -1,4 +1,4 @@
-from django import forms
+from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.db import models
 from django.utils.text import slugify
 from modelcluster.fields import ParentalManyToManyField
@@ -90,7 +90,12 @@ class PersonPage(Page):
             ],
             heading="Death",
         ),
-        FieldPanel("universities", widget=forms.SelectMultiple),
+        FieldPanel(
+            "universities",
+            widget=FilteredSelectMultiple(
+                verbose_name="universities", is_stacked=False,
+            ),
+        ),
         FieldPanel("description", classname="full"),
         ImageChooserPanel("image"),
     ]
@@ -260,12 +265,27 @@ class ProfessorPage(PersonPage):
         ),
         MultiFieldPanel(
             [
-                FieldPanel("professor_mentors", widget=forms.SelectMultiple),
-                FieldPanel("architect_mentors", widget=forms.SelectMultiple),
+                FieldPanel(
+                    "professor_mentors",
+                    widget=FilteredSelectMultiple(
+                        verbose_name="Professors", is_stacked=False,
+                    ),
+                ),
+                FieldPanel(
+                    "architect_mentors",
+                    widget=FilteredSelectMultiple(
+                        verbose_name="Architects", is_stacked=False,
+                    ),
+                ),
             ],
             heading="Mentors",
         ),
-        FieldPanel("universities", widget=forms.SelectMultiple),
+        FieldPanel(
+            "universities",
+            widget=FilteredSelectMultiple(
+                verbose_name="universities", is_stacked=False,
+            ),
+        ),
         FieldPanel("description", classname="full"),
         ImageChooserPanel("image"),
     ]
@@ -321,12 +341,27 @@ class ArchitectPage(PersonPage):
         ),
         MultiFieldPanel(
             [
-                FieldPanel("professor_mentors", widget=forms.SelectMultiple),
-                FieldPanel("architect_mentors", widget=forms.SelectMultiple),
+                FieldPanel(
+                    "professor_mentors",
+                    widget=FilteredSelectMultiple(
+                        verbose_name="Professors", is_stacked=False,
+                    ),
+                ),
+                FieldPanel(
+                    "architect_mentors",
+                    widget=FilteredSelectMultiple(
+                        verbose_name="Architects", is_stacked=False,
+                    ),
+                ),
             ],
             heading="Mentors",
         ),
-        FieldPanel("universities", widget=forms.SelectMultiple),
+        FieldPanel(
+            "universities",
+            widget=FilteredSelectMultiple(
+                verbose_name="universities", is_stacked=False,
+            ),
+        ),
         FieldPanel("description", classname="full"),
         ImageChooserPanel("image"),
     ]

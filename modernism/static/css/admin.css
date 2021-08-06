@@ -1,0 +1,17 @@
+.filtered_select_multiple h2 {
+  font-size: 1rem;
+  margin-bottom: 0; }
+
+@media screen and (max-width: 969px) {
+  .filtered_select_multiple .selector {
+    width: 100%; }
+  .filtered_select_multiple .selector select {
+    width: 100% !important; }
+  .filtered_select_multiple .selector ul.selector-chooser {
+    margin: 1em 5px 0 5px;
+    padding: 0; }
+  .filtered_select_multiple .selector-available, .filtered_select_multiple .selector-chosen {
+    width: 100%; }
+  .filtered_select_multiple .selector .selector-available input {
+    width: 100%;
+    padding: 8px; } }

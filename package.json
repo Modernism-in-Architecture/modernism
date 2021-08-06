@@ -17,7 +17,7 @@
         "postcss-cli": "^8.3.1"
     },
     "scripts": {
-        "css-build": "node-sass modernism/static/_sass/modernism.scss modernism/static/css/modernism.css",
+        "css-build": "node-sass modernism/static/_sass/modernism.scss modernism/static/css/modernism.css && node-sass modernism/static/_sass/admin.scss modernism/static/css/admin.css",
         "css-deploy": "npm run css-build && npm run css-postcss",
         "css-postcss": "postcss --use autoprefixer --output modernism/static/css/main.css modernism/static/css/main.css",
         "css-watch": "npm run css-build -- --watch",
