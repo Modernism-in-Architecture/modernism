@@ -7,13 +7,15 @@ import modelcluster.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('facts', '0001_initial'),
+        ("facts", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='factpage',
-            name='categories',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, related_name='fact', to='facts.FactCategory'),
+            model_name="factpage",
+            name="categories",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True, related_name="fact", to="facts.FactCategory"
+            ),
         ),
     ]

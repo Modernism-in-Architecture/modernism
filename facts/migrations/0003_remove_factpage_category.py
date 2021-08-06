@@ -6,12 +6,9 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('facts', '0002_factpage_categories'),
+        ("facts", "0002_factpage_categories"),
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='factpage',
-            name='category',
-        ),
+        migrations.RemoveField(model_name="factpage", name="category",),
     ]

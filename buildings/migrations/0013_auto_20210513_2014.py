@@ -7,33 +7,43 @@ import modelcluster.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('buildings', '0012_buildingpage_positions'),
+        ("buildings", "0012_buildingpage_positions"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='buildingpage',
-            name='construction_types',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, to='buildings.ConstructionType'),
+            model_name="buildingpage",
+            name="construction_types",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True, to="buildings.ConstructionType"
+            ),
         ),
         migrations.AddField(
-            model_name='buildingpage',
-            name='details',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, to='buildings.Detail'),
+            model_name="buildingpage",
+            name="details",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True, to="buildings.Detail"
+            ),
         ),
         migrations.AddField(
-            model_name='buildingpage',
-            name='facades',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, to='buildings.Facade'),
+            model_name="buildingpage",
+            name="facades",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True, to="buildings.Facade"
+            ),
         ),
         migrations.AddField(
-            model_name='buildingpage',
-            name='roofs',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, to='buildings.Roof'),
+            model_name="buildingpage",
+            name="roofs",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True, to="buildings.Roof"
+            ),
         ),
         migrations.AddField(
-            model_name='buildingpage',
-            name='windows',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, to='buildings.Window'),
+            model_name="buildingpage",
+            name="windows",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True, to="buildings.Window"
+            ),
         ),
     ]

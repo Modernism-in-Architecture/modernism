@@ -1,11 +1,13 @@
+from wagtail.contrib.modeladmin.helpers import WagtailBackendSearchHandler
 from wagtail.contrib.modeladmin.options import (
     ModelAdmin,
     ModelAdminGroup,
     modeladmin_register,
 )
 
-from .models import (
+from buildings.models import (
     AccessType,
+    BuildingPage,
     BuildingType,
     City,
     ConstructionType,
@@ -17,6 +19,36 @@ from .models import (
     Tag,
     Window,
 )
+
+
+class BuildingAdmin(ModelAdmin):
+    model = BuildingPage
+    list_display = (
+        "name",
+        "city",
+        "country",
+        "building_type",
+        "year_of_construction",
+        "protected_monument",
+        "building_architects",
+        "building_developers",
+    )
+    menu_icon = "arrow-right"
+    menu_order = 201
+    search_handler_class = WagtailBackendSearchHandler
+    list_per_page = 25
+
+    def building_architects(self, obj):
+        building_architects = obj.architects.values_list(
+            "architect__last_name", flat=True
+        )
+        return ", ".join([name for name in building_architects])
+
+    def building_developers(self, obj):
+        building_developers = obj.developers.values_list(
+            "developer__last_name", flat=True
+        )
+        return ", ".join([name for name in building_developers])
 
 
 class ConstructionTypeAdmin(ModelAdmin):
@@ -93,7 +125,7 @@ class BuildingTypeAdmin(ModelAdmin):
 
 class FeatureAdmin(ModelAdminGroup):
     menu_label = "Type Definitions"
-    menu_order = 200
+    menu_order = 210
     items = (
         BuildingTypeAdmin,
         RoofAdmin,
@@ -150,3 +182,4 @@ class TagAdmin(ModelAdmin):
 modeladmin_register(TagAdmin)
 modeladmin_register(FeatureAdmin)
 modeladmin_register(LocationAdmin)
+modeladmin_register(BuildingAdmin)

@@ -1,16 +1,33 @@
+from wagtail.contrib.modeladmin.helpers import WagtailBackendSearchHandler
 from wagtail.contrib.modeladmin.options import ModelAdmin, modeladmin_register
 
-from .models import FactCategory
+from facts.models import FactCategory, FactPage
 
 
 class FactCategoryAdmin(ModelAdmin):
     model = FactCategory
     menu_label = "Fact Categories"
     menu_icon = "form"
-    menu_order = 293
+    menu_order = 205
     add_to_settings_menu = False
     exclude_from_explorer = False
     list_display = ("category",)
 
 
+class FactAdmin(ModelAdmin):
+    model = FactPage
+    list_display = (
+        "title",
+        "fact_categories",
+    )
+    menu_icon = "arrow-right"
+    menu_order = 204
+    search_handler_class = WagtailBackendSearchHandler
+
+    def fact_categories(self, obj):
+        categories = obj.categories.values_list("category", flat=True)
+        return ", ".join([category for category in categories])
+
+
 modeladmin_register(FactCategoryAdmin)
+modeladmin_register(FactAdmin)

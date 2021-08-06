@@ -192,4 +192,3 @@ class BuildingPageFactory(PageFactory):
         if extracted:
             for construction_type in extracted:
                 self.construction_types.add(construction_type)
-

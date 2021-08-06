@@ -112,4 +112,3 @@ class TestPageModels(LiveServerTestCase):
 
         # THEN
         self.assertEqual(response.status_code, 200)
-

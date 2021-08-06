@@ -7,13 +7,15 @@ import modelcluster.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('buildings', '0011_constructiontype_detail_facade_position_roof_window'),
+        ("buildings", "0011_constructiontype_detail_facade_position_roof_window"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='buildingpage',
-            name='positions',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, to='buildings.Position'),
+            model_name="buildingpage",
+            name="positions",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True, to="buildings.Position"
+            ),
         ),
     ]

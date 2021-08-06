@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('buildings', '0009_buildingpage_protected_monument'),
+        ("buildings", "0009_buildingpage_protected_monument"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='buildingpage',
-            name='storey',
+            model_name="buildingpage",
+            name="storey",
             field=models.IntegerField(blank=True, null=True),
         ),
     ]
