@@ -89,6 +89,12 @@ class PersonPage(Page):
         ImageChooserPanel("image"),
     ]
 
+    search_fields = Page.search_fields + [
+        index.SearchField("last_name"),
+        index.SearchField("first_name"),
+        index.SearchField("description"),
+    ]
+
     def __str__(self):
         name = self.last_name
         if self.first_name:
@@ -179,11 +185,6 @@ class DevelopersIndexPage(Page):
 class ArchitectPage(PersonPage):
     parent_page_types = ["people.ArchitectsIndexPage"]
     subpage_types = []
-    search_fields = Page.search_fields + [
-        index.SearchField("last_name"),
-        index.SearchField("first_name"),
-        index.SearchField("description"),
-    ]
 
 
 class BuildingOwnerPage(PersonPage):
@@ -194,8 +195,3 @@ class BuildingOwnerPage(PersonPage):
 class DeveloperPage(PersonPage):
     parent_page_types = ["people.DevelopersIndexPage"]
     subpage_types = []
-    search_fields = Page.search_fields + [
-        index.SearchField("last_name"),
-        index.SearchField("first_name"),
-        index.SearchField("description"),
-    ]
