@@ -1,14 +1,8 @@
 from django import forms
 from django.db import models
-from django.db.models.fields import BooleanField
 from django.utils.text import slugify
 from modelcluster.fields import ParentalManyToManyField
-from wagtail.admin.edit_handlers import (
-    FieldPanel,
-    FieldRowPanel,
-    InlinePanel,
-    MultiFieldPanel,
-)
+from wagtail.admin.edit_handlers import FieldPanel, FieldRowPanel, MultiFieldPanel
 from wagtail.core.fields import RichTextField
 from wagtail.core.models import Page, PageManager
 from wagtail.images.edit_handlers import ImageChooserPanel
@@ -54,6 +48,9 @@ class PersonPage(Page):
     death_year_known_only = models.BooleanField(
         default=False, help_text="Tick the box if you only know the birth year."
     )
+    universities = ParentalManyToManyField(
+        "facts.ArchitectUniversity", blank=True, related_name="universities"
+    )
     description = RichTextField(blank=True)
     image = models.ForeignKey(
         "wagtailimages.Image",
@@ -93,6 +90,7 @@ class PersonPage(Page):
             ],
             heading="Death",
         ),
+        FieldPanel("universities", widget=forms.SelectMultiple),
         FieldPanel("description", classname="full"),
         ImageChooserPanel("image"),
     ]
@@ -207,34 +205,34 @@ class ProfessorPage(PersonPage):
     professor_mentors = ParentalManyToManyField(
         "self", blank=True, related_name="mentors"
     )
-    is_active_architect = BooleanField(
+    is_active_architect = models.BooleanField(
         default=False, help_text="Is/Was the professor active as modernist architect?"
     )
-    is_active_developer = BooleanField(
+    is_active_developer = models.BooleanField(
         default=False, help_text="Is/Was the professor active as developer?"
     )
     content_panels = [
         MultiFieldPanel(
-            [FieldRowPanel([FieldPanel("last_name"), FieldPanel("first_name")])],
+            [
+                FieldRowPanel(
+                    [
+                        FieldPanel("last_name", classname="col6"),
+                        FieldPanel("first_name", classname="col6"),
+                    ]
+                )
+            ],
             heading="Name",
         ),
         MultiFieldPanel(
             [
                 FieldRowPanel(
                     [
-                        FieldPanel("is_active_architect"),
-                        FieldPanel("is_active_developer"),
+                        FieldPanel("is_active_architect", classname="col6"),
+                        FieldPanel("is_active_developer", classname="col6"),
                     ]
                 )
             ],
             heading="Activity",
-        ),
-        MultiFieldPanel(
-            [
-                FieldPanel("professor_mentors", widget=forms.SelectMultiple),
-                FieldPanel("architect_mentors", widget=forms.SelectMultiple),
-            ],
-            heading="Mentors",
         ),
         MultiFieldPanel(
             [
@@ -260,6 +258,14 @@ class ProfessorPage(PersonPage):
             ],
             heading="Death",
         ),
+        MultiFieldPanel(
+            [
+                FieldPanel("professor_mentors", widget=forms.SelectMultiple),
+                FieldPanel("architect_mentors", widget=forms.SelectMultiple),
+            ],
+            heading="Mentors",
+        ),
+        FieldPanel("universities", widget=forms.SelectMultiple),
         FieldPanel("description", classname="full"),
         ImageChooserPanel("image"),
     ]
@@ -279,15 +285,15 @@ class ArchitectPage(PersonPage):
 
     content_panels = [
         MultiFieldPanel(
-            [FieldRowPanel([FieldPanel("last_name"), FieldPanel("first_name")])],
-            heading="Name",
-        ),
-        MultiFieldPanel(
             [
-                FieldPanel("professor_mentors", widget=forms.SelectMultiple),
-                FieldPanel("architect_mentors", widget=forms.SelectMultiple),
+                FieldRowPanel(
+                    [
+                        FieldPanel("last_name", classname="col6"),
+                        FieldPanel("first_name", classname="col6"),
+                    ]
+                )
             ],
-            heading="Mentors",
+            heading="Name",
         ),
         MultiFieldPanel(
             [
@@ -313,6 +319,14 @@ class ArchitectPage(PersonPage):
             ],
             heading="Death",
         ),
+        MultiFieldPanel(
+            [
+                FieldPanel("professor_mentors", widget=forms.SelectMultiple),
+                FieldPanel("architect_mentors", widget=forms.SelectMultiple),
+            ],
+            heading="Mentors",
+        ),
+        FieldPanel("universities", widget=forms.SelectMultiple),
         FieldPanel("description", classname="full"),
         ImageChooserPanel("image"),
     ]
