@@ -1,3 +1,4 @@
+from buildings.models import City, Country
 from django import forms
 from django.db import models
 from django.utils.text import slugify
@@ -59,6 +60,21 @@ class FactCategory(models.Model):
 
     class Meta:
         verbose_name_plural = "Categories"
+
+
+class ArchitectUniversity(models.Model):
+    name = models.CharField(max_length=250, unique=True)
+    city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True, blank=True)
+    country = models.ForeignKey(
+        Country, on_delete=models.SET_NULL, null=True, blank=True
+    )
+    description = RichTextField(blank=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = "Architect Universities"
 
 
 class FactPage(Page):

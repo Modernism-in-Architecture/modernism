@@ -1,7 +1,7 @@
 from wagtail.contrib.modeladmin.helpers import WagtailBackendSearchHandler
 from wagtail.contrib.modeladmin.options import ModelAdmin, modeladmin_register
 
-from facts.models import FactCategory, FactPage
+from facts.models import ArchitectUniversity, FactCategory, FactPage
 
 
 class FactCategoryAdmin(ModelAdmin):
@@ -12,6 +12,20 @@ class FactCategoryAdmin(ModelAdmin):
     add_to_settings_menu = False
     exclude_from_explorer = False
     list_display = ("category",)
+
+
+class ArchitectUniversityAdmin(ModelAdmin):
+    model = ArchitectUniversity
+    menu_label = "Architect Universities"
+    menu_icon = "form"
+    menu_order = 206
+    add_to_settings_menu = False
+    exclude_from_explorer = False
+    list_display = (
+        "name",
+        "city",
+        "country",
+    )
 
 
 class FactAdmin(ModelAdmin):
@@ -31,3 +45,4 @@ class FactAdmin(ModelAdmin):
 
 modeladmin_register(FactCategoryAdmin)
 modeladmin_register(FactAdmin)
+modeladmin_register(ArchitectUniversityAdmin)
