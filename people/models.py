@@ -1,6 +1,14 @@
+from django import forms
 from django.db import models
+from django.db.models.fields import BooleanField
 from django.utils.text import slugify
-from wagtail.admin.edit_handlers import FieldPanel, FieldRowPanel, MultiFieldPanel
+from modelcluster.fields import ParentalManyToManyField
+from wagtail.admin.edit_handlers import (
+    FieldPanel,
+    FieldRowPanel,
+    InlinePanel,
+    MultiFieldPanel,
+)
 from wagtail.core.fields import RichTextField
 from wagtail.core.models import Page, PageManager
 from wagtail.images.edit_handlers import ImageChooserPanel
@@ -118,7 +126,7 @@ class PersonsIndexPage(Page):
     parent_page_types = ["home.HomePage"]
     subpage_types = [
         "people.DevelopersIndexPage",
-        "people.BuildingOwnersIndexPage",
+        "people.ProfessorIndexPage",
         "people.ArchitectsIndexPage",
     ]
     max_count = 1
@@ -148,23 +156,10 @@ class ArchitectsIndexPage(Page):
         return "people/people_index_page.html"
 
 
-class BuildingOwnersIndexPage(Page):
-    parent_page_types = ["people.PersonsIndexPage"]
-    subpage_types = ["people.BuildingOwnerPage"]
-    max_count = 1
-
-    def get_context(self, request):
-        context = super().get_context(request)
-        context["persons"] = BuildingOwnerPage.objects.live().order_by("last_name")
-        return context
-
-    def get_template(self, request):
-        return "people/people_index_page.html"
-
-
 class DevelopersIndexPage(Page):
     parent_page_types = ["people.PersonsIndexPage"]
     subpage_types = ["people.DeveloperPage"]
+    max_count = 1
 
     def get_context(self, request):
         context = super().get_context(request)
@@ -182,16 +177,147 @@ class DevelopersIndexPage(Page):
         return "people/people_index_page.html"
 
 
-class ArchitectPage(PersonPage):
-    parent_page_types = ["people.ArchitectsIndexPage"]
-    subpage_types = []
+class ProfessorIndexPage(Page):
+    parent_page_types = ["people.PersonsIndexPage"]
+    subpage_types = ["people.ProfessorPage"]
+    max_count = 1
 
 
-class BuildingOwnerPage(PersonPage):
-    parent_page_types = ["people.BuildingOwnersIndexPage"]
+class BuildingOwnersIndexPage(Page):
+    parent_page_types = ["people.PersonsIndexPage"]
+    subpage_types = ["people.BuildingOwnerPage"]
+    max_count = 1
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        context["persons"] = BuildingOwnerPage.objects.live().order_by("last_name")
+        return context
+
+    def get_template(self, request):
+        return "people/people_index_page.html"
+
+
+class ProfessorPage(PersonPage):
+    parent_page_types = ["people.ProfessorIndexPage"]
     subpage_types = []
+
+    architect_mentors = ParentalManyToManyField(
+        "people.ArchitectPage", blank=True, related_name="professors"
+    )
+    professor_mentors = ParentalManyToManyField(
+        "self", blank=True, related_name="mentors"
+    )
+    is_active_architect = BooleanField(
+        default=False, help_text="Is/Was the professor active as modernist architect?"
+    )
+    is_active_developer = BooleanField(
+        default=False, help_text="Is/Was the professor active as developer?"
+    )
+    content_panels = [
+        MultiFieldPanel(
+            [FieldRowPanel([FieldPanel("last_name"), FieldPanel("first_name")])],
+            heading="Name",
+        ),
+        MultiFieldPanel(
+            [
+                FieldRowPanel(
+                    [
+                        FieldPanel("is_active_architect"),
+                        FieldPanel("is_active_developer"),
+                    ]
+                )
+            ],
+            heading="Activity",
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("professor_mentors", widget=forms.SelectMultiple),
+                FieldPanel("architect_mentors", widget=forms.SelectMultiple),
+            ],
+            heading="Mentors",
+        ),
+        MultiFieldPanel(
+            [
+                FieldRowPanel(
+                    [
+                        FieldPanel("birthday", classname="col6"),
+                        FieldPanel("birth_year_known_only", classname="col6"),
+                    ]
+                ),
+                FieldPanel("place_of_birth"),
+            ],
+            heading="Birthday",
+        ),
+        MultiFieldPanel(
+            [
+                FieldRowPanel(
+                    [
+                        FieldPanel("day_of_death", classname="col6"),
+                        FieldPanel("death_year_known_only", classname="col6"),
+                    ]
+                ),
+                FieldPanel("place_of_death"),
+            ],
+            heading="Death",
+        ),
+        FieldPanel("description", classname="full"),
+        ImageChooserPanel("image"),
+    ]
 
 
 class DeveloperPage(PersonPage):
     parent_page_types = ["people.DevelopersIndexPage"]
+    subpage_types = []
+
+
+class ArchitectPage(PersonPage):
+    parent_page_types = ["people.ArchitectsIndexPage"]
+    subpage_types = []
+
+    professor_mentors = ParentalManyToManyField("people.ProfessorPage", blank=True)
+    architect_mentors = ParentalManyToManyField("self", blank=True)
+
+    content_panels = [
+        MultiFieldPanel(
+            [FieldRowPanel([FieldPanel("last_name"), FieldPanel("first_name")])],
+            heading="Name",
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("professor_mentors", widget=forms.SelectMultiple),
+                FieldPanel("architect_mentors", widget=forms.SelectMultiple),
+            ],
+            heading="Mentors",
+        ),
+        MultiFieldPanel(
+            [
+                FieldRowPanel(
+                    [
+                        FieldPanel("birthday", classname="col6"),
+                        FieldPanel("birth_year_known_only", classname="col6"),
+                    ]
+                ),
+                FieldPanel("place_of_birth"),
+            ],
+            heading="Birthday",
+        ),
+        MultiFieldPanel(
+            [
+                FieldRowPanel(
+                    [
+                        FieldPanel("day_of_death", classname="col6"),
+                        FieldPanel("death_year_known_only", classname="col6"),
+                    ]
+                ),
+                FieldPanel("place_of_death"),
+            ],
+            heading="Death",
+        ),
+        FieldPanel("description", classname="full"),
+        ImageChooserPanel("image"),
+    ]
+
+
+class BuildingOwnerPage(PersonPage):
+    parent_page_types = ["people.BuildingOwnersIndexPage"]
     subpage_types = []
