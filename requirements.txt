@@ -55,7 +55,7 @@ toml==0.10.1
 typed-ast==1.4.1
 Unidecode==1.1.1
 urllib3==1.26.5
-wagtail==2.13.4
+wagtail==2.14
 webencodings==0.5.1
 whitenoise==5.2.0
 Willow==1.4
