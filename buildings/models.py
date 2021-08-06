@@ -508,21 +508,7 @@ class BuildingPage(Page):
         index.FilterField("building_type_id"),
         index.FilterField("access_type_id"),
         index.RelatedFields(
-            "developers",
-            [
-                index.SearchField("developer__last_name"),
-                index.SearchField("developer__first_name"),
-            ],
-        ),
-        index.RelatedFields(
-            "architects",
-            [
-                index.SearchField("architect__last_name"),
-                index.SearchField("architect__description"),
-            ],
-        ),
-        index.RelatedFields(
-            "city", [index.SearchField("name"), index.FilterField("description"),]
+            "city", [index.SearchField("name"), index.SearchField("description"),]
         ),
         index.RelatedFields(
             "country",
