@@ -1,7 +1,12 @@
 .filtered_select_multiple {
     h2 {
-    font-size: 1rem;
-    margin-bottom: 0;
+        font-size: 1rem;
+        margin-bottom: 0;
+        font-weight: 200;
+        padding: 0.2rem;
+    }
+    .selector .help-icon {
+        display: none;
     }
     @media screen and (max-width: 969px) {
         .selector {
