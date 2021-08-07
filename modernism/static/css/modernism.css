@@ -8116,6 +8116,9 @@ body {
 .people .rich-text, .facts .rich-text {
   margin: 2rem 0; }
 
+.people .preview-image > a > img, .facts .preview-image > a > img {
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px; }
+
 .facts .menu-list li {
   margin-top: 0.6rem; }
 
