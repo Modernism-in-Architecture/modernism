@@ -42,6 +42,7 @@ class BuildingsFilterForm(forms.Form):
         choices=[("", "---------")] + [(storey, storey) for storey in set(storeys)],
         widget=forms.Select(attrs={"class": "feature-select"}),
     )
+    # TODO: change filter attribute to new relation
     architects = forms.ModelMultipleChoiceField(
         queryset=ArchitectPage.objects.filter(buildings__isnull=False).distinct(),
         widget=forms.CheckboxSelectMultiple(),

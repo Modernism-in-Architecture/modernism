@@ -57,31 +57,6 @@ class TestPageModels(LiveServerTestCase):
         cls.buildingpage_1 = factories.BuildingPageFactory(
             parent=cls.buildingindexpage,
             city=cls.city_1,
-            country=cls.country,
-            construction_types=[cls.construction_type_1],
-            building_type=cls.building_type_1,
-            access_type=cls.access_type_1,
-            positions=[cls.position_1, cls.position_2],
-            details=[cls.details_1, cls.details_2, cls.details_3],
-            windows=[cls.window_1],
-            roofs=[cls.roof_1, cls.roof_2],
-            facades=[cls.facade_1],
-        )
-
-        cls.b_a_relation_1 = factories.BuildingPageArchitectRelationFactory(
-            page=cls.buildingpage, architect=cls.architectpage_1
-        )
-        cls.b_a_relation_2 = factories.BuildingPageArchitectRelationFactory(
-            page=cls.buildingpage, architect=cls.architectpage_2
-        )
-        cls.b_d_relation_1 = factories.BuildingPageDeveloperRelationFactory(
-            page=cls.buildingpage, developer=cls.developerpage
-        )
-
-        # Building 2
-        cls.buildingpage_2 = factories.BuildingPageFactory(
-            parent=cls.buildingindexpage,
-            city=cls.city_2,
             country=cls.country_1,
             construction_types=[cls.construction_type_1],
             building_type=cls.building_type_1,
@@ -93,11 +68,36 @@ class TestPageModels(LiveServerTestCase):
             facades=[cls.facade_1],
         )
 
+        cls.b_a_relation_1 = factories.BuildingPageArchitectRelationFactory(
+            page=cls.buildingpage_1, architect=cls.architectpage_1
+        )
         cls.b_a_relation_2 = factories.BuildingPageArchitectRelationFactory(
-            page=cls.buildingpage, architect=cls.architectpage_2
+            page=cls.buildingpage_1, architect=cls.architectpage_2
         )
         cls.b_d_relation_1 = factories.BuildingPageDeveloperRelationFactory(
-            page=cls.buildingpage, developer=cls.developerpage
+            page=cls.buildingpage_1, developer=cls.developerpage
+        )
+
+        # Building 2
+        cls.buildingpage_2 = factories.BuildingPageFactory(
+            parent=cls.buildingindexpage,
+            city=cls.city_2,
+            country=cls.country_2,
+            construction_types=[cls.construction_type_1],
+            building_type=cls.building_type_1,
+            access_type=cls.access_type_1,
+            positions=[cls.position_1, cls.position_2],
+            details=[cls.details_1, cls.details_2, cls.details_3],
+            windows=[cls.window_1],
+            roofs=[cls.roof_1, cls.roof_2],
+            facades=[cls.facade_1],
+        )
+
+        cls.b_a_relation_2 = factories.BuildingPageArchitectRelationFactory(
+            page=cls.buildingpage_2, architect=cls.architectpage_2
+        )
+        cls.b_d_relation_1 = factories.BuildingPageDeveloperRelationFactory(
+            page=cls.buildingpage_2, developer=cls.developerpage
         )
 
     def test_setup(self):

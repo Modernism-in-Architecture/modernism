@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.core.validators import RegexValidator
 from django.db import models
 from django.http.request import MultiValueDict, QueryDict
@@ -424,6 +425,12 @@ class BuildingPage(Page):
         help_text="This image will be used to preview the building on the buildings overview page.",
     )
     gallery_images = StreamField([("image", GalleryImageBlock()),], blank=True,)
+    related_architects = ParentalManyToManyField(
+        "people.ArchitectPage", blank=True, related_name="related_buildings"
+    )
+    related_developers = ParentalManyToManyField(
+        "people.DeveloperPage", blank=True, related_name="related_buildings"
+    )
 
     prefetch_related = [
         "tags",
@@ -479,6 +486,23 @@ class BuildingPage(Page):
             heading="Features",
         ),
         FieldPanel("description", classname="full"),
+        MultiFieldPanel(
+            [
+                FieldPanel(
+                    "related_architects",
+                    widget=FilteredSelectMultiple(
+                        verbose_name="Architects", is_stacked=False,
+                    ),
+                ),
+                FieldPanel(
+                    "related_developers",
+                    widget=FilteredSelectMultiple(
+                        verbose_name="Developers", is_stacked=False,
+                    ),
+                ),
+            ],
+            heading="People",
+        ),
         MultiFieldPanel(
             [
                 InlinePanel("architects", label="Architects"),
