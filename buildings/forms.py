@@ -42,14 +42,17 @@ class BuildingsFilterForm(forms.Form):
         choices=[("", "---------")] + [(storey, storey) for storey in set(storeys)],
         widget=forms.Select(attrs={"class": "feature-select"}),
     )
-    # TODO: change filter attribute to new relation
     architects = forms.ModelMultipleChoiceField(
-        queryset=ArchitectPage.objects.filter(buildings__isnull=False).distinct(),
+        queryset=ArchitectPage.objects.filter(
+            related_buildings__isnull=False
+        ).distinct(),
         widget=forms.CheckboxSelectMultiple(),
         required=False,
     )
     developers = forms.ModelMultipleChoiceField(
-        queryset=DeveloperPage.objects.filter(buildings__isnull=False).distinct(),
+        queryset=DeveloperPage.objects.filter(
+            related_buildings__isnull=False
+        ).distinct(),
         widget=forms.CheckboxSelectMultiple(),
         required=False,
     )

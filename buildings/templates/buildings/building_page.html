@@ -32,22 +32,22 @@
         </div>
         <div class="column is-8-desktop">
             <div class="content">
-                {% if page.architects.count > 0 %}
+                {% if page.related_architects.count > 0 %}
                     <h4 class="people mb-3">Architects</h4>
                     <p>
-                        {% for architect in page.architects.all %}
-                        <a href="{% pageurl architect.architect %}" alt="{{architect.architect}}">
-                        {{architect.architect}}</a>{% if not forloop.last %}, {% endif %}
+                        {% for architect in page.related_architects.all %}
+                        <a href="{% pageurl architect %}" alt="{{architect}}">
+                        {{architect}}</a>{% if not forloop.last %}, {% endif %}
                         {% endfor %}
                     </p>
                 {% endif %}
                 {% if page.developers.count > 0 %}
                     <h4 class="people mb-3">Developers</h4>
                     <p>
-                        {% for developer in page.developers.all %}
-                        <a href="{% pageurl developer.developer %}"
-                        alt="{{developer.developer.first_name}} {{developer.developer.last_name}}">
-                        {{developer.developer.first_name}} {{developer.developer.last_name}}
+                        {% for developer in page.related_developers.all %}
+                        <a href="{% pageurl developer %}"
+                        alt="{{developer.first_name}} {{developer.last_name}}">
+                        {{developer.first_name}} {{developer.last_name}}
                         </a>{% if not forloop.last %}, {% endif %}
                         {% endfor %}
                     </p>

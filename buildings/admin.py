@@ -39,15 +39,11 @@ class BuildingAdmin(ModelAdmin):
     list_per_page = 25
 
     def building_architects(self, obj):
-        building_architects = obj.architects.values_list(
-            "architect__last_name", flat=True
-        )
+        building_architects = obj.related_architects.values_list("last_name", flat=True)
         return ", ".join([name for name in building_architects])
 
     def building_developers(self, obj):
-        building_developers = obj.developers.values_list(
-            "developer__last_name", flat=True
-        )
+        building_developers = obj.related_developers.values_list("last_name", flat=True)
         return ", ".join([name for name in building_developers])
 
 

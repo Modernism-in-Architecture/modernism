@@ -295,6 +295,13 @@ class DeveloperPage(PersonPage):
     parent_page_types = ["people.DevelopersIndexPage"]
     subpage_types = []
 
+    def get_context(self, request):
+        context = super().get_context(request)
+        context["related_buildings"] = self.related_buildings.live().all()
+        return context
+
+    prefetch_related = ["related_buildings"]
+
 
 class ArchitectPage(PersonPage):
     parent_page_types = ["people.ArchitectsIndexPage"]
@@ -303,6 +310,12 @@ class ArchitectPage(PersonPage):
     professor_mentors = ParentalManyToManyField("people.ProfessorPage", blank=True)
     architect_mentors = ParentalManyToManyField("self", blank=True)
 
+    def get_context(self, request):
+        context = super().get_context(request)
+        context["related_buildings"] = self.related_buildings.live().all()
+        return context
+
+    prefetch_related = ["related_buildings"]
     content_panels = [
         MultiFieldPanel(
             [

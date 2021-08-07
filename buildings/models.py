@@ -154,7 +154,7 @@ class BuildingsIndexPage(Page):
         architects = cleaned_form_data.get("architects")
         if architects.exists():
             buildings = buildings.filter(
-                architects__architect_id__in=architects.values_list("id", flat=True)
+                related_architects__id__in=architects.values_list("id", flat=True)
             )
             if not buildings:
                 return buildings.none()
@@ -162,7 +162,7 @@ class BuildingsIndexPage(Page):
         developers = cleaned_form_data.get("developers")
         if developers.exists():
             buildings = buildings.filter(
-                developers__developer_id__in=developers.values_list("id", flat=True)
+                related_developers__id__in=developers.values_list("id", flat=True)
             )
             if not buildings:
                 return buildings.none()
@@ -500,13 +500,6 @@ class BuildingPage(Page):
                         verbose_name="Developers", is_stacked=False,
                     ),
                 ),
-            ],
-            heading="People",
-        ),
-        MultiFieldPanel(
-            [
-                InlinePanel("architects", label="Architects"),
-                InlinePanel("developers", label="Developers"),
             ],
             heading="People",
         ),
