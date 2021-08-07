@@ -1,3 +1,4 @@
+from base.forms import GeneralAdminModelForm
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.db import models
 from django.utils.text import slugify
@@ -15,7 +16,6 @@ class PeoplePageManager(PageManager):
 
 
 class PersonPage(Page):
-    is_creatable = False
     first_name = models.CharField(max_length=250, blank=True)
     last_name = models.CharField(
         max_length=250, help_text="You can add a company name here too if appropriate."
@@ -59,7 +59,10 @@ class PersonPage(Page):
         on_delete=models.SET_NULL,
         related_name="+",
     )
+
     objects = PeoplePageManager()
+
+    is_creatable = False
 
     content_panels = [
         MultiFieldPanel(
@@ -112,20 +115,8 @@ class PersonPage(Page):
             name = f"{self.first_name} {self.last_name}"
         return name
 
-    def clean(self):
-        """Override title and slug."""
-        super().clean()
-        title = self.last_name
-        if self.first_name:
-            title = f"{self.first_name} {self.last_name}"
-        self.title = title
-        self.slug = slugify(title)
-
     def get_template(self, request):
         return "people/people_page.html"
-
-
-PersonPage._meta.get_field("slug").default = "default-slug"
 
 
 class PersonsIndexPage(Page):
@@ -187,20 +178,6 @@ class ProfessorIndexPage(Page):
     parent_page_types = ["people.PersonsIndexPage"]
     subpage_types = ["people.ProfessorPage"]
     max_count = 1
-
-
-class BuildingOwnersIndexPage(Page):
-    parent_page_types = ["people.PersonsIndexPage"]
-    subpage_types = ["people.BuildingOwnerPage"]
-    max_count = 1
-
-    def get_context(self, request):
-        context = super().get_context(request)
-        context["persons"] = BuildingOwnerPage.objects.live().order_by("last_name")
-        return context
-
-    def get_template(self, request):
-        return "people/people_index_page.html"
 
 
 class ProfessorPage(PersonPage):
@@ -292,6 +269,7 @@ class ProfessorPage(PersonPage):
         FieldPanel("description", classname="full"),
         ImageChooserPanel("image"),
     ]
+    base_form_class = GeneralAdminModelForm
 
 
 class DeveloperPage(PersonPage):
@@ -304,6 +282,7 @@ class DeveloperPage(PersonPage):
         return context
 
     prefetch_related = ["related_buildings"]
+    base_form_class = GeneralAdminModelForm
 
 
 class ArchitectPage(PersonPage):
@@ -381,8 +360,4 @@ class ArchitectPage(PersonPage):
         FieldPanel("description", classname="full"),
         ImageChooserPanel("image"),
     ]
-
-
-class BuildingOwnerPage(PersonPage):
-    parent_page_types = ["people.BuildingOwnersIndexPage"]
-    subpage_types = []
+    base_form_class = GeneralAdminModelForm

@@ -1,3 +1,4 @@
+from base.forms import GeneralAdminModelForm
 from django import forms
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.core.validators import RegexValidator
@@ -8,13 +9,12 @@ from django_countries import countries
 from django_countries.fields import CountryField
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
-from people.models import ArchitectPage, BuildingOwnerPage, DeveloperPage
+from people.models import ArchitectPage, DeveloperPage
 from taggit.models import Tag as TaggitTag
 from taggit.models import TaggedItemBase
 from wagtail.admin.edit_handlers import (
     FieldPanel,
     FieldRowPanel,
-    InlinePanel,
     MultiFieldPanel,
     StreamFieldPanel,
 )
@@ -323,51 +323,6 @@ class BuildingPageTag(TaggedItemBase):
     )
 
 
-class BuildingPageArchitectRelation(models.Model):
-    page = ParentalKey(
-        "buildings.BuildingPage", on_delete=models.CASCADE, related_name="architects"
-    )
-    architect = ParentalKey(
-        "people.ArchitectPage", on_delete=models.CASCADE, related_name="buildings"
-    )
-    panels = [
-        FieldPanel("architect"),
-    ]
-
-    class Meta:
-        unique_together = ("page", "architect")
-
-
-class BuildingPageOwnerRelation(models.Model):
-    page = ParentalKey(
-        "buildings.BuildingPage", on_delete=models.CASCADE, related_name="owners"
-    )
-    owner = ParentalKey(
-        "people.BuildingOwnerPage", on_delete=models.CASCADE, related_name="buildings"
-    )
-    panels = [
-        FieldPanel("owner"),
-    ]
-
-    class Meta:
-        unique_together = ("page", "owner")
-
-
-class BuildingPageDeveloperRelation(models.Model):
-    page = ParentalKey(
-        "buildings.BuildingPage", on_delete=models.CASCADE, related_name="developers"
-    )
-    developer = ParentalKey(
-        "people.DeveloperPage", on_delete=models.CASCADE, related_name="buildings"
-    )
-    panels = [
-        FieldPanel("developer"),
-    ]
-
-    class Meta:
-        unique_together = ("page", "developer")
-
-
 class BuildingPage(Page):
     name = models.CharField(max_length=250, unique=True)
     building_type = models.ForeignKey(
@@ -541,6 +496,7 @@ class BuildingPage(Page):
         ),
     ]
 
+    base_form_class = GeneralAdminModelForm
     parent_page_types = ["buildings.BuildingsIndexPage"]
     subpage_types = []
 
@@ -563,11 +519,11 @@ class BuildingPage(Page):
             )
         return tags
 
-    def clean(self):
-        """Override title and slug."""
-        super().clean()
-        self.title = self.name
-        self.slug = slugify(self.title)
+    # def clean(self):
+    #     """Override title and slug."""
+    #     super().clean()
+    #     self.title = self.name
+    #     self.slug = slugify(self.title)
 
     def save(self, *args, **kwargs):
         """Add tags from new values."""
@@ -582,6 +538,3 @@ class BuildingPage(Page):
             self.tags.add(self.year_of_construction)
 
         super(BuildingPage, self).save()
-
-
-BuildingPage._meta.get_field("slug").default = "default-slug"

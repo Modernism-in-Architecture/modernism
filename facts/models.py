@@ -1,3 +1,4 @@
+from base.forms import GeneralAdminModelForm
 from buildings.models import City, Country
 from django import forms
 from django.db import models
@@ -90,6 +91,7 @@ class FactPage(Page):
         "facts.FactCategory", blank=True, related_name="fact"
     )
     tags = ClusterTaggableManager(through=FactPageTag, blank=True)
+
     content_panels = Page.content_panels + [
         FieldPanel("description", classname="full"),
         FieldPanel("categories", widget=forms.CheckboxSelectMultiple),
@@ -101,6 +103,7 @@ class FactPage(Page):
         index.SearchField("title"),
         index.SearchField("description"),
     ]
+    base_form_class = GeneralAdminModelForm
 
     @property
     def get_tags(self):
@@ -122,6 +125,3 @@ class FactPage(Page):
         self.tags.add(*self.categories.all().values_list("category", flat=True))
 
         super(FactPage, self).save()
-
-
-FactPage._meta.get_field("slug").default = "default-slug"
