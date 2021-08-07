@@ -12,7 +12,7 @@ from .api import api_router
 urlpatterns = [
     url(r"^django-admin/", admin.site.urls),
     url(r"^admin/", include(wagtailadmin_urls)),
-    url(r"^admin/jsi18n/$", JavaScriptCatalog.as_view(), name="javascript-catalog"),
+    url(r"^jsi18n/", JavaScriptCatalog.as_view(), name="javascript-catalog"),
     url(r"^documents/", include(wagtaildocs_urls)),
     url(r"^api/v2/", api_router.urls),
 ]
