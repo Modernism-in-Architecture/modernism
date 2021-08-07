@@ -2,8 +2,6 @@ import factory
 from buildings.models import (
     AccessType,
     BuildingPage,
-    BuildingPageArchitectRelation,
-    BuildingPageDeveloperRelation,
     BuildingsIndexPage,
     BuildingType,
     City,
@@ -164,16 +162,6 @@ class DeveloperPageFactory(PageFactory):
 
     title = factory.Sequence(lambda n: f"Building page {n}")
     last_name = factory.Sequence(lambda n: f"Developer {n}")
-
-
-class BuildingPageArchitectRelationFactory(factory.django.DjangoModelFactory):
-    class Meta:
-        model = BuildingPageArchitectRelation
-
-
-class BuildingPageDeveloperRelationFactory(factory.django.DjangoModelFactory):
-    class Meta:
-        model = BuildingPageDeveloperRelation
 
 
 class BuildingPageFactory(PageFactory):

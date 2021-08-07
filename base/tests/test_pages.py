@@ -1,9 +1,10 @@
 import json
 
 import requests
-from buildings.tests import factories
 from django.test import Client, LiveServerTestCase, TestCase
 from wagtail.core.models import Page, Site
+
+from . import factories
 
 
 class TestPageModels(LiveServerTestCase):
@@ -68,16 +69,6 @@ class TestPageModels(LiveServerTestCase):
             facades=[cls.facade_1],
         )
 
-        cls.b_a_relation_1 = factories.BuildingPageArchitectRelationFactory(
-            page=cls.buildingpage_1, architect=cls.architectpage_1
-        )
-        cls.b_a_relation_2 = factories.BuildingPageArchitectRelationFactory(
-            page=cls.buildingpage_1, architect=cls.architectpage_2
-        )
-        cls.b_d_relation_1 = factories.BuildingPageDeveloperRelationFactory(
-            page=cls.buildingpage_1, developer=cls.developerpage
-        )
-
         # Building 2
         cls.buildingpage_2 = factories.BuildingPageFactory(
             parent=cls.buildingindexpage,
@@ -91,13 +82,6 @@ class TestPageModels(LiveServerTestCase):
             windows=[cls.window_1],
             roofs=[cls.roof_1, cls.roof_2],
             facades=[cls.facade_1],
-        )
-
-        cls.b_a_relation_2 = factories.BuildingPageArchitectRelationFactory(
-            page=cls.buildingpage_2, architect=cls.architectpage_2
-        )
-        cls.b_d_relation_1 = factories.BuildingPageDeveloperRelationFactory(
-            page=cls.buildingpage_2, developer=cls.developerpage
         )
 
     def test_setup(self):
