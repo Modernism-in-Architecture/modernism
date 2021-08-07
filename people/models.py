@@ -115,14 +115,17 @@ class PersonPage(Page):
     def clean(self):
         """Override title and slug."""
         super().clean()
-        new_title = self.last_name
+        title = self.last_name
         if self.first_name:
-            new_title = f"{self.first_name} {self.last_name}"
-        self.title = new_title
-        self.slug = slugify(new_title)
+            title = f"{self.first_name} {self.last_name}"
+        self.title = title
+        self.slug = slugify(title)
 
     def get_template(self, request):
         return "people/people_page.html"
+
+
+PersonPage._meta.get_field("slug").default = "default-slug"
 
 
 class PersonsIndexPage(Page):

@@ -122,3 +122,6 @@ class FactPage(Page):
         self.tags.add(*self.categories.all().values_list("category", flat=True))
 
         super(FactPage, self).save()
+
+
+FactPage._meta.get_field("slug").default = "default-slug"

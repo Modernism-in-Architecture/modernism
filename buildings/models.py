@@ -582,3 +582,6 @@ class BuildingPage(Page):
             self.tags.add(self.year_of_construction)
 
         super(BuildingPage, self).save()
+
+
+BuildingPage._meta.get_field("slug").default = "default-slug"
