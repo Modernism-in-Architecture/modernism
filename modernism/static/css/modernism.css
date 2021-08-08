@@ -8034,6 +8034,13 @@ body {
   border-bottom: none;
   font-size: smaller; }
 
+.building #mapWrapper {
+  height: 200px; }
+
+.building #mapBuilding {
+  height: 100%;
+  border-radius: 10px; }
+
 .building-idx-container {
   min-height: 75vh;
   /* Works on Chrome, Edge, and Safari */ }
@@ -8116,8 +8123,13 @@ body {
 .people .rich-text, .facts .rich-text {
   margin: 2rem 0; }
 
-.people .preview-image > a > img, .facts .preview-image > a > img {
+.people .preview-image > img, .facts .preview-image > img {
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px; }
+
+@media screen and (max-width: 840px) {
+  .people .reverse-column-order, .facts .reverse-column-order {
+    display: flex;
+    flex-direction: column-reverse; } }
 
 .facts .menu-list li {
   margin-top: 0.6rem; }

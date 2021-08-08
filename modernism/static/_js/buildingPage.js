@@ -1,6 +1,19 @@
 let modalImageIndex = 0
 let currentBuilding = {}
 let galleryImages = []
+const map = L.map('mapBuilding');
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    'attribution': '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> Contributers',
+    'useCache': true
+}).addTo(map);
+
+let latlong = buildingLatLong.split(",")
+let lat = latlong[0].trim()
+let long = latlong[1].trim()
+
+L.marker([lat, long]).addTo(map)
+map.setView([lat, long], 10)
 
 async function getBuildingObject() {
     if (pageId) {

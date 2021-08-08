@@ -278,6 +278,13 @@ body {
         border-bottom: none;
         font-size: smaller;
     }
+    #mapWrapper {
+        height: 200px;
+      }
+    #mapBuilding {
+        height: 100%;
+        border-radius: $border-radius;
+    }
 }
 
 .building-idx-container {
@@ -431,6 +438,7 @@ body {
         border-bottom-right-radius: 10px;
     }
 }
+
 .people-index, .facts {
     .is-small.input, .is-small.textarea {
         border-radius: 5px;

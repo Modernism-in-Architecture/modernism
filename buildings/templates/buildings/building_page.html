@@ -4,7 +4,13 @@
 
 {% block body_class %}building{% endblock %}
 {% block extra_css %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+  integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+  crossorigin="" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/MarkerCluster.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/MarkerCluster.Default.css' %}">
 <script type="application/javascript">let pageId = "{% if page %}{{ page.pk }}{% endif %}";</script>
+<script type="application/javascript">let buildingLatLong = "{% if page %}{{page.lat_long}}{% endif %}";</script>
 {% endblock %}
 {% block breadcrumbs %}
 <section class="breadcrumbs-section">
@@ -30,7 +36,7 @@
             {% endfor %}
             </p>
         </div>
-        <div class="column is-8-desktop">
+        <div class="column is-6-desktop">
             <div class="content">
                 {% if page.related_architects.count > 0 %}
                     <h4 class="people mb-3">Architects</h4>
@@ -55,7 +61,7 @@
 
                 <h4 class="address mb-3 mt-3">Address and directions</h4>
                 <p class="building-address">{{page.address}}<br>{{page.zip_code}} {{page.city}}, {{page.country}}
-                <p><i class="fa fa-map-marker-alt"></i> {{page.lat_long}}</p>
+                {% comment %} <p><i class="fa fa-map-marker-alt"></i> {{page.lat_long}}</p> {% endcomment %}
                 {% if page.directions %}
                     <p><strong>Public transport:</strong> {{page.directions}}</p>
                 {% endif %}
@@ -69,6 +75,7 @@
             </div> 
         </div>
     </div>
+
     <div class="columns">
         <div class="column">
             <div class="content">
@@ -163,10 +170,23 @@
         </div>
       </div>
     </div>
+
+    <div class="columns">
+      <div class="column">
+        <div class="content">
+            <div id="mapWrapper">
+                <div id="mapBuilding"></div>
+            </div>
+        </div>
+      </div>
     </div>
+
+  </div>
 </section>
 {% endblock content %}
 
 {% block extra_js %}
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="crossorigin=""></script>
+    <script type="application/javascript" src="{% static 'lib/leaflet.markercluster.js' %}"></script>
     <script type="application/javascript" src="{% static 'lib/buildingPage.js' %}"></script>
 {% endblock %}
