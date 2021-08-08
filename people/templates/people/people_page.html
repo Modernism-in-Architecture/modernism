@@ -79,7 +79,7 @@
                                 <div class="preview-image">
                                     <a href="{% pageurl building %}">
                                         {% image building.feed_image fill-150x150 %}
-                                    </a>
+                                   </a>
                                 </div>
                                 <p>{{building.city}}, {{building.country}}</p>
                             </div>
@@ -94,3 +94,7 @@
   </div>
 </section>
 {% endblock content %}
+
+{% block extra_js %}
+    <script type="application/javascript" src="{% static 'lib/peoplePage.js' %}"></script>
+{% endblock %}
