@@ -284,6 +284,7 @@ body {
     #mapBuilding {
         height: 100%;
         border-radius: $border-radius;
+        z-index: 10;
     }
 }
 

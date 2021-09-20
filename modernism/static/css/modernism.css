@@ -8039,7 +8039,8 @@ body {
 
 .building #mapBuilding {
   height: 100%;
-  border-radius: 10px; }
+  border-radius: 10px;
+  z-index: 10; }
 
 .building-idx-container {
   min-height: 75vh;
