@@ -1,19 +1,43 @@
 const map = L.map('mapid').setView([51.339642, 12.374462], 6);
+const markers = L.markerClusterGroup();
+const buildingDataURL = window.location.origin + "/api/v2/pages/?type=buildings.BuildingPage&fields=-gallery_images,lat_long,name,address";
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     'attribution': '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> Contributers',
     'useCache': true
 }).addTo(map);
 
-const markers = L.markerClusterGroup();
+async function fetchData(url, limit, offset) {
+    try {
+        let apiResponse = await fetch(url + "&offset=" + offset + "&limit=" + limit);
+        let data = await apiResponse.json();
+        return data;
+    } catch (e) {
+        return console.error(e);
+    }
+}
 
 async function getBuildingData() {
-    let response = await fetch(window.location.origin + "/api/v2/pages/?type=buildings.BuildingPage&fields=-gallery_images,lat_long,name,address&limit=250");
-    let data = await response.json();
-    return data;
+    let url = buildingDataURL;
+    let limit = 50;
+    let offset = 0;
+    let buildingData = [];
+    let totalCount = 0;
+
+    let apiData = await fetchData(url, limit, offset)
+
+    totalCount = apiData.meta.total_count
+    buildingData = [...apiData.items, ...buildingData]
+
+    while (buildingData.length < totalCount) {
+        offset = offset + limit;
+        apiData = await fetchData(url, limit, offset)
+        buildingData = [...apiData.items, ...buildingData]
+    }
+    return buildingData;
 }
-getBuildingData().then(data => {
-    let buildings = data.items;
+
+getBuildingData().then(buildings => {
     for (let i = 0; i < buildings.length; i++) {
         let coord = [];
         let langLong = buildings[i].lat_long.split(",")
@@ -25,3 +49,4 @@ getBuildingData().then(data => {
         map.addLayer(markers);
     }
 });
+
