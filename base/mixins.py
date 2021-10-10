@@ -55,7 +55,9 @@ class CustomMetadataPageMixin(MetadataPageMixin):
         """
         Return a url for an image to use, see the MetadataPageMixin if using a Wagtail image
         """
-        return self.search_image.file.url
+        if self.search_image:
+            return self.search_image.file.url
+        return self.search_image
 
     def get_meta_twitter_card_type(self):
         """
