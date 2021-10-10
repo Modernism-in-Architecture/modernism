@@ -4,185 +4,188 @@
 
 {% block body_class %}building{% endblock %}
 {% block extra_css %}
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-  integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-  crossorigin="" />
-<link rel="stylesheet" type="text/css" href="{% static 'css/MarkerCluster.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'css/MarkerCluster.Default.css' %}">
-<script type="application/javascript">let pageId = "{% if page %}{{ page.pk }}{% endif %}";</script>
-<script type="application/javascript">let buildingLatLong = "{% if page %}{{page.lat_long}}{% endif %}";</script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+    crossorigin="" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/MarkerCluster.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/MarkerCluster.Default.css' %}">
+    <script type="application/javascript">
+        let pageId = "{% if page %}{{ page.pk }}{% endif %}";
+        let buildingLatLong = "{% if page %}{{page.lat_long}}{% endif %}";
+        let cityId = "{% if page %}{{page.city.id}}{% endif %}";
+    </script>
 {% endblock %}
+
 {% block breadcrumbs %}
-<section class="breadcrumbs-section">
-  <div class="container">
-    {% breadcrumbs %}
-  </div>
-</section>
+    <section class="breadcrumbs-section">
+    <div class="container">
+        {% breadcrumbs %}
+    </div>
+    </section>
 {% endblock breadcrumbs %}
 
 {% block content %}
-
-<section class="section last-section">
-  <div class="container">
-    <h1 class="is-size-3 mb-5">
-        {{page.title}}{% if page.year_of_construction %} ({{page.year_of_construction}}){% endif %} {% if page.protected_monument %}<span class="has-tooltip-arrow" data-tooltip="Protected monument"><i class="fas fa-landmark"></i></span>{% endif %}
-    </h1>
-    <div class="columns reverse-column-order">
-        <div class="column is-4-desktop">
-            <div class="feed-image">{% image page.feed_image fill-600x600 %}</div>
-            <p>
-            {% for tag in page.get_tags %}
-                #{{tag}}
-            {% endfor %}
-            </p>
-        </div>
-        <div class="column is-6-desktop">
-            <div class="content">
-                {% if page.related_architects.count > 0 %}
-                    <h4 class="people mb-3">Architects</h4>
+    <section class="section last-section">
+        <div class="container">
+            <h1 class="is-size-3 mb-5">
+                {{page.title}}{% if page.year_of_construction %} ({{page.year_of_construction}}){% endif %} {% if page.protected_monument %}<span class="has-tooltip-arrow" data-tooltip="Protected monument"><i class="fas fa-landmark"></i></span>{% endif %}
+            </h1>
+            <div class="columns reverse-column-order">
+                <div class="column is-4-desktop">
+                    <div class="feed-image">{% image page.feed_image fill-600x600 %}</div>
                     <p>
-                        {% for architect in page.related_architects.all %}
-                        <a href="{% pageurl architect %}" alt="{{architect}}">
-                        {{architect}}</a>{% if not forloop.last %}, {% endif %}
-                        {% endfor %}
+                    {% for tag in page.get_tags %}
+                        #{{tag}}
+                    {% endfor %}
                     </p>
-                {% endif %}
-                {% if page.developers.count > 0 %}
-                    <h4 class="people mb-3">Developers</h4>
-                    <p>
-                        {% for developer in page.related_developers.all %}
-                        <a href="{% pageurl developer %}"
-                        alt="{{developer.first_name}} {{developer.last_name}}">
-                        {{developer.first_name}} {{developer.last_name}}
-                        </a>{% if not forloop.last %}, {% endif %}
-                        {% endfor %}
-                    </p>
-                {% endif %}
+                </div>
+                <div class="column is-6-desktop">
+                    <div class="content">
+                        {% if page.related_architects.count > 0 %}
+                            <h4 class="people mb-3">Architects</h4>
+                            <p>
+                                {% for architect in page.related_architects.all %}
+                                <a href="{% pageurl architect %}" alt="{{architect}}">
+                                {{architect}}</a>{% if not forloop.last %}, {% endif %}
+                                {% endfor %}
+                            </p>
+                        {% endif %}
+                        {% if page.developers.count > 0 %}
+                            <h4 class="people mb-3">Developers</h4>
+                            <p>
+                                {% for developer in page.related_developers.all %}
+                                <a href="{% pageurl developer %}"
+                                alt="{{developer.first_name}} {{developer.last_name}}">
+                                {{developer.first_name}} {{developer.last_name}}
+                                </a>{% if not forloop.last %}, {% endif %}
+                                {% endfor %}
+                            </p>
+                        {% endif %}
 
-                <h4 class="address mb-3 mt-3">Address and directions</h4>
-                <p class="building-address">{{page.address}}<br>{{page.zip_code}} {{page.city}}, {{page.country}}
-                {% comment %} <p><i class="fa fa-map-marker-alt"></i> {{page.lat_long}}</p> {% endcomment %}
-                {% if page.directions %}
-                    <p><strong>Public transport:</strong> {{page.directions}}</p>
-                {% endif %}
-                {% if page.access_type %}
-                    <p><strong>Access:</strong> {{page.access_type}}</p>
-                {% endif %}
-                {% if page.todays_use %}
-                    <p><strong>Today's use:</strong> {{page.todays_use}}</p>
-                {% endif %}
+                        <h4 class="address mb-3 mt-3">Address and directions</h4>
+                        <p class="building-address">{{page.address}}<br>{{page.zip_code}} {{page.city}}, {{page.country}}
+                        {% comment %} <p><i class="fa fa-map-marker-alt"></i> {{page.lat_long}}</p> {% endcomment %}
+                        {% if page.directions %}
+                            <p><strong>Public transport:</strong> {{page.directions}}</p>
+                        {% endif %}
+                        {% if page.access_type %}
+                            <p><strong>Access:</strong> {{page.access_type}}</p>
+                        {% endif %}
+                        {% if page.todays_use %}
+                            <p><strong>Today's use:</strong> {{page.todays_use}}</p>
+                        {% endif %}
 
-            </div> 
-        </div>
-    </div>
-
-    <div class="columns">
-        <div class="column">
-            <div class="content">
-                {% if page.description %}
-                    <div class="box desription">{{page.description|richtext}}</div>
-                {% endif %}
+                    </div> 
+                </div>
             </div>
-        </div>
-        <div class="column is-one-quarter">
-            {% if page.construction_types.count > 0 %}
-                <strong>Construction types</strong>
-                <div class="tags">
-                    {% for construction_type in page.construction_types.all %}
-                        <span class="tag">{{construction_type.name}}</span>
-                    {% endfor %}
-                </div>
-            {% endif %}
-            {% if page.facades.count > 0 %}
-                <strong>Facades</strong>
-                <div class="tags">
-                    {% for facade in page.facades.all %}
-                        <span class="tag">{{facade.name}}</span>
-                    {% endfor %}
-                </div>
-            {% endif %}
-            {% if page.windows.count > 0 %}
-                <strong>Windows</strong>
-                <div class="tags">
-                    {% for window in page.windows.all %}
-                        <span class="tag">{{window.name}}</span>
-                    {% endfor %}
-                </div>
-            {% endif %}
-            {% if page.roofs.count > 0 %}
-                <strong>Roof</strong>
-                <div class="tags">
-                    {% for roof in page.roofs.all %}
-                        <span class="tag">{{roof.name}}</span>
-                    {% endfor %}
-                </div>
-            {% endif %}
-            {% if page.details.count > 0 %}
-                <strong>Details</strong>
-                <div class="tags">
-                    {% for detail in page.details.all %}
-                        <span class="tag">{{detail.name}}</span>
-                    {% endfor %}
-                </div>
-            {% endif %}
-            {% if page.positions.count > 0 %}
-                <strong>Position</strong>
-                <div class="tags">
-                    {% for position in page.positions.all %}
-                        <span class="tag">{{position.name}}</span>
-                    {% endfor %}
-                </div>
-            {% endif %}
-            {% if page.storey %}
-                <strong>Storeys</strong>
-                <div class="tags">
-                    <span class="tag">{{page.storey}}</span>
-                </div>
-            {% endif %}
-        </div>
-    </div>
 
-    <div class="columns">
-      <div class="column">
-        <div class="content">
-          {% if page.gallery_images %}<h4 class="impressions mb-3 mt-3">Impressions</h4>{% endif %}
-            {% for gallery_image in page.gallery_images %}
-                {% if gallery_image.block_type == 'image' %}
-                    {% image gallery_image.value.image max-1300x700 as large_img %}
-                    {% image gallery_image.value.image fill-150x150 as thumb_img %}
-                    <img src="{{ thumb_img.url }}" large-url="{{ large_img.url }}" index="{{ forloop.counter0 }}"
-                        class="preview-image" />
-                {% endif %}
-          {% endfor %}
-        </div>
-      </div>
-    </div>
-    <div id="image-modal" class="modal">
-      <div class="modal-background"></div>
-      <div class="modal-content has-text-centered">
-        <button id="close-button" class="modal-close is-large" aria-label="close">CLOSE</button>
-        <figure><img id="modal-image" src="" /></figure>
-        <p id="image-description"></p>
-        <p id="image-photographer"></p>
-        <div class="image-nav-btn">
-          <button id="btn-prev" class="button prev" onclick="setModalImage('prev')">&#10094;</button>
-          <button id="btn-next" class="button next" onclick="setModalImage('next')">&#10095;</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="columns">
-      <div class="column">
-        <div class="content">
-            <div id="mapWrapper">
-                <div id="mapBuilding"></div>
+            <div class="columns">
+                <div class="column">
+                    <div class="content">
+                        {% if page.description %}
+                            <div class="box desription">{{page.description|richtext}}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="column is-one-quarter">
+                    {% if page.construction_types.count > 0 %}
+                        <strong>Construction types</strong>
+                        <div class="tags">
+                            {% for construction_type in page.construction_types.all %}
+                                <span class="tag">{{construction_type.name}}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    {% if page.facades.count > 0 %}
+                        <strong>Facades</strong>
+                        <div class="tags">
+                            {% for facade in page.facades.all %}
+                                <span class="tag">{{facade.name}}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    {% if page.windows.count > 0 %}
+                        <strong>Windows</strong>
+                        <div class="tags">
+                            {% for window in page.windows.all %}
+                                <span class="tag">{{window.name}}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    {% if page.roofs.count > 0 %}
+                        <strong>Roof</strong>
+                        <div class="tags">
+                            {% for roof in page.roofs.all %}
+                                <span class="tag">{{roof.name}}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    {% if page.details.count > 0 %}
+                        <strong>Details</strong>
+                        <div class="tags">
+                            {% for detail in page.details.all %}
+                                <span class="tag">{{detail.name}}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    {% if page.positions.count > 0 %}
+                        <strong>Position</strong>
+                        <div class="tags">
+                            {% for position in page.positions.all %}
+                                <span class="tag">{{position.name}}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    {% if page.storey %}
+                        <strong>Storeys</strong>
+                        <div class="tags">
+                            <span class="tag">{{page.storey}}</span>
+                        </div>
+                    {% endif %}
+                </div>
             </div>
-        </div>
-      </div>
-    </div>
 
-  </div>
-</section>
+            <div class="columns">
+            <div class="column">
+                <div class="content">
+                {% if page.gallery_images %}<h4 class="impressions mb-3 mt-3">Impressions</h4>{% endif %}
+                    {% for gallery_image in page.gallery_images %}
+                        {% if gallery_image.block_type == 'image' %}
+                            {% image gallery_image.value.image max-1300x700 as large_img %}
+                            {% image gallery_image.value.image fill-150x150 as thumb_img %}
+                            <img src="{{ thumb_img.url }}" large-url="{{ large_img.url }}" index="{{ forloop.counter0 }}"
+                                class="preview-image" />
+                        {% endif %}
+                {% endfor %}
+                </div>
+            </div>
+            </div>
+            <div id="image-modal" class="modal">
+            <div class="modal-background"></div>
+            <div class="modal-content has-text-centered">
+                <button id="close-button" class="modal-close is-large" aria-label="close">CLOSE</button>
+                <figure><img id="modal-image" src="" /></figure>
+                <p id="image-description"></p>
+                <p id="image-photographer"></p>
+                <div class="image-nav-btn">
+                <button id="btn-prev" class="button prev" onclick="setModalImage('prev')">&#10094;</button>
+                <button id="btn-next" class="button next" onclick="setModalImage('next')">&#10095;</button>
+                </div>
+            </div>
+            </div>
+
+            <div class="columns">
+            <div class="column">
+                <div class="content">
+                    <div id="mapWrapper">
+                        <div id="mapBuilding"></div>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+        </div>
+    </section>
 {% endblock content %}
 
 {% block extra_js %}

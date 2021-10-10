@@ -7,7 +7,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     'useCache': true
 }).addTo(map);
 
-async function fetchData(url, limit, offset) {
+const fetchData = async (url, limit, offset) => {
     try {
         let apiResponse = await fetch(url + "&offset=" + offset + "&limit=" + limit);
         let data = await apiResponse.json();
@@ -15,9 +15,9 @@ async function fetchData(url, limit, offset) {
     } catch (e) {
         return console.error(e);
     }
-}
+};
 
-async function getBuildingData() {
+const getBuildingData = async () => {
     let url = buildingDataURL;
     let limit = 50;
     let offset = 0;
@@ -35,17 +35,21 @@ async function getBuildingData() {
         buildingData = [...apiData.items, ...buildingData];
     }
     return buildingData;
-}
+};
 
-getBuildingData().then(buildings => {
-    for (let i = 0; i < buildings.length; i++) {
-        let coord = [];
-        let langLong = buildings[i].lat_long.split(",");
-        coord.push(langLong[0]);
-        coord.push(langLong[1]);
-        let marker = L.marker(coord);
-        marker.bindPopup('<a href=' + window.location.origin + '/buildings/' + buildings[i].meta.slug + '><p>' + buildings[i].name + ",<br>" + buildings[i].address + '</p></>').openPopup();
-        markers.addLayer(marker);
-        map.addLayer(markers);
-    }
-});
+const addBuildingsToMap = () => {
+    getBuildingData().then(buildings => {
+        for (let i = 0; i < buildings.length; i++) {
+            let coord = [];
+            let langLong = buildings[i].lat_long.split(",");
+            coord.push(langLong[0]);
+            coord.push(langLong[1]);
+            let marker = L.marker(coord);
+            marker.bindPopup('<a href=' + window.location.origin + '/buildings/' + buildings[i].meta.slug + '><p>' + buildings[i].name + ",<br>" + buildings[i].address + '</p></>').openPopup();
+            markers.addLayer(marker);
+            map.addLayer(markers);
+        }
+    });
+};
+
+addBuildingsToMap();

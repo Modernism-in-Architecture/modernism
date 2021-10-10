@@ -1,28 +1,60 @@
-let modalImageIndex = 0
-let currentBuilding = {}
-let galleryImages = []
+const pageURL = window.location.origin + "/api/v2/pages/";
+const buildingsOfCityURL = window.location.origin + "/api/v2/pages?type=buildings.BuildingPage&fields=lat_long,name,address&city=";
 const map = L.map('mapBuilding');
+const markers = L.markerClusterGroup();
+let modalImageIndex = 0;
+let currentBuilding = {};
+let galleryImages = [];
+let latlong = buildingLatLong.split(",");
+let lat = latlong[0].trim();
+let long = latlong[1].trim();
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     'attribution': '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> Contributers',
     'useCache': true
 }).addTo(map);
-
-let latlong = buildingLatLong.split(",")
-let lat = latlong[0].trim()
-let long = latlong[1].trim()
-
 L.marker([lat, long]).addTo(map)
-map.setView([lat, long], 10)
+map.setView([lat, long], 12)
 
-async function getBuildingObject() {
+const fetchData = async (url, limit, offset) => {
+    try {
+        let apiResponse = await fetch(url + "&offset=" + offset + "&limit=" + limit);
+        let data = await apiResponse.json();
+        return data;
+    } catch (e) {
+        return console.error(e);
+    }
+}
+
+const getBuildingsOfCity = async () => {
+    if (!cityId) {
+        return;
+    }
+    let url = buildingsOfCityURL + cityId;
+    let limit = 50;
+    let offset = 0;
+    let buildingData = [];
+    let totalCount = 0;
+
+    let apiData = await fetchData(url, limit, offset)
+    totalCount = apiData.meta.total_count
+    buildingData = [...apiData.items, ...buildingData]
+
+    while (buildingData.length < totalCount) {
+        offset = offset + limit;
+        apiData = await fetchData(url, limit, offset)
+        buildingData = [...apiData.items, ...buildingData]
+    }
+    return buildingData;
+}
+
+const getBuildingObject = async () => {
     if (pageId) {
-        let response = await fetch(window.location.origin + "/api/v2/pages/" + pageId + "/");
+        let response = await fetch(pageURL + pageId + "/");
         let data = await response.json();
         currentBuilding = data;
         galleryImages = data["gallery_images"];
     }
-
 }
 
 const addClickEventListenerToBuildingImages = () => {
@@ -94,6 +126,23 @@ const addClickEventListenerToModalCloseButton = () => {
 
 }
 
+const addBuildingsOfCityToMap = () => {
+    getBuildingsOfCity().then(buildings => {
+        for (let i = 0; i < buildings.length; i++) {
+            let coord = [];
+            let langLong = buildings[i].lat_long.split(",")
+            coord.push(langLong[0]);
+            coord.push(langLong[1]);
+            let marker = L.marker(coord);
+            marker.bindPopup('<a href=' + window.location.origin + '/buildings/' + buildings[i].meta.slug + '><p>' + buildings[i].name + ",<br>" + buildings[i].address + '</p></>').openPopup();
+            markers.addLayer(marker);
+            map.addLayer(markers);
+        }
+    })
+}
+
+
 getBuildingObject();
+addBuildingsOfCityToMap();
 addClickEventListenerToBuildingImages();
 addClickEventListenerToModalCloseButton();

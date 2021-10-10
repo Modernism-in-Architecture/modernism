@@ -368,6 +368,7 @@ class BuildingPage(Page):
             ),
         ],
     )
+    # ToDo: Separate lat_long
     # latitude = models.DecimalField(max_digits=23, decimal_places=20)
     # longitude = models.DecimalField(max_digits=23, decimal_places=20)
     tags = ClusterTaggableManager(through=BuildingPageTag, blank=True)
@@ -518,12 +519,6 @@ class BuildingPage(Page):
                 s.strip("/") for s in [self.get_parent().url, "tags", tag.slug]
             )
         return tags
-
-    # def clean(self):
-    #     """Override title and slug."""
-    #     super().clean()
-    #     self.title = self.name
-    #     self.slug = slugify(self.title)
 
     def save(self, *args, **kwargs):
         """Add tags from new values."""
