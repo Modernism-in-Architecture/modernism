@@ -480,6 +480,8 @@ class BuildingPage(Page):
         index.FilterField("city_id"),
         index.FilterField("building_type_id"),
         index.FilterField("access_type_id"),
+        index.FilterField("architectpage_id"),
+        index.FilterField("developerpage_id"),
         index.RelatedFields(
             "city", [index.SearchField("name"), index.SearchField("description"),]
         ),

@@ -8098,6 +8098,8 @@ body {
   .building-idx-container .fa-trash-alt {
     margin-left: 1rem;
     color: #444444; }
+  .building-idx-container span.filter-ion-icon {
+    margin-left: 10px; }
   .building-idx-container .filter-icon {
     border-color: #dbdbdb; }
   .building-idx-container button.filter-on, .building-idx-container .filter-icon:focus {
@@ -8113,8 +8115,6 @@ body {
   .building-idx-container .is-small.input, .building-idx-container .is-small.textarea {
     border-radius: 5px; }
   @media screen and (max-width: 840px) {
-    .building-idx-container .filter-icon {
-      margin-left: 0.75rem; }
     .building-idx-container .form-filter {
       margin-left: 2rem; }
     .building-idx-container .reverse-column-order {

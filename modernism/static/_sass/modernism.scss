@@ -231,6 +231,9 @@ body {
     .content .rich-text {
         margin-bottom: 2rem;
     }
+    span.filter-ion-icon {
+        margin-left: 8px;
+    }
 }
 
 .building {
@@ -359,9 +362,11 @@ body {
         margin-left:1rem;
         color: $text;
     }
+
     .filter-icon {
-        border-color: rgb(219, 219, 219);
+        border-color: rgb(219, 219, 219);   
     }
+   
     button.filter-on, .filter-icon:focus {
         box-shadow: $card-shadow;
     }
@@ -382,9 +387,6 @@ body {
     }
 
     @media screen and (max-width: 840px) {
-        .filter-icon {
-            margin-left: 0.75rem;
-        }
         .form-filter {
             margin-left: 2rem;
         }

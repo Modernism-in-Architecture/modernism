@@ -28,7 +28,7 @@
     <section class="section last-section">
         <div class="container">
             <h1 class="is-size-3 mb-5">
-                {{page.title}}{% if page.year_of_construction %} ({{page.year_of_construction}}){% endif %} {% if page.protected_monument %}<span class="has-tooltip-arrow" data-tooltip="Protected monument"><i class="fas fa-landmark"></i></span>{% endif %}
+                {{page.title}}{% if page.year_of_construction %} ({{page.year_of_construction}}){% endif %} {% if page.protected_monument %}<span class="has-tooltip-arrow" data-tooltip="Protected monument"><ion-icon name="shield-half-outline"></ion-icon></span>{% endif %}
             </h1>
             <div class="columns reverse-column-order">
                 <div class="column is-4-desktop">
@@ -64,7 +64,6 @@
 
                         <h4 class="address mb-3 mt-3">Address and directions</h4>
                         <p class="building-address">{{page.address}}<br>{{page.zip_code}} {{page.city}}, {{page.country}}
-                        {% comment %} <p><i class="fa fa-map-marker-alt"></i> {{page.lat_long}}</p> {% endcomment %}
                         {% if page.directions %}
                             <p><strong>Public transport:</strong> {{page.directions}}</p>
                         {% endif %}

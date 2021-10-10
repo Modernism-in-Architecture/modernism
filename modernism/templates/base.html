@@ -30,8 +30,8 @@
   <link rel="icon" type="image/png" sizes="96x96" href="{% static 'img/favicon-96x96.png'%}">
   <link rel="stylesheet" type="text/css" href="{% static 'css/modernism.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'css/bulma-tooltip.min.css' %}">
-  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-  
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
   <script type="application/javascript">const countryTag = "{% if tag_country_name %}{{ tag_country_name }}{% endif %}";</script>
   {% block extra_css %}{% endblock %}
 </head>

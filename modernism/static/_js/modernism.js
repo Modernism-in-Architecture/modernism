@@ -34,20 +34,20 @@ const addClickEventListenerToDropdownLinks = () => {
         link.addEventListener('click', (event) => {
             event.preventDefault();
             link.nextElementSibling.classList.toggle('show');
-            if (link.children[0].classList.contains('fa-chevron-down')) {
-                link.children[0].classList.replace("fa-chevron-down", "fa-chevron-up");
+            if (link.children[0].classList.contains('chevron-down-outline')) {
+                link.children[0].classList.replace("chevron-down-outline", "chevron-up-outline");
             } else {
-                link.children[0].classList.replace("fa-chevron-up", "fa-chevron-down");
+                link.children[0].classList.replace("chevron-up-outline", "chevron-down-outline");
             }
         });
     })
     dropdownLinksFacts.forEach(link => {
         link.addEventListener('click', (event) => {
             event.preventDefault();
-            if (link.children[0].children[0].classList.contains('fa-chevron-down')) {
-                link.children[0].children[0].classList.replace("fa-chevron-down", "fa-chevron-up");
+            if (link.children[0].children[0].classList.contains('chevron-down-outline')) {
+                link.children[0].children[0].classList.replace("chevron-down-outline", "chevron-up-outline");
             } else {
-                link.children[0].children[0].classList.replace("fa-chevron-up", "fa-chevron-down");
+                link.children[0].children[0].classList.replace("chevron-up-outline", "chevron-down-outline");
             }
             link.nextElementSibling.classList.toggle('show');
         });

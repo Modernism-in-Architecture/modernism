@@ -17,7 +17,7 @@
       <div class="column is-narrow">
         <aside class="menu">
           {% if request.GET.tag %}
-            <p class="menu-label"><a href="{% pageurl page %}"><i class="fa fa-times"></i> Clear</a></p>
+            <p class="menu-label"><a href="{% pageurl page %}"><ion-icon name="trash-outline"></ion-icon> Clear</a></p>
           {% endif %}
           <p class="menu-label">
             Categories
@@ -36,11 +36,11 @@
                 <div class="column">
                     {% if search_term and facts %}
                         <p id="search-description">
-                            You searched for: {{search_term}} <a href="{% pageurl page %}"><i class="fas fa-trash-alt"></i></a> 
+                            You searched for: {{search_term}} <a href="{% pageurl page %}"><ion-icon name="trash-outline"></ion-icon></a> 
                         </p>
                     {% endif %}
                     {% if not facts %}
-                        <p class="mt-3">No results for this selection. Please try again. <a href="{% pageurl page %}"><i class="fas fa-trash-alt"></i></a></p>
+                        <p class="mt-3">No results for this selection. Please try again. <a href="{% pageurl page %}"><ion-icon name="trash-outline"></ion-icon></a></p>
                     {% endif %}
                 </div>
                 <div class="column">
@@ -48,11 +48,11 @@
                         {% csrf_token %}
                         <div class="field has-addons is-justify-content-flex-end">
                             <div class="control">
-                                <input type="text" class="input is-small" name="q" placeholder="Search" title="Search for:">
+                                <input type="text" class="input" name="q" placeholder="Search" title="Search for:">
                             </div>
                             <div class="control">
-                                <button class="button is-small" type="submit" name="submit" id="searchsubmit" value="Search">
-                                    <span class="fas fa-search"></span>
+                                <button class="button" type="submit" name="submit" id="searchsubmit" value="Search">
+                                    <ion-icon name="search-outline"></ion-icon>
                                 </button>
                             </div>
                         </div>

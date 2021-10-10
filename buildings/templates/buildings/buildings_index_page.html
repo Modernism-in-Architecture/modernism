@@ -20,10 +20,8 @@
         <div>
             <div class="columns is-vcentered reverse-column-order">
                 <div class="column is-10">
-                    <button class="button is-small filter-icon">
-                        <span class="icon is-small">
-                            <i class="fas fa-sliders-h" aria-hidden="true"></i>
-                        </span>
+                    <button class="button filter-icon">
+                        <ion-icon name="options-outline"></ion-icon><span class="filter-ion-icon">Filter</span>
                     </button>
                 </div>
                 <div class="column">
@@ -31,11 +29,11 @@
                         {% csrf_token %}
                         <div class="field has-addons is-justify-content-flex-end">
                             <div class="control">
-                                <input type="text" class="input is-small" name="q" placeholder="Search" title="Search for:">
+                                <input type="text" class="input" name="q" placeholder="Search" title="Search for:">
                             </div>
                             <div class="control">
-                                <button class="button is-small" type="submit" name="submit" id="searchsubmit" value="Search">
-                                    <span class="fas fa-search"></span>
+                                <button class="button" type="submit" name="submit" id="searchsubmit" value="Search">
+                                    <ion-icon name="search-outline"></ion-icon>
                                 </button>
                             </div>
                         </div>
@@ -51,7 +49,7 @@
                                 <button id="apply-filter-btn" class="button is-small is-link is-black" type="submit">Apply filters</button>
                             </div>
                             <div class="p-1 remove-filter-btn is-hidden">
-                                <button id="reset-filter-btn" class="button is-small is-link is-outlined">Remove filters</button>
+                                <button id="reset-filter-btn" class="button is-small is-link is-outlined"><ion-icon name="trash-outline"></ion-icon> Clear</button>
                             </div>
                         </div>
                         <div class="filter-form is-hidden">
@@ -62,7 +60,7 @@
                                             <button class="button is-small" aria-haspopup="true" aria-controls="dropdown-menu-architects">
                                                 <span class="filter-label">{{ form.architects.label }}</span>
                                                 <span class="icon is-small">
-                                                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                                    <ion-icon name="chevron-down-outline"></ion-icon>
                                                 </span>
                                             </button>
                                         </div>
@@ -81,7 +79,7 @@
                                             <button class="button is-small" aria-haspopup="true" aria-controls="dropdown-menu-developers">
                                                 <span class="filter-label">{{ form.developers.label }}</span>
                                                 <span class="icon is-small">
-                                                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                                    <ion-icon name="chevron-down-outline"></ion-icon>
                                                 </span>
                                             </button>
                                         </div>
@@ -100,7 +98,7 @@
                                             <button class="button is-small" aria-haspopup="true" aria-controls="dropdown-menu-years">
                                                 <span class="filter-label">{{ form.years.label }}</span>
                                                 <span class="icon is-small">
-                                                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                                    <ion-icon name="chevron-down-outline"></ion-icon>
                                                 </span>
                                             </button>
                                         </div>
@@ -119,7 +117,7 @@
                                             <button class="button is-small" aria-haspopup="true" aria-controls="dropdown-menu-countries">
                                                 <span class="filter-label">{{ form.countries.label }}</span>
                                                 <span class="icon is-small">
-                                                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                                    <ion-icon name="chevron-down-outline"></ion-icon>
                                                 </span>
                                             </button>
                                         </div>
@@ -138,7 +136,7 @@
                                             <button class="button is-small" aria-haspopup="true" aria-controls="dropdown-menu-cities">
                                                 <span class="filter-label">{{ form.cities.label }}</span>
                                                 <span class="icon is-small">
-                                                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                                    <ion-icon name="chevron-down-outline"></ion-icon>
                                                 </span>
                                             </button>
                                         </div>
@@ -157,7 +155,7 @@
                                             <button class="button is-small" aria-haspopup="true" aria-controls="dropdown-menu-features">
                                                 <span class="filter-label"><span class="filter-label">Types</span></span>
                                                 <span class="icon is-small">
-                                                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                                    <ion-icon name="chevron-down-outline"></ion-icon>
                                                 </span>
                                             </button>
                                         </div>
@@ -190,7 +188,7 @@
                                             <button class="button is-small" aria-haspopup="true" aria-controls="dropdown-menu-construction">
                                                 <span class="filter-label">{{ form.construction_types.label }}</span>
                                                 <span class="icon is-small">
-                                                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                                    <ion-icon name="chevron-down-outline"></ion-icon>
                                                 </span>
                                             </button>
                                         </div>
@@ -208,7 +206,7 @@
                                             <button class="button is-small" aria-haspopup="true" aria-controls="dropdown-menu-details">
                                                 <span class="filter-label">{{ form.details.label }}</span>
                                                 <span class="icon is-small">
-                                                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                                    <ion-icon name="chevron-down-outline"></ion-icon>
                                                 </span>
                                             </button>
                                         </div>
@@ -226,7 +224,7 @@
                                             <button class="button is-small" aria-haspopup="true" aria-controls="dropdown-menu-windows">
                                                 <span class="filter-label"> {{ form.windows.label }}</span>
                                                 <span class="icon is-small">
-                                                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                                    <ion-icon name="chevron-down-outline"></ion-icon>
                                                 </span>
                                             </button>
                                         </div>
@@ -244,7 +242,7 @@
                                             <button class="button is-small" aria-haspopup="true" aria-controls="dropdown-menu-roofs">
                                                 <span class="filter-label">{{ form.roofs.label }}</span>
                                                 <span class="icon is-small">
-                                                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                                    <ion-icon name="chevron-down-outline"></ion-icon>
                                                 </span>
                                             </button>
                                         </div>
@@ -262,7 +260,7 @@
                                             <button class="button is-small" aria-haspopup="true" aria-controls="dropdown-menu-facades">
                                                 <span class="filter-label">{{ form.facades.label }}</span>
                                                 <span class="icon is-small">
-                                                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                                    <ion-icon name="chevron-down-outline"></ion-icon>
                                                 </span>
                                             </button>
                                         </div>
@@ -280,7 +278,7 @@
                                             <button class="button is-small" aria-haspopup="true" aria-controls="dropdown-menu-positions">
                                                 <span class="filter-label">{{ form.positions.label }}</span>
                                                 <span class="icon is-small">
-                                                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                                    <ion-icon name="chevron-down-outline"></ion-icon>
                                                 </span>
                                             </button>
                                         </div>
@@ -297,10 +295,10 @@
                 </div>
             </div>
             <div class="m-5">
-                <p id="filter-description"></p>
+                <p><span id="filter-description"></span></p>
                 {% if search_term %}
                     <p id="search-description">
-                    You searched for: {{search_term}} <a href="{% pageurl page %}"><i class="fas fa-trash-alt"></i></a> 
+                        You searched for: {{search_term}} <a class="is-size-5" href="{% pageurl page %}"><ion-icon name="trash-outline"></ion-icon></a> 
                      </p>
                 {% endif %}
                 
