@@ -1,31 +1,13 @@
 {% load static %}
+{% load wagtailmetadata_tags %}
 
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 
 <head>
   <meta charset="utf-8" />
-  <title>
-    {% block title %}
-    {% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}
-    {% endblock %}
-    {% block title_suffix %}
-    {% with self.get_site.site_name as site_name %}
-    {% if site_name %}- {{ site_name }}{% endif %}
-    {% endwith %}
-    {% endblock %}
-  </title>
-  <meta name="description" content="Modernism in architecture" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta property="og:title" content="Modernism in architecture">
-  <meta property="og:url" content="https://modernism-in-architecture.org">
-  <meta property="og:site_name" content="Modernism in architecture">
-  <meta property="og:description"
-    content="A project to create visibility for modernism in architecture in different places of the world.">
-  <meta property="og:image" content="https://modernism-in-architecture.org/static/img/mia-logo.png" />
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image"
-    content="https://modernism-in-architecture.org/static/img/mia-logo_square.fc43caad2f32.png">
+  {% meta_tags %}
   <meta name="google-site-verification" content="QTmlzC5oEhbZ_SRIhz3aHYrRU9FHY-zkaBeSsuPKWpY" />
   <link rel="icon" type="image/png" sizes="96x96" href="{% static 'img/favicon-96x96.png'%}">
   <link rel="stylesheet" type="text/css" href="{% static 'css/modernism.css' %}">

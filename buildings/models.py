@@ -1,4 +1,5 @@
 from base.forms import GeneralAdminModelForm
+from base.mixins import CustomMetadataPageMixin
 from django import forms
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.core.validators import RegexValidator
@@ -127,7 +128,7 @@ class City(models.Model):
         verbose_name_plural = "Cities"
 
 
-class PlacesIndexPage(Page):
+class PlacesIndexPage(CustomMetadataPageMixin, Page):
     max_count = 1
     parent_page_types = ["home.HomePage"]
     subpage_types = []
@@ -138,7 +139,7 @@ class PlacesIndexPage(Page):
         self.slug = slugify(self.title)
 
 
-class BuildingsIndexPage(Page):
+class BuildingsIndexPage(CustomMetadataPageMixin, Page):
     subpage_types = ["BuildingPage"]
     parent_page_types = ["home.HomePage"]
     max_count = 1
@@ -323,7 +324,7 @@ class BuildingPageTag(TaggedItemBase):
     )
 
 
-class BuildingPage(Page):
+class BuildingPage(CustomMetadataPageMixin, Page):
     name = models.CharField(max_length=250, unique=True)
     building_type = models.ForeignKey(
         BuildingType, on_delete=models.SET_NULL, null=True, blank=True,
@@ -480,8 +481,8 @@ class BuildingPage(Page):
         index.FilterField("city_id"),
         index.FilterField("building_type_id"),
         index.FilterField("access_type_id"),
-        index.FilterField("architectpage_id"),
-        index.FilterField("developerpage_id"),
+        index.FilterField("related_architects"),
+        index.FilterField("related_developers"),
         index.RelatedFields(
             "city", [index.SearchField("name"), index.SearchField("description"),]
         ),

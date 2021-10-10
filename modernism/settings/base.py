@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "django.contrib.sitemaps",
     "django.contrib.staticfiles",
     "el_pagination",
+    "wagtailmetadata",
 ]
 
 MIDDLEWARE = [

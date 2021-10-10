@@ -1,4 +1,5 @@
 from base.forms import GeneralAdminModelForm
+from base.mixins import CustomMetadataPageMixin
 from buildings.models import City, Country
 from django import forms
 from django.db import models
@@ -14,7 +15,7 @@ from wagtail.search import index
 from wagtail.search.backends import get_search_backend
 
 
-class FactsIndexPage(Page):
+class FactsIndexPage(CustomMetadataPageMixin, Page):
     max_count = 1
     intro = RichTextField(blank=True)
     parent_page_types = ["home.HomePage"]
@@ -78,7 +79,7 @@ class ArchitectUniversity(models.Model):
         verbose_name_plural = "Architect Universities"
 
 
-class FactPage(Page):
+class FactPage(CustomMetadataPageMixin, Page):
     description = RichTextField(blank=True)
     image = models.ForeignKey(
         "wagtailimages.Image",

@@ -1,4 +1,5 @@
 from base.forms import GeneralAdminModelForm
+from base.mixins import CustomMetadataPageMixin
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.db import models
 from django.utils.text import slugify
@@ -8,6 +9,7 @@ from wagtail.core.fields import RichTextField
 from wagtail.core.models import Page, PageManager
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
+from wagtailmetadata.models import MetadataPageMixin
 
 
 class PeoplePageManager(PageManager):
@@ -15,7 +17,7 @@ class PeoplePageManager(PageManager):
         return super().get_queryset().order_by("last_name", "first_name")
 
 
-class PersonPage(Page):
+class PersonPage(CustomMetadataPageMixin, Page):
     first_name = models.CharField(max_length=250, blank=True)
     last_name = models.CharField(
         max_length=250, help_text="You can add a company name here too if appropriate."
@@ -119,7 +121,7 @@ class PersonPage(Page):
         return "people/people_page.html"
 
 
-class PersonsIndexPage(Page):
+class PersonsIndexPage(CustomMetadataPageMixin, Page):
     parent_page_types = ["home.HomePage"]
     subpage_types = [
         "people.DevelopersIndexPage",
@@ -132,7 +134,7 @@ class PersonsIndexPage(Page):
         return "people/people_index_page.html"
 
 
-class ArchitectsIndexPage(Page):
+class ArchitectsIndexPage(CustomMetadataPageMixin, Page):
     parent_page_types = ["people.PersonsIndexPage"]
     subpage_types = ["people.ArchitectPage"]
     max_count = 1
@@ -153,7 +155,7 @@ class ArchitectsIndexPage(Page):
         return "people/people_index_page.html"
 
 
-class DevelopersIndexPage(Page):
+class DevelopersIndexPage(CustomMetadataPageMixin, Page):
     parent_page_types = ["people.PersonsIndexPage"]
     subpage_types = ["people.DeveloperPage"]
     max_count = 1
@@ -174,7 +176,7 @@ class DevelopersIndexPage(Page):
         return "people/people_index_page.html"
 
 
-class ProfessorIndexPage(Page):
+class ProfessorIndexPage(CustomMetadataPageMixin, Page):
     parent_page_types = ["people.PersonsIndexPage"]
     subpage_types = ["people.ProfessorPage"]
     max_count = 1
