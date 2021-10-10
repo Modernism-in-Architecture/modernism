@@ -5,15 +5,25 @@ const markers = L.markerClusterGroup();
 let modalImageIndex = 0;
 let currentBuilding = {};
 let galleryImages = [];
-let latlong = buildingLatLong.split(",");
-let lat = latlong[0].trim();
-let long = latlong[1].trim();
+let latlongOfFeaturedBuilding = buildingLatLong.split(",");
+let lat = latlongOfFeaturedBuilding[0].trim();
+let long = latlongOfFeaturedBuilding[1].trim();
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     'attribution': '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> Contributers',
     'useCache': true
 }).addTo(map);
-L.marker([lat, long]).addTo(map)
+
+const greenIcon = new L.Icon({
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+});
+
+L.marker([lat, long], { icon: greenIcon }).addTo(map)
 map.setView([lat, long], 12)
 
 const fetchData = async (url, limit, offset) => {
@@ -131,6 +141,9 @@ const addBuildingsOfCityToMap = () => {
         for (let i = 0; i < buildings.length; i++) {
             let coord = [];
             let langLong = buildings[i].lat_long.split(",")
+            if (langLong[0] == latlongOfFeaturedBuilding[0] && langLong[1] == latlongOfFeaturedBuilding[1]) {
+                continue;
+            }
             coord.push(langLong[0]);
             coord.push(langLong[1]);
             let marker = L.marker(coord);
