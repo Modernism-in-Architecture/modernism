@@ -470,6 +470,7 @@ class BuildingPage(CustomMetadataPageMixin, Page):
         APIField("address"),
         APIField("lat_long"),
         APIField("gallery_images"),
+        APIField("feed_image"),
     ]
     search_fields = Page.search_fields + [
         index.SearchField("description"),

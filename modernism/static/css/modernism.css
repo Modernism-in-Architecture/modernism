@@ -8120,13 +8120,11 @@ body {
   .building-idx-container .is-small.input, .building-idx-container .is-small.textarea {
     border-radius: 5px; }
   @media screen and (max-width: 1113px) {
-    .building-idx-container {
-      margin-left: 12px; }
-      .building-idx-container .form-filter {
-        margin-left: 2rem; }
-      .building-idx-container .reverse-column-order {
-        display: flex;
-        flex-direction: column-reverse; } }
+    .building-idx-container .form-filter {
+      margin-left: 2rem; }
+    .building-idx-container .reverse-column-order {
+      display: flex;
+      flex-direction: column-reverse; } }
 
 .people .rich-text, .facts .rich-text {
   margin: 2rem 0; }
