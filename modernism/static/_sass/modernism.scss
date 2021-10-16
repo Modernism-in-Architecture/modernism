@@ -391,7 +391,7 @@ body {
         border-radius: 5px;
     }
 
-    @media screen and (max-width: 840px) {
+    @media screen and (max-width: 1113px) {
         .form-filter {
             margin-left: 2rem;
         }
@@ -399,6 +399,7 @@ body {
             display: flex;
             flex-direction: column-reverse;
         }
+        margin-left: 12px;
     }
 }
 
