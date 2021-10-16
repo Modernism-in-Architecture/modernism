@@ -46,10 +46,10 @@
                         {% csrf_token %}
                         <div class="is-flex is-flex-direction-row">
                             <div class="p-1 set-filter-btn is-hidden">
-                                <button id="apply-filter-btn" class="button is-small is-link is-black" type="submit">Apply filters</button>
+                                <button id="apply-filter-btn" class="button is-small is-link" type="submit">Apply filters</button>
                             </div>
                             <div class="p-1 remove-filter-btn is-hidden">
-                                <button id="reset-filter-btn" class="button is-small is-link is-outlined"><ion-icon name="trash-outline"></ion-icon> Clear</button>
+                                <button id="reset-filter-btn" class="button is-small is-link"><ion-icon name="trash-outline"></ion-icon> Clear</button>
                             </div>
                         </div>
                         <div class="filter-form is-hidden">
@@ -294,16 +294,17 @@
                     </form>
                 </div>
             </div>
-            <div class="m-5">
+            <div class="m-4">
+                {% if buildings %}
+                    <p>total: {{buildings.count}}</p>
+                {% else %}
+                    <p class="mt-3">No results for this selection. Please try again.</p>
+                {% endif %}
                 <p><span id="filter-description"></span></p>
                 {% if search_term %}
                     <p id="search-description">
-                        You searched for: {{search_term}} <a class="is-size-5" href="{% pageurl page %}"><ion-icon name="trash-outline"></ion-icon></a> 
+                        You searched for: {{search_term}} <a href="{% pageurl page %}"><ion-icon name="trash-outline" class="is-size-5"></ion-icon></a> 
                      </p>
-                {% endif %}
-                
-                {% if not buildings %}
-                    <p class="mt-3">No results for this selection. Please try again.</p>
                 {% endif %}
             </div>
         </div>

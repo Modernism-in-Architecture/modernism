@@ -7995,6 +7995,9 @@ body {
 .buildings .content .rich-text, .facts .content .rich-text {
   margin-bottom: 2rem; }
 
+.buildings span.filter-ion-icon, .facts span.filter-ion-icon {
+  margin-left: 8px; }
+
 .building .building-address {
   margin-top: 1rem; }
 
@@ -8045,17 +8048,18 @@ body {
 .building-idx-container {
   min-height: 75vh;
   /* Works on Chrome, Edge, and Safari */ }
+  .building-idx-container #apply-filter-btn {
+    background-color: #0a0a0a;
+    border-color: rgba(10, 10, 10, 0.8); }
   .building-idx-container #apply-filter-btn:hover {
-    background-color: rgba(10, 10, 10, 0.9);
-    color: rgba(255, 255, 255, 0.8); }
+    background-color: rgba(10, 10, 10, 0.8); }
   .building-idx-container #reset-filter-btn {
-    background-color: #e8e8e8;
-    border-color: #bbb; }
-    .building-idx-container #reset-filter-btn:hover {
-      background-color: #bbb; }
-  .building-idx-container .button.is-outlined.remove-btn {
-    background-color: rgba(10, 10, 10, 0.2);
-    border-color: transparent; }
+    color: #0a0a0a;
+    border-color: rgba(10, 10, 10, 0.8);
+    background-color: white; }
+  .building-idx-container #reset-filter-btn:hover {
+    background-color: blue;
+    background-color: rgba(10, 10, 10, 0.1); }
   .building-idx-container .button.is-small {
     border-radius: 5px; }
   .building-idx-container .menu {
@@ -8098,14 +8102,15 @@ body {
   .building-idx-container .fa-trash-alt {
     margin-left: 1rem;
     color: #444444; }
-  .building-idx-container span.filter-ion-icon {
-    margin-left: 10px; }
   .building-idx-container .filter-icon {
     border-color: #dbdbdb; }
   .building-idx-container button.filter-on, .building-idx-container .filter-icon:focus {
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px; }
   .building-idx-container .has-filter-set, .building-idx-container .dropdown-trigger > .is-active {
-    color: blue; }
+    color: white;
+    background-color: blue; }
+  .building-idx-container .button:focus:not(:active) {
+    box-shadow: none; }
   .building-idx-container .filter-label {
     font-weight: bold; }
   .building-idx-container .select select {

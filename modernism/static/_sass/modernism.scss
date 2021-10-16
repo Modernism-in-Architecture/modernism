@@ -293,20 +293,21 @@ body {
 
 .building-idx-container {
     min-height: 75vh;
+    #apply-filter-btn {
+       background-color: $black;
+       border-color: rgba($black, 0.8);
+    }
     #apply-filter-btn:hover {
-        background-color: rgba($black, 0.9);
-        color: rgba($white, 0.8);
+        background-color: rgba($black, 0.8);
     };
     #reset-filter-btn {
-        background-color: #e8e8e8;
-        border-color: #bbb;
-        &:hover {
-            background-color: #bbb; 
-        }
+        color: $black;
+        border-color: rgba($black, 0.8);
+        background-color: $white;
     }
-    .button.is-outlined.remove-btn {
-        background-color: rgba($black, 0.2);
-        border-color: transparent;
+    #reset-filter-btn:hover {
+        background-color: $blue;
+        background-color: rgba($black, 0.1);
     }
     .button.is-small {
         border-radius: 5px;
@@ -345,7 +346,7 @@ body {
     #id_cities::-webkit-scrollbar-track {
         background: grey;
     }
-    
+
     #id_architects::-webkit-scrollbar-thumb,
     #id_developers::-webkit-scrollbar-thumb,
     #id_years::-webkit-scrollbar-thumb,
@@ -364,14 +365,18 @@ body {
     }
 
     .filter-icon {
-        border-color: rgb(219, 219, 219);   
+        border-color: rgb(219, 219, 219);
     }
-   
+
     button.filter-on, .filter-icon:focus {
         box-shadow: $card-shadow;
     }
     .has-filter-set, .dropdown-trigger > .is-active {
-        color: $blue;
+        color: $white;
+        background-color: $blue;
+    }
+    .button:focus:not(:active) {
+        box-shadow: none;
     }
     .filter-label {
         font-weight: bold;
