@@ -1,4 +1,7 @@
 from django.contrib import admin
+from django.db import models
+from django.forms.widgets import TextInput
+from tinymce.widgets import TinyMCE
 
 from .models import (
     Author,
@@ -41,6 +44,10 @@ class SourceAdmin(admin.ModelAdmin):
 @admin.register(Fact)
 class FactAdmin(admin.ModelAdmin):
     filter_vertical = ["categories"]
+    formfield_overrides = {
+        models.TextField: {"widget": TinyMCE()},
+        models.CharField: {"widget": TextInput(attrs={"size": "153"})},
+    }
 
 
 @admin.register(FactCategory)

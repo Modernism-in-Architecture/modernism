@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     "taggit",
     "storages",
     "django_countries",
+    "tinymce",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -127,3 +128,12 @@ BASE_URL = "https://modernism-in-architecture.org"
 TAG_SPACES_ALLOWED = True
 
 WAGTAILAPI_LIMIT_MAX = 50
+
+TINYMCE_DEFAULT_CONFIG = {
+    "theme": "silver",
+    "width": 1000,
+    "height": 500,
+    "menubar": True,
+    "plugins": "advlist,autolink,lists,link,charmap,searchreplace,fullscreen,insertdatetime,media,table,paste,code,help,wordcount",
+    "toolbar": "undo redo | formatselect | bold italic backcolor | link |alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help",
+}

@@ -1,4 +1,7 @@
 from django.contrib import admin
+from django.db import models
+from django.forms.widgets import TextInput
+from tinymce.widgets import TinyMCE
 
 from .models import (
     AccessType,
@@ -29,6 +32,9 @@ class BuildingAdmin(admin.ModelAdmin):
         "architects",
         "sources",
     ]
+    formfield_overrides = {
+        models.TextField: {"widget": TinyMCE()},
+    }
 
 
 @admin.register(BuildingImage)

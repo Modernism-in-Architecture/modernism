@@ -12,6 +12,7 @@ urlpatterns = [
     url(r"^django-admin/", admin.site.urls),
     url(r"^admin/", include(wagtailadmin_urls)),
     url(r"^api/v2/", api_router.urls),
+    path("tinymce/", include("tinymce.urls")),
 ]
 
 if settings.DEBUG:
