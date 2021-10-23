@@ -1,5 +1,6 @@
 from django.db import models
 from django_countries.fields import CountryField
+from taggit.managers import TaggableManager
 
 
 class Feature(models.Model):
@@ -71,6 +72,7 @@ class BuildingImage(models.Model):
         "mia_facts.Photographer", on_delete=models.SET_NULL, null=True, blank=True
     )
     description = models.TextField(blank=True)
+    tags = TaggableManager()
 
     def __str__(self):
         return f"{self.title}"
