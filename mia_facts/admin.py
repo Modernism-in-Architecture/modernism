@@ -38,12 +38,12 @@ class AuthorAdmin(admin.ModelAdmin):
 
 @admin.register(Source)
 class SourceAdmin(admin.ModelAdmin):
-    filter_vertical = ["authors"]
+    filter_horizontal = ["authors"]
 
 
 @admin.register(Fact)
 class FactAdmin(admin.ModelAdmin):
-    filter_vertical = ["categories"]
+    filter_horizontal = ["categories"]
     formfield_overrides = {
         models.TextField: {"widget": TinyMCE()},
         models.CharField: {"widget": TextInput(attrs={"size": "153"})},

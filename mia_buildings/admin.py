@@ -1,6 +1,6 @@
+from django import forms
 from django.contrib import admin
-from django.db import models
-from django.forms.widgets import TextInput
+from django.forms import widgets
 from tinymce.widgets import TinyMCE
 
 from .models import (
@@ -17,10 +17,17 @@ from .models import (
 )
 
 
+class BuildingAdminForm(forms.ModelForm):
+    class Meta:
+        model = Building
+        widgets = {"description": TinyMCE()}
+        fields = "__all__"
+
+
 @admin.register(Building)
 class BuildingAdmin(admin.ModelAdmin):
     raw_id_fields = ["country", "city"]
-    filter_vertical = [
+    filter_horizontal = [
         "windows",
         "roofs",
         "positions",
@@ -32,9 +39,7 @@ class BuildingAdmin(admin.ModelAdmin):
         "architects",
         "sources",
     ]
-    formfield_overrides = {
-        models.TextField: {"widget": TinyMCE()},
-    }
+    form = BuildingAdminForm
 
 
 @admin.register(BuildingImage)

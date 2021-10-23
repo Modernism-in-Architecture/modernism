@@ -7,7 +7,7 @@ from .models import Architect, Developer, Professor
 
 @admin.register(Developer)
 class DeveloperAdmin(admin.ModelAdmin):
-    filter_vertical = ["universities"]
+    filter_horizontal = ["universities"]
     formfield_overrides = {
         models.TextField: {"widget": TinyMCE()},
     }
@@ -15,7 +15,7 @@ class DeveloperAdmin(admin.ModelAdmin):
 
 @admin.register(Architect)
 class ArchitectAdmin(admin.ModelAdmin):
-    filter_vertical = ["universities"]
+    filter_horizontal = ["universities"]
     formfield_overrides = {
         models.TextField: {"widget": TinyMCE()},
     }
@@ -23,7 +23,7 @@ class ArchitectAdmin(admin.ModelAdmin):
 
 @admin.register(Professor)
 class ProfessorAdmin(admin.ModelAdmin):
-    filter_vertical = [
+    filter_horizontal = [
         "architect_mentors",
         "professor_mentors",
         "universities",
