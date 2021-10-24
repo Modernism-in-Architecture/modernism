@@ -134,6 +134,6 @@ TINYMCE_DEFAULT_CONFIG = {
     "width": 1000,
     "height": 500,
     "menubar": True,
-    "plugins": "advlist,autolink,lists,link,charmap,searchreplace,fullscreen,insertdatetime,media,table,paste,code,help,wordcount",
+    "plugins": "advlist,autolink,lists,link,charmap,fullscreen,insertdatetime,media,table,paste,code,help,wordcount",
     "toolbar": "undo redo | formatselect | bold italic backcolor | link |alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help",
 }
