@@ -1,5 +1,5 @@
 from django.db import models
-from django_countries.fields import CountryField
+from django.utils.safestring import mark_safe
 from taggit.managers import TaggableManager
 
 
@@ -76,6 +76,12 @@ class BuildingImage(models.Model):
 
     def __str__(self):
         return f"{self.title}"
+
+    def image_preview(self):
+        if self.image:
+            return mark_safe(f'<img src="{self.image.url}" height="150" />')
+        else:
+            return "(No image)"
 
 
 class Building(models.Model):
