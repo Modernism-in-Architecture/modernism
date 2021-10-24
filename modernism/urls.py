@@ -31,3 +31,7 @@ urlpatterns = urlpatterns + [
     path("sitemap.xml", sitemap),
     url(r"", include(wagtail_urls)),
 ]
+
+admin.site.site_header = "MIA Admin"
+admin.site.site_title = "MIA Admin"
+admin.site.index_title = "Welcome to MIA Administration"
