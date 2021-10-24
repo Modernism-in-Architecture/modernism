@@ -62,7 +62,7 @@ class BuildingImage(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
-    image = models.ImageField(upload_to="mia-buildings", null=True, blank=True)
+    image = models.ImageField(null=True, blank=True)
     building = models.ForeignKey(
         "mia_buildings.Building", on_delete=models.SET_NULL, null=True, blank=True
     )
@@ -72,7 +72,7 @@ class BuildingImage(models.Model):
         "mia_facts.Photographer", on_delete=models.SET_NULL, null=True, blank=True
     )
     description = models.TextField(blank=True)
-    tags = TaggableManager()
+    tags = TaggableManager(blank=True)
 
     def __str__(self):
         return f"{self.title}"
