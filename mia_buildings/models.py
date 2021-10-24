@@ -127,5 +127,7 @@ class Building(models.Model):
 
     sources = models.ManyToManyField("mia_facts.Source", blank=True)
 
+    is_published = models.BooleanField(default=False)
+
     def __str__(self):
         return f"{self.name}"

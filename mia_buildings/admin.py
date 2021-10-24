@@ -80,6 +80,7 @@ class BuildingAdmin(admin.ModelAdmin):
     list_display = [
         "name",
         "pk",
+        "is_published",
         "year_of_construction",
         "city",
         "country",
@@ -107,6 +108,7 @@ class BuildingAdmin(admin.ModelAdmin):
             None,
             {
                 "fields": (
+                    "is_published",
                     "name",
                     "address",
                     "zip_code",
