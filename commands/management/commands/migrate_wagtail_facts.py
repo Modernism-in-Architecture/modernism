@@ -16,7 +16,9 @@ class Command(BaseCommand):
                 title=page.title, description=page.description
             )
             if page.image:
-                MiaFactImage.objects.get_or_create(image=page.image.file, fact=new_fact)
+                MiaFactImage.objects.get_or_create(
+                    image=page.image.file, fact=new_fact, title=page.image.title
+                )
 
             for wl_fact_cat in page.categories.all():
                 new_category, created = MiaFactCategory.objects.get_or_create(
