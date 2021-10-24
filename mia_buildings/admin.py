@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib import admin
+from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.forms import widgets
 from tinymce.widgets import TinyMCE
 
@@ -42,9 +43,16 @@ class BuildingAdmin(admin.ModelAdmin):
     form = BuildingAdminForm
 
 
+class BuildingImageAdminForm(forms.ModelForm):
+    class Meta:
+        model = BuildingImage
+        widgets = {"tags": FilteredSelectMultiple("tags", is_stacked=False)}
+        fields = "__all__"
+
+
 @admin.register(BuildingImage)
 class BuildingImageAdmin(admin.ModelAdmin):
-    pass
+    form = BuildingImageAdminForm
 
 
 @admin.register(ConstructionType)
