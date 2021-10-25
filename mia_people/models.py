@@ -40,12 +40,8 @@ class Person(models.Model):
 
 
 class Professor(Person):
-    architect_mentors = models.ManyToManyField(
-        "mia_people.Architect", blank=True, related_name="professors"
-    )
-    professor_mentors = models.ManyToManyField(
-        "self", blank=True, related_name="mentors"
-    )
+    architect_mentors = models.ManyToManyField("mia_people.Architect", blank=True)
+    professor_mentors = models.ManyToManyField("self", blank=True)
     is_active_architect = models.BooleanField(
         default=False, help_text="Is/Was the professor active as modernist architect?"
     )
@@ -59,4 +55,5 @@ class Developer(Person):
 
 
 class Architect(Person):
-    pass
+    professor_mentors = models.ManyToManyField("mia_people.Professor", blank=True)
+    architect_mentors = models.ManyToManyField("self", blank=True)

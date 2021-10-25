@@ -15,7 +15,7 @@ class DeveloperAdmin(admin.ModelAdmin):
 
 @admin.register(Architect)
 class ArchitectAdmin(admin.ModelAdmin):
-    filter_horizontal = ["universities"]
+    filter_horizontal = ["architect_mentors", "professor_mentors", "universities"]
     formfield_overrides = {
         models.TextField: {"widget": TinyMCE()},
     }
