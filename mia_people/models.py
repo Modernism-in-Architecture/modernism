@@ -25,6 +25,7 @@ class Person(models.Model):
     death_year_known_only = models.BooleanField(
         default=False, help_text="Tick the box if you only know the year."
     )
+    place_of_death = models.CharField(max_length=100, blank=True,)
     country_of_death = CountryField(blank_label="(Select a Country)", blank=True)
     universities = models.ManyToManyField(
         "mia_facts.University", blank=True, related_name="universities"
