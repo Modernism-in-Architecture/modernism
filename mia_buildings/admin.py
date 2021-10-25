@@ -193,7 +193,7 @@ class BuildingAdmin(admin.ModelAdmin):
                 if obj.city and obj.city not in image_tags:
                     building_image.tags.add(obj.city.name)
 
-                building_image.title = f"{obj.title}-{index}"
+                building_image.title = f"{obj.name}-{index}"
 
                 building_image.save()
 

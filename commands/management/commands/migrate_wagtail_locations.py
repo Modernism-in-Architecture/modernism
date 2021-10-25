@@ -25,7 +25,9 @@ class Command(BaseCommand):
             mia_city, created = MiaCity.objects.get_or_create(name=city.name)
             mia_city.description = city.description
             if city.country:
-                mia_country = MiaCountry.objects.filter(country=city.country).first()
+                mia_country = MiaCountry.objects.filter(
+                    country=city.country.country
+                ).first()
                 mia_city.country = mia_country
             mia_city.save()
             self.stdout.write(self.style.SUCCESS(f"Successfully migrated {city.name}"))

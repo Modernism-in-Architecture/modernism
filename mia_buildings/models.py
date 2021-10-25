@@ -97,15 +97,19 @@ class Building(models.Model):
 
     directions = models.TextField(blank=True)
     address = models.TextField(blank=True)
-    zip_code = models.CharField(max_length=16, default="00000")
+    zip_code = models.CharField(max_length=16, blank=True)
     city = models.ForeignKey(
         "mia_facts.City", on_delete=models.SET_NULL, null=True, blank=True
     )
     country = models.ForeignKey(
         "mia_facts.Country", on_delete=models.SET_NULL, null=True, blank=True
     )
-    latitude = models.DecimalField(max_digits=23, decimal_places=20)
-    longitude = models.DecimalField(max_digits=23, decimal_places=20)
+    latitude = models.DecimalField(
+        max_digits=23, decimal_places=20, null=True, blank=True
+    )
+    longitude = models.DecimalField(
+        max_digits=23, decimal_places=20, null=True, blank=True
+    )
 
     protected_monument = models.BooleanField(default=False)
     storey = models.IntegerField(null=True, blank=True)
