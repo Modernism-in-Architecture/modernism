@@ -19,6 +19,7 @@ class Command(BaseCommand):
             page.place_of_death
         )  # country needs to be separated later
         django_obj.description = page.description
+        django_obj.save()
         universities = page.universities.all()
         if universities:
             for uni in universities:
@@ -31,8 +32,8 @@ class Command(BaseCommand):
                     mia_university.description = uni.description
                     mia_university.save()
                 django_obj.universities.add(mia_university)
+                django_obj.save()
 
-        django_obj.save()
         return django_obj
 
     def _add_professor_mentors(self, django_professor_obj, professor_page_queryset):
@@ -42,8 +43,7 @@ class Command(BaseCommand):
             ).first()
             if mentor:
                 django_professor_obj.professor_mentors.add(mentor)
-
-        django_professor_obj.save()
+                django_professor_obj.save()
 
         return django_professor_obj
 
@@ -54,8 +54,7 @@ class Command(BaseCommand):
             ).first()
             if mentor:
                 django_architect_obj.architect_mentors.add(mentor)
-
-        django_architect_obj.save()
+                django_architect_obj.save()
 
         return django_architect_obj
 
