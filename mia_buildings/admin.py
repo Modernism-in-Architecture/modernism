@@ -1,7 +1,6 @@
 from django import forms
 from django.contrib import admin
 from django.contrib.admin.widgets import FilteredSelectMultiple
-from django.utils.html import mark_safe
 from mia_facts.models import Photographer
 from tinymce.widgets import TinyMCE
 
@@ -86,6 +85,7 @@ class BuildingAdmin(admin.ModelAdmin):
         "country",
         "created",
         "updated",
+        "slug",
     ]
     raw_id_fields = ["country", "city"]
     filter_horizontal = [
@@ -100,6 +100,9 @@ class BuildingAdmin(admin.ModelAdmin):
         "architects",
         "sources",
     ]
+    readonly_fields = [
+        "slug",
+    ]
     form = BuildingAdminForm
     inlines = [BuildingImageInline]
 
@@ -110,6 +113,7 @@ class BuildingAdmin(admin.ModelAdmin):
                 "fields": (
                     "is_published",
                     "name",
+                    "slug",
                     "address",
                     "zip_code",
                     "city",

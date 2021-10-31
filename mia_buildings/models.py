@@ -1,10 +1,12 @@
 from django.db import models
 from django.utils.safestring import mark_safe
+from django.utils.text import slugify
 from taggit.managers import TaggableManager
+from unidecode import unidecode
 
 
 class Feature(models.Model):
-    name = models.CharField(max_length=250, unique=True)
+    name = models.CharField(max_length=254, unique=True)
 
     class Meta:
         abstract = True
@@ -88,9 +90,9 @@ class Building(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
-    name = models.CharField(max_length=250, unique=True)
-    subtitle = models.CharField(max_length=250, blank=True)
-    todays_use = models.CharField(max_length=300, blank=True)
+    name = models.CharField(max_length=254, unique=True)
+    subtitle = models.CharField(max_length=254, blank=True)
+    todays_use = models.CharField(max_length=254, blank=True)
     year_of_construction = models.CharField(max_length=4, blank=True)
     history = models.TextField(blank=True)
     description = models.TextField(blank=True)
@@ -132,6 +134,12 @@ class Building(models.Model):
     sources = models.ManyToManyField("mia_facts.Source", blank=True)
 
     is_published = models.BooleanField(default=False)
+    slug = models.SlugField(max_length=254, unique=True)
 
     def __str__(self):
         return f"{self.name}"
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(unidecode(self.name))
+        return super().save(*args, **kwargs)
