@@ -1,0 +1,32 @@
+{% load el_pagination_tags static thumbnail %}
+
+{% lazy_paginate 8 buildings %}
+<div class="columns is-multiline is-centered ml-5 mr-5">
+    {% for building in buildings %}
+        <div class="column is-4-tablet is-3-desktop">
+            <a href="" alt="{{building.name}}" class="card-title">
+                <div class="card">
+                    <div class="card-image">
+                        <figure class="image is-marginless is-square">
+                            {% if building.feed_image %}
+                                <img src="{{ building.feed_image.0.image|thumbnail_url:'feed' }}">
+                            {% endif %}
+                        </figure>
+                    </div>
+                    <div class="card-content">
+                        <div class="content">
+                            <h5 class="is-marginless">
+                                {{building.name}}<br>
+                            </h5>
+                           {% if building.city %}#{{building.city}}{% endif %} {% if building.country %}#{{building.country}}{% endif %} {% if building.year_of_construction %}#{{building.year_of_construction}}{% endif %}
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    {% endfor %}
+</div>
+
+<div class="has-text-centered">
+{% show_more %}
+</div>

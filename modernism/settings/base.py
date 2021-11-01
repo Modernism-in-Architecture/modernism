@@ -1,5 +1,8 @@
 import os
 
+from easy_thumbnails.signal_handlers import generate_aliases_global
+from easy_thumbnails.signals import saved_file
+
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
@@ -12,6 +15,7 @@ INSTALLED_APPS = [
     "mia_buildings",
     "mia_people",
     "mia_facts",
+    "mia_general",
     "commands",
     "wagtail.api.v2",
     "wagtail.contrib.search_promotions",
@@ -43,6 +47,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "el_pagination",
     "wagtailmetadata",
+    "easy_thumbnails",
 ]
 
 MIDDLEWARE = [
@@ -120,6 +125,19 @@ STATIC_URL = "/static/"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
+
+THUMBNAIL_SUBDIR = "thumbs"
+THUMBNAIL_ALIASES = {
+    "": {
+        "preview": {"size": (150, 150), "crop": True},
+        "feed": {"size": (350, 350), "crop": True},
+        "square": {"size": (500, 500), "crop": True},
+        "regular": {"size": (800, 600), "crop": True},
+        "large": {"size": (1300, 700), "crop": True},
+    },
+}
+saved_file.connect(generate_aliases_global)
+
 
 # Wagtail settings
 WAGTAIL_SITE_NAME = "modernism"

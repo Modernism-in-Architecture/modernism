@@ -1,0 +1,23 @@
+{% extends "mia_general/base.html" %}
+
+{% load static %}
+
+{% block body_class %}home{% endblock %}
+
+{% block content %}
+
+<section class="hero is-fullheight">
+  <div class="hero-body">
+    <div class="container">
+      <div class="content has-text-centered">
+        <h1><span class="red">M</span>odernism <span class="blue">i</span>n <span class="yellow">A</span>rchitecture
+        </h1>
+        <h3>"A modern, harmonic and lively architecture is the visible sign of an authentic
+          democracy."<br><small><i>Walter Gropius </i></small></h3>
+        <a class="button is-outlined is-rounded" href="{% url 'building-index-list' %}">Explore</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}

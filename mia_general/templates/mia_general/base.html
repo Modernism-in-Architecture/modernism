@@ -1,0 +1,33 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="google-site-verification" content="QTmlzC5oEhbZ_SRIhz3aHYrRU9FHY-zkaBeSsuPKWpY" />
+  <link rel="icon" type="image/png" sizes="96x96" href="{% static 'img/favicon-96x96.png'%}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/modernism.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bulma-tooltip.min.css' %}">
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  {% comment %} <script type="application/javascript">const countryTag = "{% if tag_country_name %}{{ tag_country_name }}{% endif %}";</script> {% endcomment %}
+  {% block extra_css %}{% endblock %}
+</head>
+
+<body class="{% block body_class %}{% endblock %} has-navbar-fixed-top">
+
+  {% include "includes/mia_top_nav.html" %}
+
+  {% block breadcrumbs %}{% endblock breadcrumbs %}
+
+  {% block content %}{% endblock %}
+
+  {% include "includes/mia_footer_nav.html" %}
+
+  <script type="application/javascript" src="{% static 'lib/modernism.js' %}"></script>
+  {% block extra_js %}{% endblock %}
+</body>
+
+</html>

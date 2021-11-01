@@ -13,6 +13,10 @@ urlpatterns = [
     url(r"^admin/", include(wagtailadmin_urls)),
     url(r"^api/v2/", api_router.urls),
     path("tinymce/", include("tinymce.urls")),
+    path("django-mia/", include("mia_general.urls")),
+    path("django-mia/buildings/", include("mia_buildings.urls")),
+    path("django-mia/people/", include("mia_people.urls")),
+    path("django-mia/facts/", include("mia_facts.urls")),
 ]
 
 if settings.DEBUG:

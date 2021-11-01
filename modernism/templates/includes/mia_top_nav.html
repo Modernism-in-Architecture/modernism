@@ -1,0 +1,48 @@
+{% load static %}
+
+<nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+  <div class="container">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="{% url 'main' %}">
+        <img src="{% static 'img/mia-logo_square.png' %}">
+      </a>
+
+      <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarTop">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <div id="navbarTop" class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item is-uppercase {% if request.resolver_match.view_name == 'building-index-list'%}is-active{% endif %}" href="{% url 'building-index-list' %}">
+            Buildings
+        </a>
+        <a class="navbar-item is-uppercase {% if request.resolver_match.view_name == 'architect-index-list'%}is-active{% endif %}" href="{% url 'architect-index-list' %}">
+            Architects
+        </a>
+        <a class="navbar-item is-uppercase {% if request.resolver_match.view_name == 'developer-index-list'%}is-active{% endif %}" href="{% url 'developer-index-list' %}">
+            Developers
+        </a>
+        <a class="navbar-item is-uppercase {% if request.resolver_match.view_name == 'fact-index-list'%}is-active{% endif %}" href="{% url 'fact-index-list' %}">
+            Facts
+        </a>
+        <a class="navbar-item is-uppercase {% if request.resolver_match.view_name == 'map'%}is-active{% endif %}" href="{% url 'map' %}">
+            Map
+        </a>
+      </div>
+      <div class="navbar-end">
+        <a class="navbar-item is-uppercase {% if request.resolver_match.view_name == 'about'%}is-active{% endif %}" href="{% url 'about' %}">
+            About
+        </a>
+        <a class="navbar-item is-uppercase {% if request.resolver_match.view_name == 'intro'%}is-active{% endif %}" href="{% url 'intro' %}">
+            Intro
+        </a>
+        <a class="navbar-item" href="https://www.instagram.com/modernism_in_architecture/" target="_blank"
+        rel="noreferrer noopener"><ion-icon name="logo-instagram" class="is-size-4"></ion-icon></a>
+        <a class="navbar-item" href="https://github.com/normade/modernism/" target="_blank" rel="noreferrer noopener"><ion-icon name="logo-github" class="is-size-4"></ion-icon></a>
+      </div>
+    </div>
+  </div>
+</nav>
