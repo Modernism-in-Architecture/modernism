@@ -7,6 +7,7 @@ from .models import Architect, Developer, Professor
 
 @admin.register(Developer)
 class DeveloperAdmin(admin.ModelAdmin):
+    list_display = ["last_name", "first_name", "is_published", "created", "pk", "slug"]
     filter_horizontal = ["universities"]
     formfield_overrides = {
         models.TextField: {"widget": TinyMCE()},
@@ -15,6 +16,7 @@ class DeveloperAdmin(admin.ModelAdmin):
 
 @admin.register(Architect)
 class ArchitectAdmin(admin.ModelAdmin):
+    list_display = ["last_name", "first_name", "is_published", "created", "pk", "slug"]
     filter_horizontal = ["architect_mentors", "professor_mentors", "universities"]
     formfield_overrides = {
         models.TextField: {"widget": TinyMCE()},
@@ -23,6 +25,7 @@ class ArchitectAdmin(admin.ModelAdmin):
 
 @admin.register(Professor)
 class ProfessorAdmin(admin.ModelAdmin):
+    list_display = ["last_name", "first_name", "is_published", "created", "pk", "slug"]
     filter_horizontal = [
         "architect_mentors",
         "professor_mentors",

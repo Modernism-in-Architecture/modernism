@@ -1,0 +1,118 @@
+{% extends "mia_general/base.html" %}
+
+{% load static thumbnail %}
+
+{% block body_class %}architect{% endblock %}
+
+
+{% block breadcrumbs %}
+    <section class="breadcrumbs-section">
+        <div class="container">
+            <nav class="breadcrumb has-bullet-separator is-right is-small" aria-label="breadcrumbs">
+                <ul>
+                    <li>
+                        <a href="{% url 'main' %}">
+                            <span class="hidden" aria-hidden="false">Home</span>
+                        </a>
+                    </li>
+                     <li>
+                        <a href="{% url 'architect-index-list' %}">
+                            <span class="hidden" aria-hidden="false">Architects</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="inactive" href="{% url 'architect-details' person.slug %}" aria-level="2">
+                            {{person.last_name}}
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+{% endblock breadcrumbs %}
+
+
+{% block content %}
+    <section class="section last-section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet">
+                    <div class="content">
+                        <h1>{% if person.first_name %}{{person.first_name}} {% endif %}{{person.last_name}}</h1>
+                        <div class="columns">
+                            <div class="column">
+                                <div class="columns is-gapless">
+                                    {% if person.birthday %}
+                                        <div class="column is-1">
+                                            <ion-icon name="heart-circle-outline" class="is-size-4"></ion-icon>
+                                        </div>
+                                    {% endif %}
+                                    {% if person.birthday %}
+                                        <div class="column">
+                                            {% if person.birth_year_known_only %}
+                                                {{person.birthday|date:"Y"}}
+                                            {% else %}
+                                                {{person.birthday}}
+                                            {% endif %}
+                                            {% if person.place_of_birth %}
+                                                in {{person.place_of_birth}}
+                                            {% endif %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="column">
+                                <div class="columns is-gapless">
+                                    {% if person.day_of_death %}
+                                        <div class="column is-1">
+                                            <ion-icon name="heart-dislike-circle-outline" class="is-size-4"></ion-icon>
+                                        </div>
+                                    {% endif %}
+                                    
+                                    {% if person.day_of_death %}
+                                        <div class="column">
+                                            {% if person.death_year_known_only %}
+                                                {{person.day_of_death|date:"Y"}}
+                                            {% else %}
+                                                {{person.day_of_death}}
+                                            {% endif %}
+                                            {% if person.place_of_death %}
+                                                in {{person.place_of_death}}
+                                            {% endif %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% if person.description %}
+                            <div class="card">
+                                <div class="card-content">
+                                    {{person.description|safe}}
+                                </div>
+                            </div>
+                        {% endif %}
+                        <div class="mt-5">
+                            {% if related_buildings %}
+                                <h2>Buildings</h2>
+                                <div class="columns is-multiline">
+                                    {% for building in related_buildings %}
+                                        {% if building.feed_images %}
+                                            <div class="column is-2-tablet">
+                                                <div class="preview-image">
+                                                    <a href="{% url 'building-details' building.slug %}" alt="{{building.name}}">
+                                                        <img src="{{ building.feed_images.0.image|thumbnail_url:'feed' }}">
+                                                    </a>
+                                                </div>
+                                                <p>{{building.city}}, {{building.country}}</p>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

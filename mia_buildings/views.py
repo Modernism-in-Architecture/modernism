@@ -131,7 +131,7 @@ def get_building_list(
             Prefetch(
                 "buildingimage_set",
                 queryset=BuildingImage.objects.filter(is_feed_image=True),
-                to_attr="feed_image",
+                to_attr="feed_images",
             )
         )
         .order_by("-created")
@@ -186,48 +186,40 @@ def get_building_list(
 
 @api_view(["GET"])
 def get_building_details(
-    request,
-    id_or_slug,
-    template="mia_buildings/building_details.html",
-    extra_context=None,
+    request, slug, template="mia_buildings/building_details.html", extra_context=None,
 ):
 
-    if isinstance(id_or_slug, int):
-        building = (
-            Building.objects.filter(is_published=True, id=id_or_slug)
-            .select_related("city")
-            .select_related("country")
-            .select_related("access_type")
-            .prefetch_related("architects")
-            .prefetch_related("developers")
-            .prefetch_related("building_types")
-            .prefetch_related("positions")
-            .prefetch_related("details")
-            .prefetch_related("windows")
-            .prefetch_related("roofs")
-            .prefetch_related("facades")
-            .prefetch_related("construction_types")
-            .prefetch_related("sources")
-            .first()
+    building = (
+        Building.objects.filter(is_published=True, slug=slug)
+        .select_related("city")
+        .select_related("country")
+        .select_related("access_type")
+        .prefetch_related("architects")
+        .prefetch_related("developers")
+        .prefetch_related("building_types")
+        .prefetch_related("positions")
+        .prefetch_related("details")
+        .prefetch_related("windows")
+        .prefetch_related("roofs")
+        .prefetch_related("facades")
+        .prefetch_related("construction_types")
+        .prefetch_related("sources")
+        .prefetch_related(
+            Prefetch(
+                "buildingimage_set",
+                queryset=BuildingImage.objects.all(),
+                to_attr="gallery_images",
+            )
         )
-    else:
-        building = (
-            Building.objects.filter(is_published=True, slug=id_or_slug)
-            .select_related("city")
-            .select_related("country")
-            .select_related("access_type")
-            .prefetch_related("architects")
-            .prefetch_related("developers")
-            .prefetch_related("building_types")
-            .prefetch_related("positions")
-            .prefetch_related("details")
-            .prefetch_related("windows")
-            .prefetch_related("roofs")
-            .prefetch_related("facades")
-            .prefetch_related("construction_types")
-            .prefetch_related("sources")
-            .first()
+        .prefetch_related(
+            Prefetch(
+                "buildingimage_set",
+                queryset=BuildingImage.objects.filter(is_feed_image=True),
+                to_attr="feed_images",
+            )
         )
+        .first()
+    )
 
     context = {"building": building}
 

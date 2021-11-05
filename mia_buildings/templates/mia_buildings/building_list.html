@@ -8,8 +8,8 @@
                 <div class="card">
                     <div class="card-image">
                         <figure class="image is-marginless is-square">
-                            {% if building.feed_image %}
-                                <img src="{{ building.feed_image.0.image|thumbnail_url:'feed' }}">
+                            {% if building.feed_images %}
+                                <img src="{{ building.feed_images.0.image|thumbnail_url:'feed' }}">
                             {% endif %}
                         </figure>
                     </div>

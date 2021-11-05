@@ -1,6 +1,6 @@
 {% extends "mia_general/base.html" %}
 
-{% load static %}
+{% load static thumbnail %}
 
 {% block body_class %}building{% endblock %}
 
@@ -52,9 +52,13 @@
 
             <div class="columns reverse-column-order">
                 <div class="column is-4-desktop">
-                    <div class="feed-image">{% comment %} {% image building.feed_image fill-600x600 %} {% endcomment %}</div>
+                    <div class="feed-image">
+                        {% if building.feed_images %}
+                            <img src="{{ building.feed_images.0.image|thumbnail_url:'square' }}">
+                        {% endif %}
+                    </div>
                     <p>
-                        {% if building.city %}#{{building.city}}{% endif %} {% if building.country %}#{{building.country}}{% endif %} {% if building.year_of_construction %}#{{building.year_of_construction}}{% endif %}
+                        {% if building.building_types.all %}#{{building.building_types.first}}{% endif %} {% if building.city %}#{{building.city}}{% endif %} {% if building.country %}#{{building.country}}{% endif %} {% if building.year_of_construction %}#{{building.year_of_construction}}{% endif %}
                     </p>
                 </div>
                 <div class="column is-6-desktop">
@@ -63,7 +67,7 @@
                             <h4 class="people mb-3">Architects</h4>
                             <p>
                                 {% for architect in building.architects.all %}
-                                    <a href="" alt="{{architect}}">
+                                    <a href="{% url 'architect-details' architect.slug %}" alt="{{architect}}">
                                     {{architect}}</a>{% if not forloop.last %}, {% endif %}
                                 {% endfor %}
                             </p>
@@ -72,7 +76,7 @@
                             <h4 class="people mb-3">Developers</h4>
                             <p>
                                 {% for developer in building.developers.all %}
-                                    <a href=""
+                                    <a href="{% url 'developer-details' developer.slug %}"
                                     alt="{{developer.first_name}} {{developer.last_name}}">
                                     {{developer.first_name}} {{developer.last_name}}
                                     </a>{% if not forloop.last %}, {% endif %}
@@ -165,15 +169,16 @@
             <div class="columns">
             <div class="column">
                 <div class="content">
-                {% comment %} {% if building.gallery_images %}<h4 class="impressions mb-3 mt-3">Impressions</h4>{% endif %}
+                {% if building.gallery_images %}<h4 class="impressions mb-3 mt-3">Impressions</h4>{% endif %}
+                
                     {% for gallery_image in building.gallery_images %}
-                        {% if gallery_image.block_type == 'image' %}
-                            {% image gallery_image.value.image max-1300x700 as large_img %}
+                        <img src="{{ gallery_image.image|thumbnail_url:'preview' }}">
+                            {% comment %} {% image gallery_image.value.image max-1300x700 as large_img %}
                             {% image gallery_image.value.image fill-150x150 as thumb_img %}
                             <img src="{{ thumb_img.url }}" large-url="{{ large_img.url }}" index="{{ forloop.counter0 }}"
-                                class="preview-image" />
-                        {% endif %}
-                {% endfor %} {% endcomment %}
+                                class="preview-image" /> {% endcomment %}
+                            
+                    {% endfor %}
                 </div>
             </div>
             </div>
