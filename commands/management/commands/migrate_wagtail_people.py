@@ -19,6 +19,7 @@ class Command(BaseCommand):
             page.place_of_death
         )  # country needs to be separated later
         django_obj.description = page.description
+        django_obj.is_published = True
         django_obj.save()
         universities = page.universities.all()
         if universities:
