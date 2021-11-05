@@ -1,4 +1,5 @@
 from django.core.management.base import BaseCommand
+from django.db import transaction
 from mia_facts.models import University
 from mia_people.models import Architect, Developer, Professor
 from people.models import ArchitectPage, DeveloperPage, ProfessorPage
@@ -64,80 +65,81 @@ class Command(BaseCommand):
         architect_pages = ArchitectPage.objects.all()
         professor_pages = ProfessorPage.objects.all()
 
-        for page in developer_pages:
-            new_dev, created = Developer.objects.get_or_create(
-                last_name=page.last_name, first_name=page.first_name
-            )
-            if created:
-                new_dev = self._migrate_person_page_fields(new_dev, page)
+        with transaction.atomic():
+            for page in developer_pages:
+                new_dev, created = Developer.objects.get_or_create(
+                    last_name=page.last_name, first_name=page.first_name
+                )
+                if created:
+                    new_dev = self._migrate_person_page_fields(new_dev, page)
+
+                    self.stdout.write(
+                        self.style.SUCCESS(
+                            f"Successfully migrated dev page {page.last_name}."
+                        )
+                    )
+
+            for page in architect_pages:
+                new_arch, created = Architect.objects.get_or_create(
+                    last_name=page.last_name, first_name=page.first_name
+                )
+
+                if created:
+                    new_arch = self._migrate_person_page_fields(new_arch, page)
+
+                    self.stdout.write(
+                        self.style.SUCCESS(
+                            f"Successfully migrated arch page {page.last_name}."
+                        )
+                    )
+
+            for page in architect_pages:
+                page_architect_mentors = page.architect_mentors.all()
+                page_professor_mentors = page.professor_mentors.all()
+
+                mia_arch = Architect.objects.filter(
+                    last_name=page.last_name, first_name=page.first_name
+                ).first()
+
+                mia_arch = self._add_architect_mentors(mia_arch, page_architect_mentors)
+                mia_arch = self._add_professor_mentors(mia_arch, page_professor_mentors)
 
                 self.stdout.write(
                     self.style.SUCCESS(
-                        f"Successfully migrated dev page {page.last_name}."
+                        f"Successfully added architect and prof mentors to {mia_arch}."
                     )
                 )
 
-        for page in architect_pages:
-            new_arch, created = Architect.objects.get_or_create(
-                last_name=page.last_name, first_name=page.first_name
-            )
+            for page in professor_pages:
+                new_prof, created = Professor.objects.get_or_create(
+                    last_name=page.last_name, first_name=page.first_name
+                )
 
-            if created:
-                new_arch = self._migrate_person_page_fields(new_arch, page)
+                if created:
+                    new_prof = self._migrate_person_page_fields(new_prof, page)
+                    new_prof.is_active_architect = page.is_active_architect
+                    new_prof.is_active_developer = page.is_active_developer
+                    new_prof.save()
+
+                    self.stdout.write(
+                        self.style.SUCCESS(
+                            f"Successfully migrated prof page {page.last_name}."
+                        )
+                    )
+
+            for page in professor_pages:
+                page_architect_mentors = page.architect_mentors.all()
+                page_professor_mentors = page.professor_mentors.all()
+
+                mia_prof = Professor.objects.filter(
+                    last_name=page.last_name, first_name=page.first_name
+                ).first()
+
+                mia_prof = self._add_architect_mentors(mia_prof, page_architect_mentors)
+                mia_prof = self._add_professor_mentors(mia_prof, page_professor_mentors)
 
                 self.stdout.write(
                     self.style.SUCCESS(
-                        f"Successfully migrated arch page {page.last_name}."
+                        f"Successfully added architect mentors to {mia_prof}."
                     )
                 )
-
-        for page in architect_pages:
-            page_architect_mentors = page.architect_mentors.all()
-            page_professor_mentors = page.professor_mentors.all()
-
-            mia_arch = Architect.objects.filter(
-                last_name=page.last_name, first_name=page.first_name
-            ).first()
-
-            mia_arch = self._add_architect_mentors(mia_arch, page_architect_mentors)
-            mia_arch = self._add_professor_mentors(mia_arch, page_professor_mentors)
-
-            self.stdout.write(
-                self.style.SUCCESS(
-                    f"Successfully added architect and prof mentors to {mia_arch}."
-                )
-            )
-
-        for page in professor_pages:
-            new_prof, created = Professor.objects.get_or_create(
-                last_name=page.last_name, first_name=page.first_name
-            )
-
-            if created:
-                new_prof = self._migrate_person_page_fields(new_prof, page)
-                new_prof.is_active_architect = page.is_active_architect
-                new_prof.is_active_developer = page.is_active_developer
-                new_prof.save()
-
-                self.stdout.write(
-                    self.style.SUCCESS(
-                        f"Successfully migrated prof page {page.last_name}."
-                    )
-                )
-
-        for page in professor_pages:
-            page_architect_mentors = page.architect_mentors.all()
-            page_professor_mentors = page.professor_mentors.all()
-
-            mia_prof = Professor.objects.filter(
-                last_name=page.last_name, first_name=page.first_name
-            ).first()
-
-            mia_prof = self._add_architect_mentors(mia_prof, page_architect_mentors)
-            mia_prof = self._add_professor_mentors(mia_prof, page_professor_mentors)
-
-            self.stdout.write(
-                self.style.SUCCESS(
-                    f"Successfully added architect mentors to {mia_prof}."
-                )
-            )
