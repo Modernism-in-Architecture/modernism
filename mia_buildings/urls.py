@@ -4,4 +4,5 @@ from . import views
 
 urlpatterns = [
     path("", views.get_building_list, name="building-index-list"),
+    path("<str:id_or_slug>/", views.get_building_details, name="building-details"),
 ]

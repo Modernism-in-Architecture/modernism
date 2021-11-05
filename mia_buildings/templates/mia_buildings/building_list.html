@@ -4,7 +4,7 @@
 <div class="columns is-multiline is-centered ml-5 mr-5">
     {% for building in buildings %}
         <div class="column is-4-tablet is-3-desktop">
-            <a href="" alt="{{building.name}}" class="card-title">
+            <a href="{% url 'building-details' building.slug %}" alt="{{building.name}}" class="card-title">
                 <div class="card">
                     <div class="card-image">
                         <figure class="image is-marginless is-square">

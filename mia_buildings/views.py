@@ -120,9 +120,12 @@ def _get_filtered_buildings(cleaned_form_data, buildings):
 
 
 @page_template("mia_buildings/building_list.html")
-def get_building_list(request, template="mia_buildings/index.html", extra_context=None):
+def get_building_list(
+    request, template="mia_buildings/building_index.html", extra_context=None
+):
     building_list = (
-        Building.objects.select_related("city")
+        Building.objects.filter(is_published=True)
+        .select_related("city")
         .select_related("country")
         .prefetch_related(
             Prefetch(
@@ -183,10 +186,50 @@ def get_building_list(request, template="mia_buildings/index.html", extra_contex
 
 @api_view(["GET"])
 def get_building_details(
-    request, template="mia_buildings/building_details.html", extra_context=None
+    request,
+    id_or_slug,
+    template="mia_buildings/building_details.html",
+    extra_context=None,
 ):
 
-    context = {}
+    if isinstance(id_or_slug, int):
+        building = (
+            Building.objects.filter(is_published=True, id=id_or_slug)
+            .select_related("city")
+            .select_related("country")
+            .select_related("access_type")
+            .prefetch_related("architects")
+            .prefetch_related("developers")
+            .prefetch_related("building_types")
+            .prefetch_related("positions")
+            .prefetch_related("details")
+            .prefetch_related("windows")
+            .prefetch_related("roofs")
+            .prefetch_related("facades")
+            .prefetch_related("construction_types")
+            .prefetch_related("sources")
+            .first()
+        )
+    else:
+        building = (
+            Building.objects.filter(is_published=True, slug=id_or_slug)
+            .select_related("city")
+            .select_related("country")
+            .select_related("access_type")
+            .prefetch_related("architects")
+            .prefetch_related("developers")
+            .prefetch_related("building_types")
+            .prefetch_related("positions")
+            .prefetch_related("details")
+            .prefetch_related("windows")
+            .prefetch_related("roofs")
+            .prefetch_related("facades")
+            .prefetch_related("construction_types")
+            .prefetch_related("sources")
+            .first()
+        )
+
+    context = {"building": building}
 
     if extra_context is not None:
         context.update(extra_context)
