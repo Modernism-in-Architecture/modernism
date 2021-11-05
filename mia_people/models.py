@@ -49,7 +49,9 @@ class Person(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(unidecode(self.name))
+            first_name = unidecode(self.first_name)
+            last_name = unidecode(self.last_name)
+            self.slug = slugify(first_name + " " + last_name)
         return super().save(*args, **kwargs)
 
 
