@@ -1,8 +1,17 @@
 from django.db import models
+from django.utils.text import slugify
 from django_countries.fields import CountryField
+from unidecode import unidecode
 
 
 class Person(models.Model):
+    created = models.DateTimeField(auto_now_add=True, null=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    is_published = models.BooleanField(default=False)
+    slug = models.SlugField(max_length=254, unique=True, blank=True)
+    sources = models.ManyToManyField("mia_facts.Source", blank=True)
+
     first_name = models.CharField(max_length=250, blank=True)
     last_name = models.CharField(
         max_length=250, help_text="You can add a company name here too if appropriate."
@@ -37,6 +46,11 @@ class Person(models.Model):
         if self.first_name:
             name = f"{self.first_name} {self.last_name}"
         return name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(unidecode(self.name))
+        return super().save(*args, **kwargs)
 
 
 class Professor(Person):
