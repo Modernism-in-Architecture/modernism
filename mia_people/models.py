@@ -9,12 +9,14 @@ class Person(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     is_published = models.BooleanField(default=False)
-    slug = models.SlugField(max_length=254, unique=True, blank=True)
+    slug = models.SlugField(max_length=254, blank=True)
     sources = models.ManyToManyField("mia_facts.Source", blank=True)
 
     first_name = models.CharField(max_length=250, blank=True)
     last_name = models.CharField(
-        max_length=250, help_text="You can add a company name here too if appropriate."
+        unique=True,
+        max_length=250,
+        help_text="You can add a company name here too if appropriate.",
     )
     birthday = models.DateField(
         blank=True,

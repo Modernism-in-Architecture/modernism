@@ -1,5 +1,7 @@
 from django.db import models
+from django.utils.text import slugify
 from django_countries.fields import CountryField
+from unidecode import unidecode
 
 
 class Country(models.Model):
@@ -118,9 +120,16 @@ class Fact(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
-    title = models.CharField(max_length=250, blank=True)
+    title = models.CharField(max_length=250, unique=True)
     description = models.TextField(blank=True)
     categories = models.ManyToManyField("mia_facts.FactCategory", blank=True)
+    is_published = models.BooleanField(default=False)
+    slug = models.SlugField(max_length=254, blank=True)
+    sources = models.ManyToManyField("mia_facts.Source", blank=True)
 
     def __str__(self):
         return f"{self.title}"
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(unidecode(self.title))
+        return super().save(*args, **kwargs)

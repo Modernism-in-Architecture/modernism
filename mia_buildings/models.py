@@ -134,7 +134,7 @@ class Building(models.Model):
     sources = models.ManyToManyField("mia_facts.Source", blank=True)
 
     is_published = models.BooleanField(default=False)
-    slug = models.SlugField(max_length=254, unique=True)
+    slug = models.SlugField(max_length=254, blank=True)
 
     def __str__(self):
         return f"{self.name}"
