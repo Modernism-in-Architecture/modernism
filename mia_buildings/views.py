@@ -1,3 +1,4 @@
+from django.core.serializers import serialize
 from django.db.models.query import Prefetch
 from django.http.request import MultiValueDict, QueryDict
 from django.shortcuts import render
@@ -221,7 +222,18 @@ def get_building_details(
         .first()
     )
 
-    context = {"building": building}
+    buildings_of_same_city = Building.objects.filter(
+        is_published=True, city=building.city
+    )
+
+    context = {
+        "building": building,
+        "buildings_of_same_city": serialize(
+            "json",
+            buildings_of_same_city,
+            fields=("pk", "latitude", "longitude", "slug", "name", "address"),
+        ),
+    }
 
     if extra_context is not None:
         context.update(extra_context)

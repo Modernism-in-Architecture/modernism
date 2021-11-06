@@ -61,7 +61,10 @@ class Photographer(models.Model):
     url = models.URLField(max_length=250, blank=True)
 
     def __str__(self):
-        return self.last_name
+        name = self.last_name
+        if self.first_name:
+            name = f"{self.first_name} {self.last_name}"
+        return name
 
 
 class Source(models.Model):
