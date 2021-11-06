@@ -7929,10 +7929,10 @@ body {
 .breadcrumb .inactive {
   color: #7a7a7a; }
 
-.buildings .section, .building .section, .people-index .section, .people .section, .knowledge .section {
+.buildings .section, .building .section, .people-index .section, .people .section, .knowledge .section, .fact .section, .architect .section, .developer .section {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem; }
-  .buildings .section .content a:hover, .building .section .content a:hover, .people-index .section .content a:hover, .people .section .content a:hover, .knowledge .section .content a:hover {
+  .buildings .section .content a:hover, .building .section .content a:hover, .people-index .section .content a:hover, .people .section .content a:hover, .knowledge .section .content a:hover, .fact .section .content a:hover, .architect .section .content a:hover, .developer .section .content a:hover {
     color: red; }
 
 .card {

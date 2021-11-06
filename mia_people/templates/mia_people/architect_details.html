@@ -44,10 +44,10 @@
 {% block content %}
     <section class="section last-section">
         <div class="container">
+            <h1 class="is-size-3 mb-5">{% if person.first_name %}{{person.first_name}} {% endif %}{{person.last_name}}</h1>
             <div class="columns">
                 <div class="column is-8-tablet">
                     <div class="content">
-                        <h1>{% if person.first_name %}{{person.first_name}} {% endif %}{{person.last_name}}</h1>
                         <div class="columns">
                             <div class="column">
                                 <div class="columns is-gapless">
