@@ -31,6 +31,7 @@ class Command(BaseCommand):
                         )
                     )
                 new_fact.categories.add(new_category)
+                new_fact.is_published = True
                 new_fact.save()
 
             self.stdout.write(
