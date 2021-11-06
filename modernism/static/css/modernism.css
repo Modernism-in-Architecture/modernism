@@ -7920,6 +7920,12 @@ body {
   .navbar .navbar-burger:hover {
     background-color: transparent; }
 
+.mia-breadcrumb {
+  display: flex; }
+
+.mia-breadcrumb nav:last-child {
+  margin-left: auto; }
+
 .breadcrumb .inactive {
   color: #7a7a7a; }
 
@@ -8096,6 +8102,9 @@ body {
     background-color: lightgray;
     border-radius: 5px;
     border: 3px solid grey; }
+  .building-idx-container .content ul {
+    margin-left: 0;
+    list-style: none; }
   .building-idx-container .dropdown-content {
     position: absolute;
     z-index: 99; }

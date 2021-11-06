@@ -135,6 +135,13 @@ body {
     }
 }
 
+.mia-breadcrumb {
+    display: flex;
+}
+.mia-breadcrumb nav:last-child {
+    margin-left: auto;
+}
+
 .breadcrumb .inactive {
     color: $grey;
 }
@@ -354,6 +361,10 @@ body {
         background-color: lightgray;
         border-radius: 5px;
         border: 3px solid grey;
+    }
+    .content ul {
+        margin-left: 0;
+        list-style: none;
     }
     .dropdown-content {
         position: absolute;

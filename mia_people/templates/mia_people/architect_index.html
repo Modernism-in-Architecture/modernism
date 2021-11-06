@@ -9,24 +9,25 @@
 {% block breadcrumbs %}
     <section class="breadcrumbs-section">
         <div class="container">
-            <nav class="breadcrumb has-bullet-separator is-right is-small" aria-label="breadcrumbs">
-                <ul>
-                    <li>
-                        <a href="{% url 'main' %}">
-                            <span class="hidden" aria-hidden="false">Home</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="inactive" href="{% url 'architect-index-list' %}" aria-level="2">
-                            Architects
-                        </a>
-                    </li>
-                </ul>
+            <nav class="mia-breadcrumb breadcrumb has-bullet-separator is-small" aria-label="breadcrumbs">
+                <nav>
+                    <ul>
+                        <li>
+                            <a href="{% url 'main' %}">
+                                <span class="hidden" aria-hidden="false">Home</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="inactive" href="{% url 'architect-index-list' %}" aria-level="2">
+                                Architects
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </nav>
         </div>
     </section>
 {% endblock breadcrumbs %}
-
 
 {% block content %}
     <section class="last-section mt-3 mb-5 p-5">

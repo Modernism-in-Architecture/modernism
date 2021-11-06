@@ -20,24 +20,35 @@
 {% block breadcrumbs %}
     <section class="breadcrumbs-section">
         <div class="container">
-            <nav class="breadcrumb has-bullet-separator is-right is-small" aria-label="breadcrumbs">
-                <ul>
-                    <li>
-                        <a href="{% url 'main' %}">
-                            <span class="hidden" aria-hidden="false">Home</span>
-                        </a>
-                    </li>
-                     <li>
-                        <a href="{% url 'building-index-list' %}">
-                            <span class="hidden" aria-hidden="false">Buildings</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="inactive" href="{% url 'building-details' building.slug %}" aria-level="2">
-                            {{building.name}}
-                        </a>
-                    </li>
-                </ul>
+            <nav class="mia-breadcrumb breadcrumb has-bullet-separator is-small" aria-label="breadcrumbs">
+                <nav>
+                    <ul>
+                        <li>
+                            <a href="{% url 'building-index-list' %}" aria-level="2">
+                                <ion-icon name="return-up-back-outline" class="mr-1"></ion-icon>back
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <nav>
+                    <ul>
+                        <li>
+                            <a href="{% url 'main' %}">
+                                <span class="hidden" aria-hidden="false">Home</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'building-index-list' %}" aria-level="2">
+                                Buildings
+                            </a>
+                        </li>
+                        <li>
+                            <a class="inactive" href="{% url 'building-details' building.slug %}" aria-level="2">
+                                {{building.name|truncatechars:20}}
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </nav>
         </div>
     </section>
