@@ -1,0 +1,64 @@
+{% extends "mia_general/base.html" %}
+
+{% load static %}
+
+{% block body_class %}facts{% endblock %}
+
+{% block breadcrumbs %}
+    <section class="breadcrumbs-section">
+        <div class="container">
+            <nav class="breadcrumb has-bullet-separator is-right is-small" aria-label="breadcrumbs">
+                <ul>
+                    <li>
+                        <a href="{% url 'main' %}">
+                            <span class="hidden" aria-hidden="false">Home</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="inactive" href="{% url 'fact-index-list' %}" aria-level="2">
+                            Facts
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+{% endblock breadcrumbs %}
+
+{% block content %}
+    <section class="last-section mt-3 mb-5 p-5">
+        <div class="container">
+            <div class="content">
+                <h1>Modernist knowledge archive</h1>
+                <div class="mb-5">
+                    <p>
+                        <a class="tag-link" href="{% url 'fact-index-list' %}"><span class="tag {% if not filter_tag %}active-tag{% endif %}">all</span></a>
+                        {% for tag in categories %}
+                            <a class="tag-link" href="{% url 'fact-index-list' %}?tag={{tag.name}}"><span class="tag {% if filter_tag == tag.name %}active-tag{% endif %}">{{tag.name|lower}}</span></a>
+                        {% endfor %}
+                    <p>
+                </div>
+                <div class="columns is-multiline">
+                    {% for fact in facts %}
+                        <div class="column is-half-tablet is-3-desktop">
+                            <a class="fact-link" href="{% url 'fact-details' fact.slug %}" alt="{{fact.title}}">
+                                <div class="card is-card-equal-height fact-card">
+                                    <div class="card-content">
+                                        <div class="content has-text-centered">
+                                            <div class="tags is-marginless">
+                                                {% for tag in fact.categories.all %}
+                                                    <span class="tag">{{tag.name|lower}}</span>
+                                                {% endfor %}
+                                            </div>
+                                            <h5 class="is-marginless">{{ fact.title }}</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

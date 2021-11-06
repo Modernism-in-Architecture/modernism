@@ -16,16 +16,16 @@
 
     <div id="navbarTop" class="navbar-menu">
       <div class="navbar-start">
-        <a class="navbar-item is-uppercase {% if request.resolver_match.view_name == 'building-index-list'%}is-active{% endif %}" href="{% url 'building-index-list' %}">
+        <a class="navbar-item is-uppercase {% if request.resolver_match.view_name == 'building-index-list' or request.resolver_match.view_name == 'building-details'%}is-active{% endif %}" href="{% url 'building-index-list' %}">
             Buildings
         </a>
-        <a class="navbar-item is-uppercase {% if request.resolver_match.view_name == 'architect-index-list'%}is-active{% endif %}" href="{% url 'architect-index-list' %}">
+        <a class="navbar-item is-uppercase {% if request.resolver_match.view_name == 'architect-index-list' or request.resolver_match.view_name == 'architect-details'%}is-active{% endif %}" href="{% url 'architect-index-list' %}">
             Architects
         </a>
-        <a class="navbar-item is-uppercase {% if request.resolver_match.view_name == 'developer-index-list'%}is-active{% endif %}" href="{% url 'developer-index-list' %}">
+        <a class="navbar-item is-uppercase {% if request.resolver_match.view_name == 'developer-index-list' or request.resolver_match.view_name == 'developer-details'%}is-active{% endif %}" href="{% url 'developer-index-list' %}">
             Developers
         </a>
-        <a class="navbar-item is-uppercase {% if request.resolver_match.view_name == 'fact-index-list'%}is-active{% endif %}" href="{% url 'fact-index-list' %}">
+        <a class="navbar-item is-uppercase {% if request.resolver_match.view_name == 'fact-index-list' or request.resolver_match.view_name == 'fact-details'%}is-active{% endif %}" href="{% url 'fact-index-list' %}">
             Facts
         </a>
         <a class="navbar-item is-uppercase {% if request.resolver_match.view_name == 'map'%}is-active{% endif %}" href="{% url 'map' %}">

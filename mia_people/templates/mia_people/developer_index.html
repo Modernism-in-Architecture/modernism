@@ -30,10 +30,9 @@
         <div class="container">
             <div class="content">
                 <h1>List of modernist developers on MIA</h1>
+                 {% comment %}
                 <div class="columns">
                     <div class="column">
-                        
-                        {% comment %}
                         {% if search_term and persons %}
                             <p id="search-description">
                                 You searched for: {{search_term}} <a href="{% pageurl page %}"><ion-icon name="trash-outline"></ion-icon></a> 
@@ -41,10 +40,12 @@
                         {% endif %}
                         {% if not persons %}
                             <p class="mt-3">No results for this selection. Please try again. <a href="{% pageurl page %}"><ion-icon name="trash-outline"></ion-icon></a></p>
-                        {% endif %} {% endcomment %}
+                        {% endif %} 
                     </div>
+                    {% endcomment %}
+                    {% comment %} 
                     <div class="column">
-                        {% comment %} <form action="{% pageurl page %}" method="get" class="form-search">
+                        <form action="{% pageurl page %}" method="get" class="form-search">
                             {% csrf_token %}
                             <div class="field has-addons is-justify-content-flex-end">
                                 <div class="control">
@@ -56,35 +57,37 @@
                                     </button>
                                 </div>
                             </div>
-                        </form> {% endcomment %}
+                        </form>
                     </div>
                 </div>
-                {% regroup persons by last_name|slice:"1" as persons_by_alphabet %}
-                {% comment %} <div class="columns">
+                 {% endcomment %}
+                <div class="columns">
                     <div class="column">
-                        <p>
-                        {% for letter in persons_by_alphabet %}
-                            <span class="letter">{{ letter.grouper }}</span>
-                        {% endfor %}
+                        <p class="mb-4"> 
+                            <a class="alphabet-link mr-2" href="{% url 'developer-index-list' %}"><span class="letter {% if not filter_tag %}active-letter{% endif %}">all</span></a>
+                            {% for letter in last_name_alphabet %}
+                                <a class="alphabet-link mr-2" href="{% url 'developer-index-list' %}?letter={{letter}}">
+                                    <span class="letter {% if filter_tag == letter %}active-letter{% endif %}">
+                                        {{ letter }}
+                                    </span>
+                                </a>
+                            {% endfor %}
                         </p>
                     </div>
-                </div> {% endcomment %}
+                </div>
                 <div class="columns is-multiline is-centered">
-                    {% for letter in persons_by_alphabet %}
-                        {% for person in letter.list %}
-                            <div class="column column is-half-tablet is-one-third-desktop">
-                                <a class="person-link" href="{% url 'developer-details' person.slug %}" alt="{{person.last_name}}">
-                                    <div class="card">
+                    {% for person in persons %}
+                        <div class="column column is-half-tablet is-one-third-desktop">
+                            <a class="person-link" href="{% url 'developer-details' person.slug %}" alt="{{person.last_name}}">
+                                <div class="card">
                                     <div class="card-content">
                                         <div class="content">
-                                        <h2 class="is-size-5 is-marginless">{{person.last_name}}{% if person.first_name %},
-                                            {{person.first_name}}{% endif %}</h2>
+                                            <h2 class="is-size-5 is-marginless">{{person.last_name}}{% if person.first_name %}, {{person.first_name}}{% endif %}</h2>
                                         </div>
                                     </div>
-                                    </div>
-                                </a>
-                            </div>
-                        {% endfor %}
+                                </div>
+                            </a>
+                        </div>
                     {% endfor %}
                 </div>
             </div>

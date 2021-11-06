@@ -10,13 +10,21 @@ from .models import Architect, Developer
 def get_developer_list(
     request, template="mia_people/developer_index.html", extra_context=None
 ):
+    filter_tag = request.GET.get("letter", None)
     developer_list = (
         Developer.objects.filter(is_published=True)
-        .prefetch_related("universities")
         .order_by("last_name")
     )
-
-    context = {"persons": developer_list}
+    alphabet_from_last_names = list(dict.fromkeys([x[0] for x in developer_list.values_list("last_name", flat=True)]))
+    if filter_tag:
+        developer_list = (
+            developer_list.filter(last_name__startswith=filter_tag)
+        )
+    context = {
+        "persons":developer_list,
+        "filter_tag":filter_tag,
+        "last_name_alphabet":alphabet_from_last_names,
+        }
 
     if extra_context is not None:
         context.update(extra_context)
@@ -28,14 +36,21 @@ def get_developer_list(
 def get_architect_list(
     request, template="mia_people/architect_index.html", extra_context=None
 ):
+    filter_tag = request.GET.get("letter", None)
     architect_list = (
-        Architect.objects.filter(is_published=True)
-        .prefetch_related("universities")
-        .prefetch_related("professor_mentors")
-        .prefetch_related("architect_mentors")
-        .order_by("last_name")
-    )
-    context = {"persons": architect_list}
+            Architect.objects.filter(is_published=True)
+            .order_by("last_name")
+        )
+    alphabet_from_last_names = list(dict.fromkeys([x[0] for x in architect_list.values_list("last_name", flat=True)]))
+    if filter_tag:
+        architect_list = (
+            architect_list.filter(last_name__startswith=filter_tag)
+        )
+    context = {
+        "persons":architect_list,
+        "filter_tag":filter_tag,
+        "last_name_alphabet":alphabet_from_last_names,
+    }
 
     if extra_context is not None:
         context.update(extra_context)

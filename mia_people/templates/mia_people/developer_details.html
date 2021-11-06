@@ -22,7 +22,7 @@
                     </li>
                     <li>
                         <a class="inactive" href="{% url 'developer-details' person.slug %}" aria-level="2">
-                            {{person.last_name}}
+                            {{person.last_name|truncatechars:20}}
                         </a>
                     </li>
                 </ul>
@@ -38,6 +38,9 @@
             <div class="columns">
                 <div class="column is-8-tablet">
                     <div class="content">
+                        <a href="{% url 'developer-index-list' %}" aria-level="2">
+                            <ion-icon name="return-up-back-outline"></ion-icon> overview
+                        </a>
                         <h1>{% if person.first_name %}{{person.first_name}} {% endif %}{{person.last_name}}</h1>
                         <div class="columns">
                             <div class="column">

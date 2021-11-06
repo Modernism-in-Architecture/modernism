@@ -8137,6 +8137,14 @@ body {
     display: flex;
     flex-direction: column-reverse; } }
 
+.architects .alphabet-link, .developers .alphabet-link {
+  text-decoration: none; }
+
+.architects .active-letter, .developers .active-letter {
+  font-weight: bold;
+  text-decoration: underline;
+  text-underline-offset: 0em; }
+
 .facts .menu-list li {
   margin-top: 0.6rem; }
 
@@ -8163,6 +8171,12 @@ body {
 .facts .modal-card-body {
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px; }
+
+.facts .tag-link, .facts .fact-link {
+  text-decoration: none; }
+
+.facts .active-tag {
+  background-color: #0a0a0a; }
 
 .people-index .is-small.input, .people-index .is-small.textarea, .facts .is-small.input, .facts .is-small.textarea {
   border-radius: 5px; }
