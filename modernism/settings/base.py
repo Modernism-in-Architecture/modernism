@@ -132,8 +132,8 @@ THUMBNAIL_ALIASES = {
         "preview": {"size": (150, 150), "crop": True},
         "feed": {"size": (350, 350), "crop": True},
         "square": {"size": (500, 500), "crop": True},
-        "regular": {"size": (800, 600), "crop": True},
-        "large": {"size": (1300, 700), "crop": True},
+        "regular": {"size": (800, 600), "crop": False},
+        "large": {"size": (1300, 700), "crop": False},
     },
 }
 saved_file.connect(generate_aliases_global)
