@@ -8,11 +8,19 @@ from .models import Fact, FactCategory
 def get_fact_list(request, template="mia_facts/fact_index.html", extra_context=None):
     filter_tag = request.GET.get("tag", None)
     if filter_tag:
-        facts = Fact.objects.filter(
-            is_published=True, categories__name__startswith=filter_tag
-        ).prefetch_related("categories")
+        facts = (
+            Fact.objects.filter(
+                is_published=True, categories__name__startswith=filter_tag
+            )
+            .prefetch_related("categories")
+            .prefetch_related("factimage_set")
+        )
     else:
-        facts = Fact.objects.filter(is_published=True).prefetch_related("categories")
+        facts = (
+            Fact.objects.filter(is_published=True)
+            .prefetch_related("categories")
+            .prefetch_related("factimage_set")
+        )
 
     categories = FactCategory.objects.filter(fact__isnull=False).distinct()
     context = {"facts": facts, "categories": categories, "filter_tag": filter_tag}

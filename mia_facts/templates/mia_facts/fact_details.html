@@ -45,8 +45,9 @@
     <section class="section last-section">
         <div class="container">
             <h1 class="is-size-3">{{fact.title}}</h1>
+            
             <div class="columns">
-                <div class="column is-8-tablet">
+                <div class="column">
                     <div class="content">
                         {% comment %} <a class="is-hidden-touch" href="{% url 'fact-index-list' %}" aria-level="2">
                             <ion-icon name="return-up-back-outline"></ion-icon> overview
@@ -61,6 +62,15 @@
                                          {% endif %}
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="columns">
+                            <div class="column">
+                            {% for image in fact.factimage_set.all %}
+                                <div class="fact-image">
+                                    <img src="{{ image.image|thumbnail_url:'feed' }}">
+                                </div>
+                            {% endfor %}
                             </div>
                         </div>
                     </div>

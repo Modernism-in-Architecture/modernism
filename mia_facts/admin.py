@@ -41,6 +41,12 @@ class SourceAdmin(admin.ModelAdmin):
     filter_horizontal = ["authors"]
 
 
+class FactImageInline(admin.StackedInline):
+    model = FactImage
+    extra = 0
+    classes = ["collapse"]
+
+
 @admin.register(Fact)
 class FactAdmin(admin.ModelAdmin):
     search_fields = ["title", "description"]
@@ -50,6 +56,7 @@ class FactAdmin(admin.ModelAdmin):
         models.TextField: {"widget": TinyMCE()},
         models.CharField: {"widget": TextInput(attrs={"size": "153"})},
     }
+    inlines = [FactImageInline]
 
     def get_categories(self, obj):
         if obj.categories.exists():
