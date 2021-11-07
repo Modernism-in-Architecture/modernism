@@ -8202,6 +8202,15 @@ body {
 .places .leaflet-container {
   border-radius: 10px; }
 
+.map #mapMia {
+  height: 80vh; }
+
+.map .leaflet-top {
+  z-index: 950; }
+
+.map .leaflet-container {
+  border-radius: 10px; }
+
 .about .richtext-image {
   max-width: 300px;
   width: 100%;

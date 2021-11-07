@@ -1,3 +1,4 @@
+from django.core.serializers import serialize
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
 from mia_buildings.models import Building
@@ -45,6 +46,12 @@ class MapView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        buildings = Building.objects.filter(is_published=True)
+        context["buildings"] = serialize(
+            "json",
+            buildings,
+            fields=("pk", "latitude", "longitude", "slug", "name", "address"),
+        )
         return context
 
 

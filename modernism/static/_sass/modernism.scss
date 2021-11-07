@@ -138,6 +138,7 @@ body {
 .mia-breadcrumb {
     display: flex;
 }
+
 .mia-breadcrumb nav:last-child {
     margin-left: auto;
 }
@@ -495,6 +496,17 @@ body {
     }
 }
 
+.map {
+    #mapMia { 
+        height: 80vh; 
+    }
+    .leaflet-top {
+        z-index: 950;
+    }
+    .leaflet-container{
+        border-radius: $border-radius;
+    }
+}
 .about {
     .richtext-image {
         max-width: 300px;
