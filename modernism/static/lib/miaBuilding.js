@@ -64,7 +64,7 @@ const setModalImage = direction => {
     if (direction == "prev") {
         modalImageIndex = parseInt(modalImageIndex) - 1;
         if (modalImageIndex < 0) {
-            modalImageIndex = Object.keys(galleryImages) - 1;
+            modalImageIndex = Object.keys(galleryImages).length - 1;
         }
     }
 
