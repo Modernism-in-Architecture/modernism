@@ -43,11 +43,19 @@ class SourceAdmin(admin.ModelAdmin):
 
 @admin.register(Fact)
 class FactAdmin(admin.ModelAdmin):
-    filter_horizontal = ["categories"]
+    search_fields = ["title", "description"]
+    list_display = ["title", "pk", "get_categories", "created"]
+    filter_horizontal = ["categories", "sources"]
     formfield_overrides = {
         models.TextField: {"widget": TinyMCE()},
         models.CharField: {"widget": TextInput(attrs={"size": "153"})},
     }
+
+    def get_categories(self, obj):
+        if obj.categories.exists():
+            return list(obj.categories.values_list("name", flat=True))
+
+    get_categories.short_description = "Categories"
 
 
 @admin.register(FactCategory)

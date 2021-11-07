@@ -27,7 +27,7 @@ class BuildingImageAdminForm(forms.ModelForm):
 
 @admin.register(BuildingImage)
 class BuildingImageAdmin(admin.ModelAdmin):
-    # ToDo: Add search and filter
+    # ToDo: Add filter
     form = BuildingImageAdminForm
     list_display = [
         "building",
@@ -76,6 +76,7 @@ class BuildingAdminForm(forms.ModelForm):
 @admin.register(Building)
 class BuildingAdmin(admin.ModelAdmin):
     # ToDo: Add search and filter
+    search_fields = ["name", "description"]
     list_display = [
         "name",
         "pk",
@@ -204,39 +205,39 @@ class BuildingAdmin(admin.ModelAdmin):
 
 @admin.register(ConstructionType)
 class ConstructionTypeAdmin(admin.ModelAdmin):
-    pass
+    search_fields = ["name"]
 
 
 @admin.register(Facade)
 class FacadeAdmin(admin.ModelAdmin):
-    pass
+    search_fields = ["name"]
 
 
 @admin.register(Roof)
 class RoofAdmin(admin.ModelAdmin):
-    pass
+    search_fields = ["name"]
 
 
 @admin.register(Window)
 class WindowAdmin(admin.ModelAdmin):
-    pass
+    search_fields = ["name"]
 
 
 @admin.register(Detail)
 class DetailAdmin(admin.ModelAdmin):
-    pass
+    search_fields = ["name"]
 
 
 @admin.register(Position)
 class PositionAdmin(admin.ModelAdmin):
-    pass
+    search_fields = ["name"]
 
 
 @admin.register(BuildingType)
 class BuildingTypeAdmin(admin.ModelAdmin):
-    pass
+    search_fields = ["name"]
 
 
 @admin.register(AccessType)
 class AccessTypeAdmin(admin.ModelAdmin):
-    pass
+    search_fields = ["name"]

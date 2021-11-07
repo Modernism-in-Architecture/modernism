@@ -7,6 +7,7 @@ from .models import Architect, Developer, Professor
 
 @admin.register(Developer)
 class DeveloperAdmin(admin.ModelAdmin):
+    search_fields = ["last_name", "first_name", "description"]
     list_display = ["last_name", "first_name", "is_published", "created", "pk", "slug"]
     filter_horizontal = ["universities"]
     formfield_overrides = {
@@ -16,6 +17,7 @@ class DeveloperAdmin(admin.ModelAdmin):
 
 @admin.register(Architect)
 class ArchitectAdmin(admin.ModelAdmin):
+    search_fields = ["last_name", "first_name", "description"]
     list_display = ["last_name", "first_name", "is_published", "created", "pk", "slug"]
     filter_horizontal = ["architect_mentors", "professor_mentors", "universities"]
     formfield_overrides = {
@@ -25,6 +27,7 @@ class ArchitectAdmin(admin.ModelAdmin):
 
 @admin.register(Professor)
 class ProfessorAdmin(admin.ModelAdmin):
+    search_fields = ["last_name", "first_name", "description"]
     list_display = ["last_name", "first_name", "is_published", "created", "pk", "slug"]
     filter_horizontal = [
         "architect_mentors",
