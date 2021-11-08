@@ -29,7 +29,7 @@ def _get_filtered_buildings(cleaned_form_data, buildings):
     countries = cleaned_form_data.get("countries")
     if countries.exists():
         buildings = buildings.filter(
-            country_id__in=countries.values_list("id", flat=True)
+            city__country__name__in=countries.values_list("name", flat=True)
         )
         if not buildings:
             return buildings.none()
@@ -127,7 +127,6 @@ def get_building_list(
     building_list = (
         Building.objects.filter(is_published=True)
         .select_related("city")
-        .select_related("country")
         .prefetch_related(
             Prefetch(
                 "buildingimage_set",
@@ -141,10 +140,12 @@ def get_building_list(
     search_query = request.GET.get("q", None)
 
     if request.method == "POST":
+
         building_form = BuildingsFilterForm(request.POST)
         request.session["filter-request"] = dict(request.POST)
 
         if building_form.is_valid():
+
             context["form"] = building_form
             building_list = _get_filtered_buildings(
                 building_form.cleaned_data, building_list
@@ -193,7 +194,6 @@ def get_building_details(
     building = (
         Building.objects.filter(is_published=True, slug=slug)
         .select_related("city")
-        .select_related("country")
         .select_related("access_type")
         .prefetch_related("architects")
         .prefetch_related("developers")

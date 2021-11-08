@@ -8,10 +8,6 @@ class Person(models.Model):
     created = models.DateTimeField(auto_now_add=True, null=True)
     updated = models.DateTimeField(auto_now=True)
 
-    is_published = models.BooleanField(default=False)
-    slug = models.SlugField(max_length=254, blank=True)
-    sources = models.ManyToManyField("mia_facts.Source", blank=True)
-
     first_name = models.CharField(max_length=250, blank=True)
     last_name = models.CharField(
         unique=True,
@@ -27,7 +23,6 @@ class Person(models.Model):
         default=False, help_text="Tick the box if you only know the year."
     )
     place_of_birth = models.CharField(max_length=100, blank=True,)
-    country_of_birth = CountryField(blank_label="(Select a Country)", blank=True)
     day_of_death = models.DateField(
         blank=True,
         null=True,
@@ -37,11 +32,14 @@ class Person(models.Model):
         default=False, help_text="Tick the box if you only know the year."
     )
     place_of_death = models.CharField(max_length=100, blank=True,)
-    country_of_death = CountryField(blank_label="(Select a Country)", blank=True)
     universities = models.ManyToManyField(
         "mia_facts.University", blank=True, related_name="universities"
     )
     description = models.TextField(blank=True)
+
+    is_published = models.BooleanField(default=False)
+    slug = models.SlugField(max_length=254, blank=True)
+    sources = models.ManyToManyField("mia_facts.Source", blank=True)
 
     def __str__(self):
         name = self.last_name

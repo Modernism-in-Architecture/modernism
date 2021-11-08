@@ -29,7 +29,6 @@ class Command(BaseCommand):
                     name=uni.name
                 )
                 if created:
-                    mia_university.country = uni.country
                     mia_university.city = uni.city
                     mia_university.description = uni.description
                     mia_university.save()

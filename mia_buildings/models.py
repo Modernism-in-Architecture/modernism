@@ -103,9 +103,6 @@ class Building(models.Model):
     city = models.ForeignKey(
         "mia_facts.City", on_delete=models.SET_NULL, null=True, blank=True
     )
-    country = models.ForeignKey(
-        "mia_facts.Country", on_delete=models.SET_NULL, null=True, blank=True
-    )
     latitude = models.DecimalField(
         max_digits=23, decimal_places=20, null=True, blank=True
     )

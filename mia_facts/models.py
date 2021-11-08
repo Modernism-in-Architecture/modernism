@@ -1,15 +1,13 @@
 from django.db import models
 from django.utils.text import slugify
-from django_countries.fields import CountryField
 from unidecode import unidecode
 
 
 class Country(models.Model):
-    country = CountryField(blank_label="(Select a Country)", unique=True)
-    description = models.TextField(blank=True)
+    name = models.CharField(max_length=100, unique=True)
 
     def __str__(self):
-        return self.country.name
+        return f"{self.name}"
 
     class Meta:
         verbose_name_plural = "Countries"
@@ -18,9 +16,8 @@ class Country(models.Model):
 class City(models.Model):
     name = models.CharField(max_length=100)
     country = models.ForeignKey(
-        Country, on_delete=models.SET_NULL, null=True, blank=True, related_name="cities"
+        "mia_facts.Country", on_delete=models.SET_NULL, null=True, blank=True
     )
-    description = models.TextField(blank=True)
 
     def __str__(self):
         return f"{self.name}"
@@ -33,9 +30,6 @@ class University(models.Model):
     name = models.CharField(max_length=250, unique=True)
     city = models.ForeignKey(
         "mia_facts.City", on_delete=models.SET_NULL, null=True, blank=True
-    )
-    country = models.ForeignKey(
-        "mia_facts.Country", on_delete=models.SET_NULL, null=True, blank=True
     )
     description = models.TextField(blank=True)
 

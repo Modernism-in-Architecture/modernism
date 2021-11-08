@@ -4,7 +4,7 @@ from buildings.models import BuildingPage
 from django.core.management.base import BaseCommand
 from django.db import transaction
 from mia_buildings import models as mia_models
-from mia_facts.models import City, Country
+from mia_facts.models import City
 from mia_people.models import Architect, Developer
 
 
@@ -145,19 +145,6 @@ class Command(BaseCommand):
 
         return building_obj
 
-    def _add_country(self, building_obj, page_country):
-        mia_country, created = Country.objects.get_or_create(
-            country=page_country.country
-        )
-        building_obj.country = mia_country
-        building_obj.save()
-
-        self.stdout.write(
-            self.style.SUCCESS(f"Successfully added {page_country} to {building_obj}")
-        )
-
-        return building_obj
-
     def _add_lat_long(self, building_obj, lat_long):
         try:
             page_lat, page_long = (
@@ -185,10 +172,9 @@ class Command(BaseCommand):
         if created:
             mia_image.is_feed_image = True
 
-            mia_image_tags = mia_image.tags.all()
-            if building_obj.country and building_obj.country not in mia_image_tags:
-                mia_image.tags.add(building_obj.country.country.name)
-            if building_obj.city and building_obj.city not in mia_image_tags:
+            if building_obj.city.country:
+                mia_image.tags.add(building_obj.city.country.name)
+            if building_obj.city:
                 mia_image.tags.add(building_obj.city.name)
 
             mia_image.title = f"{building_obj.name}-feed_image"
@@ -217,10 +203,9 @@ class Command(BaseCommand):
             if mia_image.is_feed_image:
                 continue
 
-            mia_image_tags = mia_image.tags.all()
-            if building_obj.country and building_obj.country not in mia_image_tags:
-                mia_image.tags.add(building_obj.country.country.name)
-            if building_obj.city and building_obj.city not in mia_image_tags:
+            if building_obj.city.country:
+                mia_image.tags.add(building_obj.city.country.name)
+            if building_obj.city:
                 mia_image.tags.add(building_obj.city.name)
 
             mia_image.title = f"{building_obj.name}-{index}"
@@ -305,8 +290,6 @@ class Command(BaseCommand):
 
                     if page.city:
                         mia_building = self._add_city(mia_building, page.city)
-                    if page.country:
-                        mia_building = self._add_country(mia_building, page.country)
                     if page.lat_long:
                         mia_building = self._add_lat_long(mia_building, page.lat_long)
                     if page.feed_image:

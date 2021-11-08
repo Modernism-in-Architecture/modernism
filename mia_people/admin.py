@@ -9,20 +9,27 @@ from .models import Architect, Developer, Professor
 class DeveloperAdmin(admin.ModelAdmin):
     search_fields = ["last_name", "first_name", "description"]
     list_display = ["last_name", "first_name", "is_published", "created", "pk", "slug"]
-    filter_horizontal = ["universities"]
+    filter_horizontal = ["universities", "sources"]
     formfield_overrides = {
         models.TextField: {"widget": TinyMCE()},
     }
+    ordering = ("last_name",)
 
 
 @admin.register(Architect)
 class ArchitectAdmin(admin.ModelAdmin):
     search_fields = ["last_name", "first_name", "description"]
     list_display = ["last_name", "first_name", "is_published", "created", "pk", "slug"]
-    filter_horizontal = ["architect_mentors", "professor_mentors", "universities"]
+    filter_horizontal = [
+        "architect_mentors",
+        "professor_mentors",
+        "universities",
+        "sources",
+    ]
     formfield_overrides = {
         models.TextField: {"widget": TinyMCE()},
     }
+    ordering = ("last_name",)
 
 
 @admin.register(Professor)
@@ -33,7 +40,9 @@ class ProfessorAdmin(admin.ModelAdmin):
         "architect_mentors",
         "professor_mentors",
         "universities",
+        "sources",
     ]
     formfield_overrides = {
         models.TextField: {"widget": TinyMCE()},
     }
+    ordering = ("last_name",)

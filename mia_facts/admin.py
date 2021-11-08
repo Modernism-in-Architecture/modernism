@@ -23,7 +23,7 @@ class UniversityAdmin(admin.ModelAdmin):
 
 @admin.register(City)
 class CityAdmin(admin.ModelAdmin):
-    pass
+    list_display = ["name", "country"]
 
 
 @admin.register(Country)

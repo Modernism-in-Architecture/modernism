@@ -62,7 +62,7 @@ class BuildingsFilterForm(forms.Form):
     )
 
     countries = forms.ModelMultipleChoiceField(
-        queryset=Country.objects.all().order_by("country"),
+        queryset=Country.objects.all().order_by("name"),
         widget=forms.CheckboxSelectMultiple(),
         required=False,
     )

@@ -21,7 +21,6 @@ from .models import (
 class BuildingImageAdminForm(forms.ModelForm):
     class Meta:
         model = BuildingImage
-        widgets = {"tags": FilteredSelectMultiple("tags", is_stacked=False)}
         fields = "__all__"
 
 
@@ -29,6 +28,7 @@ class BuildingImageAdminForm(forms.ModelForm):
 class BuildingImageAdmin(admin.ModelAdmin):
     # ToDo: Add filter
     form = BuildingImageAdminForm
+    raw_id_fields = ["building"]
     list_display = [
         "building",
         "title",
@@ -37,19 +37,43 @@ class BuildingImageAdmin(admin.ModelAdmin):
         "created",
         "updated",
     ]
+    readonly_fields = ["tags"]
 
     def get_queryset(self, request):
-        return super().get_queryset(request).prefetch_related("tags")
+        return (
+            super()
+            .get_queryset(request)
+            .select_related("building")
+            .select_related("photographer")
+            .prefetch_related("tags")
+        )
 
     def tag_list(self, obj):
         return ", ".join(o.name for o in obj.tags.all())
 
+    def save_model(self, request, obj, form, change):
+        obj.save()
+
+        number_of_building_images = BuildingImage.objects.filter(
+            building=obj.building
+        ).count()
+        if obj.building.city.country:
+            obj.tags.add(obj.building.city.country.name)
+        if obj.building.city:
+            obj.tags.add(obj.building.city.name)
+
+        obj.title = f"{obj.building.name}-{number_of_building_images + 1}"
+
+        obj.save()
+
 
 class BuildingImageInline(admin.StackedInline):
     model = BuildingImage
-    extra = 0
-    classes = ["collapse"]
-    readonly_fields = ("image_preview",)
+    fields = ["image_preview", "title", "description", "photographer", "tags"]
+    readonly_fields = ("image_preview", "tags")
+
+    def has_add_permission(self, request, obj):
+        return False
 
 
 class BuildingAdminForm(forms.ModelForm):
@@ -75,7 +99,7 @@ class BuildingAdminForm(forms.ModelForm):
 
 @admin.register(Building)
 class BuildingAdmin(admin.ModelAdmin):
-    # ToDo: Add search and filter
+    # ToDo: Add filter
     search_fields = ["name", "description"]
     list_display = [
         "name",
@@ -83,12 +107,11 @@ class BuildingAdmin(admin.ModelAdmin):
         "is_published",
         "year_of_construction",
         "city",
-        "country",
         "created",
         "updated",
         "slug",
     ]
-    raw_id_fields = ["country", "city"]
+    raw_id_fields = ["city"]
     filter_horizontal = [
         "windows",
         "roofs",
@@ -118,7 +141,6 @@ class BuildingAdmin(admin.ModelAdmin):
                     "address",
                     "zip_code",
                     "city",
-                    "country",
                     ("latitude", "longitude"),
                     "directions",
                 )
@@ -183,19 +205,18 @@ class BuildingAdmin(admin.ModelAdmin):
                 building_photographer = Photographer.objects.filter(
                     id=photographer_id
                 ).first()
+
             building_photos = request.FILES.getlist("multiple_images")
 
             for index, photo in enumerate(building_photos):
                 building_image, created = BuildingImage.objects.get_or_create(
                     building=obj, image=photo
                 )
-                image_tags = building_image.tags.all()
-
                 if building_photographer:
                     building_image.photographer = building_photographer
-                if obj.country and obj.country not in image_tags:
-                    building_image.tags.add(obj.country.country.name)
-                if obj.city and obj.city not in image_tags:
+                if obj.city.country:
+                    building_image.tags.add(obj.city.country.name)
+                if obj.city:
                     building_image.tags.add(obj.city.name)
 
                 building_image.title = f"{obj.name}-{index}"
