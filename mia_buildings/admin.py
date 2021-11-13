@@ -89,6 +89,7 @@ class BuildingAdminForm(forms.ModelForm):
     class Meta:
         model = Building
         widgets = {
+            "subtitle": forms.Textarea(attrs={"rows": "2"}),
             "history": TinyMCE(),
             "description": TinyMCE(),
             "directions": forms.Textarea(attrs={"rows": "3"}),

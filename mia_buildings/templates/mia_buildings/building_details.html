@@ -114,9 +114,19 @@
             <div class="columns">
                 <div class="column">
                     <div class="content">
-                        {% if building.description %}
-                            <div class="box desription">{{building.description | safe}}</div>
-                        {% endif %}
+                        <div class="box desription">
+                            {% if building.subtitle %}
+                                <h2 class="is-size-5">{{building.subtitle}}</h2>
+                            {% endif %}
+                            {% if building.description %}
+                                <p><strong>Description</strong></p>
+                                {{building.description | safe}}
+                            {% endif %}
+                            {% if building.history %}
+                                <p><strong>History</strong></p>
+                                {{building.history | safe}}
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
                 <div class="column is-one-quarter">
