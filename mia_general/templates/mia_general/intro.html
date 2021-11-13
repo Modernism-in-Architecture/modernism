@@ -25,4 +25,48 @@
     </section>
 {% endblock breadcrumbs %}
 
-{% block content %}{% endblock content %}
+{% block content %}
+    <section class="section last-section">
+        <div class="container">
+            <h1 class="is-size-3">How we select modernist buildings of interest</h1>
+            <div class="columns">
+                <div class="column">
+                    <div class="content">
+                       <p>We only present buildings that we have seen and photographed ourselves. 
+                       We describe the buildings briefly to provide some information about them. 
+                       A <a href="{% url 'map' %}"><b>map</b></a> shows all places of buildings we have already published. 
+                       This might be useful during a trip or just to get an overview from the cosy perspective of your couch.<br/>
+                       Construction features and aesthetic features of the buildings, the social background of the respective tenants as well as the political spirit of the 
+                       projects influence the selection of buildings included on this homepage. They are described below.</p>
+
+                       <h2 class="is-size-4">Construction</h2>
+                       <p>Probably the most exciting about a building is the way it has been constructed. Therefore our most important category is the <b>construction category</b>. 
+                       It groups buildings according to their construction types. That is the old-fashioned brick-built manufacture or the then rather new construction type using 
+                       reinforced concrete. The construction of a building has to fullfill the needs of its use. Originating from industrial architecture, it became a basic 
+                       principle of modernism in architecture.&nbsp;However, often the construction type is invisible to observers.</p>
+                       <h2 class="is-size-4">Aesthetics</h2>
+                       <p>Therefore, another important factor is the appearance of a building - its <b>aesthetic category</b>. 
+                       The most characteristic features of modernism are <b>simple, geometric shapes</b> and a <b>flat roof</b>. 
+                       This principle is often called "form follows function". That is, the construction of the building is most important and its aesthetics 
+                       result from it. It also rules the design of the different types of rooms: the bed room is designed to sleep in it as the kitchens design 
+                       follows the needs of cooking.&nbsp;The clear distinction of a construction in the light of its purpose was a new principle unknown to many parts of 
+                       Europe until the second decade oft the 20th century.&nbsp;<br><br>These two categories usually do not occur in their absolute forms. 
+                       Much more often there are <b>hybrids</b>. For instance, houses from the 1920s and 1930s may appear very modern, but were still built with conventional 
+                       construction methods. On the contrary, for some houses with a rather "old-fashioned" exterior appearance 
+                       technologically newer construction methods were employed.</p>
+                       <h2 class="is-size-4">Social aspects</h2>
+                       <p>The third category of interest is the <b>social category</b>. Of course, already before the time of modernism architects and developers like city councils 
+                       intended projects to improve the living conditions of the poor. Nowadays a lot of attention is payed to villas and private houses that are open to 
+                       the public for guided tours. These houses often feature highly functional details (e.g. sophisticated heating) and the use of high-quality materials. 
+                       They were exclusively built for wealthy clients.</p>
+                       <h2 class="is-size-4">Politics</h2><p>In the 1920s and 1930s, projects were often realised with political intentions, 
+                       from democratic to communist. This is described by the <b>political category</b>. There is some degree of interaction between the social and the 
+                       political category. Certain political ideas had an influence on the social category of the buildings. The fascist and right-wing politics put often 
+                       an end to modernism in Europe. The concepts of modernism in architecture continued in different ways after 1945.</p>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}
