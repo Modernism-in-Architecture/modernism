@@ -21,6 +21,13 @@ class Person(models.Model):
         default=False, help_text="Tick the box if you only know the year."
     )
     place_of_birth = models.CharField(max_length=100, blank=True,)
+    birth_place = models.ForeignKey(
+        "mia_facts.City",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="birth_place_people",
+    )
     day_of_death = models.DateField(
         blank=True,
         null=True,
@@ -30,6 +37,13 @@ class Person(models.Model):
         default=False, help_text="Tick the box if you only know the year."
     )
     place_of_death = models.CharField(max_length=100, blank=True,)
+    death_place = models.ForeignKey(
+        "mia_facts.City",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="death_place_people",
+    )
     universities = models.ManyToManyField(
         "mia_facts.University", blank=True, related_name="universities"
     )
