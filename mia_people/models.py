@@ -20,7 +20,6 @@ class Person(models.Model):
     birth_year_known_only = models.BooleanField(
         default=False, help_text="Tick the box if you only know the year."
     )
-    place_of_birth = models.CharField(max_length=100, blank=True,)
     birth_place = models.ForeignKey(
         "mia_facts.City",
         on_delete=models.SET_NULL,
@@ -36,7 +35,6 @@ class Person(models.Model):
     death_year_known_only = models.BooleanField(
         default=False, help_text="Tick the box if you only know the year."
     )
-    place_of_death = models.CharField(max_length=100, blank=True,)
     death_place = models.ForeignKey(
         "mia_facts.City",
         on_delete=models.SET_NULL,

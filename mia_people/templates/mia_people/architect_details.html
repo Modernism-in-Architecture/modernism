@@ -63,8 +63,8 @@
                                             {% else %}
                                                 {{person.birthday}}
                                             {% endif %}
-                                            {% if person.place_of_birth %}
-                                                in {{person.place_of_birth}}, {{person.place_of_birth.country}}
+                                            {% if person.birth_place %}
+                                                in {{person.birth_place}}, {{person.birth_place.country}}
                                             {% endif %}
                                         </div>
                                     {% endif %}
@@ -85,8 +85,8 @@
                                             {% else %}
                                                 {{person.day_of_death}}
                                             {% endif %}
-                                            {% if person.place_of_death %}
-                                                in {{person.place_of_death}}
+                                            {% if person.death_place %}
+                                                in {{person.death_place}}, {{person.death_place.country}}
                                             {% endif %}
                                         </div>
                                     {% endif %}
