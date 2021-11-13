@@ -7,19 +7,25 @@ import taggit.managers
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('taggit', '0003_taggeditem_add_unique_index'),
-        ('mia_buildings', '0006_buildingimage_tags'),
+        ("taggit", "0003_taggeditem_add_unique_index"),
+        ("mia_buildings", "0006_buildingimage_tags"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='buildingimage',
-            name='image',
-            field=models.ImageField(blank=True, null=True, upload_to=''),
+            model_name="buildingimage",
+            name="image",
+            field=models.ImageField(blank=True, null=True, upload_to=""),
         ),
         migrations.AlterField(
-            model_name='buildingimage',
-            name='tags',
-            field=taggit.managers.TaggableManager(blank=True, help_text='A comma-separated list of tags.', through='taggit.TaggedItem', to='taggit.Tag', verbose_name='Tags'),
+            model_name="buildingimage",
+            name="tags",
+            field=taggit.managers.TaggableManager(
+                blank=True,
+                help_text="A comma-separated list of tags.",
+                through="taggit.TaggedItem",
+                to="taggit.Tag",
+                verbose_name="Tags",
+            ),
         ),
     ]

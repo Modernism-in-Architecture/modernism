@@ -10,9 +10,7 @@ class Person(models.Model):
 
     first_name = models.CharField(max_length=250, blank=True)
     last_name = models.CharField(
-        unique=True,
-        max_length=250,
-        help_text="You can add a company name here too if appropriate.",
+        max_length=250, help_text="You can add a company name here too if appropriate.",
     )
     birthday = models.DateField(
         blank=True,
@@ -46,6 +44,11 @@ class Person(models.Model):
         if self.first_name:
             name = f"{self.first_name} {self.last_name}"
         return name
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=["first_name", "last_name"], name="fullname")
+        ]
 
     def save(self, *args, **kwargs):
         if not self.slug:

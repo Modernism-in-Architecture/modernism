@@ -6,34 +6,34 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('mia_facts', '0004_auto_20211023_1929'),
-        ('mia_people', '0003_auto_20211025_1643'),
+        ("mia_facts", "0004_auto_20211023_1929"),
+        ("mia_people", "0003_auto_20211025_1643"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='person',
-            name='created',
+            model_name="person",
+            name="created",
             field=models.DateTimeField(auto_now_add=True, null=True),
         ),
         migrations.AddField(
-            model_name='person',
-            name='is_published',
+            model_name="person",
+            name="is_published",
             field=models.BooleanField(default=False),
         ),
         migrations.AddField(
-            model_name='person',
-            name='slug',
+            model_name="person",
+            name="slug",
             field=models.SlugField(blank=True, max_length=254, unique=True),
         ),
         migrations.AddField(
-            model_name='person',
-            name='sources',
-            field=models.ManyToManyField(blank=True, to='mia_facts.Source'),
+            model_name="person",
+            name="sources",
+            field=models.ManyToManyField(blank=True, to="mia_facts.Source"),
         ),
         migrations.AddField(
-            model_name='person',
-            name='updated',
+            model_name="person",
+            name="updated",
             field=models.DateTimeField(auto_now=True),
         ),
     ]

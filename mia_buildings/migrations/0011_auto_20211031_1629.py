@@ -6,58 +6,58 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('mia_buildings', '0010_auto_20211025_2159'),
+        ("mia_buildings", "0010_auto_20211025_2159"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='building',
-            name='slug',
+            model_name="building",
+            name="slug",
             field=models.SlugField(blank=True, max_length=254),
         ),
         migrations.AlterField(
-            model_name='building',
-            name='name',
+            model_name="building",
+            name="name",
             field=models.CharField(max_length=254, unique=True),
         ),
         migrations.AlterField(
-            model_name='building',
-            name='subtitle',
+            model_name="building",
+            name="subtitle",
             field=models.CharField(blank=True, max_length=254),
         ),
         migrations.AlterField(
-            model_name='building',
-            name='todays_use',
+            model_name="building",
+            name="todays_use",
             field=models.CharField(blank=True, max_length=254),
         ),
         migrations.AlterField(
-            model_name='constructiontype',
-            name='name',
+            model_name="constructiontype",
+            name="name",
             field=models.CharField(max_length=254, unique=True),
         ),
         migrations.AlterField(
-            model_name='detail',
-            name='name',
+            model_name="detail",
+            name="name",
             field=models.CharField(max_length=254, unique=True),
         ),
         migrations.AlterField(
-            model_name='facade',
-            name='name',
+            model_name="facade",
+            name="name",
             field=models.CharField(max_length=254, unique=True),
         ),
         migrations.AlterField(
-            model_name='position',
-            name='name',
+            model_name="position",
+            name="name",
             field=models.CharField(max_length=254, unique=True),
         ),
         migrations.AlterField(
-            model_name='roof',
-            name='name',
+            model_name="roof",
+            name="name",
             field=models.CharField(max_length=254, unique=True),
         ),
         migrations.AlterField(
-            model_name='window',
-            name='name',
+            model_name="window",
+            name="name",
             field=models.CharField(max_length=254, unique=True),
         ),
     ]

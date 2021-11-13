@@ -7,25 +7,17 @@ import django_countries.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('mia_buildings', '0014_remove_building_country'),
-        ('mia_facts', '0005_auto_20211105_1933'),
+        ("mia_buildings", "0014_remove_building_country"),
+        ("mia_facts", "0005_auto_20211105_1933"),
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='city',
-            name='description',
-        ),
-        migrations.RemoveField(
-            model_name='university',
-            name='country',
-        ),
+        migrations.RemoveField(model_name="city", name="description",),
+        migrations.RemoveField(model_name="university", name="country",),
         migrations.AlterField(
-            model_name='city',
-            name='country',
+            model_name="city",
+            name="country",
             field=django_countries.fields.CountryField(max_length=2, null=True),
         ),
-        migrations.DeleteModel(
-            name='Country',
-        ),
+        migrations.DeleteModel(name="Country",),
     ]

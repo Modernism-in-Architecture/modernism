@@ -6,33 +6,56 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('mia_facts', '0001_initial'),
+        ("mia_facts", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Author',
+            name="Author",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('first_name', models.CharField(blank=True, max_length=250)),
-                ('last_name', models.CharField(max_length=250)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("first_name", models.CharField(blank=True, max_length=250)),
+                ("last_name", models.CharField(max_length=250)),
             ],
         ),
         migrations.CreateModel(
-            name='Source',
+            name="Source",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created', models.DateTimeField(auto_now_add=True)),
-                ('updated', models.DateTimeField(auto_now=True)),
-                ('source_type', models.CharField(choices=[('WE', 'Website'), ('BK', 'Book'), ('JL', 'Journal')], default='WE', max_length=2)),
-                ('title', models.CharField(max_length=250)),
-                ('year', models.CharField(blank=True, max_length=4)),
-                ('place_of_publication', models.CharField(blank=True, max_length=250)),
-                ('publisher', models.CharField(blank=True, max_length=250)),
-                ('isbn', models.CharField(blank=True, max_length=250)),
-                ('edition', models.PositiveIntegerField(blank=True, null=True)),
-                ('url', models.URLField(blank=True, max_length=250)),
-                ('authors', models.ManyToManyField(blank=True, to='mia_facts.Author')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created", models.DateTimeField(auto_now_add=True)),
+                ("updated", models.DateTimeField(auto_now=True)),
+                (
+                    "source_type",
+                    models.CharField(
+                        choices=[("WE", "Website"), ("BK", "Book"), ("JL", "Journal")],
+                        default="WE",
+                        max_length=2,
+                    ),
+                ),
+                ("title", models.CharField(max_length=250)),
+                ("year", models.CharField(blank=True, max_length=4)),
+                ("place_of_publication", models.CharField(blank=True, max_length=250)),
+                ("publisher", models.CharField(blank=True, max_length=250)),
+                ("isbn", models.CharField(blank=True, max_length=250)),
+                ("edition", models.PositiveIntegerField(blank=True, null=True)),
+                ("url", models.URLField(blank=True, max_length=250)),
+                ("authors", models.ManyToManyField(blank=True, to="mia_facts.Author")),
             ],
         ),
     ]

@@ -80,9 +80,7 @@ class BuildingAdminForm(forms.ModelForm):
     photographer_choices = list(Photographer.objects.values_list("id", "last_name"))
     photographer_choices.insert(0, (None, "------"))
     photographer = forms.ChoiceField(
-        required=False,
-        widget=forms.Select,
-        choices=photographer_choices,
+        required=False, widget=forms.Select, choices=photographer_choices,
     )
     multiple_images = forms.ImageField(
         required=False, widget=forms.ClearableFileInput(attrs={"multiple": True})
@@ -170,13 +168,7 @@ class BuildingAdmin(admin.ModelAdmin):
         ),
         (
             "PEOPLE",
-            {
-                "classes": ("collapse",),
-                "fields": (
-                    "architects",
-                    "developers",
-                ),
-            },
+            {"classes": ("collapse",), "fields": ("architects", "developers",),},
         ),
         (
             "FEATURES",
@@ -198,10 +190,7 @@ class BuildingAdmin(admin.ModelAdmin):
             {
                 "description": "Add title, city and country of the building first. So image tags and titles can be generated for all uploaded photos automatically.",
                 "classes": ("collapse",),
-                "fields": (
-                    "photographer",
-                    "multiple_images",
-                ),
+                "fields": ("photographer", "multiple_images",),
             },
         ),
     )

@@ -7,14 +7,21 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailimages', '0023_add_choose_permissions'),
-        ('buildings', '0016_auto_20210807_1659'),
+        ("wagtailimages", "0023_add_choose_permissions"),
+        ("buildings", "0016_auto_20210807_1659"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='buildingpage',
-            name='search_image',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailimages.image', verbose_name='Search image'),
+            model_name="buildingpage",
+            name="search_image",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="+",
+                to="wagtailimages.image",
+                verbose_name="Search image",
+            ),
         ),
     ]

@@ -6,19 +6,19 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('mia_people', '0001_initial'),
-        ('mia_buildings', '0001_initial'),
+        ("mia_people", "0001_initial"),
+        ("mia_buildings", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='building',
-            name='architects',
-            field=models.ManyToManyField(blank=True, to='mia_people.Architect'),
+            model_name="building",
+            name="architects",
+            field=models.ManyToManyField(blank=True, to="mia_people.Architect"),
         ),
         migrations.AddField(
-            model_name='building',
-            name='developers',
-            field=models.ManyToManyField(blank=True, to='mia_people.Developer'),
+            model_name="building",
+            name="developers",
+            field=models.ManyToManyField(blank=True, to="mia_people.Developer"),
         ),
     ]

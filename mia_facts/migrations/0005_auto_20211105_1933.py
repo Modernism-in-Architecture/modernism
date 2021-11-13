@@ -6,28 +6,28 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('mia_facts', '0004_auto_20211023_1929'),
+        ("mia_facts", "0004_auto_20211023_1929"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='fact',
-            name='is_published',
+            model_name="fact",
+            name="is_published",
             field=models.BooleanField(default=False),
         ),
         migrations.AddField(
-            model_name='fact',
-            name='slug',
+            model_name="fact",
+            name="slug",
             field=models.SlugField(blank=True, max_length=254),
         ),
         migrations.AddField(
-            model_name='fact',
-            name='sources',
-            field=models.ManyToManyField(blank=True, to='mia_facts.Source'),
+            model_name="fact",
+            name="sources",
+            field=models.ManyToManyField(blank=True, to="mia_facts.Source"),
         ),
         migrations.AlterField(
-            model_name='fact',
-            name='title',
+            model_name="fact",
+            name="title",
             field=models.CharField(max_length=250, unique=True),
         ),
     ]

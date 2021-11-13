@@ -239,4 +239,3 @@ def get_building_details(
         context.update(extra_context)
 
     return render(request, template, context)
-

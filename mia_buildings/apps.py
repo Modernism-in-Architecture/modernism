@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class MiaBuildingsConfig(AppConfig):
-    name = 'mia_buildings'
+    name = "mia_buildings"

@@ -10,50 +10,157 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('mia_facts', '0001_initial'),
+        ("mia_facts", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Person',
+            name="Person",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('first_name', models.CharField(blank=True, max_length=250)),
-                ('last_name', models.CharField(help_text='You can add a company name here too if appropriate.', max_length=250)),
-                ('birthday', models.DateField(blank=True, help_text='If you only know the year, just set a random value for month and day, but tick the following box.', null=True)),
-                ('birth_year_known_only', models.BooleanField(default=False, help_text='Tick the box if you only know the year.')),
-                ('place_of_birth', models.CharField(blank=True, max_length=100)),
-                ('country_of_birth', django_countries.fields.CountryField(blank=True, max_length=2)),
-                ('day_of_death', models.DateField(blank=True, help_text='If you only know the year, just set a random value for month and day, but tick the following box.', null=True)),
-                ('death_year_known_only', models.BooleanField(default=False, help_text='Tick the box if you only know the year.')),
-                ('country_of_death', django_countries.fields.CountryField(blank=True, max_length=2)),
-                ('description', models.TextField(blank=True)),
-                ('universities', models.ManyToManyField(blank=True, related_name='universities', to='mia_facts.University')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("first_name", models.CharField(blank=True, max_length=250)),
+                (
+                    "last_name",
+                    models.CharField(
+                        help_text="You can add a company name here too if appropriate.",
+                        max_length=250,
+                    ),
+                ),
+                (
+                    "birthday",
+                    models.DateField(
+                        blank=True,
+                        help_text="If you only know the year, just set a random value for month and day, but tick the following box.",
+                        null=True,
+                    ),
+                ),
+                (
+                    "birth_year_known_only",
+                    models.BooleanField(
+                        default=False,
+                        help_text="Tick the box if you only know the year.",
+                    ),
+                ),
+                ("place_of_birth", models.CharField(blank=True, max_length=100)),
+                (
+                    "country_of_birth",
+                    django_countries.fields.CountryField(blank=True, max_length=2),
+                ),
+                (
+                    "day_of_death",
+                    models.DateField(
+                        blank=True,
+                        help_text="If you only know the year, just set a random value for month and day, but tick the following box.",
+                        null=True,
+                    ),
+                ),
+                (
+                    "death_year_known_only",
+                    models.BooleanField(
+                        default=False,
+                        help_text="Tick the box if you only know the year.",
+                    ),
+                ),
+                (
+                    "country_of_death",
+                    django_countries.fields.CountryField(blank=True, max_length=2),
+                ),
+                ("description", models.TextField(blank=True)),
+                (
+                    "universities",
+                    models.ManyToManyField(
+                        blank=True,
+                        related_name="universities",
+                        to="mia_facts.University",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Architect',
+            name="Architect",
             fields=[
-                ('person_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='mia_people.person')),
+                (
+                    "person_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="mia_people.person",
+                    ),
+                ),
             ],
-            bases=('mia_people.person',),
+            bases=("mia_people.person",),
         ),
         migrations.CreateModel(
-            name='Developer',
+            name="Developer",
             fields=[
-                ('person_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='mia_people.person')),
+                (
+                    "person_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="mia_people.person",
+                    ),
+                ),
             ],
-            bases=('mia_people.person',),
+            bases=("mia_people.person",),
         ),
         migrations.CreateModel(
-            name='Professor',
+            name="Professor",
             fields=[
-                ('person_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='mia_people.person')),
-                ('is_active_architect', models.BooleanField(default=False, help_text='Is/Was the professor active as modernist architect?')),
-                ('is_active_developer', models.BooleanField(default=False, help_text='Is/Was the professor active as developer?')),
-                ('architect_mentors', models.ManyToManyField(blank=True, related_name='professors', to='mia_people.Architect')),
-                ('professor_mentors', models.ManyToManyField(blank=True, related_name='_professor_professor_mentors_+', to='mia_people.Professor')),
+                (
+                    "person_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="mia_people.person",
+                    ),
+                ),
+                (
+                    "is_active_architect",
+                    models.BooleanField(
+                        default=False,
+                        help_text="Is/Was the professor active as modernist architect?",
+                    ),
+                ),
+                (
+                    "is_active_developer",
+                    models.BooleanField(
+                        default=False,
+                        help_text="Is/Was the professor active as developer?",
+                    ),
+                ),
+                (
+                    "architect_mentors",
+                    models.ManyToManyField(
+                        blank=True, related_name="professors", to="mia_people.Architect"
+                    ),
+                ),
+                (
+                    "professor_mentors",
+                    models.ManyToManyField(
+                        blank=True,
+                        related_name="_professor_professor_mentors_+",
+                        to="mia_people.Professor",
+                    ),
+                ),
             ],
-            bases=('mia_people.person',),
+            bases=("mia_people.person",),
         ),
     ]

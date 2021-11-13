@@ -6,23 +6,27 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('mia_buildings', '0009_auto_20211024_2116'),
+        ("mia_buildings", "0009_auto_20211024_2116"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='building',
-            name='latitude',
-            field=models.DecimalField(blank=True, decimal_places=20, max_digits=23, null=True),
+            model_name="building",
+            name="latitude",
+            field=models.DecimalField(
+                blank=True, decimal_places=20, max_digits=23, null=True
+            ),
         ),
         migrations.AlterField(
-            model_name='building',
-            name='longitude',
-            field=models.DecimalField(blank=True, decimal_places=20, max_digits=23, null=True),
+            model_name="building",
+            name="longitude",
+            field=models.DecimalField(
+                blank=True, decimal_places=20, max_digits=23, null=True
+            ),
         ),
         migrations.AlterField(
-            model_name='building',
-            name='zip_code',
+            model_name="building",
+            name="zip_code",
             field=models.CharField(blank=True, max_length=16),
         ),
     ]
