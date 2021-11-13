@@ -37,3 +37,5 @@ AWS_DEFAULT_ACL = None
 MEDIA_ROOT = ""
 MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/"
 DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+
+THUMBNAIL_DEFAULT_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"

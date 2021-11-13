@@ -126,7 +126,7 @@ STATIC_URL = "/static/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
 
-THUMBNAIL_BASEDIR = "thumbs"
+THUMBNAIL_SUBDIR = "thumbs"
 THUMBNAIL_ALIASES = {
     "": {
         "preview": {"size": (150, 150), "crop": True},
