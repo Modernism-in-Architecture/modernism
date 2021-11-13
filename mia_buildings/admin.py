@@ -71,6 +71,7 @@ class BuildingImageInline(admin.StackedInline):
     model = BuildingImage
     fields = ["image_preview", "title", "description", "photographer", "tags"]
     readonly_fields = ("image_preview", "tags")
+    classes = ["collapse"]
 
     def has_add_permission(self, request, obj):
         return False
@@ -142,7 +143,8 @@ class BuildingAdmin(admin.ModelAdmin):
                     "address",
                     "zip_code",
                     "city",
-                    ("latitude", "longitude"),
+                    "latitude",
+                    "longitude",
                     "directions",
                 )
             },
