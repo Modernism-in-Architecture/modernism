@@ -112,7 +112,7 @@
                                                         <img src="{{ building.feed_images.0.image|thumbnail_url:'feed' }}">
                                                     </a>
                                                 </div>
-                                                <p>{{building.city}}, {{building.country}}</p>
+                                                <p>{{building.city}}, {{building.city.country}}<br/>{{building.name}}</p>
                                             </div>
                                         {% endif %}
                                     {% endfor %}
