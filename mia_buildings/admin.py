@@ -57,7 +57,7 @@ class BuildingImageAdmin(admin.ModelAdmin):
         number_of_building_images = BuildingImage.objects.filter(
             building=obj.building
         ).count()
-        if obj.building.city.country:
+        if obj.building.city and obj.building.city.country:
             obj.tags.add(obj.building.city.country.name)
         if obj.building.city:
             obj.tags.add(obj.building.city.name)
@@ -80,7 +80,9 @@ class BuildingAdminForm(forms.ModelForm):
     photographer_choices = list(Photographer.objects.values_list("id", "last_name"))
     photographer_choices.insert(0, (None, "------"))
     photographer = forms.ChoiceField(
-        required=False, widget=forms.Select, choices=photographer_choices,
+        required=False,
+        widget=forms.Select,
+        choices=photographer_choices,
     )
     multiple_images = forms.ImageField(
         required=False, widget=forms.ClearableFileInput(attrs={"multiple": True})
@@ -168,7 +170,13 @@ class BuildingAdmin(admin.ModelAdmin):
         ),
         (
             "PEOPLE",
-            {"classes": ("collapse",), "fields": ("architects", "developers",),},
+            {
+                "classes": ("collapse",),
+                "fields": (
+                    "architects",
+                    "developers",
+                ),
+            },
         ),
         (
             "FEATURES",
@@ -190,7 +198,10 @@ class BuildingAdmin(admin.ModelAdmin):
             {
                 "description": "Add title, city and country of the building first. So image tags and titles can be generated for all uploaded photos automatically.",
                 "classes": ("collapse",),
-                "fields": ("photographer", "multiple_images",),
+                "fields": (
+                    "photographer",
+                    "multiple_images",
+                ),
             },
         ),
     )
@@ -214,7 +225,7 @@ class BuildingAdmin(admin.ModelAdmin):
                 )
                 if building_photographer:
                     building_image.photographer = building_photographer
-                if obj.city.country:
+                if obj.city and obj.city.country:
                     building_image.tags.add(obj.city.country.name)
                 if obj.city:
                     building_image.tags.add(obj.city.name)
