@@ -29,7 +29,7 @@ class Command(BaseCommand):
                     name=uni.name
                 )
                 if created:
-                    mia_university.city = uni.city
+                    # mia_university.city = uni.city
                     mia_university.description = uni.description
                     mia_university.save()
                 django_obj.universities.add(mia_university)
