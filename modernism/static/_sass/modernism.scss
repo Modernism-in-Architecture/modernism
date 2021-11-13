@@ -328,7 +328,9 @@ body {
     #id_developers,
     #id_years,
     #id_cities,
-    #id_countries {
+    #id_countries,
+    #id_details,
+    #id_windows {
         height: 10rem;
         width: 100%;
         overflow-y: scroll;
@@ -344,21 +346,27 @@ body {
     #id_architects::-webkit-scrollbar,
     #id_developers::-webkit-scrollbar,
     #id_years::-webkit-scrollbar,
-    #id_cities::-webkit-scrollbar {
+    #id_cities::-webkit-scrollbar,
+    #id_details::-webkit-scrollbar,
+    #id_windows::-webkit-scrollbar {
         width: 12px;
     }
     
     #id_architects::-webkit-scrollbar-track,
     #id_developers::-webkit-scrollbar-track,
     #id_years::-webkit-scrollbar-track,
-    #id_cities::-webkit-scrollbar-track {
+    #id_cities::-webkit-scrollbar-track,
+    #id_details::-webkit-scrollbar-track,
+    #id_windows::-webkit-scrollbar-track {
         background: grey;
     }
 
     #id_architects::-webkit-scrollbar-thumb,
     #id_developers::-webkit-scrollbar-thumb,
     #id_years::-webkit-scrollbar-thumb,
-    #id_cities::-webkit-scrollbar-thumb {
+    #id_cities::-webkit-scrollbar-thumb,
+    #id_details::-webkit-scrollbar-thumb,
+    #id_windows::-webkit-scrollbar-thumb {
         background-color: lightgray;
         border-radius: 5px;
         border: 3px solid grey;

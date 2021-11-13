@@ -40,12 +40,16 @@ class BuildingsFilterForm(forms.Form):
         widget=forms.Select(attrs={"class": "feature-select"}),
     )
     architects = forms.ModelMultipleChoiceField(
-        queryset=Architect.objects.filter(building__isnull=False).distinct(),
+        queryset=Architect.objects.filter(building__isnull=False)
+        .distinct()
+        .order_by("last_name"),
         widget=forms.CheckboxSelectMultiple(),
         required=False,
     )
     developers = forms.ModelMultipleChoiceField(
-        queryset=Developer.objects.filter(building__isnull=False).distinct(),
+        queryset=Developer.objects.filter(building__isnull=False)
+        .distinct()
+        .order_by("last_name"),
         widget=forms.CheckboxSelectMultiple(),
         required=False,
     )
