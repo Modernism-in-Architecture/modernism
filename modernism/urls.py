@@ -1,22 +1,40 @@
 from django.conf import settings
-from django.conf.urls import include, url
+from django.conf.urls import include
 from django.contrib import admin
+from django.contrib.sitemaps.views import sitemap
 from django.urls import path
-from wagtail.admin import urls as wagtailadmin_urls
-from wagtail.contrib.sitemaps.views import sitemap
-from wagtail.core import urls as wagtail_urls
 
-from .api import api_router
+from modernism.sitemaps import (
+    ArchitectsSitemap,
+    BuildingsSitemap,
+    DevelopersSitemap,
+    FactsSitemap,
+    ProfessorsSitemap,
+    StaticViewSitemap,
+)
+
+sitemaps = {
+    "static": StaticViewSitemap,
+    "buildings": BuildingsSitemap,
+    "architects": ArchitectsSitemap,
+    "developers": DevelopersSitemap,
+    "professors": ProfessorsSitemap,
+    "facts": FactsSitemap,
+}
 
 urlpatterns = [
-    url(r"^django-admin/", admin.site.urls),
-    url(r"^admin/", include(wagtailadmin_urls)),
-    url(r"^api/v2/", api_router.urls),
+    path("admin/", admin.site.urls),
+    path("", include("mia_general.urls")),
     path("tinymce/", include("tinymce.urls")),
-    path("django-mia/", include("mia_general.urls")),
-    path("django-mia/buildings/", include("mia_buildings.urls")),
-    path("django-mia/people/", include("mia_people.urls")),
-    path("django-mia/facts/", include("mia_facts.urls")),
+    path("buildings/", include("mia_buildings.urls")),
+    path("people/", include("mia_people.urls")),
+    path("facts/", include("mia_facts.urls")),
+    path(
+        "sitemap.xml",
+        sitemap,
+        {"sitemaps": sitemaps},
+        name="django.contrib.sitemaps.views.sitemap",
+    ),
 ]
 
 if settings.DEBUG:
@@ -30,11 +48,6 @@ if settings.DEBUG:
 
     urlpatterns = [path("__debug__/", include(debug_toolbar.urls)),] + urlpatterns
 
-
-urlpatterns = urlpatterns + [
-    path("sitemap.xml", sitemap),
-    url(r"", include(wagtail_urls)),
-]
 
 admin.site.site_header = "MIA Admin"
 admin.site.site_title = "MIA Admin"

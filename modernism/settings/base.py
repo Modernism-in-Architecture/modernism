@@ -7,36 +7,36 @@ PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
 INSTALLED_APPS = [
-    "home",
-    "buildings",
-    "facts",
-    "base",
-    "people",
+    # "home",
+    # "buildings",
+    # "facts",
+    # "base",
+    # "people",
     "mia_buildings",
     "mia_people",
     "mia_facts",
     "mia_general",
     "commands",
-    "wagtail.api.v2",
-    "wagtail.contrib.search_promotions",
-    "wagtail.contrib.forms",
-    "wagtail.contrib.redirects",
-    "wagtail.contrib.modeladmin",
-    "wagtail.embeds",
-    "wagtail.sites",
-    "wagtail.users",
-    "wagtail.snippets",
-    "wagtail.documents",
-    "wagtail.images",
-    "wagtail.search",
-    "wagtail.admin",
-    "wagtail.core",
+    # "wagtail.api.v2",
+    # "wagtail.contrib.search_promotions",
+    # "wagtail.contrib.forms",
+    # "wagtail.contrib.redirects",
+    # "wagtail.contrib.modeladmin",
+    # "wagtail.embeds",
+    # "wagtail.sites",
+    # "wagtail.users",
+    # "wagtail.snippets",
+    # "wagtail.documents",
+    # "wagtail.images",
+    # "wagtail.search",
+    # "wagtail.admin",
+    # "wagtail.core",
     "debug_toolbar",
-    "modelcluster",
+    # "modelcluster",
     "rest_framework",
     "taggit",
     "storages",
-    "django_countries",
+    # "django_countries",
     "tinymce",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     "django.contrib.sitemaps",
     "django.contrib.staticfiles",
     "el_pagination",
-    "wagtailmetadata",
     "easy_thumbnails",
 ]
 
@@ -60,7 +59,7 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "debug_toolbar.middleware.DebugToolbarMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
-    "wagtail.contrib.redirects.middleware.RedirectMiddleware",
+    # "wagtail.contrib.redirects.middleware.RedirectMiddleware",
 ]
 
 ROOT_URLCONF = "modernism.urls"
@@ -138,14 +137,8 @@ THUMBNAIL_ALIASES = {
 }
 saved_file.connect(generate_aliases_global)
 
-
-# Wagtail settings
-WAGTAIL_SITE_NAME = "modernism"
 BASE_URL = "https://modernism-in-architecture.org"
 
-TAG_SPACES_ALLOWED = True
-
-WAGTAILAPI_LIMIT_MAX = 50
 
 TINYMCE_DEFAULT_CONFIG = {
     "theme": "silver",
