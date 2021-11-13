@@ -7,6 +7,7 @@ from .models import Architect, Developer, Professor
 
 @admin.register(Developer)
 class DeveloperAdmin(admin.ModelAdmin):
+    raw_id_fields = ["birth_place"]
     search_fields = ["last_name", "first_name", "description"]
     list_display = ["last_name", "first_name", "is_published", "created", "pk", "slug"]
     filter_horizontal = ["universities", "sources"]
@@ -18,6 +19,7 @@ class DeveloperAdmin(admin.ModelAdmin):
 
 @admin.register(Architect)
 class ArchitectAdmin(admin.ModelAdmin):
+    raw_id_fields = ["birth_place"]
     search_fields = ["last_name", "first_name", "description"]
     list_display = ["last_name", "first_name", "is_published", "created", "pk", "slug"]
     filter_horizontal = [
@@ -34,6 +36,7 @@ class ArchitectAdmin(admin.ModelAdmin):
 
 @admin.register(Professor)
 class ProfessorAdmin(admin.ModelAdmin):
+    raw_id_fields = ["birth_place"]
     search_fields = ["last_name", "first_name", "description"]
     list_display = ["last_name", "first_name", "is_published", "created", "pk", "slug"]
     filter_horizontal = [
