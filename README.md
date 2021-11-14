@@ -1,8 +1,8 @@
 # Modernism in Architecture
 
-A project to create visibility for modernism in architecture in different places of the world.
+A project to create visibility for modernist architecture in different places of the world.
 
-The project is build with [Wagtail](https://wagtail.io/), a CMS powered by [Django](https://www.djangoproject.com/) and [Bulma](https://bulma.io).
+The project is build with [Django](https://www.djangoproject.com/) and [Bulma](https://bulma.io).
 
 ## Setup the backend
 
