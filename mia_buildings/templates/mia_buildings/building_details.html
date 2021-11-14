@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/MarkerCluster.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/MarkerCluster.Default.css' %}">
     <script type="application/javascript">
-        const buildingsOfTheCityData = {{ buildings_of_same_city|safe }}
+        const buildingsOfTheCityData = {{ buildings_of_same_city|safe }};
         const buildingSlug = "{{ building.slug }}";
         const buildingLat = "{{ building.latitude }}";
         const buildingLong = "{{ building.longitude }}";

@@ -45,13 +45,9 @@
     <section class="section last-section">
         <div class="container">
             <h1 class="is-size-3">{{fact.title}}</h1>
-            
             <div class="columns">
                 <div class="column">
                     <div class="content">
-                        {% comment %} <a class="is-hidden-touch" href="{% url 'fact-index-list' %}" aria-level="2">
-                            <ion-icon name="return-up-back-outline"></ion-icon> overview
-                        </a> {% endcomment %}
                         <p>{% for tag in fact.categories.all %} <span class="tag">{{tag.name|lower}}</span>{% endfor %}</p>
                         <div class="columns">
                             <div class="column">
