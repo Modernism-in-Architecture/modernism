@@ -175,17 +175,20 @@ def get_building_list(
                 )
 
     if search_query:
-        building_list = building_list.annotate(
-            search=SearchVector(
-                "name",
-                "history",
-                "subtitle",
-                "description",
-                "architects__last_name",
-                "developers__last_name",
-            ),
-        ).filter(search=search_query)
-
+        building_list = (
+            building_list.annotate(
+                search=SearchVector(
+                    "name",
+                    "history",
+                    "subtitle",
+                    "description",
+                    "architects__last_name",
+                    "developers__last_name",
+                ),
+            )
+            .filter(search=search_query)
+            .distinct("created")
+        )
     context["buildings"] = building_list
     context["search_term"] = search_query
 
