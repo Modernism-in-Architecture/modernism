@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
+    "django.contrib.postgres",
     "django.contrib.sitemaps",
     "django.contrib.staticfiles",
     "el_pagination",

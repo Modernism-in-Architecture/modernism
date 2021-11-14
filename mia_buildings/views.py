@@ -1,3 +1,4 @@
+from django.contrib.postgres.search import SearchVector
 from django.core.serializers import serialize
 from django.db.models.query import Prefetch
 from django.http.request import MultiValueDict, QueryDict
@@ -126,7 +127,7 @@ def get_building_list(
 ):
     building_list = (
         Building.objects.filter(is_published=True)
-        .select_related("city")
+        .select_related("city__country")
         .prefetch_related(
             Prefetch(
                 "buildingimage_set",
@@ -173,9 +174,17 @@ def get_building_list(
                     building_form.cleaned_data, building_list
                 )
 
-        # if search_query:
-        #     search_backend = get_search_backend()
-        #     all_buildings = search_backend.search(search_query, all_buildings)
+    if search_query:
+        building_list = building_list.annotate(
+            search=SearchVector(
+                "name",
+                "history",
+                "subtitle",
+                "description",
+                "architects__last_name",
+                "developers__last_name",
+            ),
+        ).filter(search=search_query)
 
     context["buildings"] = building_list
     context["search_term"] = search_query

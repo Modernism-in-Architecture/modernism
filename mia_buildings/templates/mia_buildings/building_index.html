@@ -39,7 +39,7 @@
                         </button>
                     </div>
                     <div class="column">
-                        {% comment %} <form action="" method="get" class="form-search">
+                        <form action="" method="get" class="form-search">
                             {% csrf_token %}
                             <div class="field has-addons is-justify-content-flex-end">
                                 <div class="control">
@@ -51,7 +51,7 @@
                                     </button>
                                 </div>
                             </div>
-                        </form> {% endcomment %}
+                        </form>
                     </div>
                 </div>
                 <div class="columns is-vcentered">
@@ -318,7 +318,7 @@
                         <p><span id="filter-description"></span></p>
                         {% if search_term %}
                             <p id="search-description">
-                                You searched for: {{search_term}} <a href=""><ion-icon name="trash-outline" class="is-size-5"></ion-icon></a> 
+                                You searched for: {{search_term}} <a href="{% url 'building-index-list' %}"><ion-icon name="trash-outline" class="is-size-5"></ion-icon></a> 
                             </p>
                         {% endif %}
                     </div>
