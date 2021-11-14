@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.safestring import mark_safe
 from django.utils.text import slugify
+from easy_thumbnails.templatetags.thumbnail import thumbnail_url
 from taggit.managers import TaggableManager
 from unidecode import unidecode
 
@@ -81,7 +82,8 @@ class BuildingImage(models.Model):
 
     def image_preview(self):
         if self.image:
-            return mark_safe(f'<img src="{self.image.url}" height="150" />')
+            thumbnail = thumbnail_url(self.image, "preview")
+            return mark_safe(f"<img src={thumbnail} />")
         else:
             return "(No image)"
 
