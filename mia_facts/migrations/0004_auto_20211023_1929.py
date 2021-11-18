@@ -11,6 +11,8 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.RenameField(
-            model_name="factcategory", old_name="category", new_name="name",
+            model_name="factcategory",
+            old_name="category",
+            new_name="name",
         ),
     ]

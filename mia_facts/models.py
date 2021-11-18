@@ -70,7 +70,9 @@ class Source(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     source_type = models.CharField(
-        max_length=2, choices=SourceType.choices, default=SourceType.WEBSITE,
+        max_length=2,
+        choices=SourceType.choices,
+        default=SourceType.WEBSITE,
     )
     authors = models.ManyToManyField("mia_facts.Author", blank=True)
     title = models.CharField(max_length=250)

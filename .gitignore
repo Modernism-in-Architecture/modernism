@@ -1,4 +1,5 @@
 .coverage
+.python-version
 .DS_Store
 .env
 .idea/

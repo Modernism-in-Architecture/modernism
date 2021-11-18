@@ -184,6 +184,8 @@ def get_building_list(
                     "description",
                     "architects__last_name",
                     "developers__last_name",
+                    "city__country__name",
+                    "city__name",
                 ),
             )
             .filter(search=search_query)
@@ -200,7 +202,10 @@ def get_building_list(
 
 @api_view(["GET"])
 def get_building_details(
-    request, slug, template="mia_buildings/building_details.html", extra_context=None,
+    request,
+    slug,
+    template="mia_buildings/building_details.html",
+    extra_context=None,
 ):
 
     building = (

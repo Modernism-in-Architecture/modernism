@@ -12,12 +12,20 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(model_name="city", name="description",),
-        migrations.RemoveField(model_name="university", name="country",),
+        migrations.RemoveField(
+            model_name="city",
+            name="description",
+        ),
+        migrations.RemoveField(
+            model_name="university",
+            name="country",
+        ),
         migrations.AlterField(
             model_name="city",
             name="country",
             field=django_countries.fields.CountryField(max_length=2, null=True),
         ),
-        migrations.DeleteModel(name="Country",),
+        migrations.DeleteModel(
+            name="Country",
+        ),
     ]

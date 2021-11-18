@@ -25,7 +25,9 @@ class Migration(migrations.Migration):
                 ),
                 ("name", models.CharField(max_length=100, unique=True)),
             ],
-            options={"verbose_name_plural": "Countries",},
+            options={
+                "verbose_name_plural": "Countries",
+            },
         ),
         migrations.AlterField(
             model_name="city",

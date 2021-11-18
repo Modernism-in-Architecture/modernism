@@ -58,7 +58,10 @@ def get_architect_list(
 
 @api_view(["GET"])
 def get_architect_details(
-    request, slug, template="mia_people/architect_details.html", extra_context=None,
+    request,
+    slug,
+    template="mia_people/architect_details.html",
+    extra_context=None,
 ):
 
     architect = (
@@ -92,7 +95,10 @@ def get_architect_details(
 
 @api_view(["GET"])
 def get_developer_details(
-    request, slug, template="mia_people/developer_details.html", extra_context=None,
+    request,
+    slug,
+    template="mia_people/developer_details.html",
+    extra_context=None,
 ):
 
     developer = (

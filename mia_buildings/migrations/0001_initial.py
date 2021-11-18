@@ -27,7 +27,9 @@ class Migration(migrations.Migration):
                 ),
                 ("name", models.CharField(max_length=255)),
             ],
-            options={"verbose_name_plural": "Access types",},
+            options={
+                "verbose_name_plural": "Access types",
+            },
         ),
         migrations.CreateModel(
             name="Building",
@@ -82,7 +84,9 @@ class Migration(migrations.Migration):
                 ("name", models.CharField(max_length=255)),
                 ("description", models.TextField(blank=True)),
             ],
-            options={"verbose_name_plural": "Building types",},
+            options={
+                "verbose_name_plural": "Building types",
+            },
         ),
         migrations.CreateModel(
             name="ConstructionType",
@@ -98,7 +102,9 @@ class Migration(migrations.Migration):
                 ),
                 ("name", models.CharField(max_length=250, unique=True)),
             ],
-            options={"abstract": False,},
+            options={
+                "abstract": False,
+            },
         ),
         migrations.CreateModel(
             name="Detail",
@@ -114,7 +120,9 @@ class Migration(migrations.Migration):
                 ),
                 ("name", models.CharField(max_length=250, unique=True)),
             ],
-            options={"abstract": False,},
+            options={
+                "abstract": False,
+            },
         ),
         migrations.CreateModel(
             name="Facade",
@@ -130,7 +138,9 @@ class Migration(migrations.Migration):
                 ),
                 ("name", models.CharField(max_length=250, unique=True)),
             ],
-            options={"abstract": False,},
+            options={
+                "abstract": False,
+            },
         ),
         migrations.CreateModel(
             name="Position",
@@ -146,7 +156,9 @@ class Migration(migrations.Migration):
                 ),
                 ("name", models.CharField(max_length=250, unique=True)),
             ],
-            options={"abstract": False,},
+            options={
+                "abstract": False,
+            },
         ),
         migrations.CreateModel(
             name="Roof",
@@ -162,7 +174,9 @@ class Migration(migrations.Migration):
                 ),
                 ("name", models.CharField(max_length=250, unique=True)),
             ],
-            options={"abstract": False,},
+            options={
+                "abstract": False,
+            },
         ),
         migrations.CreateModel(
             name="Window",
@@ -178,7 +192,9 @@ class Migration(migrations.Migration):
                 ),
                 ("name", models.CharField(max_length=250, unique=True)),
             ],
-            options={"abstract": False,},
+            options={
+                "abstract": False,
+            },
         ),
         migrations.CreateModel(
             name="BuildingImage",

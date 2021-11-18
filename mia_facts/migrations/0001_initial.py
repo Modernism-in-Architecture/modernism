@@ -27,7 +27,9 @@ class Migration(migrations.Migration):
                 ("name", models.CharField(max_length=100)),
                 ("description", models.TextField(blank=True)),
             ],
-            options={"verbose_name_plural": "Cities",},
+            options={
+                "verbose_name_plural": "Cities",
+            },
         ),
         migrations.CreateModel(
             name="Country",
@@ -47,7 +49,9 @@ class Migration(migrations.Migration):
                 ),
                 ("description", models.TextField(blank=True)),
             ],
-            options={"verbose_name_plural": "Countries",},
+            options={
+                "verbose_name_plural": "Countries",
+            },
         ),
         migrations.CreateModel(
             name="University",
@@ -82,7 +86,9 @@ class Migration(migrations.Migration):
                     ),
                 ),
             ],
-            options={"verbose_name_plural": "Universities",},
+            options={
+                "verbose_name_plural": "Universities",
+            },
         ),
         migrations.AddField(
             model_name="city",

@@ -33,7 +33,10 @@ def get_fact_list(request, template="mia_facts/fact_index.html", extra_context=N
 
 @api_view(["GET"])
 def get_fact_details(
-    request, slug, template="mia_facts/fact_details.html", extra_context=None,
+    request,
+    slug,
+    template="mia_facts/fact_details.html",
+    extra_context=None,
 ):
 
     fact = (

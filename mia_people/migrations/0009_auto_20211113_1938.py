@@ -10,6 +10,12 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(model_name="person", name="place_of_birth",),
-        migrations.RemoveField(model_name="person", name="place_of_death",),
+        migrations.RemoveField(
+            model_name="person",
+            name="place_of_birth",
+        ),
+        migrations.RemoveField(
+            model_name="person",
+            name="place_of_death",
+        ),
     ]

@@ -1,6 +1,5 @@
 from django.db import models
 from django.utils.text import slugify
-from django_countries.fields import CountryField
 from unidecode import unidecode
 
 
@@ -10,7 +9,8 @@ class Person(models.Model):
 
     first_name = models.CharField(max_length=250, blank=True)
     last_name = models.CharField(
-        max_length=250, help_text="You can add a company name here too if appropriate.",
+        max_length=250,
+        help_text="You can add a company name here too if appropriate.",
     )
     birthday = models.DateField(
         blank=True,

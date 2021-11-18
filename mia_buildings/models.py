@@ -115,7 +115,10 @@ class Building(models.Model):
     protected_monument = models.BooleanField(default=False)
     storey = models.IntegerField(null=True, blank=True)
     access_type = models.ForeignKey(
-        AccessType, on_delete=models.SET_NULL, null=True, blank=True,
+        AccessType,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
     )
     building_types = models.ManyToManyField("mia_buildings.BuildingType", blank=True)
     positions = models.ManyToManyField("mia_buildings.Position", blank=True)

@@ -43,7 +43,9 @@ class Migration(migrations.Migration):
                 ),
                 ("category", models.CharField(max_length=250, unique=True)),
             ],
-            options={"verbose_name_plural": "Categories",},
+            options={
+                "verbose_name_plural": "Categories",
+            },
         ),
         migrations.CreateModel(
             name="Photographer",
