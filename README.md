@@ -7,20 +7,20 @@ The project is build with [Django](https://www.djangoproject.com/) and [Bulma](h
 ## Setup the backend
 
 ### Prerequisites
-#### Python version == 3.7.2 (runs on production atm with 3.7.6)
+#### Python version == 3.9.4
 
 To check the Python version on your system, run
 ```bash
 $ python --version
-Python 3.7.2
+Python 3.9.4
 ```
 or 
 ```bash
 $ python3 --version
-Python 3.7.2
+Python 3.9.4
 ```
 
-If an older version or nothing is found you will need to [update or install Python](https://realpython.com/installing-python/) first. 
+If an older version or nothing is found you will need to [update or install Python](https://realpython.com/installing-python/) first. If this causes trouble, just try to install the requirements, it might work with an older python version too.
 
 #### PostgreSQL
 Create a [postgreSQL](https://www.postgresqltutorial.com/install-postgresql/) database named "modernism". If you use `psql`, you can run
