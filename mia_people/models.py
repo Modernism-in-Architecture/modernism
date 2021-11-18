@@ -7,11 +7,14 @@ class Person(models.Model):
     created = models.DateTimeField(auto_now_add=True, null=True)
     updated = models.DateTimeField(auto_now=True)
 
-    first_name = models.CharField(max_length=250, blank=True)
+    is_published = models.BooleanField(default=False)
+    slug = models.SlugField(max_length=254, blank=True)
+
     last_name = models.CharField(
         max_length=250,
         help_text="You can add a company name here too if appropriate.",
     )
+    first_name = models.CharField(max_length=250, blank=True)
     birthday = models.DateField(
         blank=True,
         null=True,
@@ -47,8 +50,6 @@ class Person(models.Model):
     )
     description = models.TextField(blank=True)
 
-    is_published = models.BooleanField(default=False)
-    slug = models.SlugField(max_length=254, blank=True)
     sources = models.ManyToManyField("mia_facts.Source", blank=True)
 
     def __str__(self):
@@ -86,5 +87,7 @@ class Developer(Person):
 
 
 class Architect(Person):
+    is_developer = models.BooleanField(default=False)
+    is_professor = models.BooleanField(default=False)
     professor_mentors = models.ManyToManyField("mia_people.Professor", blank=True)
     architect_mentors = models.ManyToManyField("self", blank=True)

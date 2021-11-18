@@ -76,12 +76,12 @@ class Source(models.Model):
     )
     authors = models.ManyToManyField("mia_facts.Author", blank=True)
     title = models.CharField(max_length=250)
+    url = models.URLField(max_length=250, blank=True)
     year = models.CharField(max_length=4, blank=True)
     place_of_publication = models.CharField(max_length=250, blank=True)
     publisher = models.CharField(max_length=250, blank=True)
     isbn = models.CharField(max_length=250, blank=True)
     edition = models.PositiveIntegerField(null=True, blank=True)
-    url = models.URLField(max_length=250, blank=True)
 
     def __str__(self):
         return self.title

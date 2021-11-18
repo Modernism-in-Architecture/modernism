@@ -131,7 +131,9 @@ def get_building_list(
         .prefetch_related(
             Prefetch(
                 "buildingimage_set",
-                queryset=BuildingImage.objects.filter(is_feed_image=True),
+                queryset=BuildingImage.objects.filter(
+                    is_published=True, is_feed_image=True
+                ),
                 to_attr="feed_images",
             )
         )
@@ -225,14 +227,16 @@ def get_building_details(
         .prefetch_related(
             Prefetch(
                 "buildingimage_set",
-                queryset=BuildingImage.objects.all(),
+                queryset=BuildingImage.objects.filter(is_published=True),
                 to_attr="gallery_images",
             )
         )
         .prefetch_related(
             Prefetch(
                 "buildingimage_set",
-                queryset=BuildingImage.objects.filter(is_feed_image=True),
+                queryset=BuildingImage.objects.filter(
+                    is_published=True, is_feed_image=True
+                ),
                 to_attr="feed_images",
             )
         )

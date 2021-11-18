@@ -18,17 +18,27 @@ from .models import (
 
 @admin.register(University)
 class UniversityAdmin(admin.ModelAdmin):
-    pass
+    list_display = [
+        "name",
+        "city",
+    ]
+    search_fields = ["name", "city__name", "city__country__name"]
+    ordering = ["name"]
+    autocomplete_fields = ["city"]
 
 
 @admin.register(City)
 class CityAdmin(admin.ModelAdmin):
     list_display = ["name", "country"]
+    search_fields = ["name"]
+    ordering = ["name"]
 
 
 @admin.register(Country)
 class CountryAdmin(admin.ModelAdmin):
-    pass
+    list_display = ["name"]
+    search_fields = ["name"]
+    ordering = ["name"]
 
 
 @admin.register(Author)

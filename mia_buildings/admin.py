@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib import admin
 from django.contrib.admin.widgets import FilteredSelectMultiple
-from mia_facts.models import Photographer
+from mia_facts.models import City, Photographer
 from tinymce.widgets import TinyMCE
 
 from .models import (
@@ -28,7 +28,7 @@ class BuildingImageAdminForm(forms.ModelForm):
 class BuildingImageAdmin(admin.ModelAdmin):
     # ToDo: Add filter
     form = BuildingImageAdminForm
-    raw_id_fields = ["building"]
+    autocomplete_fields = ["building"]
     list_display = [
         "building",
         "title",
@@ -72,6 +72,7 @@ class BuildingImageInline(admin.StackedInline):
     fields = [
         "image_preview",
         "title",
+        "is_published",
         "is_feed_image",
         "description",
         "photographer",
@@ -122,7 +123,6 @@ class BuildingAdmin(admin.ModelAdmin):
         "updated",
         "slug",
     ]
-    raw_id_fields = ["city"]
     filter_horizontal = [
         "windows",
         "roofs",
@@ -138,6 +138,7 @@ class BuildingAdmin(admin.ModelAdmin):
     readonly_fields = [
         "slug",
     ]
+    autocomplete_fields = ["city"]
     form = BuildingAdminForm
     inlines = [BuildingImageInline]
 

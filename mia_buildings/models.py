@@ -69,6 +69,7 @@ class BuildingImage(models.Model):
     building = models.ForeignKey(
         "mia_buildings.Building", on_delete=models.SET_NULL, null=True, blank=True
     )
+    is_published = models.BooleanField(default=True)
     is_feed_image = models.BooleanField(default=False)
     title = models.CharField(max_length=250, blank=True)
     photographer = models.ForeignKey(
