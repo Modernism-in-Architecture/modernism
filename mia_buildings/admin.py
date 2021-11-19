@@ -229,6 +229,7 @@ class BuildingAdmin(admin.ModelAdmin):
                 ).first()
 
             building_photos = request.FILES.getlist("multiple_images")
+            number_of_existing_images = obj.buildingimage_set.count()
 
             for index, photo in enumerate(building_photos):
                 building_image, created = BuildingImage.objects.get_or_create(
@@ -241,7 +242,7 @@ class BuildingAdmin(admin.ModelAdmin):
                 if obj.city:
                     building_image.tags.add(obj.city.name)
 
-                building_image.title = f"{obj.name}-{index}"
+                building_image.title = f"{obj.name}-{number_of_existing_images + index}"
 
                 building_image.save()
 
