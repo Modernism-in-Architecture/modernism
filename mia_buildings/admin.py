@@ -93,6 +93,7 @@ class BuildingAdminForm(forms.ModelForm):
         widget=forms.Select,
         choices=photographer_choices,
     )
+    # name parts of images
     multiple_images = forms.ImageField(
         required=False, widget=forms.ClearableFileInput(attrs={"multiple": True})
     )
