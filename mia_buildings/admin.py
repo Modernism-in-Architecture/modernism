@@ -37,15 +37,28 @@ class BuildingImageAdmin(admin.ModelAdmin):
     autocomplete_fields = ["building"]
     actions = ["add_images_to_building"]
     list_display = [
+        "title",
+        "image_preview",
         "building",
         "id",
-        "title",
         "photographer",
         "tag_list",
         "created",
         "updated",
     ]
-    readonly_fields = ["tags"]
+    readonly_fields = [
+        "tags",
+        "image_preview",
+    ]
+    fields = [
+        "image_preview",
+        "title",
+        "is_published",
+        "is_feed_image",
+        "description",
+        "photographer",
+        "tags",
+    ]
 
     def get_queryset(self, request):
         return (
