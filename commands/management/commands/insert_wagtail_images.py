@@ -12,11 +12,6 @@ def namedtuplefetchall(cursor):
     return [nt_result(*row) for row in cursor.fetchall()]
 
 
-# INSERT INTO mia_image (id, created, updated, title, image)
-# SELECT id, created_at, created_at, title, file FROM wagtailimages_image
-# WHERE file NOT IN (SELECT image FROM mia_image);
-
-
 class Command(BaseCommand):
     help = "Migrate all wagtail images without a building."
 
@@ -29,3 +24,6 @@ class Command(BaseCommand):
                 images = BuildingImage.objects.filter(image=result[1])
                 if not images:
                     BuildingImage.objects.create(title=result[0], image=result[1])
+                    self.stdout.write(
+                        self.style.SUCCESS(f"Successfully migrated {result[0]}")
+                    )
