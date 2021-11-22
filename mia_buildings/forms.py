@@ -1,4 +1,5 @@
 from django import forms
+from django.forms.widgets import MultipleHiddenInput
 from mia_facts.models import City, Country
 from mia_people.models import Architect, Developer
 
@@ -13,6 +14,15 @@ from mia_buildings.models import (
     Roof,
     Window,
 )
+
+
+class BuildingForImageSelectionAdminForm(forms.Form):
+    _selected_action = forms.CharField(widget=forms.MultipleHiddenInput)
+    _images = forms.CharField(widget=MultipleHiddenInput)
+    building = forms.ModelChoiceField(
+        queryset=Building.objects.all().order_by("name"),
+        widget=forms.Select(),
+    )
 
 
 class BuildingsFilterForm(forms.Form):

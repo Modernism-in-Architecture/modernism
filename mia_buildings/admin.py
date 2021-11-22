@@ -1,8 +1,13 @@
+import ast
+
 from django import forms
 from django.contrib import admin
-from django.contrib.admin.widgets import FilteredSelectMultiple
-from mia_facts.models import City, Photographer
+from django.http.response import HttpResponseRedirect
+from django.shortcuts import render
+from mia_facts.models import Photographer
 from tinymce.widgets import TinyMCE
+
+from mia_buildings.forms import BuildingForImageSelectionAdminForm
 
 from .models import (
     AccessType,
@@ -28,9 +33,12 @@ class BuildingImageAdminForm(forms.ModelForm):
 class BuildingImageAdmin(admin.ModelAdmin):
     # ToDo: Add filter
     form = BuildingImageAdminForm
+    search_fields = ["title", "building__name"]
     autocomplete_fields = ["building"]
+    actions = ["add_images_to_building"]
     list_display = [
         "building",
+        "id",
         "title",
         "photographer",
         "tag_list",
@@ -65,6 +73,34 @@ class BuildingImageAdmin(admin.ModelAdmin):
         obj.title = f"{obj.building.name}-{number_of_building_images + 1}"
 
         obj.save()
+
+    def add_images_to_building(self, request, queryset):
+        if "apply" in request.POST:
+            form = BuildingForImageSelectionAdminForm(request.POST)
+            if form.is_valid():
+                building = form.cleaned_data["building"]
+                selected_images = ast.literal_eval(form.cleaned_data["_images"])
+                building_images = BuildingImage.objects.filter(id__in=selected_images)
+                building.buildingimage_set.add(*building_images)
+                self.message_user(
+                    request,
+                    f"{building} successfully received {len(selected_images)} gallery images.",
+                )
+            return HttpResponseRedirect(request.get_full_path())
+        else:
+            form = BuildingForImageSelectionAdminForm()
+
+        return render(
+            request,
+            "admin/add_images_to_building.html",
+            {
+                "images": queryset,
+                "form": form,
+                "title": "Add images to a building gallery",
+            },
+        )
+
+    add_images_to_building.short_description = "Add images to a building gallery"
 
 
 class BuildingImageInline(admin.StackedInline):

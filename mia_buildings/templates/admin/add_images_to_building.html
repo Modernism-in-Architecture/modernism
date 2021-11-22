@@ -1,0 +1,25 @@
+{% extends "admin/base_site.html" %}
+{% load static thumbnail %}
+
+{% block breadcrumbs %}
+    <div class="breadcrumbs">
+        <a href="{% url 'admin:mia_buildings_buildingimage_changelist' %}">Back</a>
+    </div>
+{% endblock %}
+
+
+{% block content %}
+    <form action="" method="post">
+        {% csrf_token %}
+        <p>
+            {% for selected_image in images %}
+                <img src="{{ selected_image.image|thumbnail_url:'preview' }}" alt="" />
+                <input type="hidden" name="_images" value="{{selected_image.pk}}" />
+            {% endfor %}
+        <p>
+        {{ form.as_p }}
+        <input type="hidden" name="_selected_action" value="1" />
+        <input type="hidden" name="action" value="add_images_to_building"/>
+        <input type="submit" name="apply" value="Send" />
+    </form>
+{% endblock %}

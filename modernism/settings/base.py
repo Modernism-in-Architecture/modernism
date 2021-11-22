@@ -1,6 +1,6 @@
 import os
 
-from easy_thumbnails.signal_handlers import generate_aliases_global
+# from easy_thumbnails.signal_handlers import generate_aliases_global
 from easy_thumbnails.signals import saved_file
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -39,7 +39,6 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "debug_toolbar.middleware.DebugToolbarMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
-    # "wagtail.contrib.redirects.middleware.RedirectMiddleware",
 ]
 
 ROOT_URLCONF = "modernism.urls"
@@ -125,7 +124,7 @@ THUMBNAIL_ALIASES = {
         "large": {"size": (1300, 700), "crop": False},
     },
 }
-saved_file.connect(generate_aliases_global)
+# saved_file.connect(generate_aliases_global)
 
 BASE_URL = "https://modernism-in-architecture.org"
 
