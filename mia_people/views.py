@@ -1,3 +1,4 @@
+from django.contrib.postgres.search import SearchVector
 from django.db.models.query import Prefetch
 from django.shortcuts import render
 from mia_buildings.models import Building, BuildingImage
@@ -11,6 +12,8 @@ def get_developer_list(
     request, template="mia_people/developer_index.html", extra_context=None
 ):
     filter_tag = request.GET.get("letter", None)
+    search_query = request.GET.get("q", None)
+
     developer_list = Developer.objects.filter(is_published=True).order_by("last_name")
     alphabet_from_last_names = list(
         dict.fromkeys(
@@ -19,9 +22,20 @@ def get_developer_list(
     )
     if filter_tag:
         developer_list = developer_list.filter(last_name__startswith=filter_tag)
+
+    if search_query:
+        developer_list = developer_list.annotate(
+            search=SearchVector(
+                "last_name",
+                "first_name",
+                "description",
+            ),
+        ).filter(search=search_query)
+
     context = {
         "persons": developer_list,
         "filter_tag": filter_tag,
+        "search_term": search_query,
         "last_name_alphabet": alphabet_from_last_names,
     }
 
@@ -36,6 +50,8 @@ def get_architect_list(
     request, template="mia_people/architect_index.html", extra_context=None
 ):
     filter_tag = request.GET.get("letter", None)
+    search_query = request.GET.get("q", None)
+
     architect_list = Architect.objects.filter(is_published=True).order_by("last_name")
     alphabet_from_last_names = list(
         dict.fromkeys(
@@ -44,9 +60,20 @@ def get_architect_list(
     )
     if filter_tag:
         architect_list = architect_list.filter(last_name__startswith=filter_tag)
+
+    if search_query:
+        architect_list = architect_list.annotate(
+            search=SearchVector(
+                "last_name",
+                "first_name",
+                "description",
+            ),
+        ).filter(search=search_query)
+
     context = {
         "persons": architect_list,
         "filter_tag": filter_tag,
+        "search_term": search_query,
         "last_name_alphabet": alphabet_from_last_names,
     }
 
