@@ -1,8 +1,5 @@
 import os
 
-# from easy_thumbnails.signal_handlers import generate_aliases_global
-from easy_thumbnails.signals import saved_file
-
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
@@ -125,10 +122,8 @@ THUMBNAIL_ALIASES = {
         "large": {"size": (1300, 700), "crop": False},
     },
 }
-# saved_file.connect(generate_aliases_global)
 
 BASE_URL = "https://modernism-in-architecture.org"
-
 
 TINYMCE_DEFAULT_CONFIG = {
     "theme": "silver",
