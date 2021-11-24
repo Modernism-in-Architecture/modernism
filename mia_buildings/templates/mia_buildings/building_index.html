@@ -31,7 +31,7 @@
     <section class="building-idx-container mt-3">
         <div class="container">
             <div class="content">
-                <h1 class="has-text-centered has-text-left-desktop">Modernist architecture archive</h1>
+                <h1 class="has-text-centered has-text-left-desktop">Modernist architecture archive ({{buildings.count}})</h1>
                 <div class="columns is-vcentered reverse-column-order">
                     <div class="column is-10 has-text-centered has-text-left-desktop">
                         <button class="button filter-icon">
@@ -310,9 +310,7 @@
                 </div>
                 <div class="columns is-vcentered">
                     <div class="column has-text-centered has-text-left-desktop">
-                        {% if buildings %}
-                            <p>total: {{buildings.count}}</p>
-                        {% else %}
+                        {% if not buildings %}
                             <p class="mt-3">No results for this selection. Please try again.</p>
                         {% endif %}
                         <p><span id="filter-description"></span></p>
