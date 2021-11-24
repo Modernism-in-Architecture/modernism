@@ -57,6 +57,7 @@ class BuildingImageAdmin(admin.ModelAdmin):
         "title",
         "is_published",
         "is_feed_image",
+        "building",
         "description",
         "photographer",
         "tags",
@@ -89,15 +90,11 @@ class BuildingImageAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         obj.save()
 
-        number_of_building_images = BuildingImage.objects.filter(
-            building=obj.building
-        ).count()
-        if obj.building.city and obj.building.city.country:
+        if obj.building and obj.building.city and obj.building.city.country:
             obj.tags.add(obj.building.city.country.name)
-        if obj.building.city:
-            obj.tags.add(obj.building.city.name)
 
-        obj.title = f"{obj.building.name}-{number_of_building_images + 1}"
+        if obj.building and obj.building.city:
+            obj.tags.add(obj.building.city.name)
 
         obj.save()
 
