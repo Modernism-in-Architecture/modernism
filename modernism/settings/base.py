@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "el_pagination",
     "easy_thumbnails",
+    "adminsortable",
 ]
 
 MIDDLEWARE = [

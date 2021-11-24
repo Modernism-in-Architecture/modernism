@@ -6,6 +6,7 @@ click==8.0.3
 cssselect2==0.4.1
 dj-database-url==0.5.0
 Django==3.2.9
+django-admin-sortable==2.2.4
 django-countries==7.2.1
 django-debug-toolbar==3.2.2
 django-el-pagination==3.3.0

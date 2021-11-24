@@ -1,3 +1,4 @@
+from adminsortable.models import SortableMixin
 from django.db import models
 from django.utils.safestring import mark_safe
 from django.utils.text import slugify
@@ -61,7 +62,7 @@ class AccessType(models.Model):
         verbose_name_plural = "Access types"
 
 
-class BuildingImage(models.Model):
+class BuildingImage(SortableMixin):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -77,6 +78,10 @@ class BuildingImage(models.Model):
     )
     description = models.TextField(blank=True)
     tags = TaggableManager(blank=True)
+    image_order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
+
+    class Meta:
+        ordering = ["image_order"]
 
     def __str__(self):
         return f"{self.title}"

@@ -62,6 +62,7 @@ class FactAdmin(admin.ModelAdmin):
     search_fields = ["title", "description"]
     list_display = ["title", "pk", "get_categories", "created"]
     filter_horizontal = ["categories", "sources"]
+    readonly_fields = ["slug"]
     formfield_overrides = {
         models.TextField: {"widget": TinyMCE()},
         models.CharField: {"widget": TextInput(attrs={"size": "153"})},

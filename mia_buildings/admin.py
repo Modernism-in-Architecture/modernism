@@ -1,7 +1,10 @@
 import ast
 
+from adminsortable.admin import NonSortableParentAdmin, SortableStackedInline
 from django import forms
 from django.contrib import admin
+from django.db import models
+from django.forms import Textarea, TextInput
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import path
@@ -129,22 +132,27 @@ class BuildingImageAdmin(admin.ModelAdmin):
     add_images_to_building.short_description = "Add images to a building gallery"
 
 
-class BuildingImageInline(admin.StackedInline):
+class BuildingImageInline(SortableStackedInline):
     model = BuildingImage
-    fields = [
-        "image_preview",
-        "title",
-        "is_published",
-        "is_feed_image",
-        "description",
-        "photographer",
-        "tags",
-    ]
+    fieldsets = (
+        (
+            None,
+            {
+                "fields": (
+                    ("image_preview", "title", "image"),
+                    ("is_published", "is_feed_image", "description", "photographer"),
+                )
+            },
+        ),
+    )
     readonly_fields = ("image_preview", "tags")
     classes = ["collapse"]
+    extra = 0
 
-    def has_add_permission(self, request, obj):
-        return False
+    formfield_overrides = {
+        models.CharField: {"widget": TextInput(attrs={"size": "50"})},
+        models.TextField: {"widget": Textarea(attrs={"rows": 1, "cols": 20})},
+    }
 
 
 class BuildingAdminForm(forms.ModelForm):
@@ -173,7 +181,7 @@ class BuildingAdminForm(forms.ModelForm):
 
 
 @admin.register(Building)
-class BuildingAdmin(admin.ModelAdmin):
+class BuildingAdmin(NonSortableParentAdmin):
     # ToDo: Add filter
     search_fields = ["name", "description"]
     list_display = [
