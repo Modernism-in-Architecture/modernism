@@ -4,9 +4,11 @@ from django import forms
 from django.contrib import admin
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import path
 from mia_facts.models import Photographer
 from tinymce.widgets import TinyMCE
 
+from mia_buildings import views
 from mia_buildings.forms import BuildingForImageSelectionAdminForm
 
 from .models import (
@@ -59,6 +61,18 @@ class BuildingImageAdmin(admin.ModelAdmin):
         "photographer",
         "tags",
     ]
+    change_list_template = "admin/buildingimage_changelist.html"
+
+    def get_urls(self):
+        urls = super().get_urls()
+        custom_admin_urls = [
+            path(
+                "bulkupload-images/",
+                views.bulkupload_images,
+                name="bulkupload-images",
+            ),
+        ]
+        return custom_admin_urls + urls
 
     def get_queryset(self, request):
         return (

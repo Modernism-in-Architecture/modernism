@@ -1,6 +1,6 @@
 from django import forms
 from django.forms.widgets import MultipleHiddenInput
-from mia_facts.models import City, Country
+from mia_facts.models import City, Country, Photographer
 from mia_people.models import Architect, Developer
 
 from mia_buildings.models import (
@@ -14,6 +14,20 @@ from mia_buildings.models import (
     Roof,
     Window,
 )
+
+
+class BulkUploadImagesForm(forms.Form):
+    multiple_images = forms.ImageField(
+        label="Select images", widget=forms.ClearableFileInput(attrs={"multiple": True})
+    )
+    photographer_choices = list(Photographer.objects.values_list("id", "last_name"))
+    photographer_choices.insert(0, (None, "------"))
+    photographer = forms.ChoiceField(
+        required=False,
+        widget=forms.Select,
+        choices=photographer_choices,
+    )
+    title = forms.CharField(label="General name for the images")
 
 
 class BuildingForImageSelectionAdminForm(forms.Form):
