@@ -101,7 +101,10 @@
                         {% endif %}
 
                         <h4 class="address mb-3 mt-3">Address and directions</h4>
-                        <p class="building-address">{{building.address}}<br>{{building.zip_code}} {{building.city}}, {{building.country}}
+                        <p class="building-address">{{building.address}}<br>
+                        {{building.zip_code}}
+                        {% if city_fact %}<a href="{% url 'fact-details' city_fact.slug %}" alt="{{fact.title}}">{% endif %} {{building.city}}{% if city_fact %}</a>{% endif %},
+                        {% if country_fact %}<a href="{% url 'fact-details' country_fact.slug %}" alt="{{fact.title}}">{% endif %} {{building.city.country}}{% if country_fact %}</a>{% endif %}
                         {% if building.directions %}
                             <p><strong>Public transport:</strong> {{building.directions}}</p>
                         {% endif %}

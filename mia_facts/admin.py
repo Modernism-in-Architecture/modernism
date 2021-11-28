@@ -60,7 +60,7 @@ class FactImageInline(admin.StackedInline):
 @admin.register(Fact)
 class FactAdmin(admin.ModelAdmin):
     search_fields = ["title", "description"]
-    list_display = ["title", "pk", "get_categories", "created"]
+    list_display = ["title", "pk", "is_published", "get_categories", "created"]
     filter_horizontal = ["categories", "sources"]
     readonly_fields = ["slug"]
     formfield_overrides = {

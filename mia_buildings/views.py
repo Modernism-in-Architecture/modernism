@@ -6,7 +6,7 @@ from django.db.models.query import Prefetch
 from django.http.request import MultiValueDict, QueryDict
 from django.shortcuts import redirect, render
 from el_pagination.decorators import page_template
-from mia_facts.models import Photographer
+from mia_facts.models import Fact, Photographer
 from rest_framework.decorators import api_view
 
 from mia_buildings.forms import BuildingsFilterForm, BulkUploadImagesForm
@@ -250,6 +250,9 @@ def get_building_details(
         is_published=True, city=building.city
     )
 
+    city_fact = Fact.objects.filter(title=building.city).first()
+    country_fact = Fact.objects.filter(title=building.city.country).first()
+
     context = {
         "building": building,
         "buildings_of_same_city": serialize(
@@ -257,6 +260,8 @@ def get_building_details(
             buildings_of_same_city,
             fields=("pk", "latitude", "longitude", "slug", "name", "address"),
         ),
+        "city_fact": city_fact,
+        "country_fact": country_fact,
     }
 
     if extra_context is not None:
