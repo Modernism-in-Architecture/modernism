@@ -195,7 +195,7 @@ class BuildingAdmin(NonSortableParentAdmin):
         "updated",
         "slug",
     ]
-    list_filter = ["is_published", "city__country"]
+    list_filter = ["is_published", ("city__country", admin.RelatedOnlyFieldListFilter)]
     filter_horizontal = [
         "windows",
         "roofs",
