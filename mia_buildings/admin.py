@@ -62,6 +62,7 @@ class BuildingImageAdmin(admin.ModelAdmin):
         "title",
         "is_published",
         "is_feed_image",
+        "image",
         "building",
         "description",
         "photographer",
@@ -194,6 +195,7 @@ class BuildingAdmin(NonSortableParentAdmin):
         "updated",
         "slug",
     ]
+    list_filter = ["is_published", "city__country"]
     filter_horizontal = [
         "windows",
         "roofs",
