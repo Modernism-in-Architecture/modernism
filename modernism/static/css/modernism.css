@@ -7935,6 +7935,10 @@ body {
   .buildings .section .content a:hover, .building .section .content a:hover, .people-index .section .content a:hover, .people .section .content a:hover, .knowledge .section .content a:hover, .fact .section .content a:hover, .architect .section .content a:hover, .developer .section .content a:hover {
     color: red; }
 
+.buildings .content, .building .content, .people-index .content, .people .content, .knowledge .content, .fact .content, .architect .content, .developer .content {
+  width: 100%;
+  overflow: hidden; }
+
 .card {
   border-radius: 10px;
   overflow: hidden; }
