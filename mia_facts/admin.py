@@ -29,18 +29,41 @@ class UniversityAdmin(admin.ModelAdmin):
 
 @admin.register(City)
 class CityAdmin(admin.ModelAdmin):
-    list_display = ["name", "country", "get_number_of_related_buildings"]
+    list_display = [
+        "name",
+        "country",
+        "get_number_of_related_buildings",
+        "get_number_of_related_people",
+        "get_number_of_related_universities",
+    ]
     search_fields = ["name"]
     ordering = ["name"]
 
     def get_number_of_related_buildings(self, obj):
         return obj.building_set.count()
 
-    get_number_of_related_buildings.short_description = "Number of buildings"
+    get_number_of_related_buildings.short_description = "Number of related buildings"
+
+    def get_number_of_related_people(self, obj):
+        return obj.birth_place_people.count() + obj.death_place_people.count()
+
+    get_number_of_related_people.short_description = "Number of related people"
+
+    def get_number_of_related_universities(self, obj):
+        return obj.university_set.count()
+
+    get_number_of_related_universities.short_description = (
+        "Number of related universities"
+    )
 
     def get_queryset(self, request):
         qs = super(CityAdmin, self).get_queryset(request)
-        return qs.select_related("country").prefetch_related("building_set")
+        return (
+            qs.select_related("country")
+            .prefetch_related("building_set")
+            .prefetch_related("birth_place_people")
+            .prefetch_related("death_place_people")
+        )
 
 
 @admin.register(Country)
