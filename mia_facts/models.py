@@ -14,7 +14,7 @@ class Country(models.Model):
 
 
 class City(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     country = models.ForeignKey(
         "mia_facts.Country", on_delete=models.SET_NULL, null=True, blank=True
     )
