@@ -36,9 +36,17 @@ class BuildingImageAdminForm(forms.ModelForm):
 
 @admin.register(BuildingImage)
 class BuildingImageAdmin(admin.ModelAdmin):
-    # ToDo: Add filter
     form = BuildingImageAdminForm
-    search_fields = ["title", "building__name"]
+    search_fields = [
+        "title",
+        "building__name",
+        "building__city__name",
+        "building__city__country__name",
+    ]
+    list_filter = [
+        ("building__city__country", admin.RelatedOnlyFieldListFilter),
+        ("building__city", admin.RelatedOnlyFieldListFilter),
+    ]
     autocomplete_fields = ["building"]
     actions = ["add_images_to_building"]
     list_display = [

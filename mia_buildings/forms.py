@@ -1,7 +1,9 @@
 from django import forms
+from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.forms.widgets import MultipleHiddenInput
 from mia_facts.models import City, Country, Photographer
 from mia_people.models import Architect, Developer
+from taggit.models import Tag
 
 from mia_buildings.models import (
     AccessType,
@@ -26,6 +28,11 @@ class BulkUploadImagesForm(forms.Form):
         required=False,
         widget=forms.Select,
         choices=photographer_choices,
+    )
+    tags = forms.ModelMultipleChoiceField(
+        required=False,
+        queryset=Tag.objects.order_by("name"),
+        widget=FilteredSelectMultiple("Tags", True),
     )
     title = forms.CharField(label="General name for the images")
 
