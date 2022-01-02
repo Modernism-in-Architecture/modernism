@@ -191,8 +191,7 @@ class BuildingAdminForm(forms.ModelForm):
 
 @admin.register(Building)
 class BuildingAdmin(NonSortableParentAdmin):
-    # ToDo: Add filter
-    search_fields = ["name", "description"]
+    search_fields = ["name", "description", "city__name", "city__country__name"]
     list_display = [
         "name",
         "pk",
@@ -203,7 +202,11 @@ class BuildingAdmin(NonSortableParentAdmin):
         "updated",
         "slug",
     ]
-    list_filter = ["is_published", ("city__country", admin.RelatedOnlyFieldListFilter)]
+    list_filter = [
+        "is_published",
+        ("city__country", admin.RelatedOnlyFieldListFilter),
+        ("city", admin.RelatedOnlyFieldListFilter),
+    ]
     filter_horizontal = [
         "windows",
         "roofs",
@@ -297,6 +300,10 @@ class BuildingAdmin(NonSortableParentAdmin):
             },
         ),
     )
+
+    def get_queryset(self, request):
+        qs = super(BuildingAdmin, self).get_queryset(request)
+        return qs.select_related("city__country")
 
     def save_model(self, request, obj, form, change):
         obj.save()
