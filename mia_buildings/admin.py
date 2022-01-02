@@ -42,6 +42,7 @@ class BuildingImageAdmin(admin.ModelAdmin):
         "building__name",
         "building__city__name",
         "building__city__country__name",
+        "tags__name",
     ]
     list_filter = [
         ("building__city__country", admin.RelatedOnlyFieldListFilter),
