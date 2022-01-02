@@ -9,7 +9,16 @@ from .models import Architect, Developer, Professor
 class DeveloperAdmin(admin.ModelAdmin):
     autocomplete_fields = ["birth_place", "death_place"]
     search_fields = ["last_name", "first_name", "description"]
-    list_display = ["last_name", "first_name", "is_published", "created", "pk", "slug"]
+    list_display = [
+        "last_name",
+        "first_name",
+        "is_published",
+        "birth_place",
+        "death_place",
+        "created",
+        "pk",
+        "slug",
+    ]
     filter_horizontal = ["universities", "sources"]
     formfield_overrides = {
         models.TextField: {"widget": TinyMCE()},
@@ -24,7 +33,16 @@ class DeveloperAdmin(admin.ModelAdmin):
 class ArchitectAdmin(admin.ModelAdmin):
     autocomplete_fields = ["birth_place", "death_place"]
     search_fields = ["last_name", "first_name", "description"]
-    list_display = ["last_name", "first_name", "is_published", "created", "pk", "slug"]
+    list_display = [
+        "last_name",
+        "first_name",
+        "is_published",
+        "birth_place",
+        "death_place",
+        "created",
+        "pk",
+        "slug",
+    ]
     filter_horizontal = [
         "architect_mentors",
         "professor_mentors",
@@ -62,7 +80,16 @@ class ArchitectAdmin(admin.ModelAdmin):
 class ProfessorAdmin(admin.ModelAdmin):
     autocomplete_fields = ["birth_place", "death_place"]
     search_fields = ["last_name", "first_name", "description"]
-    list_display = ["last_name", "first_name", "is_published", "created", "pk", "slug"]
+    list_display = [
+        "last_name",
+        "first_name",
+        "is_published",
+        "birth_place",
+        "death_place",
+        "created",
+        "pk",
+        "slug",
+    ]
     filter_horizontal = [
         "architect_mentors",
         "professor_mentors",
