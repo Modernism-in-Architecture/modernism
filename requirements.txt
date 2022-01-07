@@ -5,7 +5,7 @@ botocore==1.23.8
 click==8.0.3
 cssselect2==0.4.1
 dj-database-url==0.5.0
-Django==3.2.9
+Django==3.2.10
 django-admin-sortable==2.2.4
 django-countries==7.2.1
 django-debug-toolbar==3.2.2
@@ -13,13 +13,13 @@ django-el-pagination==3.3.0
 django-heroku==0.3.1
 django-storages==1.12.3
 django-taggit==2.0.0
-django-tinymce==3.3.0
+django-tinymce==3.4.0
 djangorestframework==3.12.4
 easy-thumbnails==2.8
 factory_boy==3.2.1
 gunicorn==20.1.0
 jmespath==0.10.0
-lxml==4.6.4
+lxml==4.6.5
 mypy-extensions==0.4.3
 pathspec==0.9.0
 Pillow==8.4.0
