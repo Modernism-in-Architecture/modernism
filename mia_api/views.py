@@ -3,13 +3,14 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 
+from mia_api.serializers import BuildingSerializer
+
 
 @api_view(["GET"])
 @renderer_classes((JSONRenderer,))
 @permission_classes([IsAuthenticated])
 def get_buildings(request):
 
-    content = {"message": "Hello, World!"}
-    status_code = 200
+    buildings_data, status_code = BuildingSerializer.get_buildings_data(request)
 
-    return Response(data=content, status=status_code)
+    return Response(data=buildings_data, status=status_code)
