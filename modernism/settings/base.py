@@ -4,16 +4,7 @@ PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
 INSTALLED_APPS = [
-    "mia_buildings",
-    "mia_people",
-    "mia_facts",
-    "mia_general",
-    "commands",
-    "debug_toolbar",
-    "rest_framework",
-    "taggit",
-    "storages",
-    "tinymce",
+    # Django
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -22,9 +13,23 @@ INSTALLED_APPS = [
     "django.contrib.postgres",
     "django.contrib.sitemaps",
     "django.contrib.staticfiles",
+    # Third-Party
+    "adminsortable",
+    "debug_toolbar",
     "el_pagination",
     "easy_thumbnails",
-    "adminsortable",
+    "rest_framework",
+    "rest_framework.authtoken",
+    "storages",
+    "taggit",
+    "tinymce",
+    # Local
+    "commands",
+    "mia_buildings",
+    "mia_people",
+    "mia_facts",
+    "mia_general",
+    "mia_api",
 ]
 
 MIDDLEWARE = [
@@ -132,4 +137,10 @@ TINYMCE_DEFAULT_CONFIG = {
     "menubar": True,
     "plugins": "advlist,autolink,lists,link,charmap,fullscreen,insertdatetime,media,table,paste,code,help,wordcount",
     "toolbar": "undo redo | formatselect | bold italic backcolor | link |alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help",
+}
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication",
+    ],
 }

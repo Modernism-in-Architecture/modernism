@@ -23,9 +23,9 @@ sitemaps = {
 }
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
     path("", include("mia_general.urls")),
-    path("tinymce/", include("tinymce.urls")),
+    path("admin/", admin.site.urls),
+    path("api/", include("mia_api.urls")),
     path("buildings/", include("mia_buildings.urls")),
     path("people/", include("mia_people.urls")),
     path("facts/", include("mia_facts.urls")),
@@ -35,6 +35,7 @@ urlpatterns = [
         {"sitemaps": sitemaps},
         name="django.contrib.sitemaps.views.sitemap",
     ),
+    path("tinymce/", include("tinymce.urls")),
 ]
 
 if settings.DEBUG:
