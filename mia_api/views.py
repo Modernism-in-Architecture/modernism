@@ -14,3 +14,15 @@ def get_buildings(request):
     buildings_data, status_code = BuildingSerializer.get_buildings_data(request)
 
     return Response(data=buildings_data, status=status_code)
+
+
+@api_view(["GET"])
+@renderer_classes((JSONRenderer,))
+@permission_classes([IsAuthenticated])
+def get_building_details(request, building_id):
+
+    buildings_data, status_code = BuildingSerializer.get_building_details_data(
+        request, building_id
+    )
+
+    return Response(data=buildings_data, status=status_code)
