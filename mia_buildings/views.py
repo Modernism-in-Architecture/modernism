@@ -6,7 +6,7 @@ from django.db.models.query import Prefetch
 from django.http.request import MultiValueDict, QueryDict
 from django.shortcuts import redirect, render
 from el_pagination.decorators import page_template
-from mia_facts.models import Fact, Photographer
+from mia_facts.models import Fact, Photographer, Source
 from rest_framework.decorators import api_view
 
 from mia_buildings.forms import BuildingsFilterForm, BulkUploadImagesForm
@@ -226,7 +226,6 @@ def get_building_details(
         .prefetch_related("roofs")
         .prefetch_related("facades")
         .prefetch_related("construction_types")
-        .prefetch_related("sources")
         .prefetch_related(
             Prefetch(
                 "buildingimage_set",
@@ -262,6 +261,10 @@ def get_building_details(
         ),
         "city_fact": city_fact,
         "country_fact": country_fact,
+        "source_urls": building.sources.filter(source_type=Source.SourceType.WEBSITE),
+        "source_books": building.sources.filter(
+            source_type__in=[Source.SourceType.BOOK, Source.SourceType.JOURNAL]
+        ).prefetch_related("authors"),
     }
 
     if extra_context is not None:
