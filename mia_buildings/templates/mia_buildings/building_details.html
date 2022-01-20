@@ -134,6 +134,19 @@
                                 <p><strong>History</strong></p>
                                 {{building.history | safe}}
                             {% endif %}
+                            {% if building.sources %}
+                                <p><strong>Sources</strong></p>
+                                <ul>
+                                    {% for source in source_urls.all %}
+                                        <li><a href="{{source.url}}" target="_blank" rel="noreferrer noopener">{{source.title}}</a></li>
+                                    {% endfor %}
+                                    {% for source in source_books.all %}
+                                        <li>
+                                            {% for author in source.authors.all %} {{author.last_name}}{% if forloop.last %}:{% else %}, {% endif %}{% endfor %} {{source.title}}, {% if source.year %}{{source.year}}{% endif %}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
