@@ -134,7 +134,7 @@
                                 <p><strong>History</strong></p>
                                 {{building.history | safe}}
                             {% endif %}
-                            {% if building.sources %}
+                            {% if source_urls or source_books %}
                                 <p><strong>Sources</strong></p>
                                 <ul>
                                     {% for source in source_urls.all %}
