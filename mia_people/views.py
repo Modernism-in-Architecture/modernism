@@ -2,6 +2,7 @@ from django.contrib.postgres.search import SearchVector
 from django.db.models.query import Prefetch
 from django.shortcuts import render
 from mia_buildings.models import Building, BuildingImage
+from mia_facts.models import Source
 from rest_framework.decorators import api_view
 
 from .models import Architect, Developer
@@ -109,9 +110,14 @@ def get_architect_details(
             to_attr="feed_images",
         )
     )
+
     context = {
         "person": architect,
         "related_buildings": related_buildings,
+        "source_urls": architect.sources.filter(source_type=Source.SourceType.WEBSITE),
+        "source_books": architect.sources.filter(
+            source_type__in=[Source.SourceType.BOOK, Source.SourceType.JOURNAL]
+        ).prefetch_related("authors"),
     }
 
     if extra_context is not None:
@@ -135,7 +141,13 @@ def get_developer_details(
         .first()
     )
 
-    context = {"person": developer}
+    context = {
+        "person": developer,
+        "source_urls": developer.sources.filter(source_type=Source.SourceType.WEBSITE),
+        "source_books": developer.sources.filter(
+            source_type__in=[Source.SourceType.BOOK, Source.SourceType.JOURNAL]
+        ).prefetch_related("authors"),
+    }
 
     if extra_context is not None:
         context.update(extra_context)
