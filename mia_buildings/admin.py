@@ -339,38 +339,118 @@ class BuildingAdmin(NonSortableParentAdmin):
 @admin.register(ConstructionType)
 class ConstructionTypeAdmin(admin.ModelAdmin):
     search_fields = ["name"]
+    ordering = ["name"]
+    list_display = ["name", "number_of_related_buildings", "id"]
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        return qs.prefetch_related("building_set")
+
+    @admin.display(description="Number of Buildings")
+    def number_of_related_buildings(self, construction_type):
+        return construction_type.building_set.count()
 
 
 @admin.register(Facade)
 class FacadeAdmin(admin.ModelAdmin):
     search_fields = ["name"]
+    ordering = ["name"]
+    list_display = ["name", "number_of_related_buildings", "id"]
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        return qs.prefetch_related("building_set")
+
+    @admin.display(description="Number of Buildings")
+    def number_of_related_buildings(self, facade):
+        return facade.building_set.count()
 
 
 @admin.register(Roof)
 class RoofAdmin(admin.ModelAdmin):
     search_fields = ["name"]
+    ordering = ["name"]
+    list_display = ["name", "number_of_related_buildings", "id"]
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        return qs.prefetch_related("building_set")
+
+    @admin.display(description="Number of Buildings")
+    def number_of_related_buildings(self, roof):
+        return roof.building_set.count()
 
 
 @admin.register(Window)
 class WindowAdmin(admin.ModelAdmin):
     search_fields = ["name"]
+    ordering = ["name"]
+    list_display = ["name", "number_of_related_buildings", "id"]
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        return qs.prefetch_related("building_set")
+
+    @admin.display(description="Number of Buildings")
+    def number_of_related_buildings(self, window):
+        return window.building_set.count()
 
 
 @admin.register(Detail)
 class DetailAdmin(admin.ModelAdmin):
     search_fields = ["name"]
+    ordering = ["name"]
+    list_display = ["name", "number_of_related_buildings", "id"]
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        return qs.prefetch_related("building_set")
+
+    @admin.display(description="Number of Buildings")
+    def number_of_related_buildings(self, detail):
+        return detail.building_set.count()
 
 
 @admin.register(Position)
 class PositionAdmin(admin.ModelAdmin):
     search_fields = ["name"]
+    ordering = ["name"]
+    list_display = ["name", "number_of_related_buildings", "id"]
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        return qs.prefetch_related("building_set")
+
+    @admin.display(description="Number of Buildings")
+    def number_of_related_buildings(self, position):
+        return position.building_set.count()
 
 
 @admin.register(BuildingType)
 class BuildingTypeAdmin(admin.ModelAdmin):
     search_fields = ["name"]
+    ordering = ["name"]
+    list_display = ["name", "number_of_related_buildings", "id"]
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        return qs.prefetch_related("building_set")
+
+    @admin.display(description="Number of Buildings")
+    def number_of_related_buildings(self, building_type):
+        return building_type.building_set.count()
 
 
 @admin.register(AccessType)
 class AccessTypeAdmin(admin.ModelAdmin):
     search_fields = ["name"]
+    ordering = ["name"]
+    list_display = ["name", "number_of_related_buildings", "id"]
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        return qs.prefetch_related("building_set")
+
+    @admin.display(description="Number of Buildings")
+    def number_of_related_buildings(self, access_type):
+        return access_type.building_set.count()
