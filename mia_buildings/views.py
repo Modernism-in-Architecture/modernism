@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.postgres.search import SearchVector
 from django.core.serializers import serialize
 from django.db.models.query import Prefetch
+from django.http import Http404
 from django.http.request import MultiValueDict, QueryDict
 from django.shortcuts import redirect, render
 from el_pagination.decorators import page_template
@@ -246,7 +247,12 @@ def get_building_details(
         )
         .first()
     )
+    if not building:
+        return render(request, "404.html", status=404)
 
+    # import pdb
+
+    # pdb.set_trace()
     buildings_of_same_city = Building.objects.filter(
         is_published=True, city=building.city
     )

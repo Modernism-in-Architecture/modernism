@@ -63,6 +63,9 @@ def get_fact_details(
         .first()
     )
 
+    if not fact:
+        return render(request, "404.html", status=404)
+
     context = {"fact": fact}
 
     if extra_context is not None:
