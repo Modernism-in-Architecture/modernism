@@ -427,11 +427,14 @@ body {
     }
 }
 
-.people, .facts {
+.architect, .developer, .facts {
     .rich-text {
         margin: 2rem 0;
     }
-    .preview-image > img{
+    .card {
+        box-shadow: none;
+    }
+    img {
         box-shadow: $card-shadow;
     }
     @media screen and (max-width: 840px) {
@@ -487,6 +490,9 @@ body {
     .active-tag {
         background-color: $black;
     }
+    .card {
+        box-shadow: $card-shadow;
+    }
 }
 
 .people-index, .facts {
@@ -519,6 +525,7 @@ body {
         border-radius: $border-radius;
     }
 }
+
 .about {
     .richtext-image {
         max-width: 300px;

@@ -8147,14 +8147,17 @@ body {
       display: flex;
       flex-direction: column-reverse; } }
 
-.people .rich-text, .facts .rich-text {
+.architect .rich-text, .developer .rich-text, .facts .rich-text {
   margin: 2rem 0; }
 
-.people .preview-image > img, .facts .preview-image > img {
+.architect .card, .developer .card, .facts .card {
+  box-shadow: none; }
+
+.architect img, .developer img, .facts img {
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px; }
 
 @media screen and (max-width: 840px) {
-  .people .reverse-column-order, .facts .reverse-column-order {
+  .architect .reverse-column-order, .developer .reverse-column-order, .facts .reverse-column-order {
     display: flex;
     flex-direction: column-reverse; } }
 
@@ -8198,6 +8201,9 @@ body {
 
 .facts .active-tag {
   background-color: #0a0a0a; }
+
+.facts .card {
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px; }
 
 .people-index .is-small.input, .people-index .is-small.textarea, .facts .is-small.input, .facts .is-small.textarea {
   border-radius: 5px; }
