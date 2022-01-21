@@ -2,6 +2,19 @@
 
 {% load static %}
 
+{% block extra_head_tags %}
+    <title>Facts about modernist architecture</title>
+    <meta name="description" property="og:description" content="A modernist knowledge archive: A collection of facts about modernist architecture, theories and concepts.">
+    <meta name="keywords" content="Bauhaus-Ausstellung, Cinq points de l'architecture moderne, Werkbund, Congrès International d'Architecture Moderne (CIAM), Bauhaus, Neues Bauen, Modernism, Razionalismo">
+
+    <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+    <meta property="og:title" content="Facts about modernist architecture" />
+    <meta name="description" property="og:description" content="A modernist knowledge archive: A collection of facts about modernist architecture, theories and concepts.">
+    <meta property="og:image" content="https://modernism-in-architecture.org/static/img/mia-logo_square.fc43caad2f32.png" />
+    <meta property="og:image:alt" content="Three letters of the logo: red M, blue I, yellow A" />
+    <meta name="twitter:card" value="summary">
+{% endblock %}
+
 {% block body_class %}facts{% endblock %}
 
 {% block breadcrumbs %}

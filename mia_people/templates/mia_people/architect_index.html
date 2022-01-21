@@ -2,6 +2,19 @@
 
 {% load static %}
 
+{% block extra_head_tags %}
+    <title>List of modernist architects on MIA</title>
+    <meta name="description" property="og:description" content="{{persons.count}} modernist architects have been archived so far on modernism-in-architecture.org.">
+    <meta name="keywords" content="modernist architects, architects of the 20s, architects of the interwar period">
+
+    <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+    <meta property="og:title" content="List of modernist architects on MIA" />
+    <meta name="description" property="og:description" content="{{persons.count}} modernist architects have been archived so far on modernism-in-architecture.org.">
+    <meta property="og:image" content="https://modernism-in-architecture.org/static/img/mia-logo_square.fc43caad2f32.png" />
+    <meta property="og:image:alt" content="Three letters of the logo: red M, blue I, yellow A" />
+    <meta name="twitter:card" value="summary">
+{% endblock %}
+
 {% block body_class %}architects{% endblock %}
 
 {% block extra_css %}{% endblock %}

@@ -2,6 +2,19 @@
 
 {% load static thumbnail %}
 
+{% block extra_head_tags %}
+    <title>Developer {% if person.first_name %}{{person.first_name}} {% endif %}{{person.last_name}}</title>
+    <meta name="description" property="og:description" content="{{fact.description|striptags|truncatewords:150}}">
+    <meta name="keywords" content="{{person.last_name}}, modernist developer">
+
+    <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+    <meta property="og:title" content="Developer {% if person.first_name %}{{person.first_name}} {% endif %}{{person.last_name}}" />
+    <meta name="description" property="og:description" content="{{person.description|striptags|truncatewords:150}}">
+    <meta property="og:image" content="https://modernism-in-architecture.org/static/img/mia-logo_square.fc43caad2f32.png" />
+    <meta property="og:image:alt" content="Three letters of the logo: red M, blue I, yellow A" />
+    <meta name="twitter:card" value="summary">
+{% endblock %}
+
 {% block body_class %}developer{% endblock %}
 
 {% block breadcrumbs %}

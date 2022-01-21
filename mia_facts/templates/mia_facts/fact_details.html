@@ -2,6 +2,19 @@
 
 {% load static thumbnail %}
 
+{% block extra_head_tags %}
+    <title>{{fact.title}}</title>
+    <meta name="description" property="og:description" content="{{fact.description|striptags|truncatewords:150}}">
+    <meta name="keywords" content="Bauhaus-Ausstellung, Architektur der Moderne, Werkbund, CIAM, Bauhaus, Neues Bauen, Modernism, Razionalismo">
+
+    <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+    <meta property="og:title" content="{{fact.title}}" />
+    <meta name="description" property="og:description" content="{{fact.description|striptags|truncatewords:150}}">
+    <meta property="og:image" content="https://modernism-in-architecture.org/static/img/mia-logo_square.fc43caad2f32.png" />
+    <meta property="og:image:alt" content="Three letters of the logo: red M, blue I, yellow A" />
+    <meta name="twitter:card" value="summary">
+{% endblock %}
+
 {% block body_class %}fact{% endblock %}
 
 {% block breadcrumbs %}

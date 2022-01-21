@@ -2,6 +2,19 @@
 
 {% load static thumbnail %}
 
+{% block extra_head_tags %}
+    <title>{{building.name}}</title>
+    <meta name="description" property="og:description" content="{% if building.subtitle %}{{building.subtitle}}{% else %} {{building.name}} {% endif %}{% if building.year_of_construction %} built {{building.year_of_construction}} in {% endif %}{{building.city}}, {{building.city.country}}">
+    <meta name="keywords" content="{{building.city}}, {{building.city.country}}, {% for architect in building.architects.all %}{{architect}}, {% endfor %}">
+
+    <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+    <meta property="og:title" content="{{building.name}}" />
+    <meta name="description" property="og:description" content="{{building.name}}{% if building.year_of_construction %} built in {{building.year_of_construction}}{% endif %}, {{building.city}}, {{building.city.country}} ">
+    <meta property="og:image" content="{{ building.feed_images.0.image|thumbnail_url:'square' }}>" />
+    <meta property="og:image:alt" content="Three letters of the logo: red M, blue I, yellow A" />
+    <meta name="twitter:card" value="summary">
+{% endblock %}
+
 {% block body_class %}building{% endblock %}
 
 {% block extra_css %}

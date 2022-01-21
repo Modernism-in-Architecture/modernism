@@ -2,6 +2,19 @@
 
 {% load static %}
 
+{% block extra_head_tags %}
+    <title>About the MIA project</title>
+    <meta name="description" property="og:description" content="About the Modernism in Architecture project and its founders.">
+    <meta name="keywords" content="Frank Dietze, Norma Driske, osthorizonte">
+
+    <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+    <meta property="og:title" content="About the MIA project" />
+    <meta name="description" property="og:description" content="About the Modernism in Architecture project and its founders.">
+    <meta property="og:image" content="https://modernism-in-architecture.org/static/img/mia-logo_square.fc43caad2f32.png" />
+    <meta property="og:image:alt" content="Three letters of the logo: red M, blue I, yellow A" />
+    <meta name="twitter:card" value="summary">
+{% endblock %}
+
 {% block body_class %}about{% endblock %}
 
 {% block breadcrumbs %}

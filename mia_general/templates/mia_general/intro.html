@@ -2,6 +2,19 @@
 
 {% load static %}
 
+{% block extra_head_tags %}
+    <title>Introduction to the modernist archive</title>
+    <meta name="description" property="og:description" content="How we select modernist buildings of interest">
+    <meta name="keywords" content="consruction, aesthetics, social aspects, politics">
+
+    <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+    <meta property="og:title" content="Introduction to the modernist archive" />
+    <meta name="description" property="og:description" content="How we select modernist buildings of interest">
+    <meta property="og:image" content="https://modernism-in-architecture.org/static/img/mia-logo_square.fc43caad2f32.png" />
+    <meta property="og:image:alt" content="Three letters of the logo: red M, blue I, yellow A" />
+    <meta name="twitter:card" value="summary">
+{% endblock %}
+
 {% block body_class %}intro{% endblock %}
 
 {% block breadcrumbs %}
