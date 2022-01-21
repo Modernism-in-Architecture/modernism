@@ -48,51 +48,53 @@
             <div class="columns">
                 <div class="column is-8-tablet">
                     <div class="content">
-                        <div class="columns">
-                            <div class="column">
-                                <div class="columns is-gapless">
-                                    {% if person.birthday %}
-                                        <div class="column is-1">
-                                            <ion-icon name="heart-circle-outline" class="is-size-4"></ion-icon>
-                                        </div>
-                                    {% endif %}
-                                    {% if person.birthday %}
-                                        <div class="column">
-                                            {% if person.birth_year_known_only %}
-                                                {{person.birthday|date:"Y"}}
-                                            {% else %}
-                                                {{person.birthday}}
-                                            {% endif %}
-                                            {% if person.birth_place %}
-                                                in {{person.birth_place}}, {{person.birth_place.country}}
-                                            {% endif %}
-                                        </div>
-                                    {% endif %}
+                        {% if person.birthday or person.day_of_death %}
+                            <div class="columns">
+                                <div class="column">
+                                    <div class="columns is-gapless">
+                                        {% if person.birthday %}
+                                            <div class="column is-1">
+                                                <ion-icon name="heart-circle-outline" class="is-size-4"></ion-icon>
+                                            </div>
+                                        {% endif %}
+                                        {% if person.birthday %}
+                                            <div class="column">
+                                                {% if person.birth_year_known_only %}
+                                                    {{person.birthday|date:"Y"}}
+                                                {% else %}
+                                                    {{person.birthday}}
+                                                {% endif %}
+                                                {% if person.birth_place %}
+                                                    in {{person.birth_place}}, {{person.birth_place.country}}
+                                                {% endif %}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="column">
+                                    <div class="columns is-gapless">
+                                        {% if person.day_of_death %}
+                                            <div class="column is-1">
+                                                <ion-icon name="heart-dislike-circle-outline" class="is-size-4"></ion-icon>
+                                            </div>
+                                        {% endif %}
+                                        
+                                        {% if person.day_of_death %}
+                                            <div class="column">
+                                                {% if person.death_year_known_only %}
+                                                    {{person.day_of_death|date:"Y"}}
+                                                {% else %}
+                                                    {{person.day_of_death}}
+                                                {% endif %}
+                                                {% if person.death_place %}
+                                                    in {{person.death_place}}, {{person.death_place.country}}
+                                                {% endif %}
+                                            </div>
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </div>
-                            <div class="column">
-                                <div class="columns is-gapless">
-                                    {% if person.day_of_death %}
-                                        <div class="column is-1">
-                                            <ion-icon name="heart-dislike-circle-outline" class="is-size-4"></ion-icon>
-                                        </div>
-                                    {% endif %}
-                                    
-                                    {% if person.day_of_death %}
-                                        <div class="column">
-                                            {% if person.death_year_known_only %}
-                                                {{person.day_of_death|date:"Y"}}
-                                            {% else %}
-                                                {{person.day_of_death}}
-                                            {% endif %}
-                                            {% if person.death_place %}
-                                                in {{person.death_place}}, {{person.death_place.country}}
-                                            {% endif %}
-                                        </div>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </div>
+                        {% endif %}
                         {% if person.description %}
                             <div class="card">
                                 <div class="card-content">

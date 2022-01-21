@@ -8147,17 +8147,17 @@ body {
       display: flex;
       flex-direction: column-reverse; } }
 
-.architect .rich-text, .developer .rich-text, .facts .rich-text {
+.architect .rich-text, .developer .rich-text, .fact .rich-text {
   margin: 2rem 0; }
 
-.architect .card, .developer .card, .facts .card {
+.architect .card, .developer .card, .fact .card {
   box-shadow: none; }
 
-.architect img, .developer img, .facts img {
+.architect img, .developer img, .fact img {
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px; }
 
 @media screen and (max-width: 840px) {
-  .architect .reverse-column-order, .developer .reverse-column-order, .facts .reverse-column-order {
+  .architect .reverse-column-order, .developer .reverse-column-order, .fact .reverse-column-order {
     display: flex;
     flex-direction: column-reverse; } }
 
