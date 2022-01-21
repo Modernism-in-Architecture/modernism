@@ -166,31 +166,16 @@
                                     <div class="p-1">
                                         <div class="dropdown-custom">
                                             <div class="dropdown-trigger">
-                                                <button class="button is-small" aria-haspopup="true" aria-controls="dropdown-menu-features">
-                                                    <span class="filter-label"><span class="filter-label">Types</span></span>
+                                                <button class="button is-small" aria-haspopup="true" aria-controls="dropdown-menu-buildingtype">
+                                                    <span class="filter-label">{{ form.building_types.label }}</span>
                                                     <span class="icon is-small">
                                                         <ion-icon name="chevron-down-outline"></ion-icon>
                                                     </span>
                                                 </button>
                                             </div>
-                                            <div id="dropdown-menu-features" class="menu is-hidden" role="menu">
+                                            <div id="dropdown-menu-buildingtype" class="menu is-hidden" role="menu">
                                                 <div class="dropdown-content p-2 is-size-7">
-                                                    <div class="mt-1">
-                                                        {{ form.building_types.label }}<br />
-                                                        <div class="select is-small">{{ form.building_types }}</div>
-                                                    </div>
-                                                    <div class="mt-1">
-                                                        {{ form.access_types.label }}<br />
-                                                        <span class="select is-small">{{ form.access_types }}</span>
-                                                    </div>
-                                                    <div class="mt-1">
-                                                        {{ form.protected_monument.label }}<br />
-                                                        <span class="select is-small">{{ form.protected_monument }}</span>
-                                                    </div>
-                                                    <div class="mt-1">
-                                                        {{ form.storey.label }}<br />
-                                                        <span class="select is-small">{{ form.storey }}</span>
-                                                    </div>
+                                                    {{ form.building_types }}
                                                 </div>
                                             </div>
                                         </div>
@@ -303,6 +288,36 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div class="p-1">
+                                        <div class="dropdown-custom">
+                                            <div class="dropdown-trigger">
+                                                <button class="button is-small" aria-haspopup="true" aria-controls="dropdown-menu-features">
+                                                    <span class="filter-label"><span class="filter-label">Types</span></span>
+                                                    <span class="icon is-small">
+                                                        <ion-icon name="chevron-down-outline"></ion-icon>
+                                                    </span>
+                                                </button>
+                                            </div>
+                                            <div id="dropdown-menu-features" class="menu is-hidden" role="menu">
+                                                <div class="dropdown-content p-2 is-size-7">
+                                                    <div class="mt-1">
+                                                        {{ form.access_types.label }}<br />
+                                                        <span class="select is-small">{{ form.access_types }}</span>
+                                                    </div>
+                                                    <div class="mt-1">
+                                                        {{ form.protected_monument.label }}<br />
+                                                        <span class="select is-small">{{ form.protected_monument }}</span>
+                                                    </div>
+                                                    <div class="mt-1">
+                                                        {{ form.storey.label }}<br />
+                                                        <span class="select is-small">{{ form.storey }}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
                                 </div>
                             </div>
                         </form>

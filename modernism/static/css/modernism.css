@@ -8081,6 +8081,7 @@ body {
   .building-idx-container #id_cities,
   .building-idx-container #id_countries,
   .building-idx-container #id_details,
+  .building-idx-container #id_building_types,
   .building-idx-container #id_windows {
     height: 10rem;
     width: 100%;
@@ -8096,6 +8097,7 @@ body {
   .building-idx-container #id_years::-webkit-scrollbar,
   .building-idx-container #id_cities::-webkit-scrollbar,
   .building-idx-container #id_details::-webkit-scrollbar,
+  .building-idx-container #id_building_types::-webkit-scrollbar,
   .building-idx-container #id_windows::-webkit-scrollbar {
     width: 12px; }
   .building-idx-container #id_architects::-webkit-scrollbar-track,
@@ -8103,6 +8105,7 @@ body {
   .building-idx-container #id_years::-webkit-scrollbar-track,
   .building-idx-container #id_cities::-webkit-scrollbar-track,
   .building-idx-container #id_details::-webkit-scrollbar-track,
+  .building-idx-container #id_building_types::-webkit-scrollbar-track,
   .building-idx-container #id_windows::-webkit-scrollbar-track {
     background: grey; }
   .building-idx-container #id_architects::-webkit-scrollbar-thumb,
@@ -8110,6 +8113,7 @@ body {
   .building-idx-container #id_years::-webkit-scrollbar-thumb,
   .building-idx-container #id_cities::-webkit-scrollbar-thumb,
   .building-idx-container #id_details::-webkit-scrollbar-thumb,
+  .building-idx-container #id_building_types::-webkit-scrollbar-thumb,
   .building-idx-container #id_windows::-webkit-scrollbar-thumb {
     background-color: lightgray;
     border-radius: 5px;

@@ -47,11 +47,6 @@ class BuildingForImageSelectionAdminForm(forms.Form):
 
 
 class BuildingsFilterForm(forms.Form):
-    building_types = forms.ModelChoiceField(
-        queryset=BuildingType.objects.all().order_by("name"),
-        widget=forms.Select(attrs={"class": "feature-select"}),
-        required=False,
-    )
     access_types = forms.ModelChoiceField(
         queryset=AccessType.objects.all().order_by("name"),
         widget=forms.Select(attrs={"class": "feature-select"}),
@@ -95,7 +90,6 @@ class BuildingsFilterForm(forms.Form):
         required=False,
         choices=[(year, year) for year in years_choices],
     )
-
     countries = forms.ModelMultipleChoiceField(
         queryset=Country.objects.filter(city__building__isnull=False)
         .distinct()
@@ -110,7 +104,11 @@ class BuildingsFilterForm(forms.Form):
         widget=forms.CheckboxSelectMultiple(),
         required=False,
     )
-
+    building_types = forms.ModelMultipleChoiceField(
+        queryset=BuildingType.objects.all().order_by("name"),
+        widget=forms.CheckboxSelectMultiple(),
+        required=False,
+    )
     positions = forms.ModelMultipleChoiceField(
         queryset=Position.objects.all().order_by("name"),
         widget=forms.CheckboxSelectMultiple(),

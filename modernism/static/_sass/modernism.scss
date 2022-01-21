@@ -334,6 +334,7 @@ body {
     #id_cities,
     #id_countries,
     #id_details,
+    #id_building_types,
     #id_windows {
         height: 10rem;
         width: 100%;
@@ -352,6 +353,7 @@ body {
     #id_years::-webkit-scrollbar,
     #id_cities::-webkit-scrollbar,
     #id_details::-webkit-scrollbar,
+    #id_building_types::-webkit-scrollbar,
     #id_windows::-webkit-scrollbar {
         width: 12px;
     }
@@ -361,6 +363,7 @@ body {
     #id_years::-webkit-scrollbar-track,
     #id_cities::-webkit-scrollbar-track,
     #id_details::-webkit-scrollbar-track,
+    #id_building_types::-webkit-scrollbar-track,
     #id_windows::-webkit-scrollbar-track {
         background: grey;
     }
@@ -370,6 +373,7 @@ body {
     #id_years::-webkit-scrollbar-thumb,
     #id_cities::-webkit-scrollbar-thumb,
     #id_details::-webkit-scrollbar-thumb,
+    #id_building_types::-webkit-scrollbar-thumb,
     #id_windows::-webkit-scrollbar-thumb {
         background-color: lightgray;
         border-radius: 5px;

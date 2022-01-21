@@ -91,15 +91,17 @@ def _get_filtered_buildings(cleaned_form_data, buildings):
         if not buildings:
             return buildings.none()
 
-    years = cleaned_form_data.get("years")
-    if years:
-        buildings = buildings.filter(year_of_construction__in=years)
+    building_types = cleaned_form_data.get("building_types")
+    if building_types.exists():
+        buildings = buildings.filter(
+            building_types__id__in=building_types.values_list("id", flat=True)
+        ).distinct()
         if not buildings:
             return buildings.none()
 
-    building_type = cleaned_form_data.get("building_types")
-    if building_type:
-        buildings = buildings.filter(building_type=building_type)
+    years = cleaned_form_data.get("years")
+    if years:
+        buildings = buildings.filter(year_of_construction__in=years)
         if not buildings:
             return buildings.none()
 
