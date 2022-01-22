@@ -78,7 +78,7 @@
                 <div class="column is-4-desktop">
                     <div class="feed-image">
                         {% if building.feed_images %}
-                            <img src="{{ building.feed_images.0.image|thumbnail_url:'square' }}">
+                            <img src="{{ building.feed_images.0.image|thumbnail_url:'square' }}" alt="Feed image of {{building.name}}">
                         {% endif %}
                     </div>
                     <p>
@@ -233,6 +233,7 @@
                                     index="{{ forloop.counter0 }}"
                                     photographer="{% if gallery_image.photographer %}{{ gallery_image.photographer }}{% endif %}"
                                     description="{% if gallery_image.description %}{{ gallery_image.description }}{% endif %}"
+                                    alt="Gallery image of {{building.name}}"
                                 />
                             {% endfor %}
                     </div>
