@@ -182,6 +182,7 @@ class BuildingAdminForm(forms.ModelForm):
         model = Building
         widgets = {
             "subtitle": forms.Textarea(attrs={"rows": "2"}),
+            "seo_title": forms.Textarea(attrs={"rows": "2"}),
             "history": TinyMCE(),
             "description": TinyMCE(),
             "directions": forms.Textarea(attrs={"rows": "3"}),
@@ -235,6 +236,7 @@ class BuildingAdmin(NonSortableParentAdmin):
                     "is_published",
                     "name",
                     "slug",
+                    "seo_title",
                     "address",
                     "zip_code",
                     "city",

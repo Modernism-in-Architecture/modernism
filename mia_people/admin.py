@@ -73,6 +73,7 @@ class ArchitectAdmin(admin.ModelAdmin):
         "professor_mentors",
         "description",
         "sources",
+        "seo_title",
     ]
 
 

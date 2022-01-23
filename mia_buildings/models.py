@@ -144,6 +144,8 @@ class Building(models.Model):
     is_published = models.BooleanField(default=False)
     slug = models.SlugField(max_length=254, blank=True)
 
+    seo_title = models.CharField(max_length=61, blank=True)
+
     def __str__(self):
         return f"{self.name}"
 

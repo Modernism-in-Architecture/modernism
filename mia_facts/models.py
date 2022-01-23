@@ -126,6 +126,8 @@ class Fact(models.Model):
     slug = models.SlugField(max_length=254, blank=True)
     sources = models.ManyToManyField("mia_facts.Source", blank=True)
 
+    seo_title = models.CharField(max_length=61, blank=True)
+
     def __str__(self):
         return f"{self.title}"
 

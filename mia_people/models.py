@@ -52,6 +52,8 @@ class Person(models.Model):
 
     sources = models.ManyToManyField("mia_facts.Source", blank=True)
 
+    seo_title = models.CharField(max_length=61, blank=True)
+
     def __str__(self):
         name = self.last_name
         if self.first_name:
