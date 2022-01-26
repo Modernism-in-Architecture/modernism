@@ -1,5 +1,5 @@
 const mapMia = L.map('mapMia').setView([51.339642, 12.374462], 6);
-const markers = L.markerClusterGroup();
+const markers = L.markerClusterGroup({ maxClusterRadius: 20 });
 
 const setUpMap = () => {
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
