@@ -105,7 +105,7 @@ def get_architect_details(
         return render(request, "404.html", status=404)
 
     related_buildings = Building.objects.filter(
-        architects__id=architect.id
+        is_published=True, architects__id=architect.id
     ).prefetch_related(
         Prefetch(
             "buildingimage_set",
@@ -147,8 +147,19 @@ def get_developer_details(
     if not developer:
         return render(request, "404.html", status=404)
 
+    related_buildings = Building.objects.filter(
+        is_published=True, developers__id=developer.id
+    ).prefetch_related(
+        Prefetch(
+            "buildingimage_set",
+            queryset=BuildingImage.objects.filter(is_feed_image=True),
+            to_attr="feed_images",
+        )
+    )
+
     context = {
         "person": developer,
+        "related_buildings": related_buildings,
         "source_urls": developer.sources.filter(source_type=Source.SourceType.WEBSITE),
         "source_books": developer.sources.filter(
             source_type__in=[Source.SourceType.BOOK, Source.SourceType.JOURNAL]
