@@ -95,6 +95,7 @@ def get_architect_details(
     architect = (
         Architect.objects.filter(slug=slug)
         .select_related("birth_place__country")
+        .select_related("death_place__country")
         .prefetch_related("universities")
         .prefetch_related("professor_mentors")
         .prefetch_related("architect_mentors")
