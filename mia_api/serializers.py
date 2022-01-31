@@ -138,7 +138,7 @@ class BuildingSerializer:
             "longitude": building.longitude,
             "galleryImages": gallery_image_urls,
             "subtitle": building.subtitle,
-            "todays_use": building.todays_use,
+            "todaysUse": building.todays_use,
             "history": building.history,
             "description": building.description,
             "directions": building.directions,
@@ -247,8 +247,8 @@ class PersonSerializer:
             if architect.death_place and architect.death_place.country
             else "",
             "description": architect.description,
-            "source_urls": web_sources,
-            "source_books": book_sources,
+            "sourceUrls": web_sources,
+            "sourceBooks": book_sources,
             "relatedBuildings": related_buildings_data,
         }
 
