@@ -7939,6 +7939,8 @@ body {
 
 .navbar {
   font-family: "Righteous"; }
+  .navbar .navbar-brand .navbar-item {
+    margin-right: 0; }
   .navbar .navbar-brand img {
     border-radius: 0;
     max-height: 1.3rem;
@@ -8044,6 +8046,14 @@ body {
 
 .building .content .rich-text {
   margin-bottom: 1rem; }
+
+@media screen and (max-width: 969px) {
+  .building .content {
+    border-radius: 10px; }
+  .building .box {
+    background-color: rgba(10, 10, 10, 0.1); }
+    .building .box p {
+      font-size: 1.1em; } }
 
 .building .preview-image, .building .feed-image img {
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px; }

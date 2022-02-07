@@ -147,11 +147,15 @@ body {
 .navbar {
     font-family: $righteous;
     .navbar-brand {
+        .navbar-item {
+            margin-right: 0;
+        }
         img {
             border-radius: 0;
             max-height: 1.3rem;
             height: 100%;
             width: 100%;
+            
         }
     }
     &.is-fixed-top {
@@ -284,6 +288,17 @@ body {
     }
     .content .rich-text {
         margin-bottom: 1rem;
+    }
+    @media screen and (max-width: 969px) {
+        .content {
+            border-radius: $border-radius;
+        }
+        .box {
+            background-color: rgba($black, 0.1);
+            p {
+                font-size: 1.1em;
+            }
+        }
     }
     .preview-image, .feed-image img {
         box-shadow: $card-shadow;
