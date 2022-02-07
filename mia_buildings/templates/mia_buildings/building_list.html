@@ -18,6 +18,7 @@
                             <h5 class="is-marginless">
                                 {{building.name}}<br>
                             </h5>
+                           {% if building.building_types %}{{building.building_types.first}}{% endif %}<br>
                            {% if building.city %}#{{building.city}}{% endif %} {% if building.city.country %}#{{building.city.country}}{% endif %} {% if building.year_of_construction %}#{{building.year_of_construction}}{% endif %}
                         </div>
                     </div>
