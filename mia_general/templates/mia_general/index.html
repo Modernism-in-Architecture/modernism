@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block extra_head_tags %}
-    <title>Modernism in Architecture</title>
+    <title>Modernism in Architecture: An archive of modernist buildings and architects</title>
     <meta name="description" property="og:description" content="An archive of modernist buildings and architects in Europe and the world.">
     <meta name="keywords" content="modernism, modernist architecture, international style, Bauhaus, De Stijl, Razionalismo, Neues Bauen, interwar period">
 
@@ -19,18 +19,39 @@
 
 {% block content %}
 
-<section class="hero is-fullheight">
-  <div class="hero-body">
-    <div class="container">
-      <div class="content has-text-centered">
-        <h1><span class="red">M</span>odernism <span class="blue">i</span>n <span class="yellow">A</span>rchitecture
-        </h1>
-        <h3>"A modern, harmonic and lively architecture is the visible sign of an authentic
-          democracy."<br><small><i>Walter Gropius </i></small></h3>
-        <a class="button is-outlined is-rounded" href="{% url 'building-index-list' %}">Explore</a>
-      </div>
+<section class="hero is-fullheight has-background-black">
+    <div id="hero-img" class="hero is-fullheight"></div>
+    <div class="centered">
+        <div class="content is-flex is-flex-direction-column">
+            <h1 class="is-size-1 has-text-centered"><span class="red">M</span>odernism <span class="blue">i</span>n <span class="yellow">A</span>rchitecture
+            </h1>
+            <h2 class="has-text-centered mt-1">An archive of modernist buildings and architects</h2>
+            <a class="button is-size-5" href="{% url 'building-index-list' %}">Explore</a>
+        </div>
     </div>
-  </div>
 </section>
 
 {% endblock content %}
+
+{% block extra_js %}
+<script>
+    const images = [
+        "{% static 'img/BirgitBoellinger@Pixabay_1.jpg'%}",
+        "{% static 'img/BirgitBoellinger@Pixabay_2.jpg'%}",
+        "{% static 'img/BirgitBoellinger@Pixabay_3.jpg'%}"
+    ];
+
+    let heroImage = document.getElementById("hero-img");
+    let imageIndex = 0;
+
+    const change = () => {
+        imageIndex = (imageIndex + 1) % images.length;
+        heroImage.style['background-image'] = 'url(' + images[imageIndex] +')';
+        heroImage.style['background-size'] = 'cover';
+        heroImage.classList.add("fadeInAndOut");
+    }
+
+    change();
+    setInterval(change, 8000);
+</script>
+{% endblock %}

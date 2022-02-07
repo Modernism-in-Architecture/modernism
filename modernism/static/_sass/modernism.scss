@@ -35,7 +35,7 @@ $desktop: 1050px + (2 * $gap);
 $roboto: "Roboto";
 $righteous: "Righteous";
 
-$yellow: rgb(255,255,0);
+$yellow: rgb(250,225,0);
 $blue: rgb(0,0,255);
 $red: rgb(255,0,0);
 
@@ -93,6 +93,34 @@ body {
     text-decoration-style: dotted;
 }
 
+.absolute {
+    position: absolute;
+}
+
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.fadeInAndOut {
+    -webkit-animation: fadeinout 8s linear forwards infinite;
+    animation: fadeinout 8s linear forwards infinite;
+}
+  
+@-webkit-keyframes fadeinout {
+    0%,100% { opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+}
+  
+@keyframes fadeinout {
+    0%,100% { opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+}
+
 .navbar a,
 .breadcrumb a,
 .dropdown-link,
@@ -122,10 +150,16 @@ body {
         img {
             border-radius: 0;
             max-height: 1.3rem;
+            height: 100%;
+            width: 100%;
         }
     }
     &.is-fixed-top {
         z-index: 999;
+    }
+    .navbar-burger {
+        margin-right: auto;
+        margin-left: 0;
     }
     .navbar-burger span {
         height: 2px;
@@ -191,20 +225,13 @@ body {
         font-family: $righteous;
         color: $white;
     }
-    h3 {
+    h2 {
         color: $white;
     }
-    .hero {
-        background: url(../img/BirgitBoellinger@Pixabay.jpg);
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
-        .content {
-            background-color: rgba($black, 0.8);
-            padding: 1.6rem;
-            border-radius: $border-radius;
-        }
+    .content {
+        background-color: rgba($black, 0.8);
+        padding: 1.6rem;
+        border-radius: $border-radius;
     }
 }
 
@@ -427,7 +454,6 @@ body {
             display: flex;
             flex-direction: column-reverse;
         }
-        
     }
 }
 
