@@ -5,7 +5,7 @@
     {% for building in buildings %}
         <div class="column is-4-tablet is-3-desktop">
             <a href="{% url 'building-details' building.slug %}" alt="{{building.name}}" class="card-title">
-                <div class="card">
+                <div class="card has-text-left">
                     <div class="card-image">
                         <figure class="image is-marginless is-square">
                             {% if building.feed_images %}
@@ -15,9 +15,9 @@
                     </div>
                     <div class="card-content">
                         <div class="content">
-                            <h5 class="is-marginless">
+                            <h2 class="is-marginless is-size-5">
                                 {{building.name}}<br>
-                            </h5>
+                            </h2>
                            {% if building.building_types %}{{building.building_types.first}}{% endif %}<br>
                            {% if building.city %}#{{building.city}}{% endif %} {% if building.city.country %}#{{building.city.country}}{% endif %} {% if building.year_of_construction %}#{{building.year_of_construction}}{% endif %}
                         </div>

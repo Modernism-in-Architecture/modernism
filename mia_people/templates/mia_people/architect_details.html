@@ -136,8 +136,8 @@
                                         {% if building.feed_images %}
                                             <div class="column is-2-tablet">
                                                 <div class="preview-image">
-                                                    <a href="{% url 'building-details' building.slug %}" alt="{{building.name}}">
-                                                        <img src="{{ building.feed_images.0.image|thumbnail_url:'feed' }}">
+                                                    <a href="{% url 'building-details' building.slug %}">
+                                                        <img src="{{ building.feed_images.0.image|thumbnail_url:'feed' }}" alt="{{building.name}}">
                                                     </a>
                                                 </div>
                                                 <p>{{building.city}}, {{building.city.country}}<br/>{{building.name}}</p>
