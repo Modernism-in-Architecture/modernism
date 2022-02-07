@@ -7940,12 +7940,13 @@ body {
 .navbar {
   font-family: "Righteous"; }
   .navbar .navbar-brand .navbar-item {
-    margin-right: 0; }
+    margin-right: 0;
+    margin-left: auto; }
   .navbar .navbar-brand img {
     border-radius: 0;
     max-height: 1.3rem;
     height: 100%;
-    width: 100%; }
+    width: 53px; }
   .navbar.is-fixed-top {
     z-index: 999; }
   .navbar .navbar-burger {

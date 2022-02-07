@@ -149,13 +149,13 @@ body {
     .navbar-brand {
         .navbar-item {
             margin-right: 0;
+            margin-left: auto;
         }
         img {
             border-radius: 0;
             max-height: 1.3rem;
             height: 100%;
-            width: 100%;
-            
+            width: 53px;
         }
     }
     &.is-fixed-top {
