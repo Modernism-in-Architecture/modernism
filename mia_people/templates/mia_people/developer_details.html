@@ -9,7 +9,6 @@
 
     <meta property="og:url" content="{{ request.build_absolute_uri }}" />
     <meta property="og:title" content="{% if person.seo_title %}{{ person.seo_title }}{% else %}Developer {% if person.first_name %}{{person.first_name}} {% endif %}{{person.last_name}}{% endif %}" />
-    <meta name="description" property="og:description" content="{{person.description|striptags}}">
     <meta property="og:image" content="https://modernism-in-architecture.org/static/img/mia-logo_square.fc43caad2f32.png" />
     <meta property="og:image:alt" content="Three letters of the logo: red M, blue I, yellow A" />
     <meta name="twitter:card" value="summary">

@@ -9,7 +9,6 @@
 
     <meta property="og:url" content="{{ request.build_absolute_uri }}" />
     <meta property="og:title" content="{{building.name}}" />
-    <meta name="description" property="og:description" content="{{building.name}} {% for architect in building.architects.all %}{% if forloop.first %}by {% endif %}{{architect}}{% if not forloop.last %}, {% endif %}{% endfor %}{% if building.year_of_construction %} {{building.year_of_construction}}{% endif %} in {{building.city}}">
     <meta property="og:image" content="{{ building.feed_images.0.image|thumbnail_url:'square' }}>" />
     <meta property="og:image:alt" content="Three letters of the logo: red M, blue I, yellow A" />
     <meta name="twitter:card" value="summary">
