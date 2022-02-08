@@ -7992,6 +7992,11 @@ body {
   .card .image:hover {
     transform: scale(1.08); }
 
+.card-equal-height {
+  display: flex;
+  flex-direction: column;
+  height: 100%; }
+
 .home h1 {
   font-family: "Righteous";
   color: white; }
