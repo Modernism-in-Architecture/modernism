@@ -98,11 +98,25 @@ class BuildingSerializer:
 
         architects = []
         for architect in building.architects.all():
-            architects.append(f"{architect.first_name} {architect.last_name}")
+            architects.append(
+                {
+                    "id": architect.pk,
+                    "lastName": architect.last_name,
+                    "firstName": architect.first_name,
+                }
+            )
 
         developers = []
         for developer in building.developers.all():
-            developers.append(f"{developer.first_name} {developer.last_name}")
+            developers.append(
+                developers.append(
+                    {
+                        "id": developer.pk,
+                        "lastName": developer.last_name,
+                        "firstName": developer.first_name,
+                    }
+                )
+            )
 
         web_sources = []
         for source in building.sources.filter(source_type=Source.SourceType.WEBSITE):
