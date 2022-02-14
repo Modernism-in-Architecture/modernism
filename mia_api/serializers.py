@@ -300,12 +300,12 @@ class PersonSerializer:
             "id": architect.pk,
             "lastName": architect.last_name,
             "firstName": architect.first_name,
-            "birthDay": architect.birthday,
+            "birthDay": architect.birthday if architect.birthday else "",
             "birthPlace": architect.birth_place.name if architect.birth_place else "",
             "birthCountry": architect.birth_place.country.name
             if architect.birth_place and architect.birth_place.country
             else "",
-            "deathDay": architect.day_of_death,
+            "deathDay": architect.day_of_death if architect.day_of_death else "",
             "deathPlace": architect.death_place.name if architect.death_place else "",
             "deathCountry": architect.death_place.country.name
             if architect.death_place and architect.death_place.country
