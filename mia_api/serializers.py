@@ -2,7 +2,7 @@ from django.db.models.query import Prefetch
 from easy_thumbnails.files import get_thumbnailer
 from mia_buildings.models import Building, BuildingImage
 from mia_facts.models import Source
-from mia_people.models import Architect
+from mia_people.models import Architect, Developer
 
 
 class ResponseDataBuilder:
@@ -31,6 +31,20 @@ class BuildingSerializer:
             .select_related("city__country")
             .prefetch_related(
                 Prefetch(
+                    "architects",
+                    queryset=Architect.objects.filter(is_published=True),
+                    to_attr="published_architects",
+                )
+            )
+            .prefetch_related(
+                Prefetch(
+                    "developers",
+                    queryset=Developer.objects.filter(is_published=True),
+                    to_attr="published_developers",
+                )
+            )
+            .prefetch_related(
+                Prefetch(
                     "buildingimage_set",
                     queryset=BuildingImage.objects.filter(
                         is_published=True, is_feed_image=True
@@ -50,6 +64,28 @@ class BuildingSerializer:
             except:
                 thumb_full_url = ""
 
+            architects = []
+            for architect in building.published_architects:
+                architects.append(
+                    {
+                        "id": architect.pk,
+                        "lastName": architect.last_name,
+                        "firstName": architect.first_name,
+                    }
+                )
+
+            developers = []
+            for developer in building.published_developers:
+                developers.append(
+                    developers.append(
+                        {
+                            "id": developer.pk,
+                            "lastName": developer.last_name,
+                            "firstName": developer.first_name,
+                        }
+                    )
+                )
+
             building_data = {
                 "id": building.pk,
                 "name": building.name,
@@ -59,6 +95,8 @@ class BuildingSerializer:
                 "latitude": building.latitude,
                 "longitude": building.longitude,
                 "feedImage": thumb_full_url,
+                "developers": developers,
+                "architects": architects,
             }
             buildings_data.append(building_data)
 
@@ -71,8 +109,20 @@ class BuildingSerializer:
         building = (
             Building.objects.filter(pk=building_id, is_published=True)
             .select_related("city__country")
-            .prefetch_related("architects")
-            .prefetch_related("developers")
+            .prefetch_related(
+                Prefetch(
+                    "architects",
+                    queryset=Architect.objects.filter(is_published=True),
+                    to_attr="published_architects",
+                )
+            )
+            .prefetch_related(
+                Prefetch(
+                    "developers",
+                    queryset=Developer.objects.filter(is_published=True),
+                    to_attr="published_developers",
+                )
+            )
             .prefetch_related(
                 Prefetch(
                     "buildingimage_set",
@@ -97,7 +147,7 @@ class BuildingSerializer:
             gallery_image_urls.append(mobile_img_full_url)
 
         architects = []
-        for architect in building.architects.all():
+        for architect in building.published_architects:
             architects.append(
                 {
                     "id": architect.pk,
@@ -107,7 +157,7 @@ class BuildingSerializer:
             )
 
         developers = []
-        for developer in building.developers.all():
+        for developer in building.published_developers:
             developers.append(
                 developers.append(
                     {
