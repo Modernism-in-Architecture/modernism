@@ -2,6 +2,7 @@ from django.core.serializers import serialize
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
 from mia_buildings.models import Building
+from mia_people.models import Architect, Developer
 
 
 class MainView(TemplateView):
@@ -10,6 +11,13 @@ class MainView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context["num_of_buildings"] = Building.objects.filter(is_published=True).count()
+        context["num_of_architects"] = Architect.objects.filter(
+            is_published=True
+        ).count()
+        context["num_of_developers"] = Developer.objects.filter(
+            is_published=True
+        ).count()
         return context
 
 

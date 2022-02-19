@@ -8009,6 +8009,10 @@ body {
   padding: 1.6rem;
   border-radius: 10px; }
 
+.home .introduction {
+  background-color: white;
+  border-radius: 0; }
+
 .buildings .menu a.button, .facts .menu a.button {
   margin-bottom: 1em; }
 

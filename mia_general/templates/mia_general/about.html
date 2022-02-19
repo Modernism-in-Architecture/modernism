@@ -3,12 +3,12 @@
 {% load static %}
 
 {% block extra_head_tags %}
-    <title>About the MIA project</title>
+    <title>Modernism in Architecture - About the project</title>
     <meta name="description" property="og:description" content="About the Modernism in Architecture project and its founders.">
     <meta name="keywords" content="Frank Dietze, Norma Driske, osthorizonte">
 
     <meta property="og:url" content="{{ request.build_absolute_uri }}" />
-    <meta property="og:title" content="About the MIA project" />
+    <meta property="og:title" content="Modernism in Architecture - About the project" />
     <meta property="og:image" content="https://modernism-in-architecture.org/static/img/mia-logo_square.fc43caad2f32.png" />
     <meta property="og:image:alt" content="Three letters of the logo: red M, blue I, yellow A" />
     <meta name="twitter:card" value="summary">
@@ -38,29 +38,62 @@
 {% endblock breadcrumbs %}
 
 {% block content %}
-    <section class="section last-section">  
+    <section class="last-section mt-3 mb-6 pl-5 pr-5">  
         <div class="container">
             <h1 class="is-size-3">About the project Modernism in Architecture (MIA)</h1>
             <div class="columns">
                 <div class="column">
                     <div class="content is-size-5">
-                        <p class="is-size-4 mt-3">Hello, nice to meet you.</p>
-                        <p>We are Frank Dietze and Norma Driske from Leipzig, Germany. Two friends with a passion for an <b>architectural style</b> called<b> modernism in architecture</b> or <b>international style</b>. A style that emerged in the period between the two world wars (1918-1939).<br></p>
-                        <p>For quite a while it had been the regular habit that <a href="https://normade.dev" target="_blank" rel="noreferrer noopener">Norma</a> (being a programmer with almost no knowledge of architecture beyond that of software) kept asking 
-                        <a href="https://osthorizonte.com" target="_blank" rel="noreferrer noopener">Frank</a> (being an art historian and professional tour leader with all the knowledge of 
-                        architecture except that of software) about facts and contexts of places and modernist buildings we visited during our trips and walks. And Frank always had the good answers that Norma 
-                        unfortunately couldn’t remember for long ;-) So we came up with the idea to merge our skills and persist the knowledge of Frank in a medium Norma can build and that can be 
-                        visited again and again...<br></p>
+                        <h2 class="is-size-4 mt-5">👋 Hello, nice to meet you.</h2>
+                        <p>
+                            We are <a href="https://osthorizonte.com" target="_blank" rel="noreferrer noopener">Frank Dietze</a> and <a href="https://normade.dev" target="_blank" rel="noreferrer noopener">Norma Driske</a> from Leipzig, Germany. 
+                            Two friends with a passion for an <strong>architectural style</strong> called <strong>Modernism in architecture</strong>. 
+                            A style that emerged in the interwar-period between between the 1920s and 1940s.
+                        </p>
                         <img alt="Norma Driske" class="richtext-image full-width" src="https://modernism.s3.amazonaws.com/images/norma.width-800.jpg" width="800" height="1066">
                         <img alt="Frank Dietze, Osthorizonte" class="richtext-image full-width" src="https://modernism.s3.amazonaws.com/images/frank-dietze.width-800.jpg" width="800" height="1066">
-                        <p>So <b>modernism-in-architecture.org</b> <b>(MIA)</b> was born and we collect on this page our pics and knowledge for everyone out there who shares our 
-                        passion for this interesting architectural period (and for those who have a memory lack like Norma).<br><br>
-                        Recently our friend Martina from Prague joined us as a supporter and photographer. We are also supported by our partners Christina and Falko, and other friends who donate some time shooting pics during their travels.<br><br> 
-                        If you have questions, any additions, you know about some interesting places we should feature or just want to say hi, 
-                        <a href="mailto:hello@modernism-in-architecture.org">please get in touch</a>. You find us on <a href="https://www.instagram.com/modernism_in_architecture/" target="_blank" rel="noreferrer noopener">instagram</a> too. 
-                        This web project is kept open source on <a href="https://github.com/Modernism-in-Architecture" target="_blank" rel="noreferrer noopener">GitHub</a>, contributions are very welcome.<br><br>
-                        If you are interested in a <b>guided tour to one of the MIA places</b>, please <a href="https://osthorizonte.com" target="_blank" rel="noreferrer noopener">contact Frank on osthorizonte.com</a>. 
-                        He is happy to visit them together with you.</p>
+                        <p>
+                            For quite a while it had been the regular habit that Norma (being a programmer with almost no knowledge of architecture beyond that of software) kept asking 
+                            Frank (being an art historian and professional tour leader with all the knowledge of 
+                            architecture except that of software) about <strong>facts and contexts of places and modernist buildings</strong> we visited during our trips and walks. And Frank always had the good answers that Norma 
+                            unfortunately couldn’t remember for long ;-) 
+                        </p>
+                        
+                        <p>So we came up with the idea to <strong>merge our skills and persist the knowledge</strong> of Frank in a medium Norma can build and that can be 
+                            visited again and again... <br><strong>MIA - modernism-in-architecture.org</strong> was born and we collect on this page our pics and knowledge for everyone out there who shares our 
+                            passion for this interesting architectural period (and for those who have a memory lack like Norma).
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="columns">
+                <div class="column">
+                    <div class="content is-size-5">
+                        <h2 class="is-size-4">MIA Supporters</h2>
+                        <p>
+                            Recently our friend Martina from Prague joined us as a photographer. We are also supported by our partners Christina and Falko, and other friends who donate some time shooting pics during their travels.
+                        <p>
+                            This web project is kept open source on <a href="https://github.com/Modernism-in-Architecture" target="_blank" rel="noreferrer noopener">GitHub</a>.
+                            A huge thanks goes out to <a href="https://kristin-fritsch.de/" target="_blank" rel="noreferrer noopener">Kristin (Krissi) Fritsch</a> for helping with tricky frontend tasks 🙌, to
+                            <a href="https://hau-rock.de/elisa/" target="_blank" rel="noreferrer noopener">Elisa (Elli) Haubert</a> with her always open ear for design questions and for layouting our first MIA postcard 😍 and to
+                            <a href="https://www.linkedin.com/in/s%C3%B6ren-kirchner-b8152b65/" target="_blank" rel="noreferrer noopener">Sören Kirchner</a> 🤗 who very patiently listens to Norma's (dev) issues and who created as well as pushes the idea of MIA mobile apps for iOS and Android.
+                        </p>
+                        <p>And last but not least thanks to all the friendly people we meet during visiting MIA places who help and support us by sharing knowledge, opening doors and connecting us to other people.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="columns">
+                <div class="column">
+                    <div class="content is-size-5">
+                        <h2 class="is-size-4">MIA Contact</h2>
+                        <p>
+                            If you have questions, any additions, you know about some interesting places we should feature or just want to say hi, 
+                            <a href="mailto:hello@modernism-in-architecture.org">please get in touch</a>. You find us on <a href="https://www.instagram.com/modernism_in_architecture/" target="_blank" rel="noreferrer noopener">instagram</a> too.
+                        </p>
+                        <p>
+                            If you are interested in <strong>a guided tour to one of the MIA places</strong>, please <a href="https://osthorizonte.com" target="_blank" rel="noreferrer noopener">contact Frank on osthorizonte.com</a>. 
+                            He is happy to visit them together with you.
+                        </p>
                     </div>
                 </div>
             </div>
