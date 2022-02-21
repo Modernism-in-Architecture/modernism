@@ -7875,6 +7875,9 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
 .red {
   color: red; }
 
+.text-gray {
+  color: #444444; }
+
 img {
   border-radius: 10px; }
 

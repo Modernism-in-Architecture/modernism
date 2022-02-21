@@ -8,7 +8,7 @@ from mia_api.serializers import BuildingSerializer, PersonSerializer
 
 @api_view(["GET"])
 @renderer_classes((JSONRenderer,))
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def get_buildings_list(request, version):
 
     buildings_list_data, status_code = BuildingSerializer.get_buildings_list_data(
@@ -20,7 +20,7 @@ def get_buildings_list(request, version):
 
 @api_view(["GET"])
 @renderer_classes((JSONRenderer,))
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def get_buildings_details(request, version, building_id):
 
     buildings_details_data, status_code = BuildingSerializer.get_buildings_details_data(
@@ -32,7 +32,7 @@ def get_buildings_details(request, version, building_id):
 
 @api_view(["GET"])
 @renderer_classes((JSONRenderer,))
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def get_architects_list(request, version):
 
     architects_list_data, status_code = PersonSerializer.get_architects_list_data(
@@ -44,7 +44,7 @@ def get_architects_list(request, version):
 
 @api_view(["GET"])
 @renderer_classes((JSONRenderer,))
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def get_architects_details(request, version, architect_id):
 
     architects_details_data, status_code = PersonSerializer.get_architects_details_data(
