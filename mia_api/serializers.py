@@ -29,6 +29,7 @@ class BuildingSerializer:
         buildings = (
             Building.objects.filter(is_published=True)
             .select_related("city__country")
+            .prefetch_related("building_types")
             .prefetch_related(
                 Prefetch(
                     "architects",
@@ -77,13 +78,11 @@ class BuildingSerializer:
             developers = []
             for developer in building.published_developers:
                 developers.append(
-                    developers.append(
-                        {
-                            "id": developer.pk,
-                            "lastName": developer.last_name,
-                            "firstName": developer.first_name,
-                        }
-                    )
+                    {
+                        "id": developer.pk,
+                        "lastName": developer.last_name,
+                        "firstName": developer.first_name,
+                    }
                 )
 
             building_data = {
@@ -97,6 +96,7 @@ class BuildingSerializer:
                 "feedImage": thumb_full_url,
                 "developers": developers,
                 "architects": architects,
+                "buildingType": building.building_types.first().name,
             }
             buildings_data.append(building_data)
 
@@ -109,6 +109,7 @@ class BuildingSerializer:
         building = (
             Building.objects.filter(pk=building_id, is_published=True)
             .select_related("city__country")
+            .prefetch_related("building_types")
             .prefetch_related(
                 Prefetch(
                     "architects",
@@ -159,13 +160,11 @@ class BuildingSerializer:
         developers = []
         for developer in building.published_developers:
             developers.append(
-                developers.append(
-                    {
-                        "id": developer.pk,
-                        "lastName": developer.last_name,
-                        "firstName": developer.first_name,
-                    }
-                )
+                {
+                    "id": developer.pk,
+                    "lastName": developer.last_name,
+                    "firstName": developer.first_name,
+                }
             )
 
         web_sources = []
@@ -203,6 +202,7 @@ class BuildingSerializer:
             "galleryImages": gallery_image_urls,
             "subtitle": building.subtitle,
             "todaysUse": building.todays_use,
+            "buildingType": building.building_types.first().name,
             "history": building.history,
             "description": building.description,
             "directions": building.directions,
@@ -210,6 +210,7 @@ class BuildingSerializer:
             "sourceBooks": book_sources,
             "architects": architects,
             "developers": developers,
+            "absoluteURI": f"{request.get_host()}/buildings/{building.slug}/",
         }
 
         return ResponseDataBuilder.build_success_response(building_data), 200
@@ -314,6 +315,7 @@ class PersonSerializer:
             "sourceUrls": web_sources,
             "sourceBooks": book_sources,
             "relatedBuildings": related_buildings_data,
+            "absoluteURI": f"{request.get_host()}/people/architects/{architect.slug}/",
         }
 
         return ResponseDataBuilder.build_success_response(architect_data), 200
