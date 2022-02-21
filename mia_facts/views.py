@@ -2,7 +2,7 @@ from django.contrib.postgres.search import SearchVector
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 
-from .models import Fact, FactCategory
+from mia_facts.models import Fact, FactCategory, Source
 
 
 @api_view(["GET"])
@@ -66,7 +66,13 @@ def get_fact_details(
     if not fact:
         return render(request, "404.html", status=404)
 
-    context = {"fact": fact}
+    context = {
+        "fact": fact,
+        "source_urls": fact.sources.filter(source_type=Source.SourceType.WEBSITE),
+        "source_books": fact.sources.filter(
+            source_type__in=[Source.SourceType.BOOK, Source.SourceType.JOURNAL]
+        ).prefetch_related("authors"),
+    }
 
     if extra_context is not None:
         context.update(extra_context)

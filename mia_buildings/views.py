@@ -250,9 +250,6 @@ def get_building_details(
     if not building:
         return render(request, "404.html", status=404)
 
-    # import pdb
-
-    # pdb.set_trace()
     buildings_of_same_city = Building.objects.filter(
         is_published=True, city=building.city
     )
