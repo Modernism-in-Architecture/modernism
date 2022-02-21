@@ -210,7 +210,7 @@ class BuildingSerializer:
             "sourceBooks": book_sources,
             "architects": architects,
             "developers": developers,
-            "absoluteURI": f"{request.get_host()}/buildings/{building.slug}/",
+            "absoluteURL": f"https://{request.get_host()}/buildings/{building.slug}/",
         }
 
         return ResponseDataBuilder.build_success_response(building_data), 200
@@ -315,7 +315,7 @@ class PersonSerializer:
             "sourceUrls": web_sources,
             "sourceBooks": book_sources,
             "relatedBuildings": related_buildings_data,
-            "absoluteURI": f"{request.get_host()}/people/architects/{architect.slug}/",
+            "absoluteURL": f"https://{request.get_host()}/people/architects/{architect.slug}/",
         }
 
         return ResponseDataBuilder.build_success_response(architect_data), 200
