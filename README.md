@@ -23,9 +23,21 @@ Python 3.9.4
 If an older version or nothing is found you will need to [update or install Python](https://realpython.com/installing-python/) first. If this causes trouble, just try to install the requirements, it might work with an older python version too.
 
 #### PostgreSQL
-Create a [postgreSQL](https://www.postgresqltutorial.com/install-postgresql/) database named "modernism". If you use `psql`, you can run
+Create a [postgreSQL](https://www.postgresqltutorial.com/install-postgresql/) database named "modernism". 
+If you use `psql`, you can go like this:
+
+Start the database server (if you are on an Intel machine the path would probably start with `/usr/local/` instead of `/opt/homebrew/`)
 ```bash
-username=# CREATE DATABASE modernism;
+$ postgres -D /opt/homebrew/var/postgres
+```
+
+Connect to the default postgres database
+```bash
+$ psql postgres
+```
+
+```bash
+postgres=# CREATE DATABASE modernism;
 ```
 
 ### Install the project on your machine
@@ -52,6 +64,20 @@ $(env) pip install -r requirements.txt
 #### Run migrations to setup the database 
 ```bash
 $(env) python manage.py migrate
+```
+
+#### Trouble shoot installing the Django project on Apple M1 machines
+You might experience errors running `pip install` or the migrations on M1 machines with the `reportlab` library.
+Try installing following libraries:
+
+```bash
+$ brew install libjpeg
+$ brew install freetype
+```
+
+Rebuild the `reportlab` library within the project env:
+```bash
+$(env) pip install reportlab --force-reinstall --no-cache-dir --global-option=build_ext
 ```
 
 #### Create a superuser and insert testdata
@@ -87,6 +113,6 @@ $ npm install .
 
 #### Start development server
 ```bash
-$ npm start
+$ npm run dev
 ```
 
