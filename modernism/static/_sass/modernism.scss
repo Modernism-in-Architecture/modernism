@@ -249,7 +249,11 @@ body {
     }
     .introduction {
         background-color: $white;
+        padding: 6rem;
         border-radius: 0;
+        @media screen and (max-width: 969px) {
+            padding: 3rem;
+        }
     }
 }
 

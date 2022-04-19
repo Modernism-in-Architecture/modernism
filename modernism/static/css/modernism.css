@@ -8014,7 +8014,11 @@ body {
 
 .home .introduction {
   background-color: white;
+  padding: 6rem;
   border-radius: 0; }
+  @media screen and (max-width: 969px) {
+    .home .introduction {
+      padding: 3rem; } }
 
 .buildings .menu a.button, .facts .menu a.button {
   margin-bottom: 1em; }
