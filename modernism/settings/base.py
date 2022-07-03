@@ -126,7 +126,7 @@ THUMBNAIL_ALIASES = {
         "regular": {"size": (800, 600), "crop": False},
         "large": {"size": (1300, 700), "crop": False},
         "mobile": {"size": (1200, 0), "quality": 60},
-        "twitter": {"size": (1200, 628), "quality": 60, "crop": "center"},
+        "twitter": {"size": (1200, 630), "quality": 60, "crop": "center"},
         "facebook": {"size": (1080, 1080), "quality": 60, "crop": "center"},
     },
 }
