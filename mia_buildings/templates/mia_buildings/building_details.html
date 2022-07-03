@@ -11,7 +11,7 @@
     <meta property="og:title" content="{% if building.seo_title %}{{ building.seo_title }}{% else %}{{building.name}} in {{building.city}}, {{building.city.country}}{% endif %}" />
     <meta property="og:image" content="{{ building.feed_images.0.image|thumbnail_url:'twitter' }}>" />
     <meta property="og:image:alt" content="Three letters of the logo: red M, blue I, yellow A" />
-    <meta name="twitter:card" value="summary">
+    <meta name="twitter:card" value="summary_large_image">
 {% endblock %}
 
 {% block body_class %}building{% endblock %}
