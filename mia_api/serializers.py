@@ -319,3 +319,45 @@ class PersonSerializer:
         }
 
         return ResponseDataBuilder.build_success_response(architect_data), 200
+
+
+class SocialMediaSerializer:
+    @staticmethod
+    def get_twitter_building_details(request):
+        """ "Deliver details of the latest building not published on twitter yet."""
+
+        latest_building = (
+            Building.objects.filter(
+                is_published=True, published_on_twitter__isnull=True
+            )
+            .select_related("city__country")
+            .prefetch_related(
+                Prefetch(
+                    "architects",
+                    queryset=Architect.objects.filter(is_published=True),
+                    to_attr="published_architects",
+                )
+            )
+            .order_by("-created")
+            .first()
+        )
+
+        try:
+            architect = latest_building.published_architects[0]
+            architect_data = f"{architect.first_name} {architect.last_name}"
+            if len(latest_building.published_architects) > 1:
+                architect_data = f"{architect_data} et al."
+        except IndexError:
+            architect_data = ""
+
+        latest_building_data = {
+            "id": latest_building.pk,
+            "name": latest_building.name,
+            "yearOfConstruction": latest_building.year_of_construction,
+            "city": latest_building.city.name,
+            "country": latest_building.city.country.name,
+            "architect": architect_data,
+            "absoluteURL": f"https://{request.get_host()}/buildings/{latest_building.slug}/",
+        }
+
+        return ResponseDataBuilder.build_success_response(latest_building_data), 200

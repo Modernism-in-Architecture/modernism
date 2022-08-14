@@ -24,4 +24,9 @@ urlpatterns = [
         views.get_architects_details,
         name="architects-detail",
     ),
+    re_path(
+        r"^(?P<version>(v1))/twitter/get_building_details/$",
+        views.get_twitter_building_details,
+        name="twitter_building_details",
+    ),
 ]
