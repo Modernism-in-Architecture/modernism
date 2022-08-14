@@ -29,4 +29,9 @@ urlpatterns = [
         views.get_twitter_building_details,
         name="twitter_building_details",
     ),
+    re_path(
+        r"^(?P<version>(v1))/twitter/(?P<building_id>[0-9]+)/published_on_twitter/$",
+        views.set_building_published_on_twitter,
+        name="set_building_published_on_twitter",
+    ),
 ]

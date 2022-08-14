@@ -1,13 +1,17 @@
+from django.utils import timezone
+
 from rest_framework.decorators import api_view, permission_classes, renderer_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
+
 
 from mia_api.serializers import (
     BuildingSerializer,
     PersonSerializer,
     SocialMediaSerializer,
 )
+from mia_buildings.models import Building
 
 
 @api_view(["GET"])
@@ -60,7 +64,7 @@ def get_architects_details(request, version, architect_id):
 
 @api_view(["GET"])
 @renderer_classes((JSONRenderer,))
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def get_twitter_building_details(request, version):
 
     (
@@ -69,3 +73,22 @@ def get_twitter_building_details(request, version):
     ) = SocialMediaSerializer.get_twitter_building_details(request)
 
     return Response(data=building_details_data, status=status_code)
+
+
+@api_view(["PATCH"])
+@renderer_classes((JSONRenderer,))
+@permission_classes([IsAuthenticated])
+def set_building_published_on_twitter(request, version, building_id):
+
+    try:
+        building = Building.objects.get(pk=building_id)
+    except Building.DoesNotExist:
+        return Response(
+            data={"error": {"message": "Building does not exist"}}, status=404
+        )
+
+    if not building.published_on_twitter:
+        building.published_on_twitter = timezone.now()
+        building.save()
+
+    return Response(data={}, status=204)

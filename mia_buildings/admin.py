@@ -198,6 +198,7 @@ class BuildingAdmin(NonSortableParentAdmin):
         "name",
         "pk",
         "is_published",
+        "published_on_twitter",
         "year_of_construction",
         "city",
         "created",
