@@ -324,7 +324,7 @@ class PersonSerializer:
 class SocialMediaSerializer:
     @staticmethod
     def get_twitter_building_details(request):
-        """ "Deliver details of the latest building not published on twitter yet."""
+        """Deliver details of the latest building not published on twitter yet."""
 
         latest_building = (
             Building.objects.filter(
