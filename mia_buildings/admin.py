@@ -223,7 +223,8 @@ class BuildingAdmin(NonSortableParentAdmin):
         "sources",
     ]
     readonly_fields = [
-        "slug", "published_on_twitter",
+        "slug",
+        "published_on_twitter",
     ]
     autocomplete_fields = ["city"]
     form = BuildingAdminForm
