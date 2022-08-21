@@ -1,13 +1,15 @@
+from typing import Tuple, Union
 from django.db.models.query import Prefetch
 from easy_thumbnails.files import get_thumbnailer
 from mia_buildings.models import Building, BuildingImage
 from mia_facts.models import Source
 from mia_people.models import Architect, Developer
+from rest_framework.request import Request
 
 
 class ResponseDataBuilder:
     @staticmethod
-    def build_error_response(error_message, error_fields=None):
+    def build_error_response(error_message: str, error_fields: dict = None) -> dict:
         error_data = {"message": error_message}
         if error_fields is not None:
             error_data.update({"fields": error_fields})
@@ -17,13 +19,13 @@ class ResponseDataBuilder:
         return response
 
     @staticmethod
-    def build_success_response(data):
+    def build_success_response(data: Union[dict, list]) -> dict:
         return {"data": data}
 
 
 class BuildingSerializer:
     @staticmethod
-    def get_buildings_list_data(request):
+    def get_buildings_list_data(request: Request) -> Tuple[dict, int]:
         buildings_data = []
 
         buildings = (
@@ -103,7 +105,9 @@ class BuildingSerializer:
         return ResponseDataBuilder.build_success_response(buildings_data), 200
 
     @staticmethod
-    def get_buildings_details_data(request, building_id):
+    def get_buildings_details_data(
+        request: Request, building_id: int
+    ) -> Tuple[dict, int]:
         building_data = {}
 
         building = (
@@ -218,7 +222,7 @@ class BuildingSerializer:
 
 class PersonSerializer:
     @staticmethod
-    def get_architects_list_data(request):
+    def get_architects_list_data(request: Request) -> Tuple[dict, int]:
         architects = Architect.objects.filter(is_published=True).order_by("last_name")
         architects_data = [
             {
@@ -232,7 +236,9 @@ class PersonSerializer:
         return ResponseDataBuilder.build_success_response(architects_data), 200
 
     @staticmethod
-    def get_architects_details_data(request, architect_id):
+    def get_architects_details_data(
+        request: Request, architect_id: int
+    ) -> Tuple[dict, int]:
         architect_data = {}
 
         architect = (
@@ -323,10 +329,10 @@ class PersonSerializer:
 
 class SocialMediaSerializer:
     @staticmethod
-    def get_twitter_building_details(request):
+    def get_twitter_building_details(request: Request) -> Tuple[dict, int]:
         """Deliver details of the latest building not published on twitter yet."""
 
-        latest_building = (
+        latest_buildings_qs = (
             Building.objects.filter(
                 is_published=True, published_on_twitter__isnull=True
             )
@@ -339,12 +345,23 @@ class SocialMediaSerializer:
                 )
             )
             .order_by("-created")
-            .first()
         )
+
+        if not latest_buildings_qs:
+            return (
+                ResponseDataBuilder.build_error_response("Buildings do not exist."),
+                404,
+            )
+
+        latest_building = latest_buildings_qs.first()
 
         try:
             architect = latest_building.published_architects[0]
-            architect_data = f"{architect.first_name} {architect.last_name}"
+            architect_data = (
+                f"{architect.first_name} {architect.last_name}"
+                if architect.first_name
+                else f"{architect.last_name}"
+            )
             if len(latest_building.published_architects) > 1:
                 architect_data = f"{architect_data} et al."
         except IndexError:
