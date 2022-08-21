@@ -4,7 +4,7 @@ from rest_framework.decorators import api_view, permission_classes, renderer_cla
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
-
+from rest_framework.request import Request
 
 from mia_api.serializers import (
     BuildingSerializer,
@@ -17,7 +17,7 @@ from mia_buildings.models import Building
 @api_view(["GET"])
 @renderer_classes((JSONRenderer,))
 @permission_classes([IsAuthenticated])
-def get_buildings_list(request, version):
+def get_buildings_list(request: Request, version: str) -> Response:
 
     buildings_list_data, status_code = BuildingSerializer.get_buildings_list_data(
         request
@@ -29,7 +29,7 @@ def get_buildings_list(request, version):
 @api_view(["GET"])
 @renderer_classes((JSONRenderer,))
 @permission_classes([IsAuthenticated])
-def get_buildings_details(request, version, building_id):
+def get_buildings_details(request: Request, version: str, building_id: int) -> Response:
 
     buildings_details_data, status_code = BuildingSerializer.get_buildings_details_data(
         request, building_id
@@ -41,7 +41,7 @@ def get_buildings_details(request, version, building_id):
 @api_view(["GET"])
 @renderer_classes((JSONRenderer,))
 @permission_classes([IsAuthenticated])
-def get_architects_list(request, version):
+def get_architects_list(request: Request, version: str) -> Response:
 
     architects_list_data, status_code = PersonSerializer.get_architects_list_data(
         request
@@ -53,7 +53,9 @@ def get_architects_list(request, version):
 @api_view(["GET"])
 @renderer_classes((JSONRenderer,))
 @permission_classes([IsAuthenticated])
-def get_architects_details(request, version, architect_id):
+def get_architects_details(
+    request: Request, version: str, architect_id: int
+) -> Response:
 
     architects_details_data, status_code = PersonSerializer.get_architects_details_data(
         request, architect_id
@@ -65,7 +67,7 @@ def get_architects_details(request, version, architect_id):
 @api_view(["GET"])
 @renderer_classes((JSONRenderer,))
 @permission_classes([IsAuthenticated])
-def get_twitter_building_details(request, version):
+def get_twitter_building_details(request: Request, version: str) -> Response:
 
     (
         building_details_data,
@@ -78,7 +80,9 @@ def get_twitter_building_details(request, version):
 @api_view(["PATCH"])
 @renderer_classes((JSONRenderer,))
 @permission_classes([IsAuthenticated])
-def set_building_published_on_twitter(request, version, building_id):
+def set_building_published_on_twitter(
+    request: Request, version: str, building_id: int
+) -> Response:
 
     try:
         building = Building.objects.get(pk=building_id)
