@@ -204,6 +204,7 @@ class BuildingAdmin(NonSortableParentAdmin):
         "created",
         "updated",
         "slug",
+        "seo_title",
     ]
     list_filter = [
         "is_published",
