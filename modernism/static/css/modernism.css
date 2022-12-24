@@ -8020,6 +8020,9 @@ body {
     .home .introduction {
       padding: 3rem; } }
 
+.home .storeLink {
+  height: 3rem; }
+
 .buildings .menu a.button, .facts .menu a.button {
   margin-bottom: 1em; }
 
