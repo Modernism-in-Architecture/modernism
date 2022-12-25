@@ -8310,3 +8310,5 @@ footer {
     font-family: "Roboto"; }
   footer .active {
     color: #363636; }
+  footer .store-link {
+    height: 3rem; }
