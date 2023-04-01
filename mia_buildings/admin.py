@@ -166,16 +166,13 @@ class BuildingImageInline(SortableStackedInline):
 
 
 class BuildingAdminForm(forms.ModelForm):
-    photographer_choices = list(Photographer.objects.values_list("id", "last_name"))
-    photographer_choices.insert(0, (None, "------"))
-    photographer = forms.ChoiceField(
-        required=False,
-        widget=forms.Select,
-        choices=photographer_choices,
-    )
     # name parts of images
     multiple_images = forms.ImageField(
         required=False, widget=forms.ClearableFileInput(attrs={"multiple": True})
+    )
+    photographer = forms.ChoiceField(
+        required=False,
+        widget=forms.Select,
     )
 
     class Meta:
@@ -189,6 +186,12 @@ class BuildingAdminForm(forms.ModelForm):
             "address": forms.Textarea(attrs={"rows": "3"}),
         }
         fields = "__all__"
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        photographers = Photographer.objects.all().values_list("id", "last_name")
+        choices = [("", "------")] + list(photographers)
+        self.fields["photographer"].choices = choices
 
 
 @admin.register(Building)

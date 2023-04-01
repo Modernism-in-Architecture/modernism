@@ -22,19 +22,19 @@ class BulkUploadImagesForm(forms.Form):
     multiple_images = forms.ImageField(
         label="Select images", widget=forms.ClearableFileInput(attrs={"multiple": True})
     )
-    photographer_choices = list(Photographer.objects.values_list("id", "last_name"))
-    photographer_choices.insert(0, (None, "------"))
-    photographer = forms.ChoiceField(
-        required=False,
-        widget=forms.Select,
-        choices=photographer_choices,
-    )
+    photographer = forms.ChoiceField(required=False, widget=forms.Select, choices=[])
     tags = forms.ModelMultipleChoiceField(
         required=False,
         queryset=Tag.objects.order_by("name"),
         widget=FilteredSelectMultiple("Tags", True),
     )
     title = forms.CharField(label="General name for the images")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        photographers = Photographer.objects.all().values_list("id", "last_name")
+        choices = [(None, "------")] + list(photographers)
+        self.fields["photographer"].choices = choices
 
 
 class BuildingForImageSelectionAdminForm(forms.Form):
@@ -57,12 +57,8 @@ class BuildingsFilterForm(forms.Form):
         choices=[("", "---------"), (True, "yes"), (False, "no")],
         widget=forms.Select(attrs={"class": "feature-select"}),
     )
-    storeys = Building.objects.filter(storey__isnull=False).values_list(
-        "storey", flat=True
-    )
     storey = forms.ChoiceField(
         required=False,
-        choices=[("", "---------")] + [(storey, storey) for storey in set(storeys)],
         widget=forms.Select(attrs={"class": "feature-select"}),
     )
     architects = forms.ModelMultipleChoiceField(
@@ -79,16 +75,9 @@ class BuildingsFilterForm(forms.Form):
         widget=forms.CheckboxSelectMultiple(),
         required=False,
     )
-    years_choices = (
-        Building.objects.exclude(year_of_construction__exact="")
-        .distinct("year_of_construction")
-        .order_by("year_of_construction")
-        .values_list("year_of_construction", flat=True)
-    )
     years = forms.MultipleChoiceField(
         widget=forms.CheckboxSelectMultiple(),
         required=False,
-        choices=[(year, year) for year in years_choices],
     )
     countries = forms.ModelMultipleChoiceField(
         queryset=Country.objects.filter(city__building__isnull=False)
@@ -139,3 +128,21 @@ class BuildingsFilterForm(forms.Form):
         widget=forms.CheckboxSelectMultiple(),
         required=False,
     )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        storeys = Building.objects.filter(storey__isnull=False).values_list(
+            "storey", flat=True
+        )
+        choices = [("", "---------")] + [(storey, storey) for storey in set(storeys)]
+        self.fields["storey"].choices = choices
+
+        years_choices = (
+            Building.objects.exclude(year_of_construction__exact="")
+            .distinct("year_of_construction")
+            .order_by("year_of_construction")
+            .values_list("year_of_construction", flat=True)
+        )
+        choices = [(year, year) for year in years_choices]
+        self.fields["years"].choices = choices
