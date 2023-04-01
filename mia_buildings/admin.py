@@ -231,6 +231,8 @@ class BuildingAdmin(NonSortableParentAdmin):
     form = BuildingAdminForm
     inlines = [BuildingImageInline]
 
+    change_form_template = "admin/building_change_form.html"
+
     fieldsets = (
         (
             None,
