@@ -7,28 +7,30 @@ The project is build with [Django](https://www.djangoproject.com/) and [Bulma](h
 ## Setup the backend
 
 ### Prerequisites
-#### Python version == 3.9.4
+#### Python version == 3.10.9
 
 To check the Python version on your system, run
 ```bash
 $ python --version
-Python 3.9.4
+Python 3.10.9
 ```
 or 
 ```bash
 $ python3 --version
-Python 3.9.4
+Python 3.10.9
 ```
 
-If an older version or nothing is found you will need to [update or install Python](https://realpython.com/installing-python/) first. If this causes trouble, just try to install the requirements, it might work with an older python version too.
+If an older version or nothing is found you will need to [update or install Python](https://realpython.com/installing-python/) first. If this causes trouble, just try to install the requirements, it might work with an older Python version too. We recommend using [`pyenv`](https://github.com/pyenv/pyenv) to manage your Python versions.
 
 #### PostgreSQL
-Create a [postgreSQL](https://www.postgresqltutorial.com/install-postgresql/) database named "modernism". 
-If you use `psql`, you can go like this:
+Create a [postgreSQL](https://www.postgresqltutorial.com/install-postgresql/) database named "modernism". You can go with whatever name you like but if you choose another name, you will need to adapt the database settings within the Django project setting file.
 
-Start the database server (if you are on an Intel machine the path would probably start with `/usr/local/` instead of `/opt/homebrew/`)
+If you use the PostgreSQL CLI `psql`, you can go like this:
+
+Start the database server (if you are on an Intel machine the path would probably start with `/usr/local/` instead of `/opt/homebrew/`). You might have a different postgresql version or installation path and want to adapt the command accordingly.
+
 ```bash
-$ postgres -D /opt/homebrew/var/postgres
+$ postgres -D opt/homebrew/var/postgresql@14
 ```
 
 Connect to the default postgres database
@@ -45,7 +47,7 @@ postgres=# CREATE DATABASE modernism;
 #### Get the repository
 
 ```bash
-$ git clone git@github.com:normade/modernism.git 
+$ git clone git@github.com:Modernism-in-Architecture/modernism.git
 ```
 
 #### Setup a virtual environment and activate it
