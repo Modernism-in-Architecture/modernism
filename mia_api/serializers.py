@@ -192,6 +192,15 @@ class BuildingSerializer:
                 }
             )
 
+        city = building.city.name if building.city else ""
+        country = (
+            building.city.country.name
+            if building.city and building.city.country
+            else ""
+        )
+        building_types = building.building_types.all()
+        building_type = building_types.first().name if building_types else ""
+
         building_data = {
             "id": building.pk,
             "name": building.name,
@@ -199,14 +208,14 @@ class BuildingSerializer:
             "isProtected": building.protected_monument,
             "address": building.address,
             "zipCode": building.zip_code,
-            "city": building.city.name,
-            "country": building.city.country.name,
+            "city": city,
+            "country": country,
             "latitude": building.latitude,
             "longitude": building.longitude,
             "galleryImages": gallery_image_urls,
             "subtitle": building.subtitle,
             "todaysUse": building.todays_use,
-            "buildingType": building.building_types.first().name,
+            "buildingType": building_type,
             "history": building.history,
             "description": building.description,
             "directions": building.directions,
