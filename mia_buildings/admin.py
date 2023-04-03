@@ -180,8 +180,8 @@ class BuildingAdminForm(forms.ModelForm):
         widgets = {
             "subtitle": forms.Textarea(attrs={"rows": "2"}),
             "seo_title": forms.Textarea(attrs={"rows": "2"}),
-            "history": TinyMCE(),
-            "description": TinyMCE(),
+            "history": TinyMCE(mce_attrs={'convert_urls': False, 'browser_spellcheck': True}),
+            "description": TinyMCE(mce_attrs={'convert_urls': False, 'browser_spellcheck': True}),
             "directions": forms.Textarea(attrs={"rows": "3"}),
             "address": forms.Textarea(attrs={"rows": "3"}),
         }
