@@ -117,5 +117,5 @@ class MakeAbsolutePathsTests(TestCase):
         self.assertEqual(out, "Updated 2 Building(s)\n")
         self.assertEqual(building_a.description, expected_html)
         self.assertEqual(building_a.history, expected_html)
-        self.assertEqual(building_a.description, HTML_WITHOUT_RELATIVE_PATH)
-        self.assertEqual(building_a.history, HTML_WITHOUT_RELATIVE_PATH)
+        self.assertEqual(building_b.description, HTML_WITHOUT_RELATIVE_PATH)
+        self.assertEqual(building_b.history, HTML_WITHOUT_RELATIVE_PATH)

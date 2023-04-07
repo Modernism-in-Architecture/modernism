@@ -32,7 +32,7 @@ class Command(BaseCommand):
         if update:
             Building.objects.bulk_update(buildings, ["description", "history"])
 
-        self.stdout.write(f"Updated {len(buildings)} Building(s)")
+            self.stdout.write(f"Updated {len(buildings)} Building(s)")
 
     def substitute_relative_paths(self, text_with_relative_links):
         return sub(
