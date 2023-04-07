@@ -41,7 +41,7 @@ class Command(BaseCommand):
 
     def substitute_relative_paths(self, text_with_relative_links):
         return sub(
-            r"(<a href=')((?:..\/){4})",
+            r"(<a href=['\"])((?:..\/){4})",
             f"\\1{settings.BASE_URL}/",
             text_with_relative_links,
         )
