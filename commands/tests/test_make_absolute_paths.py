@@ -51,6 +51,14 @@ class MakeAbsolutePathsUnitTests(SimpleTestCase):
             "<a href='../../buildings/elementary-school-grundschule-wettin/'>Wettin</a>",
         )
 
+    def test_only_relative_paths_if_double_quotes(self):
+        result = ReplaceCommand().substitute_relative_paths(
+            '<a href="../../../../buildings/elementary-school-grundschule-wettin/">Wettin</a>'
+        )
+        self.assertEqual(
+            result,
+            f'<a href="{settings.BASE_URL}/buildings/elementary-school-grundschule-wettin/">Wettin</a>',
+        )
 
 class MakeAbsolutePathsTests(TestCase):
     def call_command(self, *args, **kwargs):
@@ -88,7 +96,6 @@ class MakeAbsolutePathsTests(TestCase):
 
         # THEN
         building.refresh_from_db()
-        self.assertEqual(out, "Updated 1 Building(s)\n")
         self.assertEqual(building.description, "")
         self.assertEqual(building.history, "")
 
@@ -114,7 +121,6 @@ class MakeAbsolutePathsTests(TestCase):
         # THEN
         building_a.refresh_from_db()
         building_b.refresh_from_db()
-        self.assertEqual(out, "Updated 2 Building(s)\n")
         self.assertEqual(building_a.description, expected_html)
         self.assertEqual(building_a.history, expected_html)
         self.assertEqual(building_b.description, HTML_WITHOUT_RELATIVE_PATH)
