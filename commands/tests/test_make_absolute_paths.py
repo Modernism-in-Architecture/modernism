@@ -12,7 +12,7 @@ HTML_WITH_RELATIVE_PATH = (
     f"The construction time for this school is mentioned 1931. It might be possible, "
     f"that the construction works started in 1930. The regional government of Merseburg "
     f"showed interest in modern architecture. Not far away in "
-    f"<a href='../../../../buildings/elementary-school-grundschule-wettin/' target='_blank' rel='noopener'>Wettin</a> "
+    f"<a href='../../../../../buildings/elementary-school-grundschule-wettin/' target='_blank' rel='noopener'>Wettin</a> "
     f"was built a school in 1931."
 )
 HTML_WITHOUT_RELATIVE_PATH = (
@@ -26,6 +26,14 @@ HTML_WITHOUT_RELATIVE_PATH = (
 class MakeAbsolutePathsUnitTests(SimpleTestCase):
     def test_relative_path_is_replaced_by_base_url(self):
         result = ReplaceCommand().substitute_relative_paths(
+            "<a href='../../../../../buildings/elementary-school-grundschule-wettin/'>Wettin</a>"
+        )
+        self.assertEqual(
+            result,
+            f"<a href='{settings.BASE_URL}/buildings/elementary-school-grundschule-wettin/'>Wettin</a>",
+        )
+
+        result = ReplaceCommand().substitute_relative_paths(
             "<a href='../../../../buildings/elementary-school-grundschule-wettin/'>Wettin</a>"
         )
         self.assertEqual(
@@ -35,14 +43,14 @@ class MakeAbsolutePathsUnitTests(SimpleTestCase):
 
     def test_only_relative_paths_in_links_are_replaced(self):
         result = ReplaceCommand().substitute_relative_paths(
-            "something '../../../../buildings/elementary-school-grundschule-wettin/' something else"
+            "something '../../../../../buildings/elementary-school-grundschule-wettin/' something else"
         )
         self.assertEqual(
             result,
-            "something '../../../../buildings/elementary-school-grundschule-wettin/' something else",
+            "something '../../../../../buildings/elementary-school-grundschule-wettin/' something else",
         )
 
-    def test_only_relative_paths_with_debth_of_four_are_replaced(self):
+    def test_relative_paths_with_other_debths_are_ignored(self):
         result = ReplaceCommand().substitute_relative_paths(
             "<a href='../../buildings/elementary-school-grundschule-wettin/'>Wettin</a>"
         )
@@ -51,14 +59,32 @@ class MakeAbsolutePathsUnitTests(SimpleTestCase):
             "<a href='../../buildings/elementary-school-grundschule-wettin/'>Wettin</a>",
         )
 
-    def test_only_relative_paths_if_double_quotes(self):
         result = ReplaceCommand().substitute_relative_paths(
-            '<a href="../../../../buildings/elementary-school-grundschule-wettin/">Wettin</a>'
+            "<a href='../../../../../../../../buildings/elementary-school-grundschule-wettin/'>Wettin</a>"
+        )
+        self.assertEqual(
+            result,
+            "<a href='../../../../../../../../buildings/elementary-school-grundschule-wettin/'>Wettin</a>",
+        )
+
+    def test_relative_paths_are_replaced_if_double_quotes(self):
+        result = ReplaceCommand().substitute_relative_paths(
+            '<a href="../../../../../buildings/elementary-school-grundschule-wettin/">Wettin</a>'
         )
         self.assertEqual(
             result,
             f'<a href="{settings.BASE_URL}/buildings/elementary-school-grundschule-wettin/">Wettin</a>',
         )
+
+    def test_other_links_are_ignored(self):
+        result = ReplaceCommand().substitute_relative_paths(
+            '<a href="https://wettin.org">Wettin</a>'
+        )
+        self.assertEqual(
+            result,
+            f'<a href="https://wettin.org">Wettin</a>',
+        )
+
 
 class MakeAbsolutePathsTests(TestCase):
     def call_command(self, *args, **kwargs):
