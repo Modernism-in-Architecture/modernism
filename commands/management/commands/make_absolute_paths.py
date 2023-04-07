@@ -23,6 +23,7 @@ class Command(BaseCommand):
     def handle(self, update, *args, **kwargs):
         if not update:
             self.stdout.write("In dry run mode (--update not passed)")
+            return
 
         buildings = Building.objects.select_for_update()
         for building in buildings:
