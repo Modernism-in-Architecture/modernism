@@ -103,7 +103,7 @@ class MakeAbsolutePathsTests(TestCase):
 
         expected_html = (
             f"The construction time for this school is mentioned 1931. "
-            f"It might be possible,that the construction works started in 1930. "
+            f"It might be possible, that the construction works started in 1930. "
             f"The regional government of Merseburg showed interest in modern architecture. Not far away in "
             f"<a href='{settings.BASE_URL}/buildings/elementary-school-grundschule-wettin/' target='_blank' rel='noopener'>Wettin</a> was built a school in 1931."
         )
