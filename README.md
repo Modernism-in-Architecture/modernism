@@ -27,7 +27,7 @@ Create a [postgreSQL](https://www.postgresqltutorial.com/install-postgresql/) da
 
 If you use the PostgreSQL CLI `psql`, you can go like this:
 
-Start the database server (if you are on an Intel machine the path would probably start with `/usr/local/` instead of `/opt/homebrew/`). You might have a different postgresql version or installation path and want to adapt the command accordingly.
+Start the database server (if you are on an Intel machine the path would probably start with `/usr/local/` instead of `/opt/homebrew/`). You might have a different PostgreSQL version or installation path and want to adapt the command accordingly.
 
 ```bash
 $ postgres -D /opt/homebrew/var/postgresql@14
@@ -39,9 +39,9 @@ or if you installed PostgreSQL on Mac via homebrew, you can start the server lik
 $ brew services start postgresql@14
 ```
 
-Connect to the default postgres database
+Connect to the PostgreSQL interactive terminal
 ```bash
-$ psql postgresql@14
+$ psql postgres
 ```
 
 ```bash
