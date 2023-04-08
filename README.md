@@ -30,12 +30,18 @@ If you use the PostgreSQL CLI `psql`, you can go like this:
 Start the database server (if you are on an Intel machine the path would probably start with `/usr/local/` instead of `/opt/homebrew/`). You might have a different postgresql version or installation path and want to adapt the command accordingly.
 
 ```bash
-$ postgres -D opt/homebrew/var/postgresql@14
+$ postgres -D /opt/homebrew/var/postgresql@14
+```
+
+or if you installed PostgreSQL on Mac via homebrew, you can start the server like so too:
+
+```bash
+$ brew services start postgresql@14
 ```
 
 Connect to the default postgres database
 ```bash
-$ psql postgres
+$ psql postgresql@14
 ```
 
 ```bash
