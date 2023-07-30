@@ -20,7 +20,7 @@ from mia_buildings.models import (
 
 class BulkUploadImagesForm(forms.Form):
     multiple_images = forms.ImageField(
-        label="Select images", widget=forms.ClearableFileInput(attrs={"multiple": True})
+        label="Select images", widget=forms.ClearableFileInput(attrs={"allow_multiple_selected": True})
     )
     photographer = forms.ChoiceField(required=False, widget=forms.Select, choices=[])
     tags = forms.ModelMultipleChoiceField(

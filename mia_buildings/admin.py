@@ -168,7 +168,7 @@ class BuildingImageInline(SortableStackedInline):
 class BuildingAdminForm(forms.ModelForm):
     # name parts of images
     multiple_images = forms.ImageField(
-        required=False, widget=forms.ClearableFileInput(attrs={"multiple": True})
+        required=False, widget=forms.ClearableFileInput(attrs={"allow_multiple_selected": True})
     )
     photographer = forms.ChoiceField(
         required=False,
