@@ -14,7 +14,7 @@ INSTALLED_APPS = [
     "django.contrib.sitemaps",
     "django.contrib.staticfiles",
     # Third-Party
-    "adminsortable",
+    "adminsortable2",
     "debug_toolbar",
     "el_pagination",
     "easy_thumbnails",

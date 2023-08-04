@@ -1,1 +1,10 @@
 {% extends 'admin/change_form.html' %}
+
+{% block extrastyle %}
+    {{ block.super }}
+    <style>
+    .submit-row a.deletelink {
+    display: inline;
+    }
+    </style>
+{% endblock %}

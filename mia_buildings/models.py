@@ -1,4 +1,3 @@
-from adminsortable.models import SortableMixin
 from django.db import models
 from django.utils.safestring import mark_safe
 from django.utils.text import slugify
@@ -62,7 +61,7 @@ class AccessType(models.Model):
         verbose_name_plural = "Access types"
 
 
-class BuildingImage(SortableMixin):
+class BuildingImage(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 

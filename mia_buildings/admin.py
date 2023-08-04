@@ -1,6 +1,6 @@
 import ast
 
-from adminsortable.admin import NonSortableParentAdmin, SortableStackedInline
+from adminsortable2.admin import SortableStackedInline, SortableAdminBase
 from django import forms
 from django.contrib import admin
 from django.db import models
@@ -152,8 +152,12 @@ class BuildingImageInline(SortableStackedInline):
             None,
             {
                 "fields": (
-                    ("image_preview", "title", "image"),
-                    ("is_published", "is_feed_image", "description", "photographer"),
+                    ("image_preview", "image"),
+                    (
+                        "is_published",
+                        "is_feed_image",
+                    ),
+                    ("title", "description", "photographer"),
                 )
             },
         ),
@@ -163,8 +167,8 @@ class BuildingImageInline(SortableStackedInline):
     extra = 0
 
     formfield_overrides = {
-        models.CharField: {"widget": TextInput(attrs={"size": "50"})},
-        models.TextField: {"widget": Textarea(attrs={"rows": 1, "cols": 20})},
+        models.CharField: {"widget": TextInput(attrs={"size": "30"})},
+        models.TextField: {"widget": Textarea(attrs={"rows": 1, "cols": 30})},
     }
 
 
@@ -204,7 +208,7 @@ class BuildingAdminForm(forms.ModelForm):
 
 
 @admin.register(Building)
-class BuildingAdmin(NonSortableParentAdmin):
+class BuildingAdmin(SortableAdminBase, admin.ModelAdmin):
     search_fields = ["name", "description", "city__name", "city__country__name"]
     list_display = [
         "name",
