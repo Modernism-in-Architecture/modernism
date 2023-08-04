@@ -12,7 +12,10 @@ from mia_facts.models import Photographer
 from tinymce.widgets import TinyMCE
 
 from mia_buildings import views
-from mia_buildings.forms import BuildingForImageSelectionAdminForm
+from mia_buildings.forms import (
+    BuildingForImageSelectionAdminForm,
+    MultipleImageFileField,
+)
 
 from .models import (
     AccessType,
@@ -166,10 +169,7 @@ class BuildingImageInline(SortableStackedInline):
 
 
 class BuildingAdminForm(forms.ModelForm):
-    # name parts of images
-    multiple_images = forms.ImageField(
-        required=False, widget=forms.ClearableFileInput(attrs={"allow_multiple_selected": True})
-    )
+    multiple_images = MultipleImageFileField(required=False)
     photographer = forms.ChoiceField(
         required=False,
         widget=forms.Select,
@@ -193,7 +193,12 @@ class BuildingAdminForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        photographers = Photographer.objects.all().values_list("id", "last_name")
+        self.set_photographer_choices()
+
+    def set_photographer_choices(self):
+        photographers = Photographer.objects.values_list("id", "last_name").order_by(
+            "last_name"
+        )
         choices = [("", "------")] + list(photographers)
         self.fields["photographer"].choices = choices
 

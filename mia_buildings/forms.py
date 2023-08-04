@@ -18,10 +18,26 @@ from mia_buildings.models import (
 )
 
 
+class MultipleImageFileInput(forms.ClearableFileInput):
+    allow_multiple_selected = True
+
+
+class MultipleImageFileField(forms.ImageField):
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault("widget", MultipleImageFileInput())
+        super().__init__(*args, **kwargs)
+
+    def clean(self, data, initial=None):
+        single_file_clean = super().clean
+        if isinstance(data, (list, tuple)):
+            result = [single_file_clean(d, initial) for d in data]
+        else:
+            result = single_file_clean(data, initial)
+        return result
+
+
 class BulkUploadImagesForm(forms.Form):
-    multiple_images = forms.ImageField(
-        label="Select images", widget=forms.ClearableFileInput(attrs={"allow_multiple_selected": True})
-    )
+    multiple_images = MultipleImageFileField(label="Select images")
     photographer = forms.ChoiceField(required=False, widget=forms.Select, choices=[])
     tags = forms.ModelMultipleChoiceField(
         required=False,
@@ -32,7 +48,12 @@ class BulkUploadImagesForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        photographers = Photographer.objects.all().values_list("id", "last_name")
+        self.set_photographer_choices()
+
+    def set_photographer_choices(self):
+        photographers = Photographer.objects.values_list("id", "last_name").order_by(
+            "last_name"
+        )
         choices = [(None, "------")] + list(photographers)
         self.fields["photographer"].choices = choices
 

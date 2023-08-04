@@ -284,7 +284,6 @@ def bulkupload_images(request):
         form = BulkUploadImagesForm(request.POST, request.FILES)
 
         if form.is_valid():
-
             images = request.FILES.getlist("multiple_images")
             building_photographer = None
             photographer_id = form.cleaned_data.get("photographer")
