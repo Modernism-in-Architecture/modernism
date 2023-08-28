@@ -28,7 +28,7 @@ psycopg2==2.9.2
 python-dateutil==2.8.2
 pytz==2021.3
 regex==2021.11.10
-reportlab==3.6.9
+reportlab==3.6.13
 s3transfer==0.5.0
 six==1.16.0
 sqlparse==0.4.4
