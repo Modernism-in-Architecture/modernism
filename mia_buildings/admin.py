@@ -1,6 +1,6 @@
 import ast
 
-from adminsortable2.admin import SortableStackedInline, SortableAdminBase
+from adminsortable2.admin import SortableAdminBase, SortableTabularInline
 from django import forms
 from django.contrib import admin
 from django.db import models
@@ -56,6 +56,7 @@ class BuildingImageAdmin(admin.ModelAdmin):
     list_display = [
         "title",
         "image_preview",
+        "image_order",
         "is_published",
         "is_feed_image",
         "building",
@@ -145,14 +146,14 @@ class BuildingImageAdmin(admin.ModelAdmin):
     add_images_to_building.short_description = "Add images to a building gallery"
 
 
-class BuildingImageInline(SortableStackedInline):
+class BuildingImageInline(SortableTabularInline):
     model = BuildingImage
     fieldsets = (
         (
             None,
             {
                 "fields": (
-                    ("image_preview", "image"),
+                    ("image_preview", "image_order", "image"),
                     (
                         "is_published",
                         "is_feed_image",
@@ -168,7 +169,7 @@ class BuildingImageInline(SortableStackedInline):
 
     formfield_overrides = {
         models.CharField: {"widget": TextInput(attrs={"size": "30"})},
-        models.TextField: {"widget": Textarea(attrs={"rows": 1, "cols": 30})},
+        models.TextField: {"widget": Textarea(attrs={"rows": 6, "cols": 30})},
     }
 
 

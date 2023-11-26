@@ -77,7 +77,7 @@ class BuildingImage(models.Model):
     )
     description = models.TextField(blank=True)
     tags = TaggableManager(blank=True)
-    image_order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
+    image_order = models.PositiveIntegerField(default=0, blank=False, null=False)
 
     class Meta:
         ordering = ["image_order"]
