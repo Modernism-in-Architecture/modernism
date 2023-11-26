@@ -87,6 +87,8 @@ class BuildingSerializer:
                     }
                 )
 
+            building_types = building.building_types.all()
+
             building_data = {
                 "id": building.pk,
                 "name": building.name,
@@ -98,7 +100,7 @@ class BuildingSerializer:
                 "feedImage": thumb_full_url,
                 "developers": developers,
                 "architects": architects,
-                "buildingType": building.building_types.first().name,
+                "buildingType": building_types.first().name if building_types else "",
             }
             buildings_data.append(building_data)
 
