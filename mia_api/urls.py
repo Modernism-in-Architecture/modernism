@@ -1,5 +1,4 @@
-from django.urls import path, re_path
-from rest_framework.schemas import get_schema_view
+from django.urls import re_path
 
 from . import views
 
