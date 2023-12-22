@@ -4,6 +4,7 @@ from django.utils.text import slugify
 from easy_thumbnails.templatetags.thumbnail import thumbnail_url
 from taggit.managers import TaggableManager
 from unidecode import unidecode
+from mia_buildings.utils import truncate_leading_trailing_spaces_from_wysiwyg_text
 
 
 class Feature(models.Model):
@@ -151,6 +152,9 @@ class Building(models.Model):
         return f"{self.name}"
 
     def save(self, *args, **kwargs):
+        self.description = truncate_leading_trailing_spaces_from_wysiwyg_text(self.description)
+        self.history = truncate_leading_trailing_spaces_from_wysiwyg_text(self.history)
+
         if not self.slug:
             self.slug = slugify(unidecode(self.name))
         return super().save(*args, **kwargs)
