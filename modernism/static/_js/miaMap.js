@@ -1,4 +1,13 @@
-const zoomLevel = document.documentElement.clientWidth < 970 ? 4 : 6;
+let zoomLevel;
+
+if (document.documentElement.clientWidth >= 1400) {
+    // Large screens
+    zoomLevel = 5;
+} else {
+    // small devices and laptops
+    zoomLevel = 4
+}
+
 const mapMia = L.map('mapMia').setView([51.339642, 12.374462], zoomLevel);
 const markers = L.markerClusterGroup({ maxClusterRadius: 20 });
 
