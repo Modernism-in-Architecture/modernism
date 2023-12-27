@@ -62,10 +62,13 @@ class BuildingSerializer:
 
             try:
                 feed_image = building.feed_images[0].image
-                thumb_url = get_thumbnailer(feed_image)["feed"].url
-                thumb_full_url = request.build_absolute_uri(thumb_url)
+                feed_thumb_url = get_thumbnailer(feed_image)["feed"].url
+                preview_thumb_url = get_thumbnailer(feed_image)["preview"].url
+                feed_thumb_full_url = request.build_absolute_uri(feed_thumb_url)
+                preview_thumb_full_url = request.build_absolute_uri(preview_thumb_url)
             except:
-                thumb_full_url = ""
+                feed_thumb_full_url = ""
+                preview_thumb_full_url = ""
 
             architects = []
             for architect in building.published_architects:
@@ -97,7 +100,8 @@ class BuildingSerializer:
                 "country": building.city.country.name,
                 "latitude": building.latitude,
                 "longitude": building.longitude,
-                "feedImage": thumb_full_url,
+                "feedImage": feed_thumb_full_url,
+                "previewImage": preview_thumb_full_url,
                 "developers": developers,
                 "architects": architects,
                 "buildingType": building_types.first().name if building_types else "",
