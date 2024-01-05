@@ -1,7 +1,8 @@
-from django.test import TestCase
-from mia_buildings.tests.factories import BuildingFactory
-from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import User
+from django.test import TestCase
+from rest_framework.authtoken.models import Token
+
+from mia_buildings.tests.factories import BuildingFactory
 
 
 class BuildingAPITestCase(TestCase):

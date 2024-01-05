@@ -1,6 +1,6 @@
 from django.core.serializers import serialize
-from django.shortcuts import render
 from django.views.generic.base import TemplateView
+
 from mia_buildings.models import Building
 from mia_people.models import Architect, Developer
 

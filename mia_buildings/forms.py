@@ -1,9 +1,12 @@
+from taggit.models import Tag
+
 from django import forms
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.forms.widgets import MultipleHiddenInput
+
 from mia_facts.models import City, Country, Photographer
 from mia_people.models import Architect, Developer
-from taggit.models import Tag
+
 
 from mia_buildings.models import (
     AccessType,

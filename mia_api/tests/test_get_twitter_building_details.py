@@ -1,10 +1,12 @@
+from django.contrib.auth.models import User
+from django.test.utils import ignore_warnings
 from django.utils import timezone
 from rest_framework.test import APITestCase
-from django.contrib.auth.models import User
+
 from mia_buildings.tests.factories import BuildingFactory
 from mia_facts.tests.factories import CityFactory
 from mia_people.tests.factories import ArchitectFactory
-from django.test.utils import ignore_warnings
+
 
 ignore_warnings(message="No directory at", module="whitenoise.base").enable()
 

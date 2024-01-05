@@ -1,6 +1,8 @@
 import ast
 
 from adminsortable2.admin import SortableAdminBase, SortableTabularInline
+from tinymce.widgets import TinyMCE
+
 from django import forms
 from django.contrib import admin
 from django.db import models
@@ -8,15 +10,13 @@ from django.forms import Textarea, TextInput
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import path
-from mia_facts.models import Photographer
-from tinymce.widgets import TinyMCE
 
 from mia_buildings import views
 from mia_buildings.forms import (
     BuildingForImageSelectionAdminForm,
     MultipleImageFileField,
 )
-
+from mia_facts.models import Photographer
 from .models import (
     AccessType,
     Building,

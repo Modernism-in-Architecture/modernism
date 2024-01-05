@@ -1,10 +1,13 @@
 from typing import Tuple, Union
+
 from django.db.models.query import Prefetch
 from easy_thumbnails.files import get_thumbnailer
+from rest_framework.request import Request
+
 from mia_buildings.models import Building, BuildingImage
 from mia_facts.models import Source
 from mia_people.models import Architect, Developer
-from rest_framework.request import Request
+
 
 
 class ResponseDataBuilder:

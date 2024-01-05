@@ -1,8 +1,10 @@
-from rest_framework.test import APITestCase
 from django.contrib.auth.models import User
+from django.test.utils import ignore_warnings
+from rest_framework.test import APITestCase
+
 from mia_buildings.models import Building
 from mia_buildings.tests.factories import BuildingFactory
-from django.test.utils import ignore_warnings
+
 
 ignore_warnings(message="No directory at", module="whitenoise.base").enable()
 

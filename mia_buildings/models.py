@@ -1,9 +1,11 @@
+from unidecode import unidecode
+
+from easy_thumbnails.templatetags.thumbnail import thumbnail_url
+from taggit.managers import TaggableManager
+
 from django.db import models
 from django.utils.safestring import mark_safe
 from django.utils.text import slugify
-from easy_thumbnails.templatetags.thumbnail import thumbnail_url
-from taggit.managers import TaggableManager
-from unidecode import unidecode
 
 
 class Feature(models.Model):
