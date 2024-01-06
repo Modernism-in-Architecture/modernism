@@ -137,9 +137,9 @@ TINYMCE_DEFAULT_CONFIG = {
     "theme": "silver",
     "width": 1000,
     "height": 500,
-    "menubar": True,
-    "plugins": "advlist,autolink,lists,link,charmap,fullscreen,insertdatetime,media,table,paste,code,help,wordcount",
-    "toolbar": "undo redo | formatselect | bold italic backcolor | link |alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help",
+    "menubar": False,
+    "plugins": "advlist,autolink,lists,link,charmap,fullscreen,insertdatetime,media,paste,code,wordcount",
+    "toolbar": "undo redo | bold italic | link | code",
 }
 
 REST_FRAMEWORK = {
