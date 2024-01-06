@@ -75,6 +75,8 @@ $(env) python manage.py migrate
 ```
 
 #### Trouble shoot installing the Django project on Apple M1 machines
+
+##### `reportlab`
 You might experience errors running `pip install` or the migrations on M1 machines with the `reportlab` library.
 Try installing following libraries:
 
@@ -86,6 +88,18 @@ $ brew install freetype
 Rebuild the `reportlab` library within the project env:
 ```bash
 $(env) pip install reportlab --force-reinstall --no-cache-dir --global-option=build_ext
+```
+##### `asgiref` / ssl module not available
+If you receive one of the following errors:
+
+- `No matching distribution found for asgiref==3.7.2`
+- `pip is configured with locations that require TLS/SSL, however the ssl module in Python is not available.`
+
+However, this might be connected to a missing old openssl package version. We could fix this by additionally
+installing openssl@1.1.
+
+```bash
+$ brew install openssl@1
 ```
 
 #### Create a superuser and insert testdata
