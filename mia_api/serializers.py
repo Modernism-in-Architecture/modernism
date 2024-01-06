@@ -9,7 +9,6 @@ from mia_facts.models import Source
 from mia_people.models import Architect, Developer
 
 
-
 class ResponseDataBuilder:
     @staticmethod
     def build_error_response(error_message: str, error_fields: dict = None) -> dict:

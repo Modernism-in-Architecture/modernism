@@ -25,6 +25,7 @@ class MultipleImageFileInput(forms.ClearableFileInput):
     allow_multiple_selected = True
 
 
+# TODO: Move to admin_forms.py
 class MultipleImageFileField(forms.ImageField):
     def __init__(self, *args, **kwargs):
         kwargs.setdefault("widget", MultipleImageFileInput())
@@ -61,6 +62,7 @@ class BulkUploadImagesForm(forms.Form):
         self.fields["photographer"].choices = choices
 
 
+# TODO: Move to admin_forms.py
 class BuildingForImageSelectionAdminForm(forms.Form):
     _selected_action = forms.CharField(widget=forms.MultipleHiddenInput)
     _images = forms.CharField(widget=MultipleHiddenInput)
