@@ -112,15 +112,15 @@ You can login into the project's admin with the created superuser at `http://127
 ## Setup the frontend
 
 Generally the project extends and overrides the Bulma Sass variables in the file `modernism.static._sass.modernism.scss`.
-Javascript functions can be found in `modernism.static._js.modernism.js`.
+Javascript files can be found in the folder `modernism.static.lib`.
 
 #### Install requirements
 ```bash
 $ npm install .
 ```
 
-#### Start development server
+#### Start and watch for CSS changes
 ```bash
-$ npm run dev
+$ npm start
 ```
 
