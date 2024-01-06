@@ -19,20 +19,21 @@ const setUpMap = () => {
         shadowSize: [41, 41]
     });
 
-    L.marker([buildingLat, buildingLong], { icon: greenIcon }).addTo(map);
-    map.setView([buildingLat, buildingLong], 12);
-};
+    L.marker([buildingLat, buildingLong], { icon: greenIcon }).addTo(map)
+    map.setView([buildingLat, buildingLong], 12)
+}
 
 const addClickEventListenerToBuildingImages = () => {
     const previewImageBuildings = document.querySelectorAll('.preview-image');
 
     previewImageBuildings.forEach(image => {
-        galleryImages[image.getAttribute("index")] = {
+        galleryImages[image.getAttribute("index")] =
+        {
             largeUrl: image.getAttribute("large-url"),
             description: image.getAttribute("description"),
-            photographer: image.getAttribute("photographer")
-        };
-        image.addEventListener('click', event => {
+            photographer: image.getAttribute("photographer"),
+        }
+        image.addEventListener('click', (event) => {
             event.preventDefault();
             let imageModal = document.getElementById("image-modal");
             let large_image = document.getElementById("modal-image");
@@ -47,9 +48,9 @@ const addClickEventListenerToBuildingImages = () => {
             }
         });
     });
-};
+}
 
-const setModalImage = direction => {
+const setModalImage = (direction) => {
     let largeImage = document.getElementById("modal-image");
     let description = document.getElementById("image-description");
     let photographer = document.getElementById("image-photographer");
@@ -60,6 +61,7 @@ const setModalImage = direction => {
         if (modalImageIndex > Object.keys(galleryImages).length - 1) {
             modalImageIndex = 0;
         }
+
     }
     if (direction == "prev") {
         modalImageIndex = parseInt(modalImageIndex) - 1;
@@ -71,15 +73,15 @@ const setModalImage = direction => {
     imgData = galleryImages[modalImageIndex];
     if (imgData) {
         largeImage.src = imgData["largeUrl"];
-        description.innerText = imgData["description"];
-        photographer.innerText = imgData["photographer"] ? "Photo by " + imgData["photographer"] : "";
+        description.innerText = imgData["description"]
+        photographer.innerText = imgData["photographer"] ? "Photo by " + imgData["photographer"] : ""
     }
-};
+}
 
 const addClickEventListenerToModalCloseButton = () => {
     let closeButton = document.getElementById("close-button");
     if (closeButton) {
-        closeButton.addEventListener('click', event => {
+        closeButton.addEventListener('click', (event) => {
             event.preventDefault();
             let imageModal = document.getElementById("image-modal");
             if (imageModal.classList.contains("is-active")) {
@@ -87,7 +89,8 @@ const addClickEventListenerToModalCloseButton = () => {
             }
         });
     }
-};
+
+}
 
 const addBuildingsOfCityToMap = () => {
 
@@ -98,13 +101,16 @@ const addBuildingsOfCityToMap = () => {
             continue;
         }
 
-        let cityBuildingURL = window.location.href.replace(buildingSlug, cityBuilding.fields.slug);
+        let cityBuildingURL = window.location.href.replace(buildingSlug, cityBuilding.fields.slug)
         let marker = L.marker([cityBuilding.fields.latitude, cityBuilding.fields.longitude]);
-        marker.bindPopup('<a href=' + cityBuildingURL + '><p>' + cityBuilding.fields.name + ",<br>" + cityBuilding.fields.address + '</p></a>').openPopup();
+        marker.bindPopup(
+            '<a href=' + cityBuildingURL + '><p>' + cityBuilding.fields.name + ",<br>" + cityBuilding.fields.address + '</p></a>'
+        ).openPopup();
         markers.addLayer(marker);
         map.addLayer(markers);
     };
-};
+}
+
 
 setUpMap();
 addBuildingsOfCityToMap();

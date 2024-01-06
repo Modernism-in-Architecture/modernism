@@ -7,19 +7,11 @@
         "@creativebulma/bulma-tooltip": "^1.2.0"
     },
     "devDependencies": {
-        "babel-cli": "^6.26.0",
-        "babel-preset-env": "^1.7.0",
-        "babel-preset-es2015-ie": "^6.7.0",
-        "bulma": "^0.9.3",
-        "node-sass": "^9.0.0",
-        "npm-run-all": "^4.1.5"
+        "bulma": "^0.9.4",
+        "node-sass": "^9.0.0"
     },
     "scripts": {
-        "css-build": "node-sass modernism/static/_sass/modernism.scss modernism/static/css/modernism.css -w && node-sass modernism/static/_sass/admin.scss modernism/static/css/admin.css -w",
-        "deploy": "npm run css-deploy && npm run js-build",
-        "js-build": "babel modernism/static/_js --out-dir modernism/static/lib",
-        "js-watch": "npm run js-build -- -w",
-        "dev": "npm run css-build & npm run js-watch"
+        "css-build": "node-sass modernism/static/_sass/modernism.scss modernism/static/css/modernism.css -w && node-sass modernism/static/_sass/admin.scss modernism/static/css/admin.css -w"
     },
     "repository": {
         "type": "git",

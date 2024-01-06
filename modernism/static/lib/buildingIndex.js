@@ -11,21 +11,21 @@ const applyFilterButton = document.querySelector('#apply-filter-btn');
 
 const getOptionKeyByEventTargetValue = (object, value) => {
     return Object.keys(object).find(key => object[key].value === value);
-};
+}
 
-const renderFilterSelection = selectedFilter => {
+const renderFilterSelection = (selectedFilter) => {
     let filterList = Object.values(selectedFilter);
     let filterString = "";
     filterList.forEach(filter => {
         filterString += filter;
-    });
+    })
     filterDescriptionContainer.innerHTML = filterString;
-};
+}
 
-const toggleMenuButtonColor = trigger => {
+const toggleMenuButtonColor = (trigger) => {
     let selects = trigger.parentElement.getElementsByTagName("select");
-    let hasSelection = [...selects].find(select => select.selectedIndex);
-    let checkedBoxes = trigger.parentElement.querySelector(".menu").querySelectorAll('input[type=checkbox]:checked');
+    let hasSelection = [...selects].find(select => select.selectedIndex)
+    let checkedBoxes = trigger.parentElement.querySelector(".menu").querySelectorAll('input[type=checkbox]:checked')
 
     if (hasSelection) {
         let menuButton = trigger.querySelector(".button");
@@ -43,23 +43,23 @@ const toggleMenuButtonColor = trigger => {
         let menuButton = trigger.parentElement.querySelector(".button");
         menuButton.classList.remove("has-filter-set");
     }
-};
+}
 
 const activateFilterButtons = () => {
     dropdownTriggers.forEach(trigger => {
         toggleMenuButtonColor(trigger);
-    });
-};
+    })
+}
 
 const addChangeEventListenerToFilterForm = () => {
     featureSelectFilter.forEach(selectField => {
-        selectField.addEventListener('change', event => {
+        selectField.addEventListener('change', (event) => {
             event.preventDefault();
             if (event.target.value == "") {
                 delete selectedFilter[event.target.id];
             } else {
-                let optionKey = getOptionKeyByEventTargetValue(selectField.children, event.target.value);
-                let filterValue = selectField.children[optionKey].innerText.trim();
+                let optionKey = getOptionKeyByEventTargetValue(selectField.children, event.target.value)
+                let filterValue = selectField.children[optionKey].innerText.trim()
                 let hashTagString = "#" + filterValue + " ";
                 if (selectField.name === "protected_monument") {
                     hashTagString = "#" + "Protected:" + filterValue + " ";
@@ -71,11 +71,11 @@ const addChangeEventListenerToFilterForm = () => {
             }
             renderFilterSelection(selectedFilter);
         });
-    });
+    })
 
     checkboxes.forEach(box => {
         let filterValue = box.parentElement.innerText.trim();
-        box.addEventListener('change', event => {
+        box.addEventListener('change', (event) => {
             event.preventDefault();
             if (box.checked) {
                 let hashTagString = "#" + filterValue + " ";
@@ -85,7 +85,7 @@ const addChangeEventListenerToFilterForm = () => {
             }
             renderFilterSelection(selectedFilter);
         });
-    });
+    })
 };
 
 const collectAllSelectedFilter = () => {
@@ -100,8 +100,8 @@ const collectAllSelectedFilter = () => {
     featureSelectFilter.forEach(selectField => {
         for (option of selectField) {
             if (option.selected && option.value) {
-                let optionKey = getOptionKeyByEventTargetValue(selectField.children, option.value);
-                let filterValue = selectField.children[optionKey].innerText.trim();
+                let optionKey = getOptionKeyByEventTargetValue(selectField.children, option.value)
+                let filterValue = selectField.children[optionKey].innerText.trim()
                 let hashTagString = "#" + filterValue + " ";
                 if (selectField.name === "protected_monument") {
                     hashTagString = "#" + "Protected:" + filterValue + " ";
@@ -114,34 +114,34 @@ const collectAllSelectedFilter = () => {
         }
         renderFilterSelection(selectedFilter);
     });
-};
+}
 
 const addEventListenerToDropdownFilter = () => {
     dropdownFilter.forEach(dropdown => {
         let trigger = dropdown.querySelector(".dropdown-trigger");
         let menu = dropdown.querySelector(".menu");
 
-        trigger.addEventListener('click', event => {
+        trigger.addEventListener('click', (event) => {
             event.preventDefault();
             dropdownMenus.forEach(dropMenu => {
                 dropMenu.classList.add("is-hidden");
-            });
+            })
             if ([...trigger.classList].includes("is-active")) {
                 dropdownTriggers.forEach(trigger => {
                     trigger.classList.remove("is-active");
                     toggleMenuButtonColor(trigger);
-                });
+                })
             } else {
                 dropdownTriggers.forEach(trigger => {
                     trigger.classList.remove("is-active");
                     toggleMenuButtonColor(trigger);
-                });
+                })
                 trigger.classList.add("is-active");
                 menu.classList.remove("is-hidden");
             }
         });
-    });
-};
+    })
+}
 
 const resetFilters = () => {
     checkboxes.forEach(box => {
@@ -153,15 +153,15 @@ const resetFilters = () => {
             allOptions[i].selected = false;
         }
     });
-};
+}
 
 const addEventListenerToResetFilterButton = () => {
-    resetFilterButton.addEventListener('click', event => {
+    resetFilterButton.addEventListener('click', (event) => {
         event.preventDefault();
         resetFilters();
         applyFilterButton.click();
-    });
-};
+    })
+}
 
 addChangeEventListenerToFilterForm();
 collectAllSelectedFilter();

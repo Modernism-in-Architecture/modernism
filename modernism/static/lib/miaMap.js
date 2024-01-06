@@ -7,14 +7,16 @@ const setUpMap = () => {
         'attribution': '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> Contributers',
         'useCache': true
     }).addTo(mapMia);
-};
+}
 
 const addBuildingsToMap = () => {
     for (let i = 0; i < mapBuildings.length; i++) {
         let building = mapBuildings[i];
-        let buildingURL = window.location.href.replace("map/", "buildings/" + building.fields.slug);
+        let buildingURL = window.location.href.replace("map/", "buildings/" + building.fields.slug)
         let marker = L.marker([building.fields.latitude, building.fields.longitude]);
-        marker.bindPopup('<a href=' + buildingURL + '><p>' + building.fields.name + ",<br>" + building.fields.address + '</p></a>').openPopup();
+        marker.bindPopup(
+            '<a href=' + buildingURL + '><p>' + building.fields.name + ",<br>" + building.fields.address + '</p></a>'
+        ).openPopup();
         markers.addLayer(marker);
         mapMia.addLayer(markers);
     }
