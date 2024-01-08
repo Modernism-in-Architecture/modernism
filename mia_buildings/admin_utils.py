@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 
 
-def validate_content_markup(html: str) -> (bool, str):
+def validate_and_clean_content_markup(html: str) -> (bool, str):
     soup = BeautifulSoup(html, "html.parser")
     before = soup.prettify()
     cleanup(soup)

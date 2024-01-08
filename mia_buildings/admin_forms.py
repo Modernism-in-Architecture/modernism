@@ -17,7 +17,7 @@ from django.forms import (
 )
 from django.forms.widgets import MultipleHiddenInput
 
-from mia_buildings.admin_utils import validate_content_markup
+from mia_buildings.admin_utils import validate_and_clean_content_markup
 from mia_buildings.models import Building
 from mia_facts.models import Photographer
 
@@ -98,7 +98,7 @@ class BuildingAdminForm(ModelForm):
 
     def clean_description(self):
         description = self.cleaned_data.get("description")
-        success, cleaned_content_data = validate_content_markup(description)
+        success, cleaned_content_data = validate_and_clean_content_markup(description)
 
         if not success:
             # Solved in this unconventional way to provide the cleaned data to the user in an actually immutable form
@@ -113,7 +113,7 @@ class BuildingAdminForm(ModelForm):
 
     def clean_history(self):
         history_content = self.cleaned_data.get("history")
-        success, cleaned_content_data = validate_content_markup(history_content)
+        success, cleaned_content_data = validate_and_clean_content_markup(history_content)
 
         if not success:
             # Solved in this unconventional way to provide the cleaned data to the user in an actually immutable form
