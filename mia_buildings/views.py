@@ -1,17 +1,15 @@
 from el_pagination.decorators import page_template
 from rest_framework.decorators import api_view
 
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.contrib.postgres.search import SearchVector
 from django.core.serializers import serialize
 from django.db.models.query import Prefetch
 from django.http.request import MultiValueDict, QueryDict
-from django.shortcuts import redirect, render
+from django.shortcuts import render
 
-from mia_buildings.forms import BuildingsFilterForm, BulkUploadImagesForm
+from mia_buildings.forms import BuildingsFilterForm
 from mia_buildings.models import Building, BuildingImage
-from mia_facts.models import Fact, Photographer, Source
+from mia_facts.models import Fact, Source
 
 
 def _get_filtered_buildings(cleaned_form_data, buildings):
@@ -276,43 +274,3 @@ def get_building_details(
         context.update(extra_context)
 
     return render(request, template, context)
-
-
-@login_required(login_url="/admin/login/")
-def bulkupload_images(request):
-    if request.method == "POST":
-        form = BulkUploadImagesForm(request.POST, request.FILES)
-
-        if form.is_valid():
-            images = request.FILES.getlist("multiple_images")
-            building_photographer = None
-            photographer_id = form.cleaned_data.get("photographer")
-            title = form.cleaned_data.get("title")
-            tags = form.cleaned_data.get("tags")
-
-            if photographer_id:
-                building_photographer = Photographer.objects.filter(
-                    id=photographer_id
-                ).first()
-
-            for index, image in enumerate(images):
-                building_image = BuildingImage.objects.create(image=image)
-                building_image.title = f"{title} - {index}"
-                building_image.photographer = building_photographer
-                if tags:
-                    building_image.tags.add(*tags)
-                building_image.save()
-
-            messages.success(
-                request,
-                f"Upload of {len(images)} pics finished successfully. We love new images for MIA <3",
-            )
-
-            return redirect(
-                "admin:mia_buildings_buildingimage_changelist",
-            )
-
-    form = BulkUploadImagesForm()
-    payload = {"form": form, "title": "Upload multiple images"}
-
-    return render(request, "admin/bulkupload_images.html", payload)
