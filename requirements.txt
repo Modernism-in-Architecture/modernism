@@ -1,4 +1,5 @@
 asgiref==3.7.2
+beautifulsoup4==4.12.2
 black==21.11b1
 boto3==1.20.8
 botocore==1.23.8
