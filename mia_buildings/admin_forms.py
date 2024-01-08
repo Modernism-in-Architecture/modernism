@@ -98,10 +98,10 @@ class BuildingAdminForm(ModelForm):
 
     def clean_description(self):
         description = self.cleaned_data.get("description")
-        success, cleaned_content_data = validate_and_clean_content_markup(description)
+        clean, cleaned_content_data = validate_and_clean_content_markup(description)
 
-        if not success:
-            # Solved in this unconventional way to provide the cleaned data to the user in an actually immutable form
+        if not clean:
+            # Solved in this unconventional way to provide the cleaned data to the user for review
             copied_form_data = self.data.copy()
             copied_form_data["description"] = cleaned_content_data
             self.data = copied_form_data
@@ -113,10 +113,10 @@ class BuildingAdminForm(ModelForm):
 
     def clean_history(self):
         history_content = self.cleaned_data.get("history")
-        success, cleaned_content_data = validate_and_clean_content_markup(history_content)
+        clean, cleaned_content_data = validate_and_clean_content_markup(history_content)
 
-        if not success:
-            # Solved in this unconventional way to provide the cleaned data to the user in an actually immutable form
+        if not clean:
+            # Solved in this unconventional way to provide the cleaned data to the user for review
             copied_form_data = self.data.copy()
             copied_form_data["history"] = cleaned_content_data
             self.data = copied_form_data
