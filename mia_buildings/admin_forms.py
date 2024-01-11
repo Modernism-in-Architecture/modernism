@@ -98,9 +98,9 @@ class BuildingAdminForm(ModelForm):
 
     def clean_description(self):
         description = self.cleaned_data.get("description")
-        clean, cleaned_content_data = validate_and_clean_content_markup(description)
+        was_clean, cleaned_content_data = validate_and_clean_content_markup(description)
 
-        if not clean:
+        if not was_clean:
             # Solved in this unconventional way to provide the cleaned data to the user for review
             copied_form_data = self.data.copy()
             copied_form_data["description"] = cleaned_content_data
