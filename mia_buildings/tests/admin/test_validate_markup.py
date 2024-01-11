@@ -15,7 +15,7 @@ def test_validate_and_clean_markup_empty_string():
 
 
 @pytest.mark.parametrize(
-    "given_data, expected_was_cleaned, expected_cleaned_data",
+    "given_data, expected_was_clean, expected_cleaned_data",
     [
         (
             '<pre id="tw-rmn" class="tw-data-placeholder" dir="ltr" style="text-align: left;" data-placeholder=""></pre>',
@@ -42,14 +42,19 @@ def test_validate_and_clean_markup_empty_string():
             False,
             "<p>The sliding <em>windows</em> of some rooms are rarely found in <strong>Leipzig</strong>.</p><p>He never returned to Brno.</p>",
         ),
+        (
+            "<p>The sliding <em>windows</em> of some rooms are rarely found in <strong>Leipzig</strong>.</p><p>He never returned to Brno.</p>",
+            True,
+            "<p>The sliding <em>windows</em> of some rooms are rarely found in <strong>Leipzig</strong>.</p><p>He never returned to Brno.</p>",
+        ),
     ],
 )
 def test_validate_and_clean_markup(
-    given_data, expected_was_cleaned, expected_cleaned_data
+    given_data, expected_was_clean, expected_cleaned_data
 ):
     # WHEN
-    was_cleaned, cleaned_data = validate_and_clean_content_markup(given_data)
+    was_clean, cleaned_data = validate_and_clean_content_markup(given_data)
 
     # THEN
-    assert was_cleaned == expected_was_cleaned
+    assert was_clean == expected_was_clean
     assert cleaned_data == expected_cleaned_data
