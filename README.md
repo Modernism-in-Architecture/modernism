@@ -123,7 +123,17 @@ $(env) python manage.py runserver
 
 You can login into the project's admin with the created superuser at `http://127.0.0.1:8000/admin`.
 
-## Setup the frontend
+#### Run tests
+
+```bash
+$(env) pytest
+```
+
+### Use the Makefile
+
+There is a Makefile on the root level containing most of the commands above for your convenience.
+
+## Setup the frontend for development
 
 Generally the project extends and overrides the Bulma Sass variables in the file `modernism.static._sass.modernism.scss`.
 Javascript files can be found in the folder `modernism.static.lib`.
