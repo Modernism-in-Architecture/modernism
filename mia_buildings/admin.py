@@ -14,6 +14,7 @@ from mia_buildings import admin_views
 
 from mia_facts.models import Photographer
 from .admin_forms import BuildingAdminForm, BuildingForImageSelectionAdminForm
+from .admin_utils import validate_and_clean_content_markup
 
 from .models import (
     AccessType,
@@ -177,6 +178,8 @@ class BuildingAdmin(SortableAdminBase, admin.ModelAdmin):
         "name",
         "pk",
         "is_published",
+        "history_is_clean",
+        "description_is_clean",
         "published_on_twitter",
         "year_of_construction",
         "city",
@@ -288,6 +291,20 @@ class BuildingAdmin(SortableAdminBase, admin.ModelAdmin):
             },
         ),
     )
+
+    @admin.display(description="History clean")
+    def history_is_clean(self, building):
+        was_clean, _ = validate_and_clean_content_markup(building.history)
+        return was_clean
+
+    history_is_clean.boolean = True
+
+    @admin.display(description="Description clean")
+    def description_is_clean(self, building):
+        was_clean, _ = validate_and_clean_content_markup(building.description)
+        return was_clean
+
+    description_is_clean.boolean = True
 
     def get_queryset(self, request):
         qs = super(BuildingAdmin, self).get_queryset(request)
