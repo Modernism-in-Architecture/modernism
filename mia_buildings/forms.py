@@ -1,12 +1,7 @@
-from taggit.models import Tag
-
 from django import forms
-from django.contrib.admin.widgets import FilteredSelectMultiple
-from django.forms.widgets import MultipleHiddenInput
 
-from mia_facts.models import City, Country, Photographer
+from mia_facts.models import City, Country
 from mia_people.models import Architect, Developer
-
 
 from mia_buildings.models import (
     AccessType,
@@ -19,55 +14,6 @@ from mia_buildings.models import (
     Roof,
     Window,
 )
-
-
-class MultipleImageFileInput(forms.ClearableFileInput):
-    allow_multiple_selected = True
-
-
-class MultipleImageFileField(forms.ImageField):
-    def __init__(self, *args, **kwargs):
-        kwargs.setdefault("widget", MultipleImageFileInput())
-        super().__init__(*args, **kwargs)
-
-    def clean(self, data, initial=None):
-        single_file_clean = super().clean
-        if isinstance(data, (list, tuple)):
-            result = [single_file_clean(d, initial) for d in data]
-        else:
-            result = single_file_clean(data, initial)
-        return result
-
-
-class BulkUploadImagesForm(forms.Form):
-    multiple_images = MultipleImageFileField(label="Select images")
-    photographer = forms.ChoiceField(required=False, widget=forms.Select, choices=[])
-    tags = forms.ModelMultipleChoiceField(
-        required=False,
-        queryset=Tag.objects.order_by("name"),
-        widget=FilteredSelectMultiple("Tags", True),
-    )
-    title = forms.CharField(label="General name for the images")
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.set_photographer_choices()
-
-    def set_photographer_choices(self):
-        photographers = Photographer.objects.values_list("id", "last_name").order_by(
-            "last_name"
-        )
-        choices = [(None, "------")] + list(photographers)
-        self.fields["photographer"].choices = choices
-
-
-class BuildingForImageSelectionAdminForm(forms.Form):
-    _selected_action = forms.CharField(widget=forms.MultipleHiddenInput)
-    _images = forms.CharField(widget=MultipleHiddenInput)
-    building = forms.ModelChoiceField(
-        queryset=Building.objects.all().order_by("name"),
-        widget=forms.Select(),
-    )
 
 
 class BuildingsFilterForm(forms.Form):

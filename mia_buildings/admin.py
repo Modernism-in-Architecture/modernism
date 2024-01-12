@@ -1,7 +1,6 @@
 import ast
 
 from adminsortable2.admin import SortableAdminBase, SortableTabularInline
-from tinymce.widgets import TinyMCE
 
 from django import forms
 from django.contrib import admin
@@ -11,12 +10,12 @@ from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import path
 
-from mia_buildings import views
-from mia_buildings.forms import (
-    BuildingForImageSelectionAdminForm,
-    MultipleImageFileField,
-)
+from mia_buildings import admin_views
+
 from mia_facts.models import Photographer
+from .admin_forms import BuildingAdminForm, BuildingForImageSelectionAdminForm
+from .admin_utils import validate_and_clean_content_markup
+
 from .models import (
     AccessType,
     Building,
@@ -87,7 +86,7 @@ class BuildingImageAdmin(admin.ModelAdmin):
         custom_admin_urls = [
             path(
                 "bulkupload-images/",
-                views.bulkupload_images,
+                admin_views.bulkupload_images,
                 name="bulkupload-images",
             ),
         ]
@@ -172,41 +171,6 @@ class BuildingImageInline(SortableTabularInline):
     }
 
 
-class BuildingAdminForm(forms.ModelForm):
-    multiple_images = MultipleImageFileField(required=False)
-    photographer = forms.ChoiceField(
-        required=False,
-        widget=forms.Select,
-    )
-
-    class Meta:
-        model = Building
-        widgets = {
-            "subtitle": forms.Textarea(attrs={"rows": "2"}),
-            "seo_title": forms.Textarea(attrs={"rows": "2"}),
-            "history": TinyMCE(
-                mce_attrs={"convert_urls": False, "browser_spellcheck": True}
-            ),
-            "description": TinyMCE(
-                mce_attrs={"convert_urls": False, "browser_spellcheck": True}
-            ),
-            "directions": forms.Textarea(attrs={"rows": "3"}),
-            "address": forms.Textarea(attrs={"rows": "3"}),
-        }
-        fields = "__all__"
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.set_photographer_choices()
-
-    def set_photographer_choices(self):
-        photographers = Photographer.objects.values_list("id", "last_name").order_by(
-            "last_name"
-        )
-        choices = [("", "------")] + list(photographers)
-        self.fields["photographer"].choices = choices
-
-
 @admin.register(Building)
 class BuildingAdmin(SortableAdminBase, admin.ModelAdmin):
     search_fields = ["name", "description", "city__name", "city__country__name"]
@@ -214,6 +178,8 @@ class BuildingAdmin(SortableAdminBase, admin.ModelAdmin):
         "name",
         "pk",
         "is_published",
+        "history_is_clean",
+        "description_is_clean",
         "published_on_twitter",
         "year_of_construction",
         "city",
@@ -325,6 +291,20 @@ class BuildingAdmin(SortableAdminBase, admin.ModelAdmin):
             },
         ),
     )
+
+    @admin.display(description="History clean")
+    def history_is_clean(self, building):
+        was_clean, _ = validate_and_clean_content_markup(building.history)
+        return was_clean
+
+    history_is_clean.boolean = True
+
+    @admin.display(description="Description clean")
+    def description_is_clean(self, building):
+        was_clean, _ = validate_and_clean_content_markup(building.description)
+        return was_clean
+
+    description_is_clean.boolean = True
 
     def get_queryset(self, request):
         qs = super(BuildingAdmin, self).get_queryset(request)
