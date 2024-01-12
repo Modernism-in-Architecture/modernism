@@ -16,5 +16,19 @@ migrations: venv
 migrate: venv
 	$(VENV) python manage.py migrate
 
+superuser: venv
+	$(VENV) DJANGO_SUPERUSER_USERNAME=django \
+	DJANGO_SUPERUSER_PASSWORD=django \
+	DJANGO_SUPERUSER_EMAIL="django@example.org" \
+	python manage.py createsuperuser --noinput
+
+runserver: venv
+	$(VENV) python manage.py runserver 8002
+
 test: venv
 	$(VENV) pytest
+
+
+init: install migrate superuser
+
+start: runserver
