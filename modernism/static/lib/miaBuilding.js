@@ -5,9 +5,9 @@ let modalImageIndex = 0;
 let galleryImages = {};
 
 const setUpMap = () => {
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        'attribution': '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> Contributers',
-        'useCache': true
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        useCache: true
     }).addTo(map);
 
     const greenIcon = new L.Icon({

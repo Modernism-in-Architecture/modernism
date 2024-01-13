@@ -2,9 +2,9 @@ const map = L.map('mapid').setView([51.339642, 12.374462], 6);
 const markers = L.markerClusterGroup();
 const buildingDataURL = window.location.origin + "/api/v2/pages/?type=buildings.BuildingPage&fields=-gallery_images,lat_long,name,address";
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    'attribution': '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> Contributers',
-    'useCache': true
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    useCache: true
 }).addTo(map);
 
 const fetchData = async (url, limit, offset) => {
