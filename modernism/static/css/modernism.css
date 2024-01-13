@@ -8094,13 +8094,23 @@ body {
 .building .content .rich-text {
   margin-bottom: 1rem; }
 
-@media screen and (max-width: 969px) {
-  .building .content {
-    border-radius: 10px; }
+@media screen and (max-width: 1113px) {
   .building .box {
-    background-color: rgba(10, 10, 10, 0.1); }
-    .building .box p {
-      font-size: 1.1em; } }
+    box-shadow: none;
+    padding: 0; }
+    .building .box .building-content {
+      padding: 0; }
+    .building .box .card {
+      box-shadow: none;
+      border-radius: 0; }
+      .building .box .card .history-head {
+        margin: 0.5rem 0 0.5rem 0; }
+      .building .box .card .card-header {
+        background-color: rgba(68, 68, 68, 0.8);
+        color: white; }
+        .building .box .card .card-header .card-header-title {
+          color: white;
+          margin-bottom: 0; } }
 
 .building .preview-image, .building .feed-image img {
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px; }

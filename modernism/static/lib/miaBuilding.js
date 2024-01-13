@@ -39,8 +39,8 @@ const addClickEventListenerToBuildingImages = () => {
             let large_image = document.getElementById("modal-image");
             let description = document.getElementById("image-description");
             let photographer = document.getElementById("image-photographer");
+            imageModal.classList.toggle("is-active");
             if (!imageModal.classList.contains("is-active")) {
-                imageModal.classList.toggle("is-active");
                 large_image.src = image.getAttribute("large-url");
                 modalImageIndex = image.getAttribute("index");
                 description.innerText = image.getAttribute("description");
@@ -56,14 +56,14 @@ const setModalImage = (direction) => {
     let photographer = document.getElementById("image-photographer");
     let imgData = {};
 
-    if (direction == "next") {
+    if (direction === "next") {
         modalImageIndex = parseInt(modalImageIndex) + 1;
         if (modalImageIndex > Object.keys(galleryImages).length - 1) {
             modalImageIndex = 0;
         }
 
     }
-    if (direction == "prev") {
+    if (direction === "prev") {
         modalImageIndex = parseInt(modalImageIndex) - 1;
         if (modalImageIndex < 0) {
             modalImageIndex = Object.keys(galleryImages).length - 1;
@@ -84,12 +84,9 @@ const addClickEventListenerToModalCloseButton = () => {
         closeButton.addEventListener('click', (event) => {
             event.preventDefault();
             let imageModal = document.getElementById("image-modal");
-            if (imageModal.classList.contains("is-active")) {
-                imageModal.classList.toggle("is-active");
-            }
+            imageModal.classList.toggle("is-active");
         });
     }
-
 }
 
 const addBuildingsOfCityToMap = () => {
@@ -97,7 +94,7 @@ const addBuildingsOfCityToMap = () => {
     for (let i = 0; i < buildingsOfTheCityData.length; i++) {
         let cityBuilding = buildingsOfTheCityData[i];
 
-        if (cityBuilding.fields.latitude == buildingLat && cityBuilding.fields.longitude == buildingLong) {
+        if (cityBuilding.fields.latitude === buildingLat && cityBuilding.fields.longitude === buildingLong) {
             continue;
         }
 
@@ -108,7 +105,30 @@ const addBuildingsOfCityToMap = () => {
         ).openPopup();
         markers.addLayer(marker);
         map.addLayer(markers);
-    };
+    }
+}
+
+const addClickEventListenerToAccordions = () => {
+
+    let historyHead = document.getElementById("history");
+    let descriptionHead = document.getElementById("description");
+    let sourceHead = document.getElementById("source");
+    let descriptionContent = document.getElementById("description-content");
+    let historyContent = document.getElementById("history-content");
+    let sourceContent = document.getElementById("source-content");
+
+    historyHead.addEventListener('click', (event) => {
+            historyContent.classList.toggle("is-sr-only");
+        }
+    );
+    descriptionHead.addEventListener('click', (event) => {
+            descriptionContent.classList.toggle("is-sr-only");
+        }
+    );
+    sourceHead.addEventListener('click', (event) => {
+            sourceContent.classList.toggle("is-sr-only");
+        }
+    );
 }
 
 
@@ -116,3 +136,4 @@ setUpMap();
 addBuildingsOfCityToMap();
 addClickEventListenerToBuildingImages();
 addClickEventListenerToModalCloseButton();
+addClickEventListenerToAccordions();

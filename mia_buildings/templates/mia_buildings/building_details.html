@@ -134,21 +134,69 @@
             <div class="columns">
                 <div class="column">
                     <div class="content is-size-5">
-                        <div class="box desription">
+                        <div class="box building-content">
                             {% if building.subtitle %}
                                 <h2 class="is-size-4">{{building.subtitle}}</h2>
                             {% endif %}
                             {% if building.description %}
-                                <p><strong>Description</strong></p>
-                                {{building.description | safe}}
+                                <div class="card is-hidden-desktop">
+                                    <div class="description-head card-header" id="description">
+                                        <p class="card-header-title">Description</p>
+                                        <div class="card-header-icon" aria-label="content">
+                                          <ion-icon name="add-outline"></ion-icon>
+                                        </div>
+                                    </div>
+                                    <div class="card-content is-sr-only" id="description-content">
+                                        <div class="content">{{building.description | safe}}</div>
+                                    </div>
+                                </div>
+                                <p class="is-hidden-touch""><strong>Description</strong></p>
+                                <div class="is-hidden-touch">
+                                    {{building.description | safe}}
+                                </div>
                             {% endif %}
                             {% if building.history %}
-                                <p><strong>History</strong></p>
-                                {{building.history | safe}}
+                                <div class="card is-hidden-desktop">
+                                    <div class="history-head card-header" id="history">
+                                        <p class="card-header-title">History</p>
+                                        <div class="card-header-icon" aria-label="content">
+                                              <ion-icon name="add-outline"></ion-icon>
+                                        </div>
+                                    </div>
+                                    <div class="card-content is-sr-only" id="history-content">
+                                        <div class="content">{{building.history | safe}}</div>
+                                    </div>
+                                </div>
+                                <p class="is-hidden-touch mt-5"><strong>History</strong></p>
+                                <div class="is-hidden-touch">
+                                    {{building.history | safe}}
+                                </div>
                             {% endif %}
                             {% if source_urls or source_books %}
-                                <p><strong>Sources</strong></p>
-                                <ul>
+                                <div class="card is-hidden-desktop">
+                                    <div class="source-head card-header" id="source">
+                                        <p class="card-header-title">Sources</p>
+                                        <div class="card-header-icon" aria-label="content">
+                                              <ion-icon name="add-outline"></ion-icon>
+                                        </div>
+                                    </div>
+                                    <div class="card-content is-sr-only" id="source-content">
+                                        <div class="content">
+                                            <ul>
+                                                {% for source in source_urls.all %}
+                                                    <li><a href="{{source.url}}" target="_blank" rel="noreferrer noopener">{{source.title}}</a></li>
+                                                {% endfor %}
+                                                {% for source in source_books.all %}
+                                                    <li>
+                                                        {% for author in source.authors.all %} {{author.last_name}}{% if forloop.last %}:{% else %}, {% endif %}{% endfor %} {{source.title}}, {% if source.year %}{{source.year}}{% endif %}
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="is-hidden-touch mt-5"><strong>Sources</strong></p>
+                                <ul class="is-hidden-touch">
                                     {% for source in source_urls.all %}
                                         <li><a href="{{source.url}}" target="_blank" rel="noreferrer noopener">{{source.title}}</a></li>
                                     {% endfor %}

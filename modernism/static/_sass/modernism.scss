@@ -307,14 +307,35 @@ body {
     .content .rich-text {
         margin-bottom: 1rem;
     }
-    @media screen and (max-width: 969px) {
-        .content {
-            border-radius: $border-radius;
-        }
+    @media screen and (max-width: 1113px) {
         .box {
-            background-color: rgba($black, 0.1);
-            p {
-                font-size: 1.1em;
+            box-shadow: none;
+            padding:0;
+            .building-content {
+                padding: 0;
+            }
+
+            .card {
+                box-shadow: none;
+                border-radius: 0;
+
+                .history-head {
+                    margin: 0.5rem 0 0.5rem 0;
+                }
+
+                .card-content {
+
+                }
+
+                .card-header {
+                    background-color: $tag-background-color;
+                    color: $white;
+
+                    .card-header-title {
+                        color: $white;
+                        margin-bottom: 0;
+                    }
+                }
             }
         }
     }
