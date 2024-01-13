@@ -54,9 +54,21 @@ const addClickEventListenerToDropdownLinks = () => {
     })
 }
 
+const addScrollToTopEventListener = () => {
+    let scrollToTopBtn = document.getElementById("scrollToTopBtn");
+    scrollToTopBtn.addEventListener("click", (event) => {
+         window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: "smooth"
+        });
+    });
+};
+
 addClickEventListenerToBurgerMenu();
 addClickEventListenerToDropdownLinks();
 addClickEventListenerToFilterIcon();
+addScrollToTopEventListener();
 
 window.onload = () => {
     const currentMenuItem = document.querySelector(".active")

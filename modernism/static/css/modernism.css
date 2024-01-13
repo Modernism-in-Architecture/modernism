@@ -7964,6 +7964,17 @@ body {
 .button {
   text-decoration: none; }
 
+#scrollToTopBtn {
+  position: fixed;
+  z-index: 20;
+  bottom: 20px;
+  right: 10px;
+  background-color: #4a4a4a;
+  color: white;
+  border-radius: 5px;
+  padding: 1rem 1rem 0.5rem 1rem;
+  cursor: pointer; }
+
 .breadcrumbs-section, .filter-section {
   padding: 1.5rem 1.5rem 0 1.5rem; }
 
