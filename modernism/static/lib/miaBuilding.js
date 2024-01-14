@@ -1,8 +1,29 @@
+const markers = L.markerClusterGroup({
+    spiderfyOnMaxZoom: false,
+    showCoverageOnHover: false,
+});
 const map = L.map('mapBuilding');
-const markers = L.markerClusterGroup();
 
-let modalImageIndex = 0;
-let galleryImages = {};
+let modalImageIndex= 0;
+let galleryImages= {};
+
+const customIcon = new L.Icon({
+        iconUrl: staticUrl + "img/marker.png",
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+        iconSize: [40, 40],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+});
+
+const customSingleIcon = new L.Icon({
+        iconUrl: staticUrl + "img/marker_single.png",
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+        iconSize: [40, 40],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+});
 
 const setUpMap = () => {
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -10,16 +31,7 @@ const setUpMap = () => {
         useCache: true
     }).addTo(map);
 
-    const greenIcon = new L.Icon({
-        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
-        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-        iconSize: [25, 41],
-        iconAnchor: [12, 41],
-        popupAnchor: [1, -34],
-        shadowSize: [41, 41]
-    });
-
-    L.marker([buildingLat, buildingLong], { icon: greenIcon }).addTo(map)
+    L.marker([buildingLat, buildingLong], { icon: customSingleIcon }).addTo(map)
     map.setView([buildingLat, buildingLong], 12)
 }
 
@@ -99,7 +111,7 @@ const addBuildingsOfCityToMap = () => {
         }
 
         let cityBuildingURL = window.location.href.replace(buildingSlug, cityBuilding.fields.slug)
-        let marker = L.marker([cityBuilding.fields.latitude, cityBuilding.fields.longitude]);
+        let marker = L.marker([cityBuilding.fields.latitude, cityBuilding.fields.longitude], { icon: customIcon });
         marker.bindPopup(
             '<a href=' + cityBuildingURL + '><p>' + cityBuilding.fields.name + ",<br>" + cityBuilding.fields.address + '</p></a>'
         ).openPopup();
