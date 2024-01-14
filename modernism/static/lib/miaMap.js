@@ -10,7 +10,7 @@ const customIcon = new L.Icon({
 });
 
 const markers = L.markerClusterGroup({
-    maxClusterRadius: 35,
+    maxClusterRadius: 25,
     spiderfyOnMaxZoom: false,
 	showCoverageOnHover: false,
 });
