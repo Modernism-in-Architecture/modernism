@@ -72,7 +72,16 @@
     <section class="section last-section">
         <div class="container">
             <h1 class="is-size-3 mb-5">
-                {{building.name}}{% if building.year_of_construction %} ({{building.year_of_construction}}){% endif %} {% if building.protected_monument %}<span class="has-tooltip-arrow" data-tooltip="Protected monument"><ion-icon name="shield-half-outline"></ion-icon></span>{% endif %}
+                {{building.name}}
+                {% if building.name_addition %}
+                    ({{building.name_addition}})
+                {% endif %}
+                {% if building.year_of_construction %}
+                    ({{building.year_of_construction}})
+                {% endif %}
+                {% if building.protected_monument %}
+                    <span class="has-tooltip-arrow" data-tooltip="Protected monument"><ion-icon name="shield-half-outline"></ion-icon></span>
+                {% endif %}
             </h1>
             <div class="columns reverse-column-order">
                 <div class="column is-4-desktop">

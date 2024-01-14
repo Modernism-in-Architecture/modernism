@@ -100,6 +100,11 @@ class Building(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     name = models.CharField(max_length=254, unique=True)
+    name_addition = models.CharField(
+        max_length=254,
+        blank=True,
+        help_text="Add here the original name or info displayed in brackets behind the title. Do not add the brackets.",
+    )
     subtitle = models.CharField(max_length=254, blank=True)
     todays_use = models.CharField(max_length=254, blank=True)
     year_of_construction = models.CharField(max_length=4, blank=True)

@@ -32,7 +32,7 @@ const setUpMap = () => {
     }).addTo(map);
 
     L.marker([buildingLat, buildingLong], { icon: customSingleIcon }).addTo(map)
-    map.setView([buildingLat, buildingLong], 12)
+    map.setView([buildingLat, buildingLong], 15)
 }
 
 const addClickEventListenerToBuildingImages = () => {

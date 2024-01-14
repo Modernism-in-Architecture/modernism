@@ -173,9 +173,16 @@ class BuildingImageInline(SortableTabularInline):
 
 @admin.register(Building)
 class BuildingAdmin(SortableAdminBase, admin.ModelAdmin):
-    search_fields = ["name", "description", "city__name", "city__country__name"]
+    search_fields = [
+        "name",
+        "name_addition",
+        "description",
+        "city__name",
+        "city__country__name",
+    ]
     list_display = [
         "name",
+        "name_addition",
         "pk",
         "is_published",
         "history_is_clean",
@@ -223,6 +230,7 @@ class BuildingAdmin(SortableAdminBase, admin.ModelAdmin):
                     "is_published",
                     "published_on_twitter",
                     "name",
+                    "name_addition",
                     "slug",
                     "seo_title",
                     "address",
