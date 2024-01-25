@@ -3,6 +3,8 @@ from django.db import models
 from django.forms.widgets import TextInput
 from tinymce.widgets import TinyMCE
 
+from modernism.tools import validate_and_clean_content_markup
+from .admin_forms import FactAdminForm
 from .models import (
     Author,
     City,
@@ -91,8 +93,16 @@ class FactImageInline(admin.StackedInline):
 
 @admin.register(Fact)
 class FactAdmin(admin.ModelAdmin):
+    form = FactAdminForm
     search_fields = ["title", "description"]
-    list_display = ["title", "pk", "is_published", "get_categories", "created"]
+    list_display = [
+        "title",
+        "pk",
+        "is_published",
+        "description_is_clean",
+        "get_categories",
+        "created",
+    ]
     list_filter = ["categories"]
     filter_horizontal = ["categories", "sources"]
     readonly_fields = ["slug"]
@@ -102,11 +112,17 @@ class FactAdmin(admin.ModelAdmin):
     }
     inlines = [FactImageInline]
 
+    @admin.display(description="Categories")
     def get_categories(self, obj):
         if obj.categories.exists():
             return list(obj.categories.values_list("name", flat=True))
 
-    get_categories.short_description = "Categories"
+    @admin.display(description="Description clean")
+    def description_is_clean(self, building):
+        was_clean, _ = validate_and_clean_content_markup(building.description)
+        return was_clean
+
+    description_is_clean.boolean = True
 
 
 @admin.register(FactCategory)

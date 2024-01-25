@@ -1,5 +1,5 @@
 import pytest
-from mia_buildings.admin_utils import validate_and_clean_content_markup
+from modernism.tools import validate_and_clean_content_markup
 
 
 def test_validate_and_clean_markup_empty_string():

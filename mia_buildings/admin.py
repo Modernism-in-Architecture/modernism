@@ -14,7 +14,7 @@ from mia_buildings import admin_views
 
 from mia_facts.models import Photographer
 from .admin_forms import BuildingAdminForm, BuildingForImageSelectionAdminForm
-from .admin_utils import validate_and_clean_content_markup
+from modernism.tools import validate_and_clean_content_markup
 
 from .models import (
     AccessType,

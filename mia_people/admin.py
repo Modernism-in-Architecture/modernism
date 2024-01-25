@@ -2,17 +2,21 @@ from django.contrib import admin
 from django.db import models
 from tinymce.widgets import TinyMCE
 
+from modernism.tools import validate_and_clean_content_markup
+from .admin_forms import ArchitectAdminForm, DeveloperAdminForm, ProfessorAdminForm
 from .models import Architect, Developer, Professor
 
 
 @admin.register(Developer)
 class DeveloperAdmin(admin.ModelAdmin):
+    form = DeveloperAdminForm
     autocomplete_fields = ["birth_place", "death_place"]
     search_fields = ["last_name", "first_name", "description"]
     list_display = [
         "last_name",
         "first_name",
         "is_published",
+        "description_is_clean",
         "birth_place",
         "death_place",
         "created",
@@ -28,15 +32,24 @@ class DeveloperAdmin(admin.ModelAdmin):
         "slug",
     ]
 
+    @admin.display(description="Description clean")
+    def description_is_clean(self, building):
+        was_clean, _ = validate_and_clean_content_markup(building.description)
+        return was_clean
+
+    description_is_clean.boolean = True
+
 
 @admin.register(Architect)
 class ArchitectAdmin(admin.ModelAdmin):
+    form = ArchitectAdminForm
     autocomplete_fields = ["birth_place", "death_place"]
     search_fields = ["last_name", "first_name", "description"]
     list_display = [
         "last_name",
         "first_name",
         "is_published",
+        "description_is_clean",
         "birth_place",
         "death_place",
         "created",
@@ -76,15 +89,24 @@ class ArchitectAdmin(admin.ModelAdmin):
         "seo_title",
     ]
 
+    @admin.display(description="Description clean")
+    def description_is_clean(self, building):
+        was_clean, _ = validate_and_clean_content_markup(building.description)
+        return was_clean
+
+    description_is_clean.boolean = True
+
 
 @admin.register(Professor)
 class ProfessorAdmin(admin.ModelAdmin):
+    form = ProfessorAdminForm
     autocomplete_fields = ["birth_place", "death_place"]
     search_fields = ["last_name", "first_name", "description"]
     list_display = [
         "last_name",
         "first_name",
         "is_published",
+        "description_is_clean",
         "birth_place",
         "death_place",
         "created",
@@ -104,3 +126,10 @@ class ProfessorAdmin(admin.ModelAdmin):
     readonly_fields = [
         "slug",
     ]
+
+    @admin.display(description="Description clean")
+    def description_is_clean(self, building):
+        was_clean, _ = validate_and_clean_content_markup(building.description)
+        return was_clean
+
+    description_is_clean.boolean = True

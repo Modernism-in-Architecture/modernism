@@ -1,10 +1,14 @@
-from factory import Faker
+from faker import Faker
+from factory import Sequence
 from factory.django import DjangoModelFactory
 from mia_buildings.models import Building
 
 
+fake = Faker()
+
+
 class BuildingFactory(DjangoModelFactory):
-    name = Faker("company")
+    name = Sequence(lambda n: f"{fake.catch_phrase()} {n}")
 
     class Meta:
         model = Building
