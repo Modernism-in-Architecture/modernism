@@ -2,6 +2,8 @@ from django.db import models
 from django.utils.text import slugify
 from unidecode import unidecode
 
+from modernism.models import BaseModel
+
 
 class Country(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -61,14 +63,12 @@ class Photographer(models.Model):
         return name
 
 
-class Source(models.Model):
+class Source(BaseModel):
     class SourceType(models.TextChoices):
         WEBSITE = "WE", "Website"
         BOOK = "BK", "Book"
         JOURNAL = "JL", "Journal"
 
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
     source_type = models.CharField(
         max_length=2,
         choices=SourceType.choices,
@@ -97,10 +97,7 @@ class FactCategory(models.Model):
         verbose_name_plural = "Categories"
 
 
-class FactImage(models.Model):
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-
+class FactImage(BaseModel):
     image = models.ImageField(upload_to="mia-facts", null=True, blank=True)
     fact = models.ForeignKey(
         "mia_facts.Fact", on_delete=models.SET_NULL, null=True, blank=True
@@ -115,10 +112,7 @@ class FactImage(models.Model):
         return f"{self.title if self.title else self.pk}"
 
 
-class Fact(models.Model):
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-
+class Fact(BaseModel):
     title = models.CharField(max_length=250, unique=True)
     description = models.TextField(blank=True)
     categories = models.ManyToManyField("mia_facts.FactCategory", blank=True)

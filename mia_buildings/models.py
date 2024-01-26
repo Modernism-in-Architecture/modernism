@@ -7,6 +7,8 @@ from django.db import models
 from django.utils.safestring import mark_safe
 from django.utils.text import slugify
 
+from modernism.models import BaseModel
+
 
 class Feature(models.Model):
     name = models.CharField(max_length=254, unique=True)
@@ -63,10 +65,7 @@ class AccessType(models.Model):
         verbose_name_plural = "Access types"
 
 
-class BuildingImage(models.Model):
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-
+class BuildingImage(BaseModel):
     image = models.ImageField(upload_to="original_images", null=True, blank=True)
     building = models.ForeignKey(
         "mia_buildings.Building", on_delete=models.SET_NULL, null=True, blank=True
@@ -95,10 +94,7 @@ class BuildingImage(models.Model):
             return "(No image)"
 
 
-class Building(models.Model):
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-
+class Building(BaseModel):
     name = models.CharField(max_length=254, unique=True)
     name_addition = models.CharField(
         max_length=254,
