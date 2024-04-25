@@ -1,6 +1,6 @@
 asgiref==3.7.2
 beautifulsoup4==4.12.2
-black==24.3.0
+black
 boto3==1.20.8
 botocore==1.23.8
 click==8.0.3
