@@ -160,7 +160,7 @@
                                         <div class="content">{{building.description | safe}}</div>
                                     </div>
                                 </div>
-                                <p class="is-hidden-touch""><strong>Description</strong></p>
+                                <p class="is-hidden-touch"><strong>Description</strong></p>
                                 <div class="is-hidden-touch">
                                     {{building.description | safe}}
                                 </div>
@@ -281,18 +281,20 @@
             <div class="columns">
                 <div class="column">
                     <div class="content">
-                        {% if building.gallery_images %}<h2 class="impressions mb-3 mt-3 is-size-4">Impressions</h2>{% endif %}
-                            {% for gallery_image in building.gallery_images %}
-                                <img 
-                                    src="{{ gallery_image.image|thumbnail_url:'preview' }}" 
-                                    class="preview-image" 
-                                    large-url="{{ gallery_image.image|thumbnail_url:'large' }}" 
-                                    index="{{ forloop.counter0 }}"
-                                    photographer="{% if gallery_image.photographer %}{{ gallery_image.photographer }}{% endif %}"
-                                    description="{% if gallery_image.description %}{{ gallery_image.description }}{% endif %}"
-                                    alt="Gallery image of {{building.name}}"
-                                />
-                            {% endfor %}
+                        {% if building.gallery_images %}
+                            <h2 class="impressions mb-3 mt-3 is-size-4">Impressions</h2>
+                        {% endif %}
+                        {% for gallery_image in building.gallery_images %}
+                            <img
+                                src="{{ gallery_image.image|thumbnail_url:'preview' }}"
+                                class="preview-image"
+                                large-url="{{ gallery_image.image|thumbnail_url:'large' }}"
+                                index="{{ forloop.counter0 }}"
+                                photographer="{% if gallery_image.photographer %}{{ gallery_image.photographer }}{% endif %}"
+                                description="{% if gallery_image.description %}{{ gallery_image.description }}{% endif %}"
+                                alt="Gallery image of {{building.name}}"
+                            />
+                        {% endfor %}
                     </div>
                 </div>
             </div>
@@ -301,13 +303,13 @@
                 <div class="modal-background"></div>
                 <div class="modal-content has-text-centered">
                     <button id="close-button" class="modal-close is-large" aria-label="close">CLOSE</button>
-                    <figure><img id="modal-image" src="" /></figure>
+                    <div id="modal-image-container">
+                        <button id="btn-prev" class="button prev" onclick="setModalImage('prev')">&#10094;</button>
+                        <img id="modal-image" src="" />
+                        <button id="btn-next" class="button next" onclick="setModalImage('next')">&#10095;</button>
+                    </div>
                     <p id="image-description"></p>
                     <p id="image-photographer"></p>
-                    <div class="image-nav-btn">
-                    <button id="btn-prev" class="button prev" onclick="setModalImage('prev')">&#10094;</button>
-                    <button id="btn-next" class="button next" onclick="setModalImage('next')">&#10095;</button>
-                    </div>
                 </div>
             </div>
 
