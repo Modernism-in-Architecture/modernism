@@ -39,6 +39,7 @@ const addClickEventListenerToBuildingImages = () => {
     const previewImageBuildings = document.querySelectorAll('.preview-image');
 
     previewImageBuildings.forEach(image => {
+
         galleryImages[image.getAttribute("index")] =
         {
             largeUrl: image.getAttribute("large-url"),
@@ -46,18 +47,19 @@ const addClickEventListenerToBuildingImages = () => {
             photographer: image.getAttribute("photographer"),
         }
         image.addEventListener('click', (event) => {
-            event.preventDefault();
+            // event.preventDefault();
             let imageModal = document.getElementById("image-modal");
             let large_image = document.getElementById("modal-image");
             let description = document.getElementById("image-description");
             let photographer = document.getElementById("image-photographer");
-            imageModal.classList.toggle("is-active");
+
             if (!imageModal.classList.contains("is-active")) {
                 large_image.src = image.getAttribute("large-url");
                 modalImageIndex = image.getAttribute("index");
                 description.innerText = image.getAttribute("description");
                 photographer.innerText = image.getAttribute("photographer");
             }
+            imageModal.classList.toggle("is-active");
         });
     });
 }
@@ -85,8 +87,8 @@ const setModalImage = (direction) => {
     imgData = galleryImages[modalImageIndex];
     if (imgData) {
         largeImage.src = imgData["largeUrl"];
-        description.innerText = imgData["description"]
-        photographer.innerText = imgData["photographer"] ? "Photo by " + imgData["photographer"] : ""
+        description.innerText = imgData["description"];
+        photographer.innerText = imgData["photographer"] ? "Photo by " + imgData["photographer"] : "";
     }
 }
 
