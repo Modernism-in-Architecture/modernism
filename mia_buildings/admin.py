@@ -45,11 +45,7 @@ class BuildingImageAdmin(admin.ModelAdmin):
         "building__city__name",
         "building__city__country__name",
     ]
-    list_filter = [
-        ("building__city__country", admin.RelatedOnlyFieldListFilter),
-        ("building__city", admin.RelatedOnlyFieldListFilter),
-    ]
-    autocomplete_fields = ["building"]
+    autocomplete_fields = ["building", "photographer"]
     actions = ["add_images_to_building"]
     list_display = [
         "title",
@@ -166,8 +162,8 @@ class BuildingImageInline(SortableTabularInline):
     extra = 0
 
     formfield_overrides = {
-        models.CharField: {"widget": TextInput(attrs={"size": "30"})},
-        models.TextField: {"widget": Textarea(attrs={"rows": 6, "cols": 30})},
+        models.CharField: {"widget": TextInput(attrs={"size": "80%"})},
+        models.TextField: {"widget": Textarea(attrs={"width": "100%"})},
     }
 
 
@@ -196,9 +192,9 @@ class BuildingAdmin(SortableAdminBase, admin.ModelAdmin):
         "seo_title",
     ]
     list_filter = [
-        "is_published",
-        ("city__country", admin.RelatedOnlyFieldListFilter),
-        ("city", admin.RelatedOnlyFieldListFilter),
+        # "is_published",
+        # ("city__country", admin.RelatedOnlyFieldListFilter),
+        # ("city", admin.RelatedOnlyFieldListFilter),
     ]
     filter_horizontal = [
         "windows",
@@ -224,7 +220,7 @@ class BuildingAdmin(SortableAdminBase, admin.ModelAdmin):
 
     fieldsets = (
         (
-            None,
+            "GENERAL",
             {
                 "fields": (
                     "is_published",
@@ -239,14 +235,6 @@ class BuildingAdmin(SortableAdminBase, admin.ModelAdmin):
                     "latitude",
                     "longitude",
                     "directions",
-                )
-            },
-        ),
-        (
-            "GENERAL",
-            {
-                "classes": ("collapse",),
-                "fields": (
                     "protected_monument",
                     "year_of_construction",
                     "todays_use",

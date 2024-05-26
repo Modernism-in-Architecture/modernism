@@ -1,0 +1,16 @@
+{% extends "admin/base.html" %}
+
+{% load static %}
+
+{% block extrastyle %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/admin.css" %}?{% now "U" %}"/>
+{% endblock %}
+
+{% block branding %}
+    <h1 id="site-name">
+        <a href="{% url 'admin:index' %}">
+            <img class="header-logo" src="{% static 'img/mia-logo.png' %}" height="30px" />
+        </a>
+        Modernism in Architecture
+    </h1>
+{% endblock %}

@@ -1,33 +1,339 @@
-.filtered_select_multiple {
-    h2 {
-        font-size: 1rem;
+$accent-lightgreen: #79e08c;
+$accent-green: #3cc43c;
+$accent-gray: #333a40;
+$accent-gray-light: #3c444b;
+$accent-pink: #ca0cd1;
+$accent-blue: #379fef;
+$background: #f4f6f9;
+
+$white: #fffafa;
+$light-gray: #e8eaec;
+$dark-gray: #9ba6b0;
+$primary-text: #212529;
+$secondary-text: #6c757d;
+$highlight-blue: #007bff;
+$warning-yellow: #ffc107;
+$error-red: #dc3545;
+
+
+/* merriweather-sans-300 - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Merriweather Sans';
+  font-style: normal;
+  font-weight: 300;
+  src: url('../fonts/merriweather-sans-v26-latin-300.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+
+body {
+    background-color: $background;
+    font-family: "Merriweather Sans";
+}
+
+
+/* HEADER */
+
+.header-logo {
+    margin-right: 1rem;
+}
+
+.theme-toggle {
+    display: None;
+}
+
+#branding h1, #branding h1 a:link, #branding h1 a:visited {
+    color: $white;
+    font-size: 1rem;
+}
+
+#header {
+    background: $accent-gray;
+    color: $white;
+}
+
+#header a:link, #header a:visited {
+    color: $white;
+}
+
+#header a:hover {
+    color: $white;
+}
+
+div.breadcrumbs {
+    background: $background;
+    color: $dark-gray;
+}
+
+div.breadcrumbs a {
+    color: $accent-gray !important;
+}
+
+div.breadcrumbs a.active {
+    color: $accent-gray !important;
+    font-weight: 300;
+}
+
+div.breadcrumbs a:focus, div.breadcrumbs a:hover {
+    color: $dark-gray !important;
+    font-weight: 300;
+}
+
+ul.messagelist li.warning {
+    background-color: rgba($warning-yellow, 0.3);
+}
+
+/* CHANGELIST */
+
+#changelist tbody tr:has(.action-select:checked) {
+  background-color: rgba($accent-blue, 0.2) !important;
+}
+
+#changelist table thead th {
+    background-color: $light-gray;
+    color: $primary-text;
+}
+
+#changelist .actions .button:hover {
+    background: $accent-gray-light !important;
+    border-color: $accent-gray-light !important;
+}
+
+#changelist .actions .button {
+    background: $dark-gray !important;
+    border-color: $dark-gray !important;
+    color: $white !important;
+    border-radius: 4px !important;
+}
+
+/* TOOLBAR */
+
+#toolbar {
+  border: 0 !important;
+  background-color: $background !important;
+}
+
+#toolbar form input[type="submit"] {
+    background: $dark-gray !important;
+    border-color: $dark-gray !important;
+    color: $white !important;
+    border-radius: 4px !important;
+}
+
+#toolbar form input[type="submit"]:hover {
+    background: $accent-gray !important;
+    border-color: $accent-gray !important;
+}
+
+.paginator a:link, .paginator a:visited {
+    background: $dark-gray;
+}
+
+.paginator .this-page {
+    background-color: $accent-lightgreen;
+    color: $white;
+}
+
+
+
+
+.select2-container--admin-autocomplete .select2-results__option--highlighted[aria-selected] {
+    background-color: $accent-lightgreen !important;
+}
+
+
+
+/* BUTTONS */
+
+.button, input[type=submit], input[type=button], .submit-row input, a.button {
+    color: $white;
+    border: 1px solid $accent-gray-light;
+    background-color: $accent-gray-light;
+    padding: 5px;
+}
+
+.button:hover, input[type=submit]:hover, input[type=button]:hover {
+    color: $dark-gray;
+    background-color: $accent-gray-light;
+}
+
+a.addlink {
+    color: $accent-green;
+}
+
+a.addlink:hover {
+    color: $light-gray;
+}
+
+
+.module {
+    margin-bottom: 1rem;
+    .form-row {
+        border: None;
+    }
+    background-color: $background;
+}
+
+.module h2,
+.module caption,
+.inline-group h2 {
+    background: $accent-gray;
+}
+
+
+.module caption a:link {
+     color: $light-gray !important;
+}
+.module caption a:link:hover {
+     color: $accent-lightgreen !important;
+}
+
+#nav-sidebar {
+    border: 1px solid $accent-gray-light;
+    background-color: $accent-gray;
+    .module {
         margin-bottom: 0;
-        font-weight: 200;
-        padding: 0.2rem;
+
+        tr:nth-child(2n+1), tr:nth-child(2n) {
+            background: $accent-gray;
+        }
+        td {
+            border: none;
+        }
+        a:link {
+            color: $dark-gray;
+        }
+        a.addlink {
+            display:none;
+        }
+        th {
+            border: none;
+            a {
+                padding-left: 1rem;
+                font-weight: 300;
+            }
+        }
     }
-    .selector .help-icon {
-        display: none;
+    .current-model {
+        background: $accent-lightgreen !important;
+        a:link {
+            color: $accent-gray;
+        }
     }
-    .selector-chosen h2 {
-        background: #047d7e;
+    .current-app {
+        .section:link {
+            color: $accent-lightgreen;
+        }
     }
-    @media screen and (max-width: 969px) {
-        .selector {
-            width: 100%;
-        }
-        .selector select {
-            width: 100% !important;
-        }
-        .selector ul.selector-chooser {
-            margin: 1em 5px 0 5px;
-            padding: 0;
-        }
-        .selector-available, .selector-chosen {
-            width: 100%;
-        }
-        .selector .selector-available input {
-            width: 100%;
-            padding: 8px;
-        }
+    a.section:hover {
+        text-decoration: None;
+        color: $accent-lightgreen;
     }
 }
+
+#toggle-nav-sidebar {
+    background: $accent-gray-light;
+    border-right: 0;
+    color: $accent-lightgreen;
+}
+
+#nav-filter {
+    display: None;
+}
+
+.selector-chosen h2 {
+    background: $accent-lightgreen !important;
+}
+
+.related-widget-wrapper .related-widget-wrapper-link {
+    opacity: 1;
+}
+
+fieldset.collapsed .collapse-toggle {
+    color: $accent-lightgreen !important;
+}
+
+//
+//fieldset.module {
+//    padding: 1rem;
+//}
+//fieldset.module.collapsed h2 {
+//  background: $background;
+//  color: $primary-text;
+//}
+//
+//fieldset.collapsed .collapse-toggle {
+//    color: #444;
+//}
+
+a:link, a:visited {
+    color: $accent-gray;
+}
+
+a:focus, a:hover {
+    color: $dark-gray;
+}
+
+//table thead th.sorted .sortoptions a.sortremove:focus:after,
+//table thead th.sorted .sortoptions a.sortremove:hover:after {
+//    color: #444;
+//}
+
+a.active.selector-chooseall:focus, a.active.selector-clearall:focus,
+a.active.selector-chooseall:hover, a.active.selector-clearall:hover {
+    color: $light-gray;
+}
+
+#changelist {
+    background-color: $background;
+}
+
+
+#changelist .actions, .paginator {
+    width: auto !important;
+}
+
+.paginator a.showall:focus,
+.paginator a.showall:hover {
+    color: $dark-gray;
+}
+
+.paginator a:focus, .paginator a:hover {
+    background: $accent-gray-light;
+}
+
+#changelist-filter li.selected a {
+    color: $light-gray;
+}
+#changelist-filter a:focus, #changelist-filter a:hover,
+#changelist-filter li.selected a:focus,
+#changelist-filter li.selected a:hover {
+    color: $accent-lightgreen;
+}
+
+.button.default, input[type=submit].default, .submit-row input.default {
+    color: $accent-lightgreen;
+    background: $accent-gray-light;
+}
+
+.button.default:hover, input[type=submit].default:hover {
+    color: $dark-gray;
+    background: $accent-gray-light;
+}
+
+.object-tools a:link {
+  color: $accent-lightgreen;
+  background-color: $accent-gray-light;
+}
+
+.object-tools a:focus, .object-tools a:hover {
+    color: $light-gray;
+}
+
+input[type=file]::-webkit-file-upload-button:hover {
+    border: 0;
+    background: $accent-gray-light;
+}
+
+
+

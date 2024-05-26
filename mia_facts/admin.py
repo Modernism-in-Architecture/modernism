@@ -137,4 +137,4 @@ class FactImageAdmin(admin.ModelAdmin):
 
 @admin.register(Photographer)
 class PhotographerAdmin(admin.ModelAdmin):
-    pass
+    search_fields = ["last_name", "first_name"]

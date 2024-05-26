@@ -3,10 +3,9 @@
 
 {% block breadcrumbs %}
     <div class="breadcrumbs">
-        <a href="{% url 'admin:mia_buildings_buildingimage_changelist' %}">Back</a>
+        <a href="{% url 'admin:index' %}">Home</a> › <a href="/admin/mia_buildings/">Mia_Buildings</a> › <a href="{% url 'admin:mia_buildings_buildingimage_changelist' %}">Building images</a> › {{ title }}
     </div>
 {% endblock %}
-
 
 {% block content %}
     <form action="" method="post">

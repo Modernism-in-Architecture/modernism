@@ -135,7 +135,7 @@ BASE_URL = "https://modernism-in-architecture.org"
 
 TINYMCE_DEFAULT_CONFIG = {
     "theme": "silver",
-    "width": 1000,
+    "width": '80%',
     "height": 500,
     "menubar": False,
     "plugins": "advlist,autolink,lists,link,charmap,fullscreen,insertdatetime,media,paste,code,wordcount",
