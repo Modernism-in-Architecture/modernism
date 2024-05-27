@@ -138,8 +138,6 @@ ul.messagelist li.warning {
     background-color: $accent-lightgreen !important;
 }
 
-
-
 /* BUTTONS */
 
 .button, input[type=submit], input[type=button], .submit-row input, a.button {
@@ -162,11 +160,14 @@ a.addlink:hover {
     color: $light-gray;
 }
 
-
 .module {
     margin-bottom: 1rem;
     .form-row {
         border: None;
+
+        label.vCheckboxLabel {
+            padding: 5px 0 0 5px !important;
+        }
     }
     background-color: $background;
 }
@@ -253,19 +254,6 @@ fieldset.collapsed .collapse-toggle {
     color: $accent-lightgreen !important;
 }
 
-//
-//fieldset.module {
-//    padding: 1rem;
-//}
-//fieldset.module.collapsed h2 {
-//  background: $background;
-//  color: $primary-text;
-//}
-//
-//fieldset.collapsed .collapse-toggle {
-//    color: #444;
-//}
-
 a:link, a:visited {
     color: $accent-gray;
 }
@@ -273,11 +261,6 @@ a:link, a:visited {
 a:focus, a:hover {
     color: $dark-gray;
 }
-
-//table thead th.sorted .sortoptions a.sortremove:focus:after,
-//table thead th.sorted .sortoptions a.sortremove:hover:after {
-//    color: #444;
-//}
 
 a.active.selector-chooseall:focus, a.active.selector-clearall:focus,
 a.active.selector-chooseall:hover, a.active.selector-clearall:hover {
@@ -334,6 +317,3 @@ input[type=file]::-webkit-file-upload-button:hover {
     border: 0;
     background: $accent-gray-light;
 }
-
-
-

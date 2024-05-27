@@ -116,6 +116,8 @@ a.addlink:hover {
   background-color: #f4f6f9; }
   .module .form-row {
     border: None; }
+    .module .form-row label.vCheckboxLabel {
+      padding: 5px 0 0 5px !important; }
 
 .module h2,
 .module caption,

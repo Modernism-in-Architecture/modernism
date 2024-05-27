@@ -62,12 +62,6 @@ class BulkUploadImagesForm(Form):
 
 
 class BuildingAdminForm(ContentMarkupMixin, ModelForm):
-    multiple_images = MultipleImageFileField(required=False)
-    photographer = ChoiceField(
-        required=False,
-        widget=Select,
-    )
-
     class Meta:
         model = Building
         widgets = {
@@ -83,17 +77,6 @@ class BuildingAdminForm(ContentMarkupMixin, ModelForm):
             "address": Textarea(attrs={"rows": "3"}),
         }
         fields = "__all__"
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.set_photographer_choices()
-
-    def set_photographer_choices(self):
-        photographers = Photographer.objects.values_list("id", "last_name").order_by(
-            "last_name"
-        )
-        choices = [("", "------")] + list(photographers)
-        self.fields["photographer"].choices = choices
 
 
 class BuildingForImageSelectionAdminForm(Form):

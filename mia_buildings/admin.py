@@ -158,12 +158,13 @@ class BuildingImageInline(SortableTabularInline):
         ),
     )
     readonly_fields = ("image_preview", "tags")
+    autocomplete_fields = ["photographer"]
     classes = ["collapse"]
     extra = 0
 
     formfield_overrides = {
-        models.CharField: {"widget": TextInput(attrs={"size": "80%"})},
-        models.TextField: {"widget": Textarea(attrs={"width": "100%"})},
+        models.CharField: {"widget": TextInput(attrs={"size": "auto"})},
+        models.TextField: {"widget": Textarea(attrs={"width": "auto"})},
     }
 
 
@@ -272,17 +273,6 @@ class BuildingAdmin(SortableAdminBase, admin.ModelAdmin):
                     "details",
                     "construction_types",
                     "building_types",
-                ),
-            },
-        ),
-        (
-            "BULK UPLOAD BUILDING IMAGES",
-            {
-                "description": "Add title, city and country of the building first. So image tags and titles can be generated for all uploaded photos automatically.",
-                "classes": ("collapse",),
-                "fields": (
-                    "photographer",
-                    "multiple_images",
                 ),
             },
         ),
