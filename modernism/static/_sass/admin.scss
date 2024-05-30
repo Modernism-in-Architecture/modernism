@@ -8,6 +8,9 @@ $background: #f4f6f9;
 
 $white: #fffafa;
 $light-gray: #e8eaec;
+$table-row-lighter: #ffffff;
+$table-row-darker: #f8f8f8;
+$table-row-border: #f3f3f3;
 $dark-gray: #9ba6b0;
 $primary-text: #212529;
 $secondary-text: #6c757d;
@@ -28,9 +31,56 @@ $error-red: #dc3545;
 
 body {
     background-color: $background;
+    color: $accent-gray-light;
     font-family: "Merriweather Sans";
 }
 
+h1 {
+    color: $accent-gray-light !important;
+}
+
+
+a:link, a:visited {
+    color: $accent-gray;
+}
+
+a:focus, a:hover {
+    color: $dark-gray;
+}
+
+input[type="text"], 
+input[type="password"], 
+input[type="file"], 
+input[type="email"],
+input[type="url"], 
+input[type="number"], 
+input[type="tel"], textarea, select, .vTextField {
+    background-color: $white;
+    color: $accent-gray;
+    border: 1px solid $light-gray;
+}
+
+input[type=file]::-webkit-file-upload-button:hover {
+    background: $light-gray;
+    border-radius: 4px;
+}
+
+label {
+    color: $accent-gray !important;
+}
+
+p.file-upload {
+    color: $accent-gray !important;
+}
+
+.help, p.help, form p.help, div.help, form div.help, div.help li, a.active.selector-chooseall, a.active.selector-clearall {
+    color: $accent-gray !important;
+}
+
+.submit-row {
+    background-color: $table-row-darker !important;
+    border: 1px solid $dark-gray !important;
+}
 
 /* HEADER */
 
@@ -43,7 +93,7 @@ body {
 }
 
 #branding h1, #branding h1 a:link, #branding h1 a:visited {
-    color: $white;
+    color: $white !important;
     font-size: 1rem;
 }
 
@@ -106,11 +156,41 @@ ul.messagelist li.warning {
     border-radius: 4px !important;
 }
 
+#changelist {
+    background-color: $background;
+}
+
+#changelist .actions, .paginator {
+    color: $accent-gray !important;
+    width: auto !important;
+    background: $table-row-lighter !important;
+    border-bottom: 1px solid $table-row-border !important;
+}
+
+#changelist .actions select {
+    color: $accent-gray !important;
+    border: 1px solid $dark-gray !important;
+    background: $table-row-lighter !important;
+}
+
+#changelist-filter li.selected a {
+    color: $light-gray;
+}
+#changelist-filter a:focus, #changelist-filter a:hover,
+#changelist-filter li.selected a:focus,
+#changelist-filter li.selected a:hover {
+    color: $accent-lightgreen;
+}
+
 /* TOOLBAR */
 
 #toolbar {
   border: 0 !important;
   background-color: $background !important;
+}
+
+#toolbar form input {
+    color: $accent-gray !important;
 }
 
 #toolbar form input[type="submit"] {
@@ -125,6 +205,16 @@ ul.messagelist li.warning {
     border-color: $accent-gray !important;
 }
 
+#toolbar #searchbar {
+    border: 1px solid $dark-gray !important;
+}
+
+/* PAGINATOR */
+
+.paginator {
+    border-top: $table-row-border !important;
+}
+
 .paginator a:link, .paginator a:visited {
     background: $dark-gray;
 }
@@ -134,9 +224,15 @@ ul.messagelist li.warning {
     color: $white;
 }
 
-.select2-container--admin-autocomplete .select2-results__option--highlighted[aria-selected] {
-    background-color: $accent-lightgreen !important;
+.paginator a.showall:focus,
+.paginator a.showall:hover {
+    color: $dark-gray;
 }
+
+.paginator a:focus, .paginator a:hover {
+    background: $accent-gray-light;
+}
+
 
 /* BUTTONS */
 
@@ -152,6 +248,17 @@ ul.messagelist li.warning {
     background-color: $accent-gray-light;
 }
 
+.button.default, input[type=submit].default, .submit-row input.default {
+    color: $accent-lightgreen;
+    background: $accent-gray-light;
+}
+
+.button.default:hover, input[type=submit].default:hover {
+    color: $dark-gray;
+    background: $accent-gray-light;
+}
+
+
 a.addlink {
     color: $accent-green;
 }
@@ -159,6 +266,8 @@ a.addlink {
 a.addlink:hover {
     color: $light-gray;
 }
+
+/* MODULE */
 
 .module {
     margin-bottom: 1rem;
@@ -178,13 +287,14 @@ a.addlink:hover {
     background: $accent-gray;
 }
 
-
 .module caption a:link {
      color: $light-gray !important;
 }
 .module caption a:link:hover {
      color: $accent-lightgreen !important;
 }
+
+/* SIDEBAR */
 
 #nav-sidebar {
     border: 1px solid $accent-gray-light;
@@ -221,8 +331,9 @@ a.addlink:hover {
             color: $accent-gray;
         }
     }
+    
     .current-app {
-        .section:link {
+        .section:link, .section:visited {
             color: $accent-lightgreen;
         }
     }
@@ -242,8 +353,56 @@ a.addlink:hover {
     display: None;
 }
 
+/* TABLE */
+
+tr:nth-child(odd), .row-form-errors {
+    background: $table-row-lighter;
+}
+
+tr:nth-child(even), .row-form-errors {
+    background: $table-row-darker;
+}
+
+thead th {
+    border: none !important;
+}
+
+td, th {
+    border-bottom: 1px solid $table-row-border;
+}
+
+thead th a:link, thead th a:visited {
+    color: $accent-gray-light;
+}
+
+table thead th .text a:hover {
+    background: $accent-gray;
+    color: $white;
+}
+
+/* SELECTORS */
+
+.selector ul.selector-chooser {
+    background-color: $table-row-lighter !important;
+}
+
 .selector-chosen h2 {
     background: $accent-lightgreen !important;
+    border: 1px solid $light-gray !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+
+.selector .selector-available h2 {
+    color: $white !important;
+    background: $accent-gray-light !important;
+    border: 1px solid $light-gray !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+
+.selector .selector-filter {
+    border: 1px solid $light-gray !important;
 }
 
 .related-widget-wrapper .related-widget-wrapper-link {
@@ -254,12 +413,71 @@ fieldset.collapsed .collapse-toggle {
     color: $accent-lightgreen !important;
 }
 
-a:link, a:visited {
-    color: $accent-gray;
+fieldset.module.aligned h2 {
+    border-radius: 4px;
 }
 
-a:focus, a:hover {
-    color: $dark-gray;
+fieldset.collapsed {
+    border: 1px solid $light-gray !important;
+}
+
+fieldset.collapsed h2 {
+    background: $white !important;
+    color: $accent-gray !important;
+}
+
+.inline-related fieldset {
+    background-color: transparent !important;
+}
+
+.inline-related h3 {
+    color: $accent-gray !important;
+    background: $light-gray !important;
+    border-top: 1px solid $light-gray !important;
+    border-bottom: 1px solid $light-gray !important;
+}
+
+.inline-group[data-inline-type="stacked"] .inline-related {
+    border: 1px solid $light-gray !important;
+}
+
+.inline-group[data-inline-type="stacked"] .inline-related .module .form-row {
+    border-top: 1px solid $light-gray !important;
+}
+
+.inline-group .tabular tr.add-row td {
+    background: $white !important;
+    color: $accent-gray !important;
+    border-bottom: 1px solid $light-gray !important;
+}
+
+.inline-group thead th {
+    background: $white !important;
+    color: $accent-gray !important;
+}
+
+.inline-group .tabular td.original p {
+    color: $accent-gray !important;
+}
+
+.tox-tinymce {
+    color: $accent-gray !important;
+    border: 1px solid $light-gray !important;
+    border-radius: 4px !important;
+}
+
+.tox .tox-edit-area__iframe {
+    background: $white !important;
+    color: $accent-gray !important;
+}
+
+.tox .tox-toolbar__primary {
+    background: $white !important;
+    border-bottom: 1px solid $light-gray !important;
+}
+
+.tox .tox-statusbar {
+    background: $white !important;
 }
 
 a.active.selector-chooseall:focus, a.active.selector-clearall:focus,
@@ -267,44 +485,43 @@ a.active.selector-chooseall:hover, a.active.selector-clearall:hover {
     color: $light-gray;
 }
 
-#changelist {
-    background-color: $background;
+.select2-container--admin-autocomplete .select2-results__option--highlighted[aria-selected] {
+    background-color: $accent-lightgreen !important;
+}
+.select2-container--admin-autocomplete .select2-search--dropdown .select2-search__field {
+    background: $white !important;
+    color: $accent-gray !important;
+    border: 1px solid $light-gray !important;
 }
 
-
-#changelist .actions, .paginator {
-    width: auto !important;
+.select2-container--admin-autocomplete .select2-selection--single .select2-selection__rendered {
+    color: $accent-gray !important;
+    background: $white !important;
+    border-radius: 4px !important;
 }
 
-.paginator a.showall:focus,
-.paginator a.showall:hover {
-    color: $dark-gray;
+.select2-container--admin-autocomplete .select2-selection--single {
+    background-color: $white !important;
+    border: 1px solid $light-gray !important;
 }
 
-.paginator a:focus, .paginator a:hover {
-    background: $accent-gray-light;
+.select2-container--admin-autocomplete .select2-search--dropdown {
+    background-color: $white !important;
+    color: $accent-gray !important;
 }
 
-#changelist-filter li.selected a {
-    color: $light-gray;
-}
-#changelist-filter a:focus, #changelist-filter a:hover,
-#changelist-filter li.selected a:focus,
-#changelist-filter li.selected a:hover {
-    color: $accent-lightgreen;
+.select2-container--admin-autocomplete .select2-results > .select2-results__options {
+    background-color: $white !important;
+    color: $accent-gray !important;
+    border: none !important;
 }
 
-.button.default, input[type=submit].default, .submit-row input.default {
-    color: $accent-lightgreen;
-    background: $accent-gray-light;
+.select2-dropdown {
+    background-color: $white !important;
+    border: 1px solid $light-gray !important;
 }
 
-.button.default:hover, input[type=submit].default:hover {
-    color: $dark-gray;
-    background: $accent-gray-light;
-}
-
-.object-tools a:link {
+.object-tools a:link, .object-tools a:visited {
   color: $accent-lightgreen;
   background-color: $accent-gray-light;
 }
@@ -313,7 +530,18 @@ a.active.selector-chooseall:hover, a.active.selector-clearall:hover {
     color: $light-gray;
 }
 
-input[type=file]::-webkit-file-upload-button:hover {
-    border: 0;
-    background: $accent-gray-light;
+#content-related {
+    background: $table-row-lighter;
+    color: $accent-gray-light;
+    h3 {
+        color: $accent-gray-light;
+    }
+    .module {
+        background: $table-row-lighter;
+        h2 {
+            background: $accent-gray-light;
+            color: $white;
+        }
+    }
 }
+
