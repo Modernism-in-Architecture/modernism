@@ -50,13 +50,11 @@ class BuildingImageAdmin(admin.ModelAdmin):
     list_display = [
         "title",
         "image_preview",
-        "image_order",
+        "id",
         "is_published",
         "is_feed_image",
         "building",
-        "tag_list",
         "photographer",
-        "id",
         "created",
         "updated",
     ]
