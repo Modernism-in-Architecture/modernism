@@ -4,7 +4,8 @@
 {% comment %} js/vendor/select2/select2.full.js {% endcomment %}
 
 {% block extrahead %} 
-    {{ block.super }} 
+    {{ block.super }}
+
     <script src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
     <script src="{% static 'admin/js/vendor/select2/select2.full.js' %}"></script>
     <link href="{% static 'admin/css/vendor/select2/select2.css' %}" media="screen" rel="stylesheet">
@@ -24,20 +25,19 @@
 {% endblock %}
 
 {% block content %}
-    <div id="content-main">
-        <form method="post" enctype="multipart/form-data">
+    <div id="con    tent-main">
+        <form method="post" class="bulkupload-form" enctype="multipart/form-data">
             {% csrf_token %}
-
             <fieldset class="module aligned">
-                <div class="form-row">
-                    <div class="form-row field-multiple-images">    
-                        <div class="flex-container">
-                            <label for="id_multiple_images">{{ form.multiple_images.label }}</label>
-                            {{ form.multiple_images.errors }}
-                            {{ form.multiple_images }}
-                        </div>
+                
+                <div class="form-row field-multiple-images">    
+                    <div class="flex-container">
+                        <label for="id_multiple_images">{{ form.multiple_images.label }}</label>
+                        {{ form.multiple_images.errors }}
+                        {{ form.multiple_images }}
                     </div>
                 </div>
+          
                 <div class="form-row field-photographer">    
                     <div class="flex-container">
                         <label for="id_photographer">{{ form.photographer.label }}</label>
@@ -45,11 +45,19 @@
                         {{ form.photographer }}
                     </div>
                 </div>
+
+                <div class="form-row field-title">    
+                    <div class="flex-container">
+                        <label for="id_title">{{ form.title.label }}</label>
+                        {{ form.title.errors }}
+                        {{ form.title }}
+                    </div>
+                </div>
+
             </fieldset>
             <div class="submit-row">
-                <input type="submit" value="Add new MIA images">
+                <input class="default" type="submit" value="ADD NEW MIA IMAGES">
             </div>
         </form>
-        
     </div>
 {% endblock %}

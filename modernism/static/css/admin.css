@@ -51,7 +51,9 @@ p.file-upload {
 
 .submit-row {
   background-color: #f8f8f8 !important;
-  border: 1px solid #9ba6b0 !important; }
+  border: 1px solid #9ba6b0 !important;
+  padding: 12px 14px 12px;
+  border-radius: 4px; }
 
 /* HEADER */
 .header-logo {
@@ -387,6 +389,16 @@ a.active.selector-chooseall:hover, a.active.selector-clearall:hover {
 .select2-dropdown {
   background-color: #fffafa !important;
   border: 1px solid #e8eaec !important; }
+
+.bulkupload-form .form-row {
+  padding: 1rem; }
+
+.bulkupload-form label {
+  padding-right: 3rem; }
+
+.bulkupload-form .submit-row input {
+  height: 2.1875rem;
+  line-height: 0.9375rem; }
 
 .object-tools a:link, .object-tools a:visited {
   color: #79e08c;

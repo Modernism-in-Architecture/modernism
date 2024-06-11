@@ -84,6 +84,8 @@ p.file-upload {
 .submit-row {
     background-color: $table-row-darker !important;
     border: 1px solid $dark-gray !important;
+    padding: 12px 14px 12px;
+    border-radius: 4px;
 }
 
 /* HEADER */
@@ -524,6 +526,20 @@ a.active.selector-chooseall:hover, a.active.selector-clearall:hover {
 .select2-dropdown {
     background-color: $white !important;
     border: 1px solid $light-gray !important;
+}
+
+.bulkupload-form {
+    .form-row {
+        padding: 1rem;
+    }
+    label {
+        padding-right: 3rem;
+    }
+    .submit-row input {
+        height: 2.1875rem;
+        line-height: 0.9375rem;
+    }
+
 }
 
 .object-tools a:link, .object-tools a:visited {

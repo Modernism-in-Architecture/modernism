@@ -42,11 +42,6 @@ class MultipleImageFileField(ImageField):
 class BulkUploadImagesForm(Form):
     multiple_images = MultipleImageFileField(label="Select images")
     photographer = ChoiceField(required=False, widget=Select, choices=[])
-    tags = ModelMultipleChoiceField(
-        required=False,
-        queryset=Tag.objects.order_by("name"),
-        widget=FilteredSelectMultiple("Tags", True),
-    )
     title = CharField(label="General name for the images")
 
     def __init__(self, *args, **kwargs):
