@@ -390,13 +390,13 @@ a.active.selector-chooseall:hover, a.active.selector-clearall:hover {
   background-color: #fffafa !important;
   border: 1px solid #e8eaec !important; }
 
-.bulkupload-form .form-row {
+.bulkupload-form .form-row, .imageadd-form .form-row {
   padding: 1rem; }
 
-.bulkupload-form label {
+.bulkupload-form label, .imageadd-form label {
   padding-right: 3rem; }
 
-.bulkupload-form .submit-row input {
+.bulkupload-form .submit-row input, .imageadd-form .submit-row input {
   height: 2.1875rem;
   line-height: 0.9375rem; }
 

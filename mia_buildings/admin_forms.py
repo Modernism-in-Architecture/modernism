@@ -79,5 +79,5 @@ class BuildingForImageSelectionAdminForm(Form):
     _images = CharField(widget=MultipleHiddenInput)
     building = ModelChoiceField(
         queryset=Building.objects.all().order_by("name"),
-        widget=Select(),
+        widget=Select,
     )

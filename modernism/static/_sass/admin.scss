@@ -528,7 +528,7 @@ a.active.selector-chooseall:hover, a.active.selector-clearall:hover {
     border: 1px solid $light-gray !important;
 }
 
-.bulkupload-form {
+.bulkupload-form, .imageadd-form {
     .form-row {
         padding: 1rem;
     }
@@ -539,7 +539,6 @@ a.active.selector-chooseall:hover, a.active.selector-clearall:hover {
         height: 2.1875rem;
         line-height: 0.9375rem;
     }
-
 }
 
 .object-tools a:link, .object-tools a:visited {
