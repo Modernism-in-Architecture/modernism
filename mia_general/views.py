@@ -2,6 +2,7 @@ from django.core.serializers import serialize
 from django.views.generic.base import TemplateView
 
 from mia_buildings.models import Building
+from mia_facts.models import Photographer
 from mia_people.models import Architect, Developer
 
 
@@ -25,6 +26,8 @@ class AboutView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        excluded_names = ["Driske", "Dietze"]
+        context["photographers"] = Photographer.objects.exclude(last_name__in=excluded_names).order_by("last_name")
         return context
 
 

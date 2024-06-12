@@ -69,16 +69,26 @@
             <div class="columns">
                 <div class="column">
                     <div class="content is-size-5">
-                        <h2 class="is-size-4">MIA Supporters</h2>
+                        <h2 class="is-size-4">MIA Content Supporters</h2>
                         <p>
-                            Recently our friend Martina from Prague joined us as a photographer. We are also supported by our partners Christina and Falko, and other friends who donate some time shooting pics during their travels.
+                           We are supported by lovely people who donate some time shooting pics during their travels, a big thank you goes out to:
+
+                           <ul>
+                            {% for photographer in photographers %}
+                                <li>{{ photographer.first_name }} {{ photographer.last_name }}</li>
+                            {% endfor %}
+                            </ul>
+                        </p>
+                        <p>And last but not least thanks to all the friendly people we meet during visiting MIA places who help and support us by sharing knowledge, opening doors and connecting us to other people.</p>
+
+                        <h2 class="is-size-4">MIA Tech Supporters</h2>
                         <p>
                             This web project is kept open source on <a href="https://github.com/Modernism-in-Architecture" target="_blank" rel="noreferrer noopener">GitHub</a>.
                             A huge thanks goes out to <a href="https://kristin-fritsch.de/" target="_blank" rel="noreferrer noopener">Kristin (Krissi) Fritsch</a> for helping with tricky frontend tasks 🙌, to
                             <a href="https://hau-rock.de/elisa/" target="_blank" rel="noreferrer noopener">Elisa (Elli) Haubert</a> with her always open ear for design questions and for layouting our first MIA postcard 😍 and to
                             <a href="https://soeren-kirchner.dev" target="_blank" rel="noreferrer noopener">Sören Kirchner</a> 🤗 who very patiently listens to Norma's (dev) issues and who created as well as pushes the idea of MIA mobile apps for iOS and Android.
                         </p>
-                        <p>And last but not least thanks to all the friendly people we meet during visiting MIA places who help and support us by sharing knowledge, opening doors and connecting us to other people.</p>
+                        
                     </div>
                 </div>
             </div>
