@@ -12,6 +12,7 @@ from django.urls import path
 
 from mia_buildings import admin_views
 
+from mia_buildings.admin_filters import CityListFilter, CountryListFilter
 from mia_facts.models import Photographer
 from .admin_forms import BuildingAdminForm, BuildingForImageSelectionAdminForm
 from modernism.tools import validate_and_clean_content_markup
@@ -168,6 +169,8 @@ class BuildingImageInline(SortableTabularInline):
 
 @admin.register(Building)
 class BuildingAdmin(SortableAdminBase, admin.ModelAdmin):
+    change_list_template = "admin/building_changelist.html"
+    change_form_template = "admin/building_change_form.html"
     search_fields = [
         "name",
         "name_addition",
@@ -180,20 +183,20 @@ class BuildingAdmin(SortableAdminBase, admin.ModelAdmin):
         "name_addition",
         "pk",
         "is_published",
-        "history_is_clean",
-        "description_is_clean",
-        "published_on_twitter",
-        "year_of_construction",
+        "slug",
         "city",
+        "year_of_construction",
+        "published_on_twitter",
         "created",
         "updated",
-        "slug",
+        "history_is_clean",
+        "description_is_clean",
         "seo_title",
     ]
     list_filter = [
-        # "is_published",
-        # ("city__country", admin.RelatedOnlyFieldListFilter),
-        # ("city", admin.RelatedOnlyFieldListFilter),
+        CityListFilter,
+        CountryListFilter,
+        "is_published",
     ]
     filter_horizontal = [
         "windows",
@@ -214,8 +217,6 @@ class BuildingAdmin(SortableAdminBase, admin.ModelAdmin):
     autocomplete_fields = ["city"]
     form = BuildingAdminForm
     inlines = [BuildingImageInline]
-
-    change_form_template = "admin/building_change_form.html"
 
     fieldsets = (
         (

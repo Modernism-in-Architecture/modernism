@@ -29,7 +29,7 @@ input[type="email"],
 input[type="url"],
 input[type="number"],
 input[type="tel"], textarea, select, .vTextField {
-  background-color: #fffafa;
+  background-color: #ffffff;
   color: #333a40;
   border: 1px solid #e8eaec; }
 
@@ -54,6 +54,9 @@ p.file-upload {
   border: 1px solid #9ba6b0 !important;
   padding: 12px 14px 12px;
   border-radius: 4px; }
+
+.quiet, a.quiet:link, a.quiet:visited {
+  color: #333a40 !important; }
 
 /* HEADER */
 .header-logo {
@@ -126,13 +129,32 @@ ul.messagelist li.warning {
   border: 1px solid #9ba6b0 !important;
   background: #ffffff !important; }
 
-#changelist-filter li.selected a {
-  color: #e8eaec; }
+#changelist-filter {
+  background: #ffffff !important; }
+  #changelist-filter .select2-container, #changelist-filter .select2-results {
+    margin-left: 1rem !important;
+    margin-bottom: 0.5rem !important;
+    width: 80% !important; }
+
+#changelist-filter a {
+  color: #333a40 !important; }
+
+#changelist-filter li.selected {
+  border-left: 5px solid #79e08c !important; }
+  #changelist-filter li.selected a {
+    color: #333a40 !important; }
+
+#changelist-filter h3,
+#changelist-filter details summary {
+  font-weight: 600 !important; }
+
+#changelist-filter details > summary::before {
+  color: #3cc43c !important; }
 
 #changelist-filter a:focus, #changelist-filter a:hover,
 #changelist-filter li.selected a:focus,
 #changelist-filter li.selected a:hover {
-  color: #79e08c; }
+  color: #79e08c !important; }
 
 /* TOOLBAR */
 #toolbar {

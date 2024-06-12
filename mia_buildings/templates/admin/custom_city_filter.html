@@ -1,0 +1,18 @@
+{% load i18n static %}
+
+<details data-filter-title="{{ title }}" open>
+  <summary>
+    {% blocktranslate with filter_title=title %} By {{ filter_title }} {% endblocktranslate %}
+  </summary>
+
+  <select name="city" id="id_city" data-select2-id="id_city" tabindex="-1" class="select2-hidden-accessible" aria-hidden="true">
+    {% for choice in choices %}
+      <option value="{{ choice.query_string|iriencode }}" data-select2-id="{{ choice.query_string|iriencode }}">{{ choice.display }}</option>
+    {% endfor %}
+  </select>
+</details>
+
+<script src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
+<script src="{% static 'admin/js/vendor/select2/select2.full.js' %}"></script>
+<script src="{% static 'lib/adminListFilter.js' %}"></script>
+<script>initializeCityFilter();</script>
