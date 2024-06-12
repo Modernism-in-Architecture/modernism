@@ -147,12 +147,10 @@ def get_building_list(
     search_query = request.GET.get("q", None)
 
     if request.method == "POST":
-
         building_form = BuildingsFilterForm(request.POST)
         request.session["filter-request"] = dict(request.POST)
 
         if building_form.is_valid():
-
             context["form"] = building_form
             building_list = _get_filtered_buildings(
                 building_form.cleaned_data, building_list
@@ -213,7 +211,6 @@ def get_building_details(
     template="mia_buildings/building_details.html",
     extra_context=None,
 ):
-
     building = (
         Building.objects.filter(is_published=True, slug=slug)
         .select_related("city")

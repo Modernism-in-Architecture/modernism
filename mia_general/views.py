@@ -6,7 +6,6 @@ from mia_people.models import Architect, Developer
 
 
 class MainView(TemplateView):
-
     template_name = "mia_general/index.html"
 
     def get_context_data(self, **kwargs):
@@ -22,7 +21,6 @@ class MainView(TemplateView):
 
 
 class AboutView(TemplateView):
-
     template_name = "mia_general/about.html"
 
     def get_context_data(self, **kwargs):
@@ -31,7 +29,6 @@ class AboutView(TemplateView):
 
 
 class IntroView(TemplateView):
-
     template_name = "mia_general/intro.html"
 
     def get_context_data(self, **kwargs):
@@ -40,7 +37,6 @@ class IntroView(TemplateView):
 
 
 class LegalInfoView(TemplateView):
-
     template_name = "mia_general/legal.html"
 
     def get_context_data(self, **kwargs):
@@ -49,7 +45,6 @@ class LegalInfoView(TemplateView):
 
 
 class MapView(TemplateView):
-
     template_name = "mia_general/map.html"
 
     def get_context_data(self, **kwargs):
@@ -64,7 +59,6 @@ class MapView(TemplateView):
 
 
 class PrivacyPolicyView(TemplateView):
-
     template_name = "mia_general/privacy.html"
 
     def get_context_data(self, **kwargs):

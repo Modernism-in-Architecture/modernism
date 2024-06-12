@@ -11,7 +11,7 @@
         "node-sass": "^9.0.0"
     },
     "scripts": {
-        "css-build": "node-sass modernism/static/_sass/modernism.scss modernism/static/css/modernism.css -w && node-sass modernism/static/_sass/admin.scss modernism/static/css/admin.css -w",
+        "css-build": "node-sass modernism/static/_sass/modernism.scss modernism/static/css/modernism.css && node-sass modernism/static/_sass/admin.scss modernism/static/css/admin.css",
         "start": "npm run css-build"
     },
     "repository": {

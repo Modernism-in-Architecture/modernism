@@ -1,15 +1,29 @@
 {% extends "admin/base_site.html" %}
 {% load static thumbnail %}
 
+{% block extrahead %} 
+    {{ block.super }}
+
+    <script src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
+    <script src="{% static 'admin/js/vendor/select2/select2.full.js' %}"></script>
+    <link href="{% static 'admin/css/vendor/select2/select2.css' %}" media="screen" rel="stylesheet">
+    {{ form.media }}
+    
+    <script>
+        $(document).ready(function() {
+            $("#id_building").select2();
+        });
+    </script>
+{% endblock %}
+
 {% block breadcrumbs %}
     <div class="breadcrumbs">
-        <a href="{% url 'admin:mia_buildings_buildingimage_changelist' %}">Back</a>
+        <a href="{% url 'admin:index' %}">Home</a> › <a href="/admin/mia_buildings/">Mia_Buildings</a> › <a href="{% url 'admin:mia_buildings_buildingimage_changelist' %}">Building images</a> › {{ title }}
     </div>
 {% endblock %}
 
-
 {% block content %}
-    <form action="" method="post">
+    <form action="" class="imageadd-form" method="post">
         {% csrf_token %}
         <p>
             {% for selected_image in images %}
@@ -17,9 +31,19 @@
                 <input type="hidden" name="_images" value="{{selected_image.pk}}" />
             {% endfor %}
         <p>
-        {{ form.as_p }}
-        <input type="hidden" name="_selected_action" value="1" />
-        <input type="hidden" name="action" value="add_images_to_building"/>
-        <input type="submit" name="apply" value="Send" />
+        <fieldset class="module aligned">              
+            <div class="form-row field-addtobuilding">    
+                <div class="flex-container">
+                    <label for="id_building">{{ form.building.label }}</label>
+                    {{ form.building.errors }}
+                    {{ form.building }}
+                </div>
+            </div>
+        </fieldset>
+        <div class="submit-row">
+            <input type="hidden" name="_selected_action" value="1" />
+            <input type="hidden" name="action" value="add_images_to_building"/>
+            <input class="default" type="submit" name="apply" value="SEND" />
+        </div>
     </form>
 {% endblock %}

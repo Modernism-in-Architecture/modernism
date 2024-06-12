@@ -11,7 +11,6 @@ class Command(BaseCommand):
     help = "Migrate building information into the seo title and truncate if needed."
 
     def handle(self, *args, **options):
-
         for building in Building.objects.filter(is_published=True):
             allowed_length_seo_title = 58
             architects = building.architects

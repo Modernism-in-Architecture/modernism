@@ -2,7 +2,7 @@ from django.conf import settings
 from django.conf.urls import include
 from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
-from django.urls import path
+from django.urls import path, re_path
 
 from modernism.sitemaps import (
     ArchitectsSitemap,
@@ -38,10 +38,12 @@ urlpatterns = [
     path("tinymce/", include("tinymce.urls")),
 ]
 
+
 if settings.DEBUG:
     import debug_toolbar
     from django.conf.urls.static import static
     from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+    from django.views.generic import RedirectView
 
     # Serve static and media files from development server
     urlpatterns += staticfiles_urlpatterns()
@@ -49,8 +51,10 @@ if settings.DEBUG:
 
     urlpatterns = [
         path("__debug__/", include(debug_toolbar.urls)),
+        re_path(
+            r"^favicon\.ico$", RedirectView.as_view(url="/static/img/mia-logo.png")
+        ),
     ] + urlpatterns
-
 
 admin.site.site_header = "MIA Admin"
 admin.site.site_title = "MIA Admin"

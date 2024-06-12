@@ -17,7 +17,6 @@ def bulkupload_images(request):
             building_photographer = None
             photographer_id = form.cleaned_data.get("photographer")
             title = form.cleaned_data.get("title")
-            tags = form.cleaned_data.get("tags")
 
             if photographer_id:
                 building_photographer = Photographer.objects.filter(
@@ -28,8 +27,6 @@ def bulkupload_images(request):
                 building_image = BuildingImage.objects.create(image=image)
                 building_image.title = f"{title} - {index}"
                 building_image.photographer = building_photographer
-                if tags:
-                    building_image.tags.add(*tags)
                 building_image.save()
 
             messages.success(

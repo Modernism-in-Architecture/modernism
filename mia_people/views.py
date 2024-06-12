@@ -91,7 +91,6 @@ def get_architect_details(
     template="mia_people/architect_details.html",
     extra_context=None,
 ):
-
     architect = (
         Architect.objects.filter(slug=slug)
         .select_related("birth_place__country")
@@ -137,7 +136,6 @@ def get_developer_details(
     template="mia_people/developer_details.html",
     extra_context=None,
 ):
-
     developer = (
         Developer.objects.filter(is_published=True, slug=slug)
         .select_related("birth_place__country")

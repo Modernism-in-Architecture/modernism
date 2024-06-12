@@ -55,7 +55,6 @@ def get_fact_details(
     template="mia_facts/fact_details.html",
     extra_context=None,
 ):
-
     fact = (
         Fact.objects.filter(is_published=True, slug=slug)
         .prefetch_related("categories")

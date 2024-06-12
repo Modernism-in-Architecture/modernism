@@ -61,7 +61,6 @@ class BuildingSerializer:
         )
 
         for building in buildings:
-
             try:
                 feed_image = building.feed_images[0].image
                 feed_thumb_url = get_thumbnailer(feed_image)["feed"].url

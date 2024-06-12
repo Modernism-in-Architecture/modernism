@@ -1,33 +1,597 @@
-.filtered_select_multiple {
-    h2 {
-        font-size: 1rem;
+$accent-lightgreen: #79e08c;
+$accent-green: #3cc43c;
+$accent-gray: #333a40;
+$accent-gray-light: #3c444b;
+$accent-pink: #ca0cd1;
+$accent-blue: #379fef;
+$background: #f4f6f9;
+
+$white: #fffafa;
+$light-gray: #e8eaec;
+$table-row-lighter: #ffffff;
+$table-row-darker: #f8f8f8;
+$table-row-border: #f3f3f3;
+$dark-gray: #9ba6b0;
+$primary-text: #212529;
+$secondary-text: #6c757d;
+$highlight-blue: #007bff;
+$warning-yellow: #ffc107;
+$error-red: #dc3545;
+
+
+/* merriweather-sans-300 - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Merriweather Sans';
+  font-style: normal;
+  font-weight: 300;
+  src: url('../fonts/merriweather-sans-v26-latin-300.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+
+body {
+    background-color: $background;
+    color: $accent-gray-light;
+    font-family: "Merriweather Sans";
+}
+
+h1 {
+    color: $accent-gray-light !important;
+}
+
+
+a:link, a:visited {
+    color: $accent-gray;
+}
+
+a:focus, a:hover {
+    color: $dark-gray;
+}
+
+input[type="text"], 
+input[type="password"], 
+input[type="file"], 
+input[type="email"],
+input[type="url"], 
+input[type="number"], 
+input[type="tel"], textarea, select, .vTextField {
+    background-color: $table-row-lighter;
+    color: $accent-gray;
+    border: 1px solid $light-gray;
+}
+
+input[type="file"] {
+   padding: 0.3rem;
+}
+
+input[type=file]::-webkit-file-upload-button:hover {
+    background: $light-gray;
+    border-radius: 4px;
+}
+
+label {
+    color: $accent-gray !important;
+}
+
+p.file-upload {
+    color: $accent-gray !important;
+}
+
+.help, p.help, form p.help, div.help, form div.help, div.help li, a.active.selector-chooseall, a.active.selector-clearall {
+    color: $accent-gray !important;
+}
+
+.submit-row {
+    background-color: $table-row-darker !important;
+    border: 1px solid $dark-gray !important;
+    padding: 12px 14px 12px;
+    border-radius: 4px;
+}
+
+.quiet, a.quiet:link, a.quiet:visited {
+    color: $accent-gray !important;
+}
+
+/* HEADER */
+
+.header-logo {
+    margin-right: 1rem;
+}
+
+.theme-toggle {
+    display: None;
+}
+
+#branding h1, #branding h1 a:link, #branding h1 a:visited {
+    color: $white !important;
+    font-size: 1rem;
+}
+
+#header {
+    background: $accent-gray;
+    color: $white;
+}
+
+#header a:link, #header a:visited {
+    color: $white;
+}
+
+#header a:hover {
+    color: $white;
+}
+
+div.breadcrumbs {
+    background: $background;
+    color: $dark-gray;
+}
+
+div.breadcrumbs a {
+    color: $accent-gray !important;
+}
+
+div.breadcrumbs a.active {
+    color: $accent-gray !important;
+    font-weight: 300;
+}
+
+div.breadcrumbs a:focus, div.breadcrumbs a:hover {
+    color: $dark-gray !important;
+    font-weight: 300;
+}
+
+ul.messagelist li.warning {
+    background-color: rgba($warning-yellow, 0.3);
+}
+
+/* CHANGELIST */
+
+#changelist tbody tr:has(.action-select:checked) {
+  background-color: rgba($accent-blue, 0.2) !important;
+}
+
+#changelist table thead th {
+    background-color: $light-gray;
+    color: $primary-text;
+}
+
+#changelist .actions .button:hover {
+    background: $accent-gray-light !important;
+    border-color: $accent-gray-light !important;
+}
+
+#changelist .actions .button {
+    background: $dark-gray !important;
+    border-color: $dark-gray !important;
+    color: $white !important;
+    border-radius: 4px !important;
+}
+
+#changelist {
+    background-color: $background;
+}
+
+#changelist .actions, .paginator {
+    color: $accent-gray !important;
+    width: auto !important;
+    background: $table-row-lighter !important;
+    border-bottom: 1px solid $table-row-border !important;
+}
+
+#changelist .actions select {
+    color: $accent-gray !important;
+    border: 1px solid $dark-gray !important;
+    background: $table-row-lighter !important;
+}
+
+#changelist-filter {
+    background: $table-row-lighter !important;
+    .select2-container, .select2-results {
+        margin-left: 1rem !important;
+        margin-bottom: 0.5rem !important;
+        width: 80% !important;
+    }
+}
+
+#changelist-filter a {
+    color: $accent-gray !important;
+}
+
+#changelist-filter li.selected {
+    border-left: 5px solid $accent-lightgreen !important;
+    a {
+        color: $accent-gray !important;
+    }
+}
+
+#changelist-filter h3,
+#changelist-filter details summary {
+    font-weight: 600 !important;
+}
+
+#changelist-filter details > summary::before {
+    color: $accent-green !important;
+}
+
+#changelist-filter a:focus, #changelist-filter a:hover,
+#changelist-filter li.selected a:focus,
+#changelist-filter li.selected a:hover {
+    color: $accent-lightgreen !important;
+}
+
+/* TOOLBAR */
+
+#toolbar {
+  border: 0 !important;
+  background-color: $background !important;
+}
+
+#toolbar form input {
+    color: $accent-gray !important;
+}
+
+#toolbar form input[type="submit"] {
+    background: $dark-gray !important;
+    border-color: $dark-gray !important;
+    color: $white !important;
+    border-radius: 4px !important;
+}
+
+#toolbar form input[type="submit"]:hover {
+    background: $accent-gray !important;
+    border-color: $accent-gray !important;
+}
+
+#toolbar #searchbar {
+    border: 1px solid $dark-gray !important;
+}
+
+/* PAGINATOR */
+
+.paginator {
+    border-top: $table-row-border !important;
+}
+
+.paginator a:link, .paginator a:visited {
+    background: $dark-gray;
+}
+
+.paginator .this-page {
+    background-color: $accent-lightgreen;
+    color: $white;
+}
+
+.paginator a.showall:focus,
+.paginator a.showall:hover {
+    color: $dark-gray;
+}
+
+.paginator a:focus, .paginator a:hover {
+    background: $accent-gray-light;
+}
+
+
+/* BUTTONS */
+
+.button, input[type=submit], input[type=button], .submit-row input, a.button {
+    color: $white;
+    border: 1px solid $accent-gray-light;
+    background-color: $accent-gray-light;
+    padding: 5px;
+}
+
+.button:hover, input[type=submit]:hover, input[type=button]:hover {
+    color: $dark-gray;
+    background-color: $accent-gray-light;
+}
+
+.button.default, input[type=submit].default, .submit-row input.default {
+    color: $accent-lightgreen;
+    background: $accent-gray-light;
+}
+
+.button.default:hover, input[type=submit].default:hover {
+    color: $dark-gray;
+    background: $accent-gray-light;
+}
+
+
+a.addlink {
+    color: $accent-green;
+}
+
+a.addlink:hover {
+    color: $light-gray;
+}
+
+/* MODULE */
+
+.module {
+    margin-bottom: 1rem;
+    .form-row {
+        border: None;
+
+        label.vCheckboxLabel {
+            padding: 5px 0 0 5px !important;
+        }
+    }
+    background-color: $background;
+}
+
+.module h2,
+.module caption,
+.inline-group h2 {
+    background: $accent-gray;
+}
+
+.module caption a:link {
+     color: $light-gray !important;
+}
+.module caption a:link:hover {
+     color: $accent-lightgreen !important;
+}
+
+/* SIDEBAR */
+
+#nav-sidebar {
+    border: 1px solid $accent-gray-light;
+    background-color: $accent-gray;
+    .module {
         margin-bottom: 0;
-        font-weight: 200;
-        padding: 0.2rem;
+
+        tr:nth-child(2n+1), tr:nth-child(2n) {
+            background: $accent-gray;
+        }
+        td {
+            border: none;
+        }
+        a:link, a:visited {
+            color: $dark-gray;
+        }
+        a.addlink {
+            display:none;
+        }
+        th {
+            border: none;
+            a {
+                padding-left: 1rem;
+                font-weight: 300;
+            }
+        }
     }
-    .selector .help-icon {
-        display: none;
+    .current-model {
+        background: $accent-lightgreen !important;
+        a:link {
+            color: $accent-gray;
+        }
+        a:visited {
+            color: $accent-gray;
+        }
     }
-    .selector-chosen h2 {
-        background: #047d7e;
+    
+    .current-app {
+        .section:link, .section:visited {
+            color: $accent-lightgreen;
+        }
     }
-    @media screen and (max-width: 969px) {
-        .selector {
-            width: 100%;
-        }
-        .selector select {
-            width: 100% !important;
-        }
-        .selector ul.selector-chooser {
-            margin: 1em 5px 0 5px;
-            padding: 0;
-        }
-        .selector-available, .selector-chosen {
-            width: 100%;
-        }
-        .selector .selector-available input {
-            width: 100%;
-            padding: 8px;
+    a.section:hover {
+        text-decoration: None;
+        color: $accent-lightgreen;
+    }
+}
+
+#toggle-nav-sidebar {
+    background: $accent-gray-light;
+    border-right: 0;
+    color: $accent-lightgreen;
+}
+
+#nav-filter {
+    display: None;
+}
+
+/* TABLE */
+
+tr:nth-child(odd), .row-form-errors {
+    background: $table-row-lighter;
+}
+
+tr:nth-child(even), .row-form-errors {
+    background: $table-row-darker;
+}
+
+thead th {
+    border: none !important;
+}
+
+td, th {
+    border-bottom: 1px solid $table-row-border;
+}
+
+thead th a:link, thead th a:visited {
+    color: $accent-gray-light;
+}
+
+table thead th .text a:hover {
+    background: $accent-gray;
+    color: $white;
+}
+
+/* SELECTORS */
+
+.selector ul.selector-chooser {
+    background-color: $table-row-lighter !important;
+}
+
+.selector-chosen h2 {
+    background: $accent-lightgreen !important;
+    border: 1px solid $light-gray !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+
+.selector .selector-available h2 {
+    color: $white !important;
+    background: $accent-gray-light !important;
+    border: 1px solid $light-gray !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+
+.selector .selector-filter {
+    border: 1px solid $light-gray !important;
+}
+
+.related-widget-wrapper .related-widget-wrapper-link {
+    opacity: 1;
+}
+
+fieldset.collapsed .collapse-toggle {
+    color: $accent-lightgreen !important;
+}
+
+fieldset.module.aligned h2 {
+    border-radius: 4px;
+}
+
+fieldset.collapsed {
+    border: 1px solid $light-gray !important;
+}
+
+fieldset.collapsed h2 {
+    background: $white !important;
+    color: $accent-gray !important;
+}
+
+.inline-related fieldset {
+    background-color: transparent !important;
+}
+
+.inline-related h3 {
+    color: $accent-gray !important;
+    background: $light-gray !important;
+    border-top: 1px solid $light-gray !important;
+    border-bottom: 1px solid $light-gray !important;
+}
+
+.inline-group[data-inline-type="stacked"] .inline-related {
+    border: 1px solid $light-gray !important;
+}
+
+.inline-group[data-inline-type="stacked"] .inline-related .module .form-row {
+    border-top: 1px solid $light-gray !important;
+}
+
+.inline-group .tabular tr.add-row td {
+    background: $white !important;
+    color: $accent-gray !important;
+    border-bottom: 1px solid $light-gray !important;
+}
+
+.inline-group thead th {
+    background: $white !important;
+    color: $accent-gray !important;
+}
+
+.inline-group .tabular td.original p {
+    color: $accent-gray !important;
+}
+
+.tox-tinymce {
+    color: $accent-gray !important;
+    border: 1px solid $light-gray !important;
+    border-radius: 4px !important;
+}
+
+.tox .tox-edit-area__iframe {
+    background: $white !important;
+    color: $accent-gray !important;
+}
+
+.tox .tox-toolbar__primary {
+    background: $white !important;
+    border-bottom: 1px solid $light-gray !important;
+}
+
+.tox .tox-statusbar {
+    background: $white !important;
+}
+
+a.active.selector-chooseall:focus, a.active.selector-clearall:focus,
+a.active.selector-chooseall:hover, a.active.selector-clearall:hover {
+    color: $light-gray;
+}
+
+.select2-container--admin-autocomplete .select2-results__option--highlighted[aria-selected] {
+    background-color: $accent-lightgreen !important;
+}
+
+.select2-container--admin-autocomplete .select2-search--dropdown .select2-search__field {
+    background: $white !important;
+    color: $accent-gray !important;
+    border: 1px solid $light-gray !important;
+}
+
+.select2-container--admin-autocomplete .select2-selection--single .select2-selection__rendered {
+    color: $accent-gray !important;
+    background: $white !important;
+    border-radius: 4px !important;
+}
+
+.select2-container--admin-autocomplete .select2-selection--single {
+    background-color: $white !important;
+    border: 1px solid $light-gray !important;
+}
+
+.select2-container--admin-autocomplete .select2-search--dropdown {
+    background-color: $white !important;
+    color: $accent-gray !important;
+}
+
+.select2-container--admin-autocomplete .select2-results > .select2-results__options {
+    background-color: $white !important;
+    color: $accent-gray !important;
+    border: none !important;
+}
+
+.select2-dropdown {
+    background-color: $white !important;
+    border: 1px solid $light-gray !important;
+}
+
+.bulkupload-form, .imageadd-form {
+    .form-row {
+        padding: 1rem;
+    }
+    label {
+        padding-right: 3rem;
+    }
+    .submit-row input {
+        height: 2.1875rem;
+        line-height: 0.9375rem;
+    }
+}
+
+.object-tools a:link, .object-tools a:visited {
+  color: $accent-lightgreen;
+  background-color: $accent-gray-light;
+}
+
+.object-tools a:focus, .object-tools a:hover {
+    color: $light-gray;
+}
+
+#content-related {
+    background: $table-row-lighter;
+    color: $accent-gray-light;
+    h3 {
+        color: $accent-gray-light;
+    }
+    .module {
+        background: $table-row-lighter;
+        h2 {
+            background: $accent-gray-light;
+            color: $white;
         }
     }
 }
+

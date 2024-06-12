@@ -12,6 +12,7 @@ from django.urls import path
 
 from mia_buildings import admin_views
 
+from mia_buildings.admin_filters import CityListFilter, CountryListFilter
 from mia_facts.models import Photographer
 from .admin_forms import BuildingAdminForm, BuildingForImageSelectionAdminForm
 from modernism.tools import validate_and_clean_content_markup
@@ -45,22 +46,16 @@ class BuildingImageAdmin(admin.ModelAdmin):
         "building__city__name",
         "building__city__country__name",
     ]
-    list_filter = [
-        ("building__city__country", admin.RelatedOnlyFieldListFilter),
-        ("building__city", admin.RelatedOnlyFieldListFilter),
-    ]
-    autocomplete_fields = ["building"]
+    autocomplete_fields = ["building", "photographer"]
     actions = ["add_images_to_building"]
     list_display = [
         "title",
         "image_preview",
-        "image_order",
+        "id",
         "is_published",
         "is_feed_image",
         "building",
-        "tag_list",
         "photographer",
-        "id",
         "created",
         "updated",
     ]
@@ -162,17 +157,20 @@ class BuildingImageInline(SortableTabularInline):
         ),
     )
     readonly_fields = ("image_preview", "tags")
+    autocomplete_fields = ["photographer"]
     classes = ["collapse"]
     extra = 0
 
     formfield_overrides = {
-        models.CharField: {"widget": TextInput(attrs={"size": "30"})},
-        models.TextField: {"widget": Textarea(attrs={"rows": 6, "cols": 30})},
+        models.CharField: {"widget": TextInput(attrs={"size": "auto"})},
+        models.TextField: {"widget": Textarea(attrs={"width": "auto"})},
     }
 
 
 @admin.register(Building)
 class BuildingAdmin(SortableAdminBase, admin.ModelAdmin):
+    change_list_template = "admin/building_changelist.html"
+    change_form_template = "admin/building_change_form.html"
     search_fields = [
         "name",
         "name_addition",
@@ -185,20 +183,20 @@ class BuildingAdmin(SortableAdminBase, admin.ModelAdmin):
         "name_addition",
         "pk",
         "is_published",
-        "history_is_clean",
-        "description_is_clean",
-        "published_on_twitter",
-        "year_of_construction",
+        "slug",
         "city",
+        "year_of_construction",
+        "published_on_twitter",
         "created",
         "updated",
-        "slug",
+        "history_is_clean",
+        "description_is_clean",
         "seo_title",
     ]
     list_filter = [
+        CityListFilter,
+        CountryListFilter,
         "is_published",
-        ("city__country", admin.RelatedOnlyFieldListFilter),
-        ("city", admin.RelatedOnlyFieldListFilter),
     ]
     filter_horizontal = [
         "windows",
@@ -220,11 +218,9 @@ class BuildingAdmin(SortableAdminBase, admin.ModelAdmin):
     form = BuildingAdminForm
     inlines = [BuildingImageInline]
 
-    change_form_template = "admin/building_change_form.html"
-
     fieldsets = (
         (
-            None,
+            "GENERAL",
             {
                 "fields": (
                     "is_published",
@@ -239,14 +235,6 @@ class BuildingAdmin(SortableAdminBase, admin.ModelAdmin):
                     "latitude",
                     "longitude",
                     "directions",
-                )
-            },
-        ),
-        (
-            "GENERAL",
-            {
-                "classes": ("collapse",),
-                "fields": (
                     "protected_monument",
                     "year_of_construction",
                     "todays_use",
@@ -284,17 +272,6 @@ class BuildingAdmin(SortableAdminBase, admin.ModelAdmin):
                     "details",
                     "construction_types",
                     "building_types",
-                ),
-            },
-        ),
-        (
-            "BULK UPLOAD BUILDING IMAGES",
-            {
-                "description": "Add title, city and country of the building first. So image tags and titles can be generated for all uploaded photos automatically.",
-                "classes": ("collapse",),
-                "fields": (
-                    "photographer",
-                    "multiple_images",
                 ),
             },
         ),

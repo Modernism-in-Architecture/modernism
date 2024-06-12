@@ -42,11 +42,6 @@ class MultipleImageFileField(ImageField):
 class BulkUploadImagesForm(Form):
     multiple_images = MultipleImageFileField(label="Select images")
     photographer = ChoiceField(required=False, widget=Select, choices=[])
-    tags = ModelMultipleChoiceField(
-        required=False,
-        queryset=Tag.objects.order_by("name"),
-        widget=FilteredSelectMultiple("Tags", True),
-    )
     title = CharField(label="General name for the images")
 
     def __init__(self, *args, **kwargs):
@@ -62,12 +57,6 @@ class BulkUploadImagesForm(Form):
 
 
 class BuildingAdminForm(ContentMarkupMixin, ModelForm):
-    multiple_images = MultipleImageFileField(required=False)
-    photographer = ChoiceField(
-        required=False,
-        widget=Select,
-    )
-
     class Meta:
         model = Building
         widgets = {
@@ -84,22 +73,11 @@ class BuildingAdminForm(ContentMarkupMixin, ModelForm):
         }
         fields = "__all__"
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.set_photographer_choices()
-
-    def set_photographer_choices(self):
-        photographers = Photographer.objects.values_list("id", "last_name").order_by(
-            "last_name"
-        )
-        choices = [("", "------")] + list(photographers)
-        self.fields["photographer"].choices = choices
-
 
 class BuildingForImageSelectionAdminForm(Form):
     _selected_action = CharField(widget=MultipleHiddenInput)
     _images = CharField(widget=MultipleHiddenInput)
     building = ModelChoiceField(
         queryset=Building.objects.all().order_by("name"),
-        widget=Select(),
+        widget=Select,
     )
