@@ -51,7 +51,9 @@ if settings.DEBUG:
 
     urlpatterns = [
         path("__debug__/", include(debug_toolbar.urls)),
-        re_path(r'^favicon\.ico$', RedirectView.as_view(url='/static/img/mia-logo.png')),
+        re_path(
+            r"^favicon\.ico$", RedirectView.as_view(url="/static/img/mia-logo.png")
+        ),
     ] + urlpatterns
 
 admin.site.site_header = "MIA Admin"

@@ -9,12 +9,17 @@ class CityListFilter(SimpleListFilter):
     parameter_name = "city_id"
 
     def lookups(self, request, model_admin):
-        return City.objects.filter(building__isnull=False).values_list("id", "name").distinct().order_by("name")
+        return (
+            City.objects.filter(building__isnull=False)
+            .values_list("id", "name")
+            .distinct()
+            .order_by("name")
+        )
 
     def queryset(self, request, queryset):
         if self.value():
             return queryset.filter(city=self.value())
-        
+
 
 class CountryListFilter(SimpleListFilter):
     title = "Country"
@@ -22,7 +27,12 @@ class CountryListFilter(SimpleListFilter):
     parameter_name = "country_id"
 
     def lookups(self, request, model_admin):
-        return Country.objects.filter(city__building__isnull=False).values_list("id", "name").distinct().order_by("name")
+        return (
+            Country.objects.filter(city__building__isnull=False)
+            .values_list("id", "name")
+            .distinct()
+            .order_by("name")
+        )
 
     def queryset(self, request, queryset):
         if self.value():

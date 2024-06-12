@@ -18,7 +18,6 @@ from mia_buildings.models import Building
 @renderer_classes((JSONRenderer,))
 @permission_classes([IsAuthenticated])
 def get_buildings_list(request: Request, version: str) -> Response:
-
     buildings_list_data, status_code = BuildingSerializer.get_buildings_list_data(
         request
     )
@@ -30,7 +29,6 @@ def get_buildings_list(request: Request, version: str) -> Response:
 @renderer_classes((JSONRenderer,))
 @permission_classes([IsAuthenticated])
 def get_buildings_details(request: Request, version: str, building_id: int) -> Response:
-
     buildings_details_data, status_code = BuildingSerializer.get_buildings_details_data(
         request, building_id
     )
@@ -42,7 +40,6 @@ def get_buildings_details(request: Request, version: str, building_id: int) -> R
 @renderer_classes((JSONRenderer,))
 @permission_classes([IsAuthenticated])
 def get_architects_list(request: Request, version: str) -> Response:
-
     architects_list_data, status_code = PersonSerializer.get_architects_list_data(
         request
     )
@@ -56,7 +53,6 @@ def get_architects_list(request: Request, version: str) -> Response:
 def get_architects_details(
     request: Request, version: str, architect_id: int
 ) -> Response:
-
     architects_details_data, status_code = PersonSerializer.get_architects_details_data(
         request, architect_id
     )
@@ -68,7 +64,6 @@ def get_architects_details(
 @renderer_classes((JSONRenderer,))
 @permission_classes([IsAuthenticated])
 def get_twitter_building_details(request: Request, version: str) -> Response:
-
     (
         building_details_data,
         status_code,
@@ -83,7 +78,6 @@ def get_twitter_building_details(request: Request, version: str) -> Response:
 def set_building_published_on_twitter(
     request: Request, version: str, building_id: int
 ) -> Response:
-
     try:
         building = Building.objects.get(pk=building_id)
     except Building.DoesNotExist:

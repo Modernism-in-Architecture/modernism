@@ -17,7 +17,6 @@ class Command(BaseCommand):
     help = "Migrate all wagtail images without a building."
 
     def handle(self, *args, **options):
-
         with connection.cursor() as cursor:
             cursor.execute("SELECT title, file FROM wagtailimages_image")
             results = namedtuplefetchall(cursor)
