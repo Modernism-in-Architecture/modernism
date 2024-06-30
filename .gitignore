@@ -12,4 +12,4 @@ htmlcov/
 media/
 node_modules/
 static/
-!modernism/static/
+!mia_app/modernism/static/

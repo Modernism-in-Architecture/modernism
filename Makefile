@@ -11,23 +11,26 @@ install: venv
 	$(VENV) pip install -r requirements.txt
 
 migrations: venv
-	$(VENV) python manage.py makemigrations
+	$(VENV) cd mia_app/ && \
+	python manage.py makemigrations
 
 migrate: venv
-	$(VENV) python manage.py migrate
+	$(VENV) cd mia_app/ && \
+	python manage.py migrate
 
 superuser: venv
-	$(VENV) DJANGO_SUPERUSER_USERNAME=django \
+	$(VENV) cd mia_app/ && \
+	DJANGO_SUPERUSER_USERNAME=django \
 	DJANGO_SUPERUSER_PASSWORD=django \
 	DJANGO_SUPERUSER_EMAIL="django@example.org" \
 	python manage.py createsuperuser --noinput
 
 runserver: venv
-	$(VENV) python manage.py runserver 8002
+	$(VENV) cd mia_app/ && \
+	python manage.py runserver 8002
 
 test: venv
 	$(VENV) pytest
-
 
 init: install migrate superuser
 
