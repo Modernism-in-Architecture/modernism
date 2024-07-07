@@ -1,5 +1,4 @@
 from django import forms
-
 from mia_facts.models import City, Country
 from mia_people.models import Architect, Developer
 

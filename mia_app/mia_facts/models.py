@@ -1,8 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
-from unidecode import unidecode
-
 from modernism.models import BaseModel
+from unidecode import unidecode
 
 
 class Country(models.Model):

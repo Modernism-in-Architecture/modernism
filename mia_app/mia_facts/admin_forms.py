@@ -1,7 +1,7 @@
 from django.forms import ModelForm
+from modernism.mixins import ContentMarkupMixin
 
 from mia_facts.models import Fact
-from modernism.mixins import ContentMarkupMixin
 
 
 class FactAdminForm(ContentMarkupMixin, ModelForm):

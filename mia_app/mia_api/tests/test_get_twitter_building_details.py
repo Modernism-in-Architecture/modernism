@@ -1,12 +1,10 @@
 from django.contrib.auth.models import User
 from django.test.utils import ignore_warnings
 from django.utils import timezone
-from rest_framework.test import APITestCase
-
 from mia_buildings.tests.factories import BuildingFactory
 from mia_facts.tests.factories import CityFactory
 from mia_people.tests.factories import ArchitectFactory
-
+from rest_framework.test import APITestCase
 
 ignore_warnings(message="No directory at", module="whitenoise.base").enable()
 
@@ -29,7 +27,7 @@ class TwitterBuildingAPITestCase(APITestCase):
         building_b = BuildingFactory(city=city, is_published=True)
 
         # WHEN
-        url = f"/api/v1/twitter/get_building_details/"
+        url = "/api/v1/twitter/get_building_details/"
         response = self.client.get(url)
 
         # THEN
@@ -56,7 +54,7 @@ class TwitterBuildingAPITestCase(APITestCase):
         latest_building = BuildingFactory(city=city, is_published=True)
 
         # WHEN
-        url = f"/api/v1/twitter/get_building_details/"
+        url = "/api/v1/twitter/get_building_details/"
         response = self.client.get(url)
 
         # THEN
@@ -71,7 +69,7 @@ class TwitterBuildingAPITestCase(APITestCase):
         BuildingFactory(city=city, is_published=False)
 
         # WHEN
-        url = f"/api/v1/twitter/get_building_details/"
+        url = "/api/v1/twitter/get_building_details/"
         response = self.client.get(url)
 
         # THEN the actual latest building schould be ignored
@@ -94,7 +92,7 @@ class TwitterBuildingAPITestCase(APITestCase):
         )
 
         # WHEN
-        url = f"/api/v1/twitter/get_building_details/"
+        url = "/api/v1/twitter/get_building_details/"
         response = self.client.get(url)
 
         # THEN
@@ -112,7 +110,7 @@ class TwitterBuildingAPITestCase(APITestCase):
         building.architects.add(architect_a, architect_b)
 
         # WHEN
-        url = f"/api/v1/twitter/get_building_details/"
+        url = "/api/v1/twitter/get_building_details/"
         response = self.client.get(url)
 
         # THEN

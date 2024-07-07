@@ -1,7 +1,3 @@
-from taggit.models import Tag
-from tinymce.widgets import TinyMCE
-
-from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.forms import (
     CharField,
     ChoiceField,
@@ -10,15 +6,15 @@ from django.forms import (
     ImageField,
     ModelChoiceField,
     ModelForm,
-    ModelMultipleChoiceField,
     Select,
     Textarea,
 )
 from django.forms.widgets import MultipleHiddenInput
-
-from mia_buildings.models import Building
 from mia_facts.models import Photographer
 from modernism.mixins import ContentMarkupMixin
+from tinymce.widgets import TinyMCE
+
+from mia_buildings.models import Building
 
 
 class MultipleImageFileInput(ClearableFileInput):
@@ -32,7 +28,7 @@ class MultipleImageFileField(ImageField):
 
     def clean(self, data, initial=None):
         single_file_clean = super().clean
-        if isinstance(data, (list, tuple)):
+        if isinstance(data, list | tuple):
             result = [single_file_clean(d, initial) for d in data]
         else:
             result = single_file_clean(data, initial)

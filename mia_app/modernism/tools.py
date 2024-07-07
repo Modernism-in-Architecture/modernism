@@ -1,7 +1,10 @@
 from bs4 import BeautifulSoup
 
+ATTRIBUTE_WHITELIST = ["href", "src"]
+ELEMENT_WHITELIST = ["p", "a", "em", "strong"]
 
-def validate_and_clean_content_markup(html: str) -> (bool, str):
+
+def validate_and_clean_content_markup(html: str) -> tuple[bool, str]:
     soup = BeautifulSoup(html, "html.parser")
     before = str(soup)
     cleanup(soup)
@@ -10,27 +13,24 @@ def validate_and_clean_content_markup(html: str) -> (bool, str):
 
 
 def cleanup(document: BeautifulSoup) -> None:
-    ATTRIBUTE_WHITELIST = ["href", "src"]
-    ELEMENT_WHITELIST = ["p", "a", "em", "strong"]
-
-    def removeAttributes(element):
+    def remove_attributes(element):
         for attr in set(element.attrs):
             if attr not in ATTRIBUTE_WHITELIST:
                 del element[attr]
 
-    def removeEmptyElement(element):
+    def remove_empty_element(element):
         if len(element.get_text(strip=True)) == 0:
             element.extract()
 
-    def unwrapElement(element):
+    def unwrap_element(element):
         if element.name not in ELEMENT_WHITELIST:
             element.unwrap()
 
-    def cleanupElement(element):
-        removeAttributes(element)
-        unwrapElement(element)
-        removeEmptyElement(element)
+    def cleanup_element(element):
+        remove_attributes(element)
+        unwrap_element(element)
+        remove_empty_element(element)
 
     result = document.find_all()
     for entry in result:
-        cleanupElement(entry)
+        cleanup_element(entry)

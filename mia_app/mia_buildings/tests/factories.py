@@ -1,8 +1,8 @@
-from faker import Faker
 from factory import Sequence
 from factory.django import DjangoModelFactory
-from mia_buildings.models import Building
+from faker import Faker
 
+from mia_buildings.models import Building
 
 fake = Faker()
 

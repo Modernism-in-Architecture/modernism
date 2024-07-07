@@ -1,12 +1,9 @@
-from typing import Tuple, Union
-
 from django.db.models.query import Prefetch
 from easy_thumbnails.files import get_thumbnailer
-from rest_framework.request import Request
-
 from mia_buildings.models import Building, BuildingImage
 from mia_facts.models import Source
 from mia_people.models import Architect, Developer
+from rest_framework.request import Request
 
 
 class ResponseDataBuilder:
@@ -21,13 +18,13 @@ class ResponseDataBuilder:
         return response
 
     @staticmethod
-    def build_success_response(data: Union[dict, list]) -> dict:
+    def build_success_response(data: dict | list) -> dict:
         return {"data": data}
 
 
 class BuildingSerializer:
     @staticmethod
-    def get_buildings_list_data(request: Request) -> Tuple[dict, int]:
+    def get_buildings_list_data(request: Request) -> tuple[dict, int]:
         buildings_data = []
 
         buildings = (
@@ -67,7 +64,8 @@ class BuildingSerializer:
                 preview_thumb_url = get_thumbnailer(feed_image)["preview"].url
                 feed_thumb_full_url = request.build_absolute_uri(feed_thumb_url)
                 preview_thumb_full_url = request.build_absolute_uri(preview_thumb_url)
-            except:
+            # TODO: Fix the except error
+            except:  # noqa: E722
                 feed_thumb_full_url = ""
                 preview_thumb_full_url = ""
 
@@ -114,7 +112,7 @@ class BuildingSerializer:
     @staticmethod
     def get_buildings_details_data(
         request: Request, building_id: int
-    ) -> Tuple[dict, int]:
+    ) -> tuple[dict, int]:
         building_data = {}
 
         building = (
@@ -154,7 +152,8 @@ class BuildingSerializer:
                 image = gallery_image.image
                 mobile_img_url = get_thumbnailer(image)["mobile"].url
                 mobile_img_full_url = request.build_absolute_uri(mobile_img_url)
-            except:
+            # TODO: Fix the except error
+            except:  # noqa: E722
                 mobile_img_full_url = ""
             gallery_image_urls.append(mobile_img_full_url)
 
@@ -238,7 +237,7 @@ class BuildingSerializer:
 
 class PersonSerializer:
     @staticmethod
-    def get_architects_list_data(request: Request) -> Tuple[dict, int]:
+    def get_architects_list_data(request: Request) -> tuple[dict, int]:
         architects = Architect.objects.filter(is_published=True).order_by("last_name")
         architects_data = [
             {
@@ -254,7 +253,7 @@ class PersonSerializer:
     @staticmethod
     def get_architects_details_data(
         request: Request, architect_id: int
-    ) -> Tuple[dict, int]:
+    ) -> tuple[dict, int]:
         architect_data = {}
 
         architect = (
@@ -283,7 +282,8 @@ class PersonSerializer:
                 feed_image = related_building.feed_images[0].image
                 thumb_url = get_thumbnailer(feed_image)["feed"].url
                 thumb_full_url = request.build_absolute_uri(thumb_url)
-            except:
+            # TODO: Fix the except error
+            except:  # noqa: E722
                 thumb_full_url = ""
 
             building_data = {
@@ -345,7 +345,7 @@ class PersonSerializer:
 
 class SocialMediaSerializer:
     @staticmethod
-    def get_twitter_building_details(request: Request) -> Tuple[dict, int]:
+    def get_twitter_building_details(request: Request) -> tuple[dict, int]:
         """Deliver details of the latest building not published on twitter yet."""
 
         latest_buildings_qs = (

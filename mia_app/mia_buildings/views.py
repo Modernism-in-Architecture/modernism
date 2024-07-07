@@ -1,15 +1,14 @@
-from el_pagination.decorators import page_template
-from rest_framework.decorators import api_view
-
 from django.contrib.postgres.search import SearchVector
 from django.core.serializers import serialize
 from django.db.models.query import Prefetch
 from django.http.request import MultiValueDict, QueryDict
 from django.shortcuts import render
+from el_pagination.decorators import page_template
+from mia_facts.models import Fact, Source
+from rest_framework.decorators import api_view
 
 from mia_buildings.forms import BuildingsFilterForm
 from mia_buildings.models import Building, BuildingImage
-from mia_facts.models import Fact, Source
 
 
 def _get_filtered_buildings(cleaned_form_data, buildings):

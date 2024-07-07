@@ -1,9 +1,9 @@
 from django.contrib import admin
 from django.db import models
 from django.forms.widgets import TextInput
+from modernism.tools import validate_and_clean_content_markup
 from tinymce.widgets import TinyMCE
 
-from modernism.tools import validate_and_clean_content_markup
 from .admin_forms import FactAdminForm
 from .models import (
     Author,
@@ -59,7 +59,7 @@ class CityAdmin(admin.ModelAdmin):
     )
 
     def get_queryset(self, request):
-        qs = super(CityAdmin, self).get_queryset(request)
+        qs = super().get_queryset(request)
         return (
             qs.select_related("country")
             .prefetch_related("building_set")

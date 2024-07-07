@@ -1,18 +1,43 @@
-[tool.black]
-extend-exclude = "mia_app/migrations"
-
 [tool.pytest.ini_options]
-pythonpath = [
-    ".", "mia_app"
-]
-DJANGO_SETTINGS_MODULE = "mia_app.modernism.settings.dev"
-log_cli = true
-log_level = "WARN"
-log_cli_level = "WARN"
-log_cli_format = "%(asctime)s %(levelname)s %(message)s"
-log_cli_date_format = "%H:%M:%S"
-addopts = "--strict-markers"
-markers = [
-    "the_one",
-    "deactivated"
-]
+    pythonpath = [
+        ".", "mia_app"
+    ]
+    DJANGO_SETTINGS_MODULE = "mia_app.modernism.settings.dev"
+    log_cli = true
+    log_level = "WARN"
+    log_cli_level = "WARN"
+    log_cli_format = "%(asctime)s %(levelname)s %(message)s"
+    log_cli_date_format = "%H:%M:%S"
+    addopts = "--strict-markers"
+    markers = [
+        "the_one",
+        "deactivated"
+    ]
+
+[tool.ruff]
+    target-version = "py310"
+    extend-exclude = [
+        "migrations",
+        "settings"
+    ]
+
+[tool.ruff.lint]
+    select = [
+        # pycodestyle
+        "E",
+        # Pyflakes
+        "F",
+        # pyupgrade
+        "UP",
+        # flake8-bugbear
+        "B",
+        # flake8-simplify
+        "SIM",
+        # isort
+        "I",
+        # PEP8 naming conventions
+        "N",
+    ]
+    ignore = [
+        "E501" # Ignore too long lines, because the formatter already formats it correctly according to black standard
+    ]

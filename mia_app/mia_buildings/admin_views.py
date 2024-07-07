@@ -1,10 +1,10 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
+from mia_facts.models import Photographer
 
 from mia_buildings.admin_forms import BulkUploadImagesForm
 from mia_buildings.models import BuildingImage
-from mia_facts.models import Photographer
 
 
 @login_required(login_url="/admin/login/")

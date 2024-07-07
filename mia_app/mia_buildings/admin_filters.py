@@ -1,5 +1,4 @@
 from django.contrib.admin import SimpleListFilter
-
 from mia_facts.models import City, Country
 
 

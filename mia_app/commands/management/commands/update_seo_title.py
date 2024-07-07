@@ -1,7 +1,6 @@
 import logging
 
 from django.core.management.base import BaseCommand
-
 from mia_buildings.models import Building
 
 logger = logging.getLogger(__name__)

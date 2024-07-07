@@ -40,3 +40,9 @@ test: venv
 init: install migrate superuser
 
 start: runserver
+
+check:
+	$(VENV) ruff check
+
+format:
+	$(VENV) ruff check --select I --fix && ruff format
