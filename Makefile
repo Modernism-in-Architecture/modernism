@@ -1,5 +1,10 @@
-VENV_NAME := env
+VENV_NAME = env
 VENV = . env/bin/activate &&
+APP_DIR = mia_app
+ENV_FILE = $(APP_DIR)/.env
+
+-include $(ENV_FILE)
+export
 
 venv:
 	if [ ! -d $(VENV_NAME) ]; then \
@@ -26,7 +31,7 @@ superuser: venv
 	python manage.py createsuperuser --noinput
 
 runserver: venv
-	$(VENV) cd mia_app/ && \
+	$(VENV) cd $(APP_DIR)/ && \
 	python manage.py runserver 8002
 
 test: venv
