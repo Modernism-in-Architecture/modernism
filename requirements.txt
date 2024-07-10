@@ -32,6 +32,7 @@ pytest-django==4.7.0
 pytz==2021.3
 regex==2021.11.10
 reportlab==3.6.13
+ruff==0.5.1
 s3transfer==0.5.0
 six==1.16.0
 sqlparse==0.5.0

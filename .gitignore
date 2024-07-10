@@ -8,6 +8,7 @@
 .pytest_cache/
 *.pyc
 __pycache__
+.ruff_cache/
 
 db.sqlite3
 env/
