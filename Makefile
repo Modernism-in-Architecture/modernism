@@ -1,7 +1,8 @@
 VENV_NAME = env
-VENV = . env/bin/activate &&
+VENV = . $(VENV_NAME)/bin/activate &&
 APP_DIR = mia_app
 ENV_FILE = $(APP_DIR)/.env
+MANAGE = python manage.py
 
 -include $(ENV_FILE)
 export
@@ -12,27 +13,30 @@ venv:
 	fi
 
 install: venv
-	$(VENV) pip install -U pip
+	$(VENV) pip install --upgrade pip && pip install --upgrade setuptools
 	$(VENV) pip install -r requirements.txt
 
 migrations: venv
-	$(VENV) cd mia_app/ && \
-	python manage.py makemigrations
+	$(VENV) cd $(APP_DIR) && \
+	$(MANAGE) makemigrations
 
 migrate: venv
-	$(VENV) cd mia_app/ && \
-	python manage.py migrate
+	$(VENV) cd $(APP_DIR) && \
+	$(MANAGE) migrate
 
 superuser: venv
-	$(VENV) cd mia_app/ && \
+	$(VENV) cd $(APP_DIR) && \
 	DJANGO_SUPERUSER_USERNAME=django \
 	DJANGO_SUPERUSER_PASSWORD=django \
 	DJANGO_SUPERUSER_EMAIL="django@example.org" \
-	python manage.py createsuperuser --noinput
+	$(MANAGE) createsuperuser --noinput
+
+loaddata:
+	$(VENV) cd $(APP_DIR) && $(MANAGE) loaddata data.json
 
 runserver: venv
 	$(VENV) cd $(APP_DIR)/ && \
-	python manage.py runserver 8002
+	$(MANAGE) runserver 8002
 
 test: venv
 	$(VENV) pytest
