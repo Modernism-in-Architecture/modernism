@@ -1,5 +1,5 @@
 from typing import Tuple, Union
-
+import pyhtml2md
 from django.db.models.query import Prefetch
 from easy_thumbnails.files import get_thumbnailer
 from rest_framework.request import Request
@@ -224,7 +224,9 @@ class BuildingSerializer:
             "todaysUse": building.todays_use,
             "buildingType": building_type,
             "history": building.history,
+            "historyMarkdown": pyhtml2md.convert(building.history),
             "description": building.description,
+            "descriptionMarkdown": pyhtml2md.convert(building.description),
             "directions": building.directions,
             "sourceUrls": web_sources,
             "sourceBooks": book_sources,
@@ -325,14 +327,18 @@ class PersonSerializer:
             "firstName": architect.first_name,
             "birthDay": architect.birthday if architect.birthday else "",
             "birthPlace": architect.birth_place.name if architect.birth_place else "",
-            "birthCountry": architect.birth_place.country.name
-            if architect.birth_place and architect.birth_place.country
-            else "",
+            "birthCountry": (
+                architect.birth_place.country.name
+                if architect.birth_place and architect.birth_place.country
+                else ""
+            ),
             "deathDay": architect.day_of_death if architect.day_of_death else "",
             "deathPlace": architect.death_place.name if architect.death_place else "",
-            "deathCountry": architect.death_place.country.name
-            if architect.death_place and architect.death_place.country
-            else "",
+            "deathCountry": (
+                architect.death_place.country.name
+                if architect.death_place and architect.death_place.country
+                else ""
+            ),
             "description": architect.description,
             "sourceUrls": web_sources,
             "sourceBooks": book_sources,
