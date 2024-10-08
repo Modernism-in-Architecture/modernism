@@ -122,13 +122,17 @@ THUMBNAIL_ALIASES = {
     "": {
         "preview": {"size": (150, 150), "crop": True},
         "feed": {"size": (350, 350), "crop": True},
-        "square": {"size": (500, 500), "crop": True},
-        "regular": {"size": (800, 600), "crop": False},
         "large": {"size": (1300, 700), "crop": False},
         "mobile": {"size": (1200, 0), "quality": 60},
-        "twitter": {"size": (1200, 630), "quality": 60, "crop": "center"},
-        "facebook": {"size": (1080, 1080), "quality": 60, "crop": "center"},
     },
+}
+
+THUMBNAIL_PATHS = {  #
+    "preview": ".150x150_q85_crop.jpg",  # https://modernism.s3.amazonaws.com/original_images/thumbs/IMG_1025.jpeg.150x150_q85_crop.jpg
+    "feed": ".350x350_q85_crop.jpg",  # https://modernism.s3.amazonaws.com/original_images/thumbs/IMG_1025.jpeg.350x350_q85_crop.jpg
+    "large": ".1300x700_q85.jpg",  # https://modernism.s3.amazonaws.com/original_images/thumbs/Atrium_3.JPG.1300x700_q85.jpg
+    "square": ".500x500_q85_crop.jpg",  # https://modernism.s3.amazonaws.com/original_images/thumbs/Atrium_3.JPG.500x500_q85_crop.jpg
+    "mobile": ".1200x0_q60.jpg",  # https://modernism.s3.amazonaws.com/original_images/thumbs/Schunck.jpg.1200x0_q60.jpg
 }
 
 BASE_URL = "https://modernism-in-architecture.org"

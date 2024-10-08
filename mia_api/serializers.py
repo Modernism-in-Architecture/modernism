@@ -1,5 +1,7 @@
+import logging
 from typing import Tuple, Union
 import pyhtml2md
+from django.conf import settings
 from django.db.models.query import Prefetch
 from easy_thumbnails.files import get_thumbnailer
 from rest_framework.request import Request
@@ -7,6 +9,9 @@ from rest_framework.request import Request
 from mia_buildings.models import Building, BuildingImage
 from mia_facts.models import Source
 from mia_people.models import Architect, Developer
+from modernism.tools import create_thumbnail_image_path
+
+logger = logging.getLogger(__name__)
 
 
 class ResponseDataBuilder:
@@ -61,15 +66,31 @@ class BuildingSerializer:
         )
 
         for building in buildings:
-            try:
-                feed_image = building.feed_images[0].image
-                feed_thumb_url = get_thumbnailer(feed_image)["feed"].url
-                preview_thumb_url = get_thumbnailer(feed_image)["preview"].url
-                feed_thumb_full_url = request.build_absolute_uri(feed_thumb_url)
-                preview_thumb_full_url = request.build_absolute_uri(preview_thumb_url)
-            except:
-                feed_thumb_full_url = ""
-                preview_thumb_full_url = ""
+            feed_image = building.feed_images[0].image
+            feed_thumb_full_url = ""
+            preview_thumb_full_url = ""
+
+            if not building.thumbnails_created:
+                try:
+                    feed_thumb_url = get_thumbnailer(feed_image)["feed"].url
+                    preview_thumb_url = get_thumbnailer(feed_image)["preview"].url
+                    feed_thumb_full_url = request.build_absolute_uri(feed_thumb_url)
+                    preview_thumb_full_url = request.build_absolute_uri(
+                        preview_thumb_url
+                    )
+
+                except Exception as err:
+                    logger.info(
+                        f"Error generating thumbnails for building {building.id}: {str(err)}"
+                    )
+
+            else:
+                feed_thumb_full_url = create_thumbnail_image_path(
+                    feed_image.name, settings.THUMBNAIL_PATHS.get("feed")
+                )
+                preview_thumb_full_url = create_thumbnail_image_path(
+                    feed_image.name, settings.THUMBNAIL_PATHS.get("preview")
+                )
 
             architects = []
             for architect in building.published_architects:
@@ -150,12 +171,20 @@ class BuildingSerializer:
 
         gallery_image_urls = []
         for gallery_image in building.gallery_images:
-            try:
-                image = gallery_image.image
-                mobile_img_url = get_thumbnailer(image)["mobile"].url
-                mobile_img_full_url = request.build_absolute_uri(mobile_img_url)
-            except:
-                mobile_img_full_url = ""
+            mobile_img_full_url = ""
+            if not building.thumbnails_created:
+                try:
+                    image = gallery_image.image
+                    mobile_img_url = get_thumbnailer(image)["mobile"].url
+                    mobile_img_full_url = request.build_absolute_uri(mobile_img_url)
+                except Exception as err:
+                    logger.info(
+                        f"Error generating gallery thumbnails for building {building.id}: {str(err)}"
+                    )
+            else:
+                mobile_img_full_url = create_thumbnail_image_path(
+                    gallery_image.image.name, settings.THUMBNAIL_PATHS.get("mobile")
+                )
             gallery_image_urls.append(mobile_img_full_url)
 
         architects = []
@@ -340,6 +369,7 @@ class PersonSerializer:
                 else ""
             ),
             "description": architect.description,
+            "descriptionMarkdown": pyhtml2md.convert(architect.description),
             "sourceUrls": web_sources,
             "sourceBooks": book_sources,
             "relatedBuildings": related_buildings_data,
