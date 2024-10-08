@@ -25,6 +25,9 @@ superuser: venv
 runserver: venv
 	$(VENV) python manage.py runserver 8002
 
+shell: venv
+	$(VENV) python manage.py shell
+
 test: venv
 	$(VENV) pytest
 
