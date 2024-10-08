@@ -7,7 +7,7 @@ class Person(models.Model):
     created = models.DateTimeField(auto_now_add=True, null=True)
     updated = models.DateTimeField(auto_now=True)
 
-    is_published = models.BooleanField(default=False)
+    is_published = models.BooleanField(default=False, db_index=True)
     slug = models.SlugField(max_length=254, blank=True)
 
     last_name = models.CharField(

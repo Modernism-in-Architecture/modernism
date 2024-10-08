@@ -16,7 +16,7 @@ from mia_buildings.models import Building
 
 @api_view(["GET"])
 @renderer_classes((JSONRenderer,))
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def get_buildings_list(request: Request, version: str) -> Response:
     buildings_list_data, status_code = BuildingSerializer.get_buildings_list_data(
         request
@@ -27,7 +27,7 @@ def get_buildings_list(request: Request, version: str) -> Response:
 
 @api_view(["GET"])
 @renderer_classes((JSONRenderer,))
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def get_buildings_details(request: Request, version: str, building_id: int) -> Response:
     buildings_details_data, status_code = BuildingSerializer.get_buildings_details_data(
         request, building_id

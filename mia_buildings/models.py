@@ -70,8 +70,8 @@ class BuildingImage(BaseModel):
     building = models.ForeignKey(
         "mia_buildings.Building", on_delete=models.SET_NULL, null=True, blank=True
     )
-    is_published = models.BooleanField(default=True)
-    is_feed_image = models.BooleanField(default=False)
+    is_published = models.BooleanField(default=True, db_index=True)
+    is_feed_image = models.BooleanField(default=False, db_index=True)
     title = models.CharField(max_length=250, blank=True)
     photographer = models.ForeignKey(
         "mia_facts.Photographer", on_delete=models.SET_NULL, null=True, blank=True
@@ -87,7 +87,6 @@ class BuildingImage(BaseModel):
         return f"{self.title}"
 
     def image_preview(self):
-        # TODO: Adapt after image precreation
         if self.image:
             thumbnail = thumbnail_url(self.image, "preview")
             return mark_safe(f"<img src={thumbnail} />")
@@ -144,7 +143,7 @@ class Building(BaseModel):
 
     sources = models.ManyToManyField("mia_facts.Source", blank=True)
 
-    is_published = models.BooleanField(default=False)
+    is_published = models.BooleanField(default=False, db_index=True)
     slug = models.SlugField(max_length=254, blank=True)
 
     seo_title = models.CharField(max_length=61, blank=True)

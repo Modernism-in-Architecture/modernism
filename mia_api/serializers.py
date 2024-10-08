@@ -48,13 +48,6 @@ class BuildingSerializer:
             )
             .prefetch_related(
                 Prefetch(
-                    "developers",
-                    queryset=Developer.objects.filter(is_published=True),
-                    to_attr="published_developers",
-                )
-            )
-            .prefetch_related(
-                Prefetch(
                     "buildingimage_set",
                     queryset=BuildingImage.objects.filter(
                         is_published=True, is_feed_image=True
@@ -66,6 +59,7 @@ class BuildingSerializer:
         )
 
         for building in buildings:
+
             feed_image = building.feed_images[0].image
             feed_thumb_full_url = ""
             preview_thumb_full_url = ""
@@ -92,25 +86,14 @@ class BuildingSerializer:
                     feed_image.name, settings.THUMBNAIL_PATHS.get("preview")
                 )
 
-            architects = []
-            for architect in building.published_architects:
-                architects.append(
-                    {
-                        "id": architect.pk,
-                        "lastName": architect.last_name,
-                        "firstName": architect.first_name,
-                    }
-                )
-
-            developers = []
-            for developer in building.published_developers:
-                developers.append(
-                    {
-                        "id": developer.pk,
-                        "lastName": developer.last_name,
-                        "firstName": developer.first_name,
-                    }
-                )
+            architects = [
+                {
+                    "id": architect.pk,
+                    "lastName": architect.last_name,
+                    "firstName": architect.first_name,
+                }
+                for architect in building.published_architects
+            ]
 
             building_types = building.building_types.all()
 
@@ -124,7 +107,6 @@ class BuildingSerializer:
                 "longitude": building.longitude,
                 "feedImage": feed_thumb_full_url,
                 "previewImage": preview_thumb_full_url,
-                "developers": developers,
                 "architects": architects,
                 "buildingType": building_types.first().name if building_types else "",
             }
@@ -151,13 +133,6 @@ class BuildingSerializer:
             )
             .prefetch_related(
                 Prefetch(
-                    "developers",
-                    queryset=Developer.objects.filter(is_published=True),
-                    to_attr="published_developers",
-                )
-            )
-            .prefetch_related(
-                Prefetch(
                     "buildingimage_set",
                     queryset=BuildingImage.objects.filter(is_published=True),
                     to_attr="gallery_images",
@@ -172,6 +147,7 @@ class BuildingSerializer:
         gallery_image_urls = []
         for gallery_image in building.gallery_images:
             mobile_img_full_url = ""
+
             if not building.thumbnails_created:
                 try:
                     image = gallery_image.image
@@ -185,48 +161,17 @@ class BuildingSerializer:
                 mobile_img_full_url = create_thumbnail_image_path(
                     gallery_image.image.name, settings.THUMBNAIL_PATHS.get("mobile")
                 )
+
             gallery_image_urls.append(mobile_img_full_url)
 
-        architects = []
-        for architect in building.published_architects:
-            architects.append(
-                {
-                    "id": architect.pk,
-                    "lastName": architect.last_name,
-                    "firstName": architect.first_name,
-                }
-            )
-
-        developers = []
-        for developer in building.published_developers:
-            developers.append(
-                {
-                    "id": developer.pk,
-                    "lastName": developer.last_name,
-                    "firstName": developer.first_name,
-                }
-            )
-
-        web_sources = []
-        for source in building.sources.filter(source_type=Source.SourceType.WEBSITE):
-            web_sources.append(
-                {"id": source.id, "title": source.title, "url": source.url}
-            )
-
-        book_sources = []
-        for source in building.sources.filter(
-            source_type__in=[Source.SourceType.BOOK, Source.SourceType.JOURNAL]
-        ).prefetch_related("authors"):
-            book_sources.append(
-                {
-                    "id": source.id,
-                    "authorsLastNames": source.authors.values_list(
-                        "last_name", flat=True
-                    ),
-                    "title": source.title,
-                    "year": source.year,
-                }
-            )
+        architects = [
+            {
+                "id": architect.pk,
+                "lastName": architect.last_name,
+                "firstName": architect.first_name,
+            }
+            for architect in building.published_architects
+        ]
 
         city = building.city.name if building.city else ""
         country = (
@@ -257,10 +202,7 @@ class BuildingSerializer:
             "description": building.description,
             "descriptionMarkdown": pyhtml2md.convert(building.description),
             "directions": building.directions,
-            "sourceUrls": web_sources,
-            "sourceBooks": book_sources,
             "architects": architects,
-            "developers": developers,
             "absoluteURL": f"https://{request.get_host()}/buildings/{building.slug}/",
         }
 
@@ -329,27 +271,6 @@ class PersonSerializer:
             }
             related_buildings_data.append(building_data)
 
-        web_sources = []
-        for source in architect.sources.filter(source_type=Source.SourceType.WEBSITE):
-            web_sources.append(
-                {"id": source.id, "title": source.title, "url": source.url}
-            )
-
-        book_sources = []
-        for source in architect.sources.filter(
-            source_type__in=[Source.SourceType.BOOK, Source.SourceType.JOURNAL]
-        ).prefetch_related("authors"):
-            book_sources.append(
-                {
-                    "id": source.id,
-                    "authorsLastNames": source.authors.values_list(
-                        "last_name", flat=True
-                    ),
-                    "title": source.title,
-                    "year": source.year,
-                }
-            )
-
         architect_data = {
             "id": architect.pk,
             "lastName": architect.last_name,
@@ -370,8 +291,6 @@ class PersonSerializer:
             ),
             "description": architect.description,
             "descriptionMarkdown": pyhtml2md.convert(architect.description),
-            "sourceUrls": web_sources,
-            "sourceBooks": book_sources,
             "relatedBuildings": related_buildings_data,
             "absoluteURL": f"https://{request.get_host()}/people/architects/{architect.slug}/",
         }
