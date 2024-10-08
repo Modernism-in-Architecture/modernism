@@ -28,6 +28,9 @@ runserver: venv
 shell: venv
 	$(VENV) python manage.py shell
 
+command: venv
+	$(VENV) python manage.py create_thumbnails
+
 test: venv
 	$(VENV) pytest
 
