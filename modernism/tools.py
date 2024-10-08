@@ -46,16 +46,20 @@ def cleanup(document: BeautifulSoup) -> None:
 
 def generate_thumbnails_for_image(image: ImageFieldFile, is_feed_image: bool):
     try:
+        logger.info(f"Generating thumbnails for image {image}")
         get_thumbnailer(image)["mobile"].url
+        logger.info(f"Mobile thumbnail generated for {image}")
         get_thumbnailer(image)["large"].url
+        logger.info(f"Large thumbnail generated for {image}")
 
         if is_feed_image:
             get_thumbnailer(image)["feed"].url
             get_thumbnailer(image)["preview"].url
             get_thumbnailer(image)["square"].url
+            logger.info(f"Feed thumbnails generated for {image}")
 
     except Exception as e:
-        logger.info(f"Error generating thumbnails for image {image.pk}: {str(e)}")
+        logger.info(f"Error generating thumbnails for image {image}: {str(e)}")
 
 
 def create_thumbnail_image_path(image: str, thumbnail_type_settings: str) -> str:
