@@ -1,4 +1,5 @@
 import pytest
+
 from mia_buildings.admin_forms import BuildingAdminForm
 
 

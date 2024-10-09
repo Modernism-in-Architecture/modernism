@@ -1,7 +1,8 @@
 import pytest
+
 from mia_people.admin_forms import (
-    DeveloperAdminForm,
     ArchitectAdminForm,
+    DeveloperAdminForm,
     ProfessorAdminForm,
 )
 

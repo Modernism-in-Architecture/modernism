@@ -2,7 +2,6 @@ from collections import namedtuple
 
 from django.core.management.base import BaseCommand
 from django.db import connection
-
 from mia_buildings.models import BuildingImage
 
 

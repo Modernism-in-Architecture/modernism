@@ -1,7 +1,7 @@
 from django.forms import ModelForm
+from modernism.mixins import ContentMarkupMixin
 
 from mia_people.models import Architect, Developer, Professor
-from modernism.mixins import ContentMarkupMixin
 
 
 class DeveloperAdminForm(ContentMarkupMixin, ModelForm):

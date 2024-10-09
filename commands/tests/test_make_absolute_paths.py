@@ -3,23 +3,22 @@ from io import StringIO
 from django.conf import settings
 from django.core.management import call_command
 from django.test import SimpleTestCase, TestCase
-
-from commands.management.commands.make_absolute_paths import Command as ReplaceCommand
 from mia_buildings.tests.factories import BuildingFactory
 
+from commands.management.commands.make_absolute_paths import Command as ReplaceCommand
 
 HTML_WITH_RELATIVE_PATH = (
-    f"The construction time for this school is mentioned 1931. It might be possible, "
-    f"that the construction works started in 1930. The regional government of Merseburg "
-    f"showed interest in modern architecture. Not far away in "
-    f"<a href='../../../../../buildings/elementary-school-grundschule-wettin/' target='_blank' rel='noopener'>Wettin</a> "
-    f"was built a school in 1931."
+    "The construction time for this school is mentioned 1931. It might be possible, "
+    "that the construction works started in 1930. The regional government of Merseburg "
+    "showed interest in modern architecture. Not far away in "
+    "<a href='../../../../../buildings/elementary-school-grundschule-wettin/' target='_blank' rel='noopener'>Wettin</a> "
+    "was built a school in 1931."
 )
 HTML_WITHOUT_RELATIVE_PATH = (
-    f"<p>The construction time for this school is mentioned 1931. It might be possible, "
-    f"that the <b>construction works started in 1930</b>. The regional government of Merseburg "
-    f"showed interest in modern architecture. Not far away in "
-    f"was built a school in 1931.</p>"
+    "<p>The construction time for this school is mentioned 1931. It might be possible, "
+    "that the <b>construction works started in 1930</b>. The regional government of Merseburg "
+    "showed interest in modern architecture. Not far away in "
+    "was built a school in 1931.</p>"
 )
 
 
@@ -82,7 +81,7 @@ class MakeAbsolutePathsUnitTests(SimpleTestCase):
         )
         self.assertEqual(
             result,
-            f'<a href="https://wettin.org">Wettin</a>',
+            '<a href="https://wettin.org">Wettin</a>',
         )
 
 
@@ -118,7 +117,7 @@ class MakeAbsolutePathsTests(TestCase):
         building = BuildingFactory(description="", history="")
 
         # WHEN
-        out = self.call_command("--update")
+        self.call_command("--update")
 
         # THEN
         building.refresh_from_db()
@@ -142,7 +141,7 @@ class MakeAbsolutePathsTests(TestCase):
         )
 
         # WHEN
-        out = self.call_command("--update")
+        self.call_command("--update")
 
         # THEN
         building_a.refresh_from_db()

@@ -1,13 +1,10 @@
-from unidecode import unidecode
-
-from easy_thumbnails.templatetags.thumbnail import thumbnail_url
-from taggit.managers import TaggableManager
-
 from django.db import models
 from django.utils.safestring import mark_safe
 from django.utils.text import slugify
-
+from easy_thumbnails.templatetags.thumbnail import thumbnail_url
 from modernism.models import BaseModel
+from taggit.managers import TaggableManager
+from unidecode import unidecode
 
 
 class Feature(models.Model):
@@ -72,6 +69,7 @@ class BuildingImage(BaseModel):
     )
     is_published = models.BooleanField(default=True, db_index=True)
     is_feed_image = models.BooleanField(default=False, db_index=True)
+    thumbnails_created = models.DateTimeField(null=True, blank=True)
     title = models.CharField(max_length=250, blank=True)
     photographer = models.ForeignKey(
         "mia_facts.Photographer", on_delete=models.SET_NULL, null=True, blank=True
@@ -149,7 +147,6 @@ class Building(BaseModel):
     seo_title = models.CharField(max_length=61, blank=True)
 
     published_on_twitter = models.DateTimeField(null=True, blank=True)
-    thumbnails_created = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
         return f"{self.name}"

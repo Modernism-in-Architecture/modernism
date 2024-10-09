@@ -1,12 +1,15 @@
 import logging
 import os
+
 from bs4 import BeautifulSoup
-from easy_thumbnails.files import get_thumbnailer
 from django.conf import settings
 from django.db.models.fields.files import ImageFieldFile
-
+from easy_thumbnails.files import get_thumbnailer
 
 logger = logging.getLogger(__name__)
+
+ATTRIBUTE_WHITELIST = ["href", "src"]
+ELEMENT_WHITELIST = ["p", "a", "em", "strong"]
 
 
 def validate_and_clean_content_markup(html: str) -> tuple[bool, str]:
@@ -18,44 +21,41 @@ def validate_and_clean_content_markup(html: str) -> tuple[bool, str]:
 
 
 def cleanup(document: BeautifulSoup) -> None:
-    ATTRIBUTE_WHITELIST = ["href", "src"]
-    ELEMENT_WHITELIST = ["p", "a", "em", "strong"]
-
-    def removeAttributes(element):
+    def remove_attributes(element):
         for attr in set(element.attrs):
             if attr not in ATTRIBUTE_WHITELIST:
                 del element[attr]
 
-    def removeEmptyElement(element):
+    def remove_empty_element(element):
         if len(element.get_text(strip=True)) == 0:
             element.extract()
 
-    def unwrapElement(element):
+    def unwrap_element(element):
         if element.name not in ELEMENT_WHITELIST:
             element.unwrap()
 
-    def cleanupElement(element):
-        removeAttributes(element)
-        unwrapElement(element)
-        removeEmptyElement(element)
+    def cleanup_element(element):
+        remove_attributes(element)
+        unwrap_element(element)
+        remove_empty_element(element)
 
     result = document.find_all()
     for entry in result:
-        cleanupElement(entry)
+        cleanup_element(entry)
 
 
 def generate_thumbnails_for_image(image: ImageFieldFile, is_feed_image: bool):
     try:
         logger.info(f"Generating thumbnails for image {image}")
-        get_thumbnailer(image)["mobile"].url
+        get_thumbnailer(image)["mobile"]
         logger.info(f"Mobile thumbnail generated for {image}")
-        get_thumbnailer(image)["large"].url
+        get_thumbnailer(image)["large"]
         logger.info(f"Large thumbnail generated for {image}")
 
         if is_feed_image:
-            get_thumbnailer(image)["feed"].url
-            get_thumbnailer(image)["preview"].url
-            get_thumbnailer(image)["square"].url
+            get_thumbnailer(image)["feed"]
+            get_thumbnailer(image)["preview"]
+            get_thumbnailer(image)["square"]
             logger.info(f"Feed thumbnails generated for {image}")
 
     except Exception as e:
