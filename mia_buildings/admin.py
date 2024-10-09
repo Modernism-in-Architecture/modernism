@@ -1,7 +1,6 @@
 import ast
 
 from adminsortable2.admin import SortableAdminBase, SortableTabularInline
-
 from django import forms
 from django.contrib import admin
 from django.db import models
@@ -9,14 +8,13 @@ from django.forms import Textarea, TextInput
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import path
-
-from mia_buildings import admin_views
-
-from mia_buildings.admin_filters import CityListFilter, CountryListFilter
 from mia_facts.models import Photographer
-from .admin_forms import BuildingAdminForm, BuildingForImageSelectionAdminForm
 from modernism.tools import validate_and_clean_content_markup
 
+from mia_buildings import admin_views
+from mia_buildings.admin_filters import CityListFilter, CountryListFilter
+
+from .admin_forms import BuildingAdminForm, BuildingForImageSelectionAdminForm
 from .models import (
     AccessType,
     Building,
@@ -56,18 +54,17 @@ class BuildingImageAdmin(admin.ModelAdmin):
         "is_feed_image",
         "building",
         "photographer",
+        "thumbnails_created",
         "created",
         "updated",
     ]
-    readonly_fields = [
-        "tags",
-        "image_preview",
-    ]
+    readonly_fields = ["tags", "image_preview", "thumbnails_created"]
     fields = [
         "image_preview",
         "title",
         "is_published",
         "is_feed_image",
+        "thumbnails_created",
         "image",
         "building",
         "description",
@@ -187,7 +184,6 @@ class BuildingAdmin(SortableAdminBase, admin.ModelAdmin):
         "city",
         "year_of_construction",
         "published_on_twitter",
-        "thumbnails_created",
         "created",
         "updated",
         "history_is_clean",
@@ -214,7 +210,6 @@ class BuildingAdmin(SortableAdminBase, admin.ModelAdmin):
     readonly_fields = [
         "slug",
         "published_on_twitter",
-        "thumbnails_created",
     ]
     autocomplete_fields = ["city"]
     form = BuildingAdminForm
@@ -227,7 +222,6 @@ class BuildingAdmin(SortableAdminBase, admin.ModelAdmin):
                 "fields": (
                     "is_published",
                     "published_on_twitter",
-                    "thumbnails_created",
                     "name",
                     "name_addition",
                     "slug",
@@ -295,13 +289,16 @@ class BuildingAdmin(SortableAdminBase, admin.ModelAdmin):
     description_is_clean.boolean = True
 
     def get_queryset(self, request):
-        qs = super(BuildingAdmin, self).get_queryset(request)
+        qs = super().get_queryset(request)
         return qs.select_related("city__country")
 
     def save_model(self, request, obj, form, change):
         obj.save()
 
-        if "photographer" or "multiple_images" in form.changed_data:
+        if (
+            "photographer" in form.changed_data
+            or "multiple_images" in form.changed_data
+        ):
             photographer_id = form.cleaned_data.get("photographer")
             building_photographer = None
             if photographer_id:

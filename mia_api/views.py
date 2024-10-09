@@ -1,17 +1,16 @@
 from django.utils import timezone
-
+from mia_buildings.models import Building
 from rest_framework.decorators import api_view, permission_classes, renderer_classes
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.renderers import JSONRenderer
-from rest_framework.response import Response
 from rest_framework.request import Request
+from rest_framework.response import Response
 
 from mia_api.serializers import (
     BuildingSerializer,
     PersonSerializer,
     SocialMediaSerializer,
 )
-from mia_buildings.models import Building
 
 
 @api_view(["GET"])

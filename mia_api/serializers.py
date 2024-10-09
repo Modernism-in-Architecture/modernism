@@ -1,15 +1,13 @@
 import logging
-from typing import Tuple, Union
+
 import pyhtml2md
 from django.conf import settings
 from django.db.models.query import Prefetch
 from easy_thumbnails.files import get_thumbnailer
-from rest_framework.request import Request
-
 from mia_buildings.models import Building, BuildingImage
-from mia_facts.models import Source
-from mia_people.models import Architect, Developer
+from mia_people.models import Architect
 from modernism.tools import create_thumbnail_image_path
+from rest_framework.request import Request
 
 logger = logging.getLogger(__name__)
 
@@ -26,13 +24,13 @@ class ResponseDataBuilder:
         return response
 
     @staticmethod
-    def build_success_response(data: Union[dict, list]) -> dict:
+    def build_success_response(data: dict | list) -> dict:
         return {"data": data}
 
 
 class BuildingSerializer:
     @staticmethod
-    def get_buildings_list_data(request: Request) -> Tuple[dict, int]:
+    def get_buildings_list_data(request: Request) -> tuple[dict, int]:
         buildings_data = []
 
         buildings = (
@@ -59,12 +57,11 @@ class BuildingSerializer:
         )
 
         for building in buildings:
-
             feed_image = building.feed_images[0].image
             feed_thumb_full_url = ""
             preview_thumb_full_url = ""
 
-            if not building.thumbnails_created:
+            if not feed_image.thumbnails_created:
                 try:
                     feed_thumb_url = get_thumbnailer(feed_image)["feed"].url
                     preview_thumb_url = get_thumbnailer(feed_image)["preview"].url
@@ -117,7 +114,7 @@ class BuildingSerializer:
     @staticmethod
     def get_buildings_details_data(
         request: Request, building_id: int
-    ) -> Tuple[dict, int]:
+    ) -> tuple[dict, int]:
         building_data = {}
 
         building = (
@@ -148,7 +145,7 @@ class BuildingSerializer:
         for gallery_image in building.gallery_images:
             mobile_img_full_url = ""
 
-            if not building.thumbnails_created:
+            if not gallery_image.thumbnails_created:
                 try:
                     image = gallery_image.image
                     mobile_img_url = get_thumbnailer(image)["mobile"].url
@@ -211,7 +208,7 @@ class BuildingSerializer:
 
 class PersonSerializer:
     @staticmethod
-    def get_architects_list_data(request: Request) -> Tuple[dict, int]:
+    def get_architects_list_data(request: Request) -> tuple[dict, int]:
         architects = Architect.objects.filter(is_published=True).order_by("last_name")
         architects_data = [
             {
@@ -227,7 +224,7 @@ class PersonSerializer:
     @staticmethod
     def get_architects_details_data(
         request: Request, architect_id: int
-    ) -> Tuple[dict, int]:
+    ) -> tuple[dict, int]:
         architect_data = {}
 
         architect = (
@@ -256,7 +253,7 @@ class PersonSerializer:
                 feed_image = related_building.feed_images[0].image
                 thumb_url = get_thumbnailer(feed_image)["feed"].url
                 thumb_full_url = request.build_absolute_uri(thumb_url)
-            except:
+            except:  # noqa: E722
                 thumb_full_url = ""
 
             building_data = {
@@ -300,7 +297,7 @@ class PersonSerializer:
 
 class SocialMediaSerializer:
     @staticmethod
-    def get_twitter_building_details(request: Request) -> Tuple[dict, int]:
+    def get_twitter_building_details(request: Request) -> tuple[dict, int]:
         """Deliver details of the latest building not published on twitter yet."""
 
         latest_buildings_qs = (

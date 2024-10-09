@@ -1,5 +1,10 @@
 VENV_NAME := env
 VENV = . env/bin/activate &&
+MANAGE = python manage.py
+
+#########
+# LOCAL #
+#########
 
 venv:
 	if [ ! -d $(VENV_NAME) ]; then \
@@ -11,30 +16,42 @@ install: venv
 	$(VENV) pip install -r requirements.txt
 
 migrations: venv
-	$(VENV) python manage.py makemigrations
+	$(VENV) $(MANAGE) makemigrations
 
 migrate: venv
-	$(VENV) python manage.py migrate
+	$(VENV) $(MANAGE) migrate
 
 superuser: venv
 	$(VENV) DJANGO_SUPERUSER_USERNAME=django \
 	DJANGO_SUPERUSER_PASSWORD=django \
 	DJANGO_SUPERUSER_EMAIL="django@example.org" \
-	python manage.py createsuperuser --noinput
+	$(MANAGE) createsuperuser --noinput
 
 runserver: venv
-	$(VENV) python manage.py runserver 8002
+	$(VENV) $(MANAGE) runserver 8002
 
 shell: venv
-	$(VENV) python manage.py shell
+	$(VENV) $(MANAGE) shell
 
 command: venv
-	$(VENV) python manage.py create_thumbnails
+	$(VENV) $(MANAGE) create_thumbnails
 
 test: venv
 	$(VENV) pytest
 
-
 init: install migrate superuser
 
 start: runserver
+
+##########
+# FORMAT #
+##########
+
+check:
+	$(VENV) ruff check
+
+isort:
+	$(VENV) ruff check --select I --fix
+
+format:
+	$(VENV) ruff check --select I --fix && ruff format

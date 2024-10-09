@@ -1,8 +1,8 @@
 from django.contrib import admin
 from django.db import models
+from modernism.tools import validate_and_clean_content_markup
 from tinymce.widgets import TinyMCE
 
-from modernism.tools import validate_and_clean_content_markup
 from .admin_forms import ArchitectAdminForm, DeveloperAdminForm, ProfessorAdminForm
 from .models import Architect, Developer, Professor
 

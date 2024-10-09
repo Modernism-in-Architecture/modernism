@@ -1,10 +1,8 @@
 from django.contrib.auth.models import User
 from django.test.utils import ignore_warnings
-from rest_framework.test import APITestCase
-
 from mia_buildings.models import Building
 from mia_buildings.tests.factories import BuildingFactory
-
+from rest_framework.test import APITestCase
 
 ignore_warnings(message="No directory at", module="whitenoise.base").enable()
 
@@ -31,7 +29,7 @@ class TwitterBuildingAPITestCase(APITestCase):
 
     def test_building_does_not_exist(self) -> None:
         # WHEN
-        url = f"/api/v1/twitter/1/published_on_twitter/"
+        url = "/api/v1/twitter/1/published_on_twitter/"
         response = self.client.patch(url)
 
         # THEN

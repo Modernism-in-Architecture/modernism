@@ -1,4 +1,5 @@
 import pytest
+
 from modernism.tools import validate_and_clean_content_markup
 
 
