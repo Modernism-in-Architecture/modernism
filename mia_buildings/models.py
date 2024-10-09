@@ -69,7 +69,7 @@ class BuildingImage(BaseModel):
     )
     is_published = models.BooleanField(default=True, db_index=True)
     is_feed_image = models.BooleanField(default=False, db_index=True)
-    thumbnails_created = models.DateTimeField(null=True, blank=True)
+    thumbnails_created = models.DateTimeField(null=True, blank=True, db_index=True)
     title = models.CharField(max_length=250, blank=True)
     photographer = models.ForeignKey(
         "mia_facts.Photographer", on_delete=models.SET_NULL, null=True, blank=True

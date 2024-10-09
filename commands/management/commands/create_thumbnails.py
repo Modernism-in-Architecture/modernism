@@ -22,7 +22,9 @@ class Command(BaseCommand):
             image_name = image.title if image.title else image.pk
             try:
                 self.stdout.write(f"Processing image '{image_name}'...")
-                generate_thumbnails_for_image(image.image, is_feed_image=True)
+                generate_thumbnails_for_image(
+                    image.image, is_feed_image=image.is_feed_image
+                )
 
             except Exception as e:
                 self.stdout.write(f"Building '{image_name}': FAILED, , Error: {e}")
