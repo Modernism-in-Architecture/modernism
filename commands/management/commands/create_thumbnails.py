@@ -31,11 +31,9 @@ class Command(BaseCommand):
                 failed_image_ids.append(image.pk)
                 continue
 
+            image.thumbnails_created = timezone.now()
+            image.save()
             self.stdout.write(f"{image_name}... DONE")
-
-        building_images.exclude(pk__in=failed_image_ids).update(
-            thumbnails_created=timezone.now()
-        )
 
         end_time = time.time()
         elapsed_time = end_time - start_time
