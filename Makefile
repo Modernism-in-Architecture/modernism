@@ -55,3 +55,10 @@ isort:
 
 format:
 	$(VENV) ruff check --select I --fix && ruff format
+
+#############
+# API TESTS #
+#############
+
+apitest:
+	sh scripts/apitest.sh
