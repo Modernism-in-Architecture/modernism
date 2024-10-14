@@ -57,14 +57,14 @@ class BuildingSerializer:
         )
 
         for building in buildings:
-            feed_image = building.feed_images[0].image
+            feed_image = building.feed_images[0]
             feed_thumb_full_url = ""
             preview_thumb_full_url = ""
 
             if not feed_image.thumbnails_created:
                 try:
-                    feed_thumb_url = get_thumbnailer(feed_image)["feed"].url
-                    preview_thumb_url = get_thumbnailer(feed_image)["preview"].url
+                    feed_thumb_url = get_thumbnailer(feed_image.image)["feed"].url
+                    preview_thumb_url = get_thumbnailer(feed_image.image)["preview"].url
                     feed_thumb_full_url = request.build_absolute_uri(feed_thumb_url)
                     preview_thumb_full_url = request.build_absolute_uri(
                         preview_thumb_url
@@ -77,10 +77,10 @@ class BuildingSerializer:
 
             else:
                 feed_thumb_full_url = create_thumbnail_image_path(
-                    feed_image.name, settings.THUMBNAIL_PATHS.get("feed")
+                    feed_image.image.name, settings.THUMBNAIL_PATHS.get("feed")
                 )
                 preview_thumb_full_url = create_thumbnail_image_path(
-                    feed_image.name, settings.THUMBNAIL_PATHS.get("preview")
+                    feed_image.image.name, settings.THUMBNAIL_PATHS.get("preview")
                 )
 
             architects = [
