@@ -124,6 +124,7 @@ THUMBNAIL_ALIASES = {
         "feed": {"size": (350, 350), "crop": True},
         "large": {"size": (1300, 700), "crop": False},
         "mobile": {"size": (1200, 0), "quality": 60},
+        "square": {"size": (500, 500), "crop": True},
     },
 }
 
