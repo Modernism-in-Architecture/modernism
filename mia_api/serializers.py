@@ -106,6 +106,8 @@ class BuildingSerializer:
                 "previewImage": preview_thumb_full_url,
                 "architects": architects,
                 "buildingType": building_types.first().name if building_types else "",
+                # TODO: Remove after iOS release
+                "developers": [],
             }
             buildings_data.append(building_data)
 
@@ -201,6 +203,10 @@ class BuildingSerializer:
             "directions": building.directions,
             "architects": architects,
             "absoluteURL": f"https://{request.get_host()}/buildings/{building.slug}/",
+            # TODO: Remove after iOS release
+            "developers": [],
+            "sourceUrls": [],
+            "sourceBooks": [],
         }
 
         return ResponseDataBuilder.build_success_response(building_data), 200
@@ -290,6 +296,9 @@ class PersonSerializer:
             "descriptionMarkdown": pyhtml2md.convert(architect.description),
             "relatedBuildings": related_buildings_data,
             "absoluteURL": f"https://{request.get_host()}/people/architects/{architect.slug}/",
+            # TODO: Remove after iOS release
+            "sourceUrls": [], 
+            "sourceBooks": [],
         }
 
         return ResponseDataBuilder.build_success_response(architect_data), 200
