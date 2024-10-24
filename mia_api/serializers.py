@@ -197,9 +197,9 @@ class BuildingSerializer:
             "todaysUse": building.todays_use,
             "buildingType": building_type,
             "history": building.history,
-            "historyMarkdown": pyhtml2md.convert(building.history),
+            #"historyMarkdown": pyhtml2md.convert(building.history),
             "description": building.description,
-            "descriptionMarkdown": pyhtml2md.convert(building.description),
+            #"descriptionMarkdown": pyhtml2md.convert(building.description),
             "directions": building.directions,
             "architects": architects,
             "absoluteURL": f"https://{request.get_host()}/buildings/{building.slug}/",
@@ -293,7 +293,7 @@ class PersonSerializer:
                 else ""
             ),
             "description": architect.description,
-            "descriptionMarkdown": pyhtml2md.convert(architect.description),
+            #"descriptionMarkdown": pyhtml2md.convert(architect.description),
             "relatedBuildings": related_buildings_data,
             "absoluteURL": f"https://{request.get_host()}/people/architects/{architect.slug}/",
             # TODO: Remove after iOS release
