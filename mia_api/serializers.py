@@ -106,7 +106,6 @@ class BuildingSerializer:
                 "previewImage": preview_thumb_full_url,
                 "architects": architects,
                 "buildingType": building_types.first().name if building_types else "",
-                # TODO: Remove after iOS release
                 "developers": [],
             }
             buildings_data.append(building_data)
@@ -197,13 +196,12 @@ class BuildingSerializer:
             "todaysUse": building.todays_use,
             "buildingType": building_type,
             "history": building.history,
-            #"historyMarkdown": pyhtml2md.convert(building.history),
+            "historyMarkdown": pyhtml2md.convert(building.history),
             "description": building.description,
-            #"descriptionMarkdown": pyhtml2md.convert(building.description),
+            "descriptionMarkdown": pyhtml2md.convert(building.description),
             "directions": building.directions,
             "architects": architects,
             "absoluteURL": f"https://{request.get_host()}/buildings/{building.slug}/",
-            # TODO: Remove after iOS release
             "developers": [],
             "sourceUrls": [],
             "sourceBooks": [],
@@ -293,11 +291,10 @@ class PersonSerializer:
                 else ""
             ),
             "description": architect.description,
-            #"descriptionMarkdown": pyhtml2md.convert(architect.description),
+            "descriptionMarkdown": pyhtml2md.convert(architect.description),
             "relatedBuildings": related_buildings_data,
             "absoluteURL": f"https://{request.get_host()}/people/architects/{architect.slug}/",
-            # TODO: Remove after iOS release
-            "sourceUrls": [], 
+            "sourceUrls": [],
             "sourceBooks": [],
         }
 
