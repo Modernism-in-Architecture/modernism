@@ -7,6 +7,7 @@ from mia_buildings.models import Building
 from mia_people.models import Architect
 from modernism.tools import create_thumbnail_image_path
 from rest_framework.serializers import (
+    BooleanField,
     CharField,
     FloatField,
     ModelSerializer,
@@ -73,11 +74,12 @@ class BuildingDetailSerializerV1(BuildingBaseSerializer):
     history_markdown = SerializerMethodField()
     description_markdown = SerializerMethodField()
     absoluteURL = SerializerMethodField()  # noqa: N815
+    is_protected = BooleanField(source="protected_monument")
 
     class Meta(BuildingBaseSerializer.Meta):
         fields = BuildingBaseSerializer.Meta.fields + [
             "gallery_images",
-            "protected_monument",
+            "is_protected",
             "address",
             "zip_code",
             "subtitle",
