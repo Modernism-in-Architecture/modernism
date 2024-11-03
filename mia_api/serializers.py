@@ -8,6 +8,7 @@ from mia_people.models import Architect
 from modernism.tools import create_thumbnail_image_path
 from rest_framework.serializers import (
     CharField,
+    FloatField,
     ModelSerializer,
     SerializerMethodField,
 )
@@ -24,6 +25,8 @@ class ArchitectBaseSerializer(ModelSerializer):
 class BuildingBaseSerializer(ModelSerializer):
     city = CharField(source="city.name")
     country = CharField(source="city.country.name")
+    latitude = FloatField()
+    longitude = FloatField()
     architects = ArchitectBaseSerializer(many=True)
     feed_image = SerializerMethodField()
 
