@@ -15,6 +15,7 @@ django-storages==1.12.3
 django-taggit==2.0.0
 django-tinymce==4.1.0
 djangorestframework==3.15.2
+djangorestframework-camel-case==1.4.2
 easy-thumbnails==2.8.5
 factory_boy==3.2.1
 gunicorn==22.0.0
