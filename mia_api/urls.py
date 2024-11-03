@@ -1,36 +1,18 @@
-from django.urls import re_path
+from django.urls import path
 
-from . import views
+from mia_api.views import ArchitectView, BuildingView
 
 urlpatterns = [
-    re_path(
-        r"^(?P<version>(v1))/buildings/$",
-        views.get_buildings_list,
-        name="buildings-list",
-    ),
-    re_path(
-        r"^(?P<version>(v1))/buildings/(?P<building_id>[0-9]+)/$",
-        views.get_buildings_details,
+    path("<str:version>/buildings/", BuildingView.as_view(), name="buildings-list"),
+    path(
+        "<str:version>/buildings/<int:building_id>/",
+        BuildingView.as_view(),
         name="buildings-detail",
     ),
-    re_path(
-        r"^(?P<version>(v1))/architects/$",
-        views.get_architects_list,
-        name="architects-list",
-    ),
-    re_path(
-        r"^(?P<version>(v1))/architects/(?P<architect_id>[0-9]+)/$",
-        views.get_architects_details,
+    path("<str:version>/architects/", ArchitectView.as_view(), name="architects-list"),
+    path(
+        "<str:version>/architects/<int:architect_id>/",
+        ArchitectView.as_view(),
         name="architects-detail",
-    ),
-    re_path(
-        r"^(?P<version>(v1))/twitter/get_building_details/$",
-        views.get_twitter_building_details,
-        name="twitter_building_details",
-    ),
-    re_path(
-        r"^(?P<version>(v1))/twitter/(?P<building_id>[0-9]+)/published_on_twitter/$",
-        views.set_building_published_on_twitter,
-        name="set_building_published_on_twitter",
     ),
 ]
