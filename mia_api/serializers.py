@@ -70,7 +70,6 @@ class BuildingDetailSerializerV1(BuildingBaseSerializer):
     history_markdown = SerializerMethodField()
     description_markdown = SerializerMethodField()
     absoluteURL = SerializerMethodField()  # noqa: N815
-    building_type = SerializerMethodField()
 
     class Meta(BuildingBaseSerializer.Meta):
         fields = BuildingBaseSerializer.Meta.fields + [
@@ -158,7 +157,7 @@ class BuildingListSerializerV1(BuildingBaseSerializer):
         return preview_thumb_full_url
 
     def get_building_type(self, obj):
-        return ""
+        return "no type"
 
 
 class ArchhitectDetailSerializerV1(ArchitectBaseSerializer):

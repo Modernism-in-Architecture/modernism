@@ -75,8 +75,11 @@ class BuildingView(GenericAPIView):
         serializer = self.get_serializer(
             queryset, many=many, context={"request": request}
         )
+        response_data = {
+            "data": serializer.data
+        }
 
-        return Response(data=serializer.data, status=200)
+        return Response(data=response_data, status=200)
 
 
 class ArchitectView(GenericAPIView):
@@ -137,4 +140,8 @@ class ArchitectView(GenericAPIView):
             context={"request": request, "related_buildings": related_buildings},
         )
 
-        return Response(data=serializer.data, status=200)
+        response_data = {
+            "data": serializer.data
+        }
+
+        return Response(data=response_data, status=200)
