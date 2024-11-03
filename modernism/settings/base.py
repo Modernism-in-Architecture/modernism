@@ -15,7 +15,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # Third-Party
     "adminsortable2",
-    "debug_toolbar",
     "el_pagination",
     "easy_thumbnails",
     "rest_framework",
@@ -40,7 +39,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.security.SecurityMiddleware",
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
+    "djangorestframework_camel_case.middleware.CamelCaseMiddleWare",
     "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
@@ -149,7 +148,12 @@ TINYMCE_DEFAULT_CONFIG = {
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication",
         "rest_framework.authentication.TokenAuthentication",
+    ],
+    "DEFAULT_RENDERER_CLASSES": [
+        "djangorestframework_camel_case.render.CamelCaseJSONRenderer",
+        "djangorestframework_camel_case.render.CamelCaseBrowsableAPIRenderer",
     ],
     "DEFAULT_THROTTLE_CLASSES": [
         "rest_framework.throttling.UserRateThrottle",

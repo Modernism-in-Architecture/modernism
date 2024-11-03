@@ -1,91 +1,140 @@
-from django.utils import timezone
-from mia_buildings.models import Building
-from rest_framework.decorators import api_view, permission_classes, renderer_classes
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.renderers import JSONRenderer
-from rest_framework.request import Request
+from django.db.models.query import Prefetch
+from mia_buildings.models import Building, BuildingImage
+from mia_people.models import Architect
+from rest_framework.exceptions import NotFound
+from rest_framework.generics import GenericAPIView
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 
 from mia_api.serializers import (
-    BuildingSerializer,
-    PersonSerializer,
-    SocialMediaSerializer,
+    ArchhitectDetailSerializerV1,
+    ArchhitectListSerializerV1,
+    BuildingDetailSerializerV1,
+    BuildingListSerializerV1,
 )
 
 
-@api_view(["GET"])
-@renderer_classes((JSONRenderer,))
-@permission_classes([IsAuthenticated])
-def get_buildings_list(request: Request, version: str) -> Response:
-    buildings_list_data, status_code = BuildingSerializer.get_buildings_list_data(
-        request
+class BuildingView(GenericAPIView):
+    permission_classes = [IsAuthenticated, IsAdminUser]
+
+    buildings = (
+        Building.objects.filter(is_published=True)
+        .select_related("city__country")
+        .prefetch_related("building_types")
+        .prefetch_related(
+            Prefetch(
+                "architects",
+                queryset=Architect.objects.filter(is_published=True),
+                to_attr="published_architects",
+            )
+        )
+        .prefetch_related(
+            Prefetch(
+                "buildingimage_set",
+                queryset=BuildingImage.objects.filter(
+                    is_published=True, is_feed_image=True
+                ),
+                to_attr="feed_images",
+            )
+        )
+        .order_by("-created")
     )
 
-    return Response(data=buildings_list_data, status=status_code)
+    def get_queryset(self):
+        building_id = self.kwargs.get("building_id")
 
+        if building_id:
+            building = (
+                self.buildings.filter(id=building_id)
+                .prefetch_related(
+                    Prefetch(
+                        "buildingimage_set",
+                        queryset=BuildingImage.objects.filter(is_published=True),
+                        to_attr="gallery_images",
+                    )
+                )
+                .first()
+            )
+            if not building:
+                raise NotFound(detail="Building not found", code=404)
+            return building
 
-@api_view(["GET"])
-@renderer_classes((JSONRenderer,))
-@permission_classes([IsAuthenticated])
-def get_buildings_details(request: Request, version: str, building_id: int) -> Response:
-    buildings_details_data, status_code = BuildingSerializer.get_buildings_details_data(
-        request, building_id
-    )
+        return self.buildings
 
-    return Response(data=buildings_details_data, status=status_code)
+    def get_serializer_class(self):
+        # version = self.kwargs.get('version', 'v1')
+        is_detail_view = bool(self.kwargs.get("building_id"))
 
-
-@api_view(["GET"])
-@renderer_classes((JSONRenderer,))
-@permission_classes([IsAuthenticated])
-def get_architects_list(request: Request, version: str) -> Response:
-    architects_list_data, status_code = PersonSerializer.get_architects_list_data(
-        request
-    )
-
-    return Response(data=architects_list_data, status=status_code)
-
-
-@api_view(["GET"])
-@renderer_classes((JSONRenderer,))
-@permission_classes([IsAuthenticated])
-def get_architects_details(
-    request: Request, version: str, architect_id: int
-) -> Response:
-    architects_details_data, status_code = PersonSerializer.get_architects_details_data(
-        request, architect_id
-    )
-
-    return Response(data=architects_details_data, status=status_code)
-
-
-@api_view(["GET"])
-@renderer_classes((JSONRenderer,))
-@permission_classes([IsAuthenticated])
-def get_twitter_building_details(request: Request, version: str) -> Response:
-    (
-        building_details_data,
-        status_code,
-    ) = SocialMediaSerializer.get_twitter_building_details(request)
-
-    return Response(data=building_details_data, status=status_code)
-
-
-@api_view(["PATCH"])
-@renderer_classes((JSONRenderer,))
-@permission_classes([IsAuthenticated])
-def set_building_published_on_twitter(
-    request: Request, version: str, building_id: int
-) -> Response:
-    try:
-        building = Building.objects.get(pk=building_id)
-    except Building.DoesNotExist:
-        return Response(
-            data={"error": {"message": "Building does not exist"}}, status=404
+        return (
+            BuildingDetailSerializerV1 if is_detail_view else BuildingListSerializerV1
         )
 
-    if not building.published_on_twitter:
-        building.published_on_twitter = timezone.now()
-        building.save()
+    def get(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        many = not bool(self.kwargs.get("building_id"))
+        serializer = self.get_serializer(
+            queryset, many=many, context={"request": request}
+        )
 
-    return Response(data={}, status=204)
+        return Response(data=serializer.data, status=200)
+
+
+class ArchitectView(GenericAPIView):
+    permission_classes = [IsAuthenticated, IsAdminUser]
+
+    architects = Architect.objects.filter(is_published=True).order_by("last_name")
+
+    def get_queryset(self):
+        architect_id = self.kwargs.get("architect_id")
+
+        if architect_id:
+            architect = (
+                self.architects.filter(id=architect_id)
+                .select_related("birth_place__country")
+                .select_related("death_place__country")
+                .first()
+            )
+            if not architect:
+                raise NotFound(detail="Architect not found", code=404)
+
+            return architect
+
+        return self.architects
+
+    def get_serializer_class(self):
+        # version = self.kwargs.get('version', 'v1')
+        is_detail_view = bool(self.kwargs.get("architect_id"))
+
+        return (
+            ArchhitectDetailSerializerV1
+            if is_detail_view
+            else ArchhitectListSerializerV1
+        )
+
+    def get(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        architect_id = self.kwargs.get("architect_id")
+        many = True
+        related_buildings = []
+
+        if architect_id:
+            many = False
+            related_buildings = (
+                Building.objects.filter(is_published=True, architects__id=architect_id)
+                .select_related("city__country")
+                .prefetch_related(
+                    Prefetch(
+                        "buildingimage_set",
+                        queryset=BuildingImage.objects.filter(is_feed_image=True),
+                        to_attr="feed_images",
+                    )
+                )
+            )
+
+        serializer = self.get_serializer(
+            queryset,
+            many=many,
+            context={"request": request, "related_buildings": related_buildings},
+        )
+
+        return Response(data=serializer.data, status=200)
