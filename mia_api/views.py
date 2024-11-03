@@ -3,9 +3,9 @@ from mia_buildings.models import Building, BuildingImage
 from mia_people.models import Architect
 from rest_framework.exceptions import NotFound
 from rest_framework.generics import GenericAPIView
-from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 
+from mia_api.permissions import IsAuthenticatedOrAdminUser
 from mia_api.serializers import (
     ArchhitectDetailSerializerV1,
     ArchhitectListSerializerV1,
@@ -15,7 +15,7 @@ from mia_api.serializers import (
 
 
 class BuildingView(GenericAPIView):
-    permission_classes = [IsAuthenticated, IsAdminUser]
+    permission_classes = [IsAuthenticatedOrAdminUser]
 
     buildings = (
         Building.objects.filter(is_published=True)
@@ -80,7 +80,7 @@ class BuildingView(GenericAPIView):
 
 
 class ArchitectView(GenericAPIView):
-    permission_classes = [IsAuthenticated, IsAdminUser]
+    permission_classes = [IsAuthenticatedOrAdminUser]
 
     architects = Architect.objects.filter(is_published=True).order_by("last_name")
 
