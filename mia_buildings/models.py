@@ -146,8 +146,6 @@ class Building(BaseModel):
 
     seo_title = models.CharField(max_length=61, blank=True)
 
-    published_on_twitter = models.DateTimeField(null=True, blank=True)
-
     def __str__(self):
         return f"{self.name}"
 
