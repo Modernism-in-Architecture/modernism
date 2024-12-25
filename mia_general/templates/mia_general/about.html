@@ -71,14 +71,20 @@
                     <div class="content is-size-5">
                         <h2 class="is-size-4">MIA Content Supporters</h2>
                         <p>
-                           We are supported by lovely people who donate some time shooting pics during their travels, a big thank you goes out to:
+                           We are supported by lovely people who donate some time shooting pics during their travels, a big thank you goes out to:</p>
 
-                           <ul>
-                            {% for photographer in photographers %}
-                                <li>{{ photographer.first_name }} {{ photographer.last_name }}</li>
-                            {% endfor %}
-                            </ul>
+                        <p>
+                        {% for photographer in photographers %}
+                            
+                                {% if forloop.last %}
+                                    {{ photographer.first_name }} {{ photographer.last_name }}
+                                {% else %}
+                                    {{ photographer.first_name }} {{ photographer.last_name }},
+                                {% endif %}
+                            
+                        {% endfor %}
                         </p>
+                        
                         <p>And last but not least thanks to all the friendly people we meet during visiting MIA places who help and support us by sharing knowledge, opening doors and connecting us to other people.</p>
 
                         <h2 class="is-size-4">MIA Tech Supporters</h2>
@@ -98,8 +104,7 @@
                         <h2 class="is-size-4">MIA Contact</h2>
                         <p>
                             If you have questions, any additions, you know about some interesting places we should feature or just want to say hi, 
-                            <a href="mailto:hello@modernism-in-architecture.org">please get in touch</a>. You find us on <a href="https://www.instagram.com/modernism_in_architecture/" target="_blank" rel="noreferrer noopener">instagram</a> and 
-                            <a href="https://twitter.com/MIA_buildings" target="_blank" rel="noreferrer noopener">twitter</a> too.
+                            <a href="mailto:hello@modernism-in-architecture.org">please get in touch</a>. You find us on <a href="https://www.instagram.com/modernism_in_architecture/" target="_blank" rel="noreferrer noopener">instagram</a> too.
                         </p>
                         <p>
                             If you are interested in <strong>a guided tour to one of the MIA places</strong>, please <a href="https://osthorizonte.com" target="_blank" rel="noreferrer noopener">contact Frank on osthorizonte.com</a>. 
