@@ -2,8 +2,10 @@ import logging
 import os
 
 from bs4 import BeautifulSoup
+from dateutil.parser import parse
 from django.conf import settings
 from django.db.models.fields.files import ImageFieldFile
+from django.utils.timezone import make_aware, utc
 from easy_thumbnails.files import get_thumbnailer
 
 logger = logging.getLogger(__name__)
@@ -77,3 +79,19 @@ def create_thumbnail_image_path(image: str, thumbnail_type_settings: str) -> str
     thumbnail_url = f"{host}{directory}/{subdir}/{filename}{thumbnail_type_settings}"
 
     return thumbnail_url
+
+
+def parse_date_with_timezone(date_str):
+    try:
+        dt = parse(date_str)
+        if dt.tzinfo is None:
+            from django.utils.timezone import get_default_timezone
+
+            dt = make_aware(dt, get_default_timezone())
+        return dt
+    except ValueError:
+        return None
+
+
+def normalize_to_utc(dt):
+    return dt.astimezone(utc)

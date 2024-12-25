@@ -50,23 +50,24 @@ class BuildingBaseSerializer(ModelSerializer):
 
     def get_feed_image(self, obj):
         request = self.context.get("request")
-        feed_image = obj.feed_images[0]
+        feed_image = obj.feed_images[0] if obj.feed_images else None
         feed_thumb_full_url = ""
 
-        if not feed_image.thumbnails_created:
-            try:
-                feed_thumb_url = get_thumbnailer(feed_image.image)["feed"].url
-                feed_thumb_full_url = request.build_absolute_uri(feed_thumb_url)
+        if feed_image:
+            if not feed_image.thumbnails_created:
+                try:
+                    feed_thumb_url = get_thumbnailer(feed_image.image)["feed"].url
+                    feed_thumb_full_url = request.build_absolute_uri(feed_thumb_url)
 
-            except Exception as err:
-                logger.info(
-                    f"Error generating thumbnails for building {obj.id}: {str(err)}"
+                except Exception as err:
+                    logger.info(
+                        f"Error generating thumbnails for building {obj.id}: {str(err)}"
+                    )
+
+            else:
+                feed_thumb_full_url = create_thumbnail_image_path(
+                    feed_image.image.name, settings.THUMBNAIL_PATHS.get("feed")
                 )
-
-        else:
-            feed_thumb_full_url = create_thumbnail_image_path(
-                feed_image.image.name, settings.THUMBNAIL_PATHS.get("feed")
-            )
 
         return feed_thumb_full_url
 
