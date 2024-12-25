@@ -183,7 +183,6 @@ class BuildingAdmin(SortableAdminBase, admin.ModelAdmin):
         "slug",
         "city",
         "year_of_construction",
-        "published_on_twitter",
         "created",
         "updated",
         "history_is_clean",
@@ -209,7 +208,6 @@ class BuildingAdmin(SortableAdminBase, admin.ModelAdmin):
     ]
     readonly_fields = [
         "slug",
-        "published_on_twitter",
     ]
     autocomplete_fields = ["city"]
     form = BuildingAdminForm
@@ -221,7 +219,6 @@ class BuildingAdmin(SortableAdminBase, admin.ModelAdmin):
             {
                 "fields": (
                     "is_published",
-                    "published_on_twitter",
                     "name",
                     "name_addition",
                     "slug",
