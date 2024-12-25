@@ -1,6 +1,8 @@
 from django.db.models.query import Prefetch
 from mia_buildings.models import Building, BuildingImage
 from mia_people.models import Architect
+from modernism.tools import normalize_to_utc, parse_date_with_timezone
+from rest_framework import status
 from rest_framework.exceptions import NotFound
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
@@ -56,7 +58,7 @@ class BuildingView(GenericAPIView):
                 .first()
             )
             if not building:
-                raise NotFound(detail="Building not found", code=404)
+                raise NotFound(detail="Building not found", code=status.HTTP_404_NOT_FOUND)
             return building
 
         return self.buildings
@@ -77,12 +79,33 @@ class BuildingView(GenericAPIView):
         )
         response_data = {"data": serializer.data}
 
-        return Response(data=response_data, status=200)
+        return Response(data=response_data, status=status.HTTP_200_OK)
 
+class BuildingsCountView(GenericAPIView):
+    permission_classes = [IsAuthenticatedOrAdminUser]
+    queryset = Building.objects.filter(is_published=True)
+
+    def get(self, request, *args, **kwargs):
+        date_param = request.query_params.get('since', None)
+
+        try:
+            if date_param:
+                parsed_date = parse_date_with_timezone(date_param)
+                normalized_parsed_date = normalize_to_utc(parsed_date)
+                
+                buildings = self.get_queryset().filter(created__gte=normalized_parsed_date)
+            else:
+                buildings = self.get_queryset()
+            
+            count = buildings.count()
+
+            return Response(data={'count': count}, status=status.HTTP_200_OK)
+        
+        except ValueError:
+            return Response({'error': 'Invalid date format. Use 2024-12-25T22:34:26.365+01:00'}, status=status.HTTP_400_BAD_REQUEST)
 
 class ArchitectView(GenericAPIView):
     permission_classes = [IsAuthenticatedOrAdminUser]
-
     architects = Architect.objects.filter(is_published=True).order_by("last_name")
 
     def get_queryset(self):
@@ -96,7 +119,7 @@ class ArchitectView(GenericAPIView):
                 .first()
             )
             if not architect:
-                raise NotFound(detail="Architect not found", code=404)
+                raise NotFound(detail="Architect not found", code=status.HTTP_404_NOT_FOUND)
 
             return architect
 
@@ -140,4 +163,4 @@ class ArchitectView(GenericAPIView):
 
         response_data = {"data": serializer.data}
 
-        return Response(data=response_data, status=200)
+        return Response(data=response_data, status=status.HTTP_200_OK)
