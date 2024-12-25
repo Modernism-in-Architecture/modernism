@@ -16,6 +16,9 @@ from rest_framework.serializers import (
 
 logger = logging.getLogger(__name__)
 
+options = pyhtml2md.Options()
+options.splitLines = False
+
 
 class ArchitectBaseSerializer(ModelSerializer):
     class Meta:
@@ -122,10 +125,12 @@ class BuildingDetailSerializerV1(BuildingBaseSerializer):
         return obj.building_types.first().name if obj.building_types.exists() else ""
 
     def get_description_markdown(self, obj):
-        return pyhtml2md.convert(obj.description)
+        converter = pyhtml2md.Converter(obj.description, options)
+        return converter.convert()
 
     def get_history_markdown(self, obj):
-        return pyhtml2md.convert(obj.history)
+        converter = pyhtml2md.Converter(obj.history, options)
+        return converter.convert()
 
     def get_absoluteURL(self, obj):  # noqa: N802
         request = self.context.get("request")
@@ -217,7 +222,8 @@ class ArchhitectDetailSerializerV1(ArchitectBaseSerializer):
         )
 
     def get_description_markdown(self, obj):
-        return pyhtml2md.convert(obj.description)
+        converter = pyhtml2md.Converter(obj.description, options)
+        return converter.convert()
 
     def get_related_buildings(self, obj):
         buildings = self.context.get("related_buildings")
