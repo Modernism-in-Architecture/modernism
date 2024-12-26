@@ -1,5 +1,5 @@
 @charset "utf-8";
-@import "../../../node_modules/bulma/sass/utilities/initial-variables";
+@import "../../../../node_modules/bulma/sass/utilities/initial-variables";
 
 /* righteous-regular - latin */
 @font-face {
@@ -65,7 +65,7 @@ $footer-background-color: $black;
 $footer-padding: 2rem 1.5rem 1.5rem;
 
 
-@import "../../../node_modules/bulma/bulma";
+@import "../../../../node_modules/bulma/bulma";
 
 .yellow {
     color: $yellow;

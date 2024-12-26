@@ -9,8 +9,8 @@ __pycache__
 db.sqlite3
 env
 htmlcov/
-media/
+app/media/
 node_modules/
-static/
-!modernism/static/
+app/static/
+!app/modernism/static/
 --silent
