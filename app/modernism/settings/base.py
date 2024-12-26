@@ -23,7 +23,6 @@ INSTALLED_APPS = [
     "taggit",
     "tinymce",
     # Local
-    "commands",
     "mia_buildings",
     "mia_people",
     "mia_facts",
