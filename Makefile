@@ -1,6 +1,6 @@
 VENV_NAME := env
 VENV = . env/bin/activate &&
-MANAGE = python manage.py
+MANAGE = python app/manage.py
 
 #########
 # LOCAL #
@@ -13,7 +13,7 @@ venv:
 
 install: venv
 	$(VENV) pip install -U pip
-	$(VENV) pip install -r requirements.txt
+	$(VENV) pip install -r requirements/dev.txt
 
 migrations: venv
 	$(VENV) $(MANAGE) makemigrations

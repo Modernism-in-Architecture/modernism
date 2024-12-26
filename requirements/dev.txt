@@ -1,0 +1,7 @@
+-r base.txt
+
+django-debug-toolbar==3.2.2
+factory_boy==3.2.1
+pytest==7.4.4
+pytest-django==4.9.0
+ruff==0.5.1
