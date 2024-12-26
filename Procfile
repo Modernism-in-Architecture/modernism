@@ -1,1 +1,1 @@
-web: gunicorn app.modernism.wsgi --log-file -
+web: gunicorn modernism.wsgi --log-file -
