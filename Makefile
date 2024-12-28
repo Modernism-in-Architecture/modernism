@@ -2,6 +2,13 @@ VENV_NAME := env
 VENV = . env/bin/activate &&
 MANAGE = python app/manage.py
 
+
+dockerbuild:
+	docker-compose -f docker/compose.yaml build
+	
+dockerup:
+	docker-compose -f docker/compose.yaml up --no-build
+
 #########
 # LOCAL #
 #########

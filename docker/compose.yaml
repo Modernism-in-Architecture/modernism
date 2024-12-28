@@ -1,0 +1,28 @@
+services:
+  web:
+    platform: linux/amd64
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: mia:latest
+    container_name: mia
+    env_file:
+      - ../.env
+    volumes:
+      - ../app:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: django
+      POSTGRES_PASSWORD: django
+      POSTGRES_DB: modernism
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

@@ -1,0 +1,14 @@
+venv/
+env/
+
+*.pyc
+*.pyo
+__pycache__/
+
+.git
+.gitignore
+.vscode/
+.DS_Store
+
+tests/
+node_modules/
