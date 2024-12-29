@@ -1,1 +1,1 @@
-web: gunicorn modernism.wsgi --log-file -
+web: PYTHONPATH=app gunicorn modernism.wsgi --log-file -
