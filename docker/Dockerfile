@@ -45,6 +45,10 @@ WORKDIR /app
 
 COPY ../app/ /app/
 
+COPY ../docker/entrypoint.sh /app/entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
+
 COPY --from=build /usr/local/ /usr/local/
 
+ENTRYPOINT ["/app/entrypoint.sh"]
 CMD ["gunicorn", "modernism.wsgi:application", "--bind", "0.0.0.0:8000"]

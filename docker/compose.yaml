@@ -15,8 +15,6 @@ services:
       SECRET_KEY: ${SECRET_KEY}
       DJANGO_ALLOWED_HOSTS: ${DJANGO_ALLOWED_HOSTS}
       DATABASE_URL: ${DATABASE_URL}
-    volumes:
-      - ../app:/app
     ports:
       - "8000:8000"
     depends_on:

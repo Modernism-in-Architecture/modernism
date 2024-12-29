@@ -7,16 +7,16 @@ MANAGE = python app/manage.py
 ##########
 
 build-dev:
-	docker compose --env-file .env.dev -f docker/compose.yaml build --build-arg PLATFORM=dev 
+	docker compose --env-file .env.dev -f docker/compose.yaml build --build-arg PLATFORM=dev --no-cache
 
 build-prod:
 	docker compose --env-file .env.prod -f docker/compose.yaml build --build-arg PLATFORM=prod --no-cache
 
 up-dev:
-	docker compose --env-file .env.dev -f docker/compose.yaml up --no-build
+	docker compose --env-file .env.dev -f docker/compose.yaml up -d --no-build
 
 up-prod:
-	docker compose --env-file .env.prod -f docker/compose.yaml up --no-build
+	docker compose --env-file .env.prod -f docker/compose.yaml up -d --no-build
 
 #########
 # LOCAL #
