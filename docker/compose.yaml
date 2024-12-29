@@ -4,23 +4,29 @@ services:
     build:
       context: ..
       dockerfile: docker/Dockerfile
-    image: mia:latest
+      args:
+        PLATFORM: ${PLATFORM}
+    image: mia:${PLATFORM}
     container_name: mia
-    env_file:
-      - ../.env
+    environment:
+      DJANGO_SETTINGS_MODULE: ${DJANGO_SETTINGS_MODULE}
+      ALLOWED_HOSTS: ${ALLOWED_HOSTS}
+      DEBUG: ${DEBUG}
+      SECRET_KEY: ${SECRET_KEY}
+      DJANGO_ALLOWED_HOSTS: ${DJANGO_ALLOWED_HOSTS}
+      DATABASE_URL: ${DATABASE_URL}
     volumes:
       - ../app:/app
     ports:
       - "8000:8000"
     depends_on:
       - db
-
   db:
     image: postgres:15
     environment:
-      POSTGRES_USER: django
-      POSTGRES_PASSWORD: django
-      POSTGRES_DB: modernism
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     volumes:
       - postgres_data:/var/lib/postgresql/data
 

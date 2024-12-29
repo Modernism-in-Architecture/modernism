@@ -4,6 +4,9 @@
 
 FROM --platform=linux/arm64 python:3.10-slim-bullseye AS build
 
+ARG PLATFORM
+RUN echo "Runtime environment: $PLATFORM"
+
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
@@ -13,11 +16,16 @@ RUN apt-get update && apt-get install -y \
     gcc \
     build-essential \
     python3-dev \
-    && apt-get clean
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 COPY ../requirements/ /requirements/
 
-RUN pip install --upgrade pip && pip install --no-cache-dir -r /requirements/dev.txt
+RUN pip install --upgrade pip && \
+    if [ "$PLATFORM" = "dev" ]; then \
+        pip install --no-cache-dir -r /requirements/dev.txt; \
+    else \
+        pip install --no-cache-dir -r /requirements/prod.txt; \
+    fi
 
 ##########################
 # Stage 2: Runtime image #
@@ -25,10 +33,13 @@ RUN pip install --upgrade pip && pip install --no-cache-dir -r /requirements/dev
 
 FROM --platform=linux/arm64 python:3.10-slim-bullseye
 
+ARG PLATFORM
+RUN echo "Runtime environment: $PLATFORM"
+
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-RUN apt-get update && apt-get install -y libpq-dev && apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y libpq5 && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 

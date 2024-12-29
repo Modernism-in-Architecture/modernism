@@ -2,6 +2,7 @@
 .python-version
 .DS_Store
 .env
+.env.*
 .idea/
 *.pyc
 .vscode/
