@@ -1,7 +1,16 @@
+import dj_database_url
 import os
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
+
+DEBUG = os.environ.get("DEBUG", "False").lower() in ("true", "1")
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "*").split(",")
+
+SECRET_KEY = os.environ.get(
+    "SECRET_KEY",
+    "django-insecure-&)pm)nn@&i9n)u(^uxaej2ll%b1pv$6cq11x44^hc7^$ij5#(w",
+)
 
 INSTALLED_APPS = [
     # Django
@@ -64,10 +73,17 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "modernism.wsgi.application"
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "modernism",
+DATABASE_URL = os.environ.get("DATABASE_URL")
+
+if DATABASE_URL:
+    DATABASES = {
+        "default": dj_database_url.config(default=DATABASE_URL, conn_max_age=600),
+    }
+else:
+    DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'modernism',
     }
 }
 
