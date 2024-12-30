@@ -2,7 +2,7 @@
 # Stage 1: Build dependencies #
 ###############################
 
-FROM --platform=linux/arm64 python:3.10-slim-bullseye AS build
+FROM python:3.10-slim-bullseye AS build
 
 ARG PLATFORM
 RUN echo "Runtime environment: $PLATFORM"
@@ -31,7 +31,7 @@ RUN pip install --upgrade pip && \
 # Stage 2: Runtime image #
 ##########################
 
-FROM --platform=linux/arm64 python:3.10-slim-bullseye
+FROM python:3.10-slim-bullseye
 
 ARG PLATFORM
 RUN echo "Runtime environment: $PLATFORM"
