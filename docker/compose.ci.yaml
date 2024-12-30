@@ -1,0 +1,9 @@
+services:
+  web:
+    platform: linux/amd64
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      args:
+        PLATFORM: prod
+    image: ghcr.io/${GITHUB_REPOSITORY_OWNER}/${GITHUB_REPOSITORY}:${PLATFORM}
