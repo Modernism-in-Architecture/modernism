@@ -56,7 +56,6 @@ jobs:
     
     - name: Push Docker Image to Registry
       run: |
-        run: |
         IMAGE_NAME="ghcr.io/modernism-in-architecture/mia-django"
         docker tag mia-django ${IMAGE_NAME}:${{ github.ref_name }}
         docker tag mia-django ${IMAGE_NAME}:latest
