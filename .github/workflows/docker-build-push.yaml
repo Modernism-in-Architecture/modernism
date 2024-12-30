@@ -51,7 +51,7 @@ jobs:
       run: |
         docker compose --env-file .env \
           -f docker/compose.ci.yaml \
-          build --build-arg PLATFORM=prod --platform linux/amd64
+          build --build-arg PLATFORM=prod
       shell: bash
     
     - name: Push Docker Image to Registry
