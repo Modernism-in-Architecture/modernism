@@ -1,11 +1,12 @@
 import logging
 import os
+from datetime import timezone
 
 from bs4 import BeautifulSoup
 from dateutil.parser import parse
 from django.conf import settings
 from django.db.models.fields.files import ImageFieldFile
-from django.utils.timezone import make_aware, utc
+from django.utils.timezone import make_aware
 from easy_thumbnails.files import get_thumbnailer
 
 logger = logging.getLogger(__name__)
@@ -94,4 +95,4 @@ def parse_date_with_timezone(date_str):
 
 
 def normalize_to_utc(dt):
-    return dt.astimezone(utc)
+    return dt.astimezone(timezone.utc)  # noqa: UP017

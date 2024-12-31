@@ -7,10 +7,10 @@ MANAGE = python app/manage.py
 ##########
 
 build-dev:
-	docker compose --env-file .env.dev -f docker/compose.yaml build --build-arg PLATFORM=dev --no-cache
+	docker compose --env-file .env.dev -f docker/compose.yaml build --build-arg PLATFORM=dev
 
 build-prod:
-	docker compose --env-file .env.prod -f docker/compose.yaml build --build-arg PLATFORM=prod --no-cache
+	docker compose --env-file .env.prod -f docker/compose.yaml build --build-arg PLATFORM=prod
 
 up-dev:
 	docker compose --env-file .env.dev -f docker/compose.yaml up -d --no-build
@@ -53,7 +53,7 @@ command: venv
 	$(VENV) $(MANAGE) create_thumbnails
 
 test: venv
-	$(VENV) pytest
+	$(VENV) PYTHONPATH=$PYTHONPATH:app/ pytest --maxfail=1 --exitfirst
 
 init: install migrate superuser
 
