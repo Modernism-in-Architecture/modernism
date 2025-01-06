@@ -10,6 +10,20 @@ jobs:
   test:
     name: Run Pytest
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:14
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: modernism
+        options: >-
+          --health-cmd="pg_isready -U postgres"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
 
     steps:
     - name: Checkout Code
@@ -34,16 +48,4 @@ jobs:
       run: |
         source venv/bin/activate
         PYTHONPATH=$PYTHONPATH:app/ pytest --maxfail=1 --exitfirst
-  postgres:
-    image: postgres:14
-    ports:
-      - 5432:5432
-    env:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: modernism
-    options: >-
-      --health-cmd="pg_isready -U postgres"
-      --health-interval=10s
-      --health-timeout=5s
-      --health-retries=5
+  
