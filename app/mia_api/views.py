@@ -1,3 +1,5 @@
+import logging
+
 from django.db.models.query import Prefetch
 from mia_buildings.models import Building, BuildingImage
 from mia_people.models import Architect
@@ -14,6 +16,8 @@ from mia_api.serializers import (
     BuildingDetailSerializerV1,
     BuildingListSerializerV1,
 )
+
+logger = logging.getLogger(__name__)
 
 
 class BuildingView(GenericAPIView):
@@ -46,6 +50,7 @@ class BuildingView(GenericAPIView):
         building_id = self.kwargs.get("building_id")
 
         if building_id:
+            logger.debug(f"Building id found {building_id}")
             building = (
                 self.buildings.filter(id=building_id)
                 .prefetch_related(
@@ -63,11 +68,13 @@ class BuildingView(GenericAPIView):
                 )
             return building
 
+        logger.debug(f"Return {self.buildings.count()} buildings")
         return self.buildings
 
     def get_serializer_class(self):
         # version = self.kwargs.get('version', 'v1')
         is_detail_view = bool(self.kwargs.get("building_id"))
+        logger.debug(f"is_detail_view: {is_detail_view}")
 
         return (
             BuildingDetailSerializerV1 if is_detail_view else BuildingListSerializerV1
@@ -76,9 +83,13 @@ class BuildingView(GenericAPIView):
     def get(self, request, *args, **kwargs):
         queryset = self.get_queryset()
         many = not bool(self.kwargs.get("building_id"))
+
+        logger.debug(f"Is Building List call: {many}")
+
         serializer = self.get_serializer(
             queryset, many=many, context={"request": request}
         )
+
         response_data = {"data": serializer.data}
 
         return Response(data=response_data, status=status.HTTP_200_OK)

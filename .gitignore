@@ -3,6 +3,7 @@
 .DS_Store
 .env
 .env.*
+.secret
 .idea/
 *.pyc
 .vscode/
@@ -15,3 +16,8 @@ node_modules/
 app/static/
 !app/modernism/static/
 --silent
+.vault_pass
+*.pem
+*.key
+id_ed25519
+id_rsa
