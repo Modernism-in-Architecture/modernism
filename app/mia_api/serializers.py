@@ -55,12 +55,13 @@ class BuildingBaseSerializer(ModelSerializer):
 
         if feed_image:
             if not feed_image.thumbnails_created:
+                logger.debug(f"Feed image thumbnails: {feed_image.thumbnails_created}")
                 try:
                     feed_thumb_url = get_thumbnailer(feed_image.image)["feed"].url
                     feed_thumb_full_url = request.build_absolute_uri(feed_thumb_url)
 
                 except Exception as err:
-                    logger.info(
+                    logger.debug(
                         f"Error generating thumbnails for building {obj.id}: {str(err)}"
                     )
 
@@ -109,7 +110,7 @@ class BuildingDetailSerializerV1(BuildingBaseSerializer):
                     mobile_img_url = get_thumbnailer(image)["mobile"].url
                     mobile_img_full_url = request.build_absolute_uri(mobile_img_url)
                 except Exception as err:
-                    logger.info(
+                    logger.debug(
                         f"Error generating gallery thumbnails for building {obj.id}: {str(err)}"
                     )
             else:
@@ -150,13 +151,16 @@ class BuildingListSerializerV1(BuildingBaseSerializer):
         feed_image = obj.feed_images[0]
         preview_thumb_full_url = ""
 
+        logger.debug(f"Handling preview for building: {obj.name} ({obj.id})")
+
         if not feed_image.thumbnails_created:
+            logger.debug(f"Feed image thumbnails: {feed_image.thumbnails_created}")
             try:
                 preview_thumb_url = get_thumbnailer(feed_image.image)["preview"].url
                 preview_thumb_full_url = request.build_absolute_uri(preview_thumb_url)
 
             except Exception as err:
-                logger.info(
+                logger.debug(
                     f"Error generating thumbnails for building {obj.id}: {str(err)}"
                 )
 
@@ -164,7 +168,11 @@ class BuildingListSerializerV1(BuildingBaseSerializer):
             preview_thumb_full_url = create_thumbnail_image_path(
                 feed_image.image.name, settings.THUMBNAIL_PATHS.get("preview")
             )
+            logger.debug(f"Created preview thumbnail: {preview_thumb_full_url}")
 
+        logger.debug(
+            f"Preview thumbnail successfully created: {preview_thumb_full_url}"
+        )
         return preview_thumb_full_url
 
     def get_building_type(self, obj):
