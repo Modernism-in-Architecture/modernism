@@ -50,7 +50,7 @@ class BuildingView(GenericAPIView):
         building_id = self.kwargs.get("building_id")
 
         if building_id:
-            logger.debug(f"Building id found {building_id}")
+            logger.debug(f"Building found for id: {building_id}.")
             building = (
                 self.buildings.filter(id=building_id)
                 .prefetch_related(
@@ -74,7 +74,7 @@ class BuildingView(GenericAPIView):
     def get_serializer_class(self):
         # version = self.kwargs.get('version', 'v1')
         is_detail_view = bool(self.kwargs.get("building_id"))
-        logger.debug(f"is_detail_view: {is_detail_view}")
+        logger.debug(f"Detail view requested: {is_detail_view}")
 
         return (
             BuildingDetailSerializerV1 if is_detail_view else BuildingListSerializerV1
