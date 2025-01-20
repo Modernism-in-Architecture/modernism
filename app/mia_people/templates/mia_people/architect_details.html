@@ -4,7 +4,7 @@
 
 {% block extra_head_tags %}
     <title>{% if person.seo_title %}{{ person.seo_title }}{% else %}Architect {% if person.first_name %}{{person.first_name}} {% endif %}{{person.last_name}}{% endif %}</title>
-    <meta name="description" property="og:description" content="{{fact.description|striptags|truncatewords:150}}">
+    <meta name="description" property="og:description" content="{{person.description|striptags|truncatewords:150}}">
     <meta name="keywords" content="{{person.last_name}}, modernist architect">
 
     <meta property="og:url" content="{{ request.build_absolute_uri }}" />
