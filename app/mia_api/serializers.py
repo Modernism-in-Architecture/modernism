@@ -31,8 +31,8 @@ class BuildingBaseSerializer(ModelSerializer):
     country = CharField(source="city.country.name")
     latitude = FloatField()
     longitude = FloatField()
-    architects = ArchitectBaseSerializer(many=True)
     feed_image = SerializerMethodField()
+    architects = SerializerMethodField()
 
     class Meta:
         model = Building
@@ -55,7 +55,6 @@ class BuildingBaseSerializer(ModelSerializer):
 
         if feed_image:
             if not feed_image.thumbnails_created:
-                logger.debug(f"Feed image thumbnails: {feed_image.thumbnails_created}")
                 try:
                     feed_thumb_url = get_thumbnailer(feed_image.image)["feed"].url
                     feed_thumb_full_url = request.build_absolute_uri(feed_thumb_url)
@@ -71,6 +70,10 @@ class BuildingBaseSerializer(ModelSerializer):
                 )
 
         return feed_thumb_full_url
+
+    def get_architects(self, obj):
+        architects = obj.architects.filter(is_published=True)
+        return ArchitectBaseSerializer(architects, many=True, context=self.context).data
 
 
 class BuildingDetailSerializerV1(BuildingBaseSerializer):
@@ -151,10 +154,7 @@ class BuildingListSerializerV1(BuildingBaseSerializer):
         feed_image = obj.feed_images[0]
         preview_thumb_full_url = ""
 
-        logger.debug(f"Handling preview for building: {obj.name} ({obj.id})")
-
         if not feed_image.thumbnails_created:
-            logger.debug(f"Feed image thumbnails: {feed_image.thumbnails_created}")
             try:
                 preview_thumb_url = get_thumbnailer(feed_image.image)["preview"].url
                 preview_thumb_full_url = request.build_absolute_uri(preview_thumb_url)
@@ -170,9 +170,6 @@ class BuildingListSerializerV1(BuildingBaseSerializer):
             )
             logger.debug(f"Created preview thumbnail: {preview_thumb_full_url}")
 
-        logger.debug(
-            f"Preview thumbnail successfully created: {preview_thumb_full_url}"
-        )
         return preview_thumb_full_url
 
     def get_building_type(self, obj):
