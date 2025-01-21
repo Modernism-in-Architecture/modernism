@@ -168,7 +168,6 @@ class BuildingListSerializerV1(BuildingBaseSerializer):
             preview_thumb_full_url = create_thumbnail_image_path(
                 feed_image.image.name, settings.THUMBNAIL_PATHS.get("preview")
             )
-            logger.debug(f"Created preview thumbnail: {preview_thumb_full_url}")
 
         return preview_thumb_full_url
 
