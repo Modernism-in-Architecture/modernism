@@ -1,15 +1,15 @@
 name: Build and Push Docker Image
 
 on:
-  push:
-    tags:
-      - 'v*'
-
+  workflow_dispatch:
+    inputs:
+      build_tag:
+        description: 'Tag to build the dev image from'
+        required: true
 jobs:
-  build-and-push:
-    name: Build and Push Docker Image
+  dev-build-and-push:
+    if: ${{ github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
-
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
@@ -34,14 +34,12 @@ jobs:
     - name: Build Docker Image with docker compose
       run: |
         docker compose -f docker/compose.ci.yaml \
-          build --build-arg PLATFORM=prod
+          build --build-arg PLATFORM=dev
       shell: bash
     
     - name: Push Docker Image to Registry
       run: |
-        IMAGE_NAME="ghcr.io/modernism-in-architecture/mia-django"
+        IMAGE_NAME="ghcr.io/modernism-in-architecture/mia-django-dev"
         docker tag mia-django ${IMAGE_NAME}:${{ github.ref_name }}
-        docker tag mia-django ${IMAGE_NAME}:latest
         docker push ${IMAGE_NAME}:${{ github.ref_name }}
-        docker push ${IMAGE_NAME}:latest
       shell: bash
