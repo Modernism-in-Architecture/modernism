@@ -2,6 +2,10 @@ name: Build and Push Docker Image
 
 on:
   workflow_dispatch:
+    inputs:
+      build_tag:
+        description: 'Tag to build the dev image from'
+        required: true
 
   push:
     tags:
