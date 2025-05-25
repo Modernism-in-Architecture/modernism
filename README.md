@@ -7,17 +7,17 @@ The project is build with [Django](https://www.djangoproject.com/) and [Bulma](h
 ## Setup the backend
 
 ### Prerequisites
-#### Python version == 3.10.9
+#### Python version == 3.10.16
 
 To check the Python version on your system, run
 ```bash
 $ python --version
-Python 3.10.9
+Python 3.10.16
 ```
 or 
 ```bash
 $ python3 --version
-Python 3.10.9
+Python 3.10.16
 ```
 
 If an older version or nothing is found you will need to [update or install Python](https://realpython.com/installing-python/) first. If this causes trouble, just try to install the requirements, it might work with an older Python version too. We recommend using [`pyenv`](https://github.com/pyenv/pyenv) to manage your Python versions.
@@ -71,6 +71,7 @@ $(env) pip install -r requirements.txt
 
 #### Run migrations to setup the database 
 ```bash
+$(env) cd app/
 $(env) python manage.py migrate
 ```
 
@@ -105,17 +106,20 @@ $ brew install openssl@1
 #### Create a superuser and insert testdata
 
 ```bash
+$(env) cd app/
 $(env) python manage.py createsuperuser
 ```
 Please get in touch and we can provide a database dump to load into your local database, so you do not need to create pages manually.
 
 ```bash
+$(env) cd app/
 $(env) python manage.py loaddata test_data.json
 ```
 
 #### Run the development server
 
 ```bash
+$(env) cd app/
 $(env) python manage.py runserver
 ```
 
