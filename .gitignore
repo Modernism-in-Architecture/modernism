@@ -21,3 +21,5 @@ app/static/
 *.key
 id_ed25519
 id_rsa
+deployment/
+*.dump
