@@ -37,6 +37,12 @@ migrations: venv
 migrate: venv
 	$(VENV) $(MANAGE) migrate
 
+css-build:
+	npm run css-build
+
+static: css-build
+	$(VENV) $(MANAGE) collectstatic --noinput
+
 superuser: venv
 	$(VENV) DJANGO_SUPERUSER_USERNAME=django \
 	DJANGO_SUPERUSER_PASSWORD=django \

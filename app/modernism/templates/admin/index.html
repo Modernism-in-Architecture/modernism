@@ -1,0 +1,62 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+    <div id="content-main" class="dashboard">
+        <div id="dashboard-container">
+            <div class="dashboard-panel">
+                <div class="dashboard-box">
+                    <h2>⚡ Quick Access</h2>
+                    <div class="dashboard-quick-links">
+                        <div class="quick-link-grid">
+                            <a href="{% url 'admin:mia_buildings_building_changelist' %}" class="quick-link">
+                            Buildings
+                            </a>
+                            <a href="{% url 'admin:mia_people_architect_changelist' %}" class="quick-link">
+                            Architects
+                            </a>
+                            <a href="{% url 'admin:mia_buildings_buildingimage_changelist' %}" class="quick-link">
+                            Images
+                            </a>
+                        </div>
+                    </div>
+
+                    <h2>📊 Stats as of today, {% now "jS F Y" %}</h2>
+                    <div class="dashboard-stats">
+                        <div class="stat-card">
+                            <div class="stat-title">Architects</div>
+                            <div class="stat-value">
+                                <a href="{% url 'admin:mia_people_architect_changelist' %}?is_published__exact=1">{{ dashboard_data.architects.published }}</a>
+                                <span class="stat-separator">/</span>
+                                <a href="{% url 'admin:mia_people_architect_changelist' %}?is_published__exact=0">{{ dashboard_data.architects.unpublished }}</a>
+                            </div>
+                            <div class="stat-label">Published / Unpublished</div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-title">Buildings</div>
+                            <div class="stat-value">
+                                <a href="{% url 'admin:mia_buildings_building_changelist' %}?is_published__exact=1">{{ dashboard_data.buildings.published }}</a>
+                                <span class="stat-separator">/</span>
+                                <a href="{% url 'admin:mia_buildings_building_changelist' %}?is_published__exact=0">{{ dashboard_data.buildings.unpublished }}</a>
+                            </div>
+                            <div class="stat-label">Published / Unpublished</div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-title">Images</div>
+                            <div class="stat-value">
+                                <a href="{% url 'admin:mia_buildings_buildingimage_changelist' %}?is_published__exact=1">{{ dashboard_data.images.published }}</a>
+                                <span class="stat-separator">/</span>
+                                <a href="{% url 'admin:mia_buildings_buildingimage_changelist' %}?is_published__exact=0">{{ dashboard_data.images.unpublished }}</a>
+                            </div>
+                            <div class="stat-label">Uploaded / Unpublished</div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
