@@ -305,6 +305,105 @@ a.addlink:hover {
 
 /* MODULE */
 
+#dashboard-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1rem;
+
+    @media screen and (max-width: 900px) {
+        flex-direction: column;
+    }
+
+    h2 {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+    }
+
+    .dashboard-quick-links {
+        margin-bottom: 2rem;
+        
+        .quick-link-grid {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+    
+            .quick-link {
+            display: block;
+            background: $accent-gray;
+            border: 1px solid $accent-gray-light;
+            border-radius: 0.75rem;
+            padding: 1rem 1.5rem;
+            text-decoration: none;
+            color: $dark-gray;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: background 0.2s ease;
+
+            &:hover {
+                background: $accent-lightgreen;
+                color: $accent-gray;
+            }
+            }
+        }
+    }
+
+    .dashboard-panel {
+        flex: 3;
+        padding: 1rem;
+    }
+
+    .dashboard-stats {
+        display: flex;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        margin-top: 1rem;
+
+        .stat-card {
+            background: $accent-gray;
+            border: 1px solid $accent-gray-light;
+            border-radius: 0.75rem;
+            padding: 1rem 1.5rem;
+            min-width: 160px;
+            flex: 1;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+
+            .stat-title {
+                font-size: 1rem;
+                font-weight: 600;
+                color: $dark-gray;
+                margin-bottom: 0.5rem;
+            }
+
+            .stat-value {
+                font-size: 1.6rem;
+                font-weight: 700;
+                color: $dark-gray;
+                a {
+                    color: $dark-gray;
+                    text-decoration: none;
+                    &:hover {
+                    color: $accent-lightgreen;
+                    text-decoration: underline;
+                    }
+                }
+            }
+
+            .stat-label {
+                font-size: 0.75rem;
+                color: $light-gray;
+                margin-top: 0.25rem;
+            }
+
+            .stat-separator {
+                color: $light-gray;
+                margin: 0 0.25rem;
+            }
+        }
+    }
+}
+
 .module {
     margin-bottom: 1rem;
     .form-row {

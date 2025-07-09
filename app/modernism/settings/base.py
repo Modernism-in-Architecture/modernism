@@ -14,7 +14,7 @@ SECRET_KEY = os.environ.get(
 
 INSTALLED_APPS = [
     # Django
-    "django.contrib.admin",
+    "modernism.apps.MiaAdminConfig",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
@@ -181,7 +181,7 @@ LOGGING = {
     },
     "handlers": {
         "console": {
-            "level": "DEBUG",
+            "level": "INFO",
             "class": "logging.StreamHandler",
             "formatter": "verbose",
         }

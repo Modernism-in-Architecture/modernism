@@ -49,13 +49,9 @@ if settings.DEBUG:
     urlpatterns += staticfiles_urlpatterns()
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-    urlpatterns = [
+    urlpatterns += [
         path("__debug__/", include(debug_toolbar.urls)),
         re_path(
             r"^favicon\.ico$", RedirectView.as_view(url="/static/img/mia-logo.png")
         ),
-    ] + urlpatterns
-
-admin.site.site_header = "MIA Admin"
-admin.site.site_title = "MIA Admin"
-admin.site.index_title = "Welcome to MIA Administration"
+    ]

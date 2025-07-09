@@ -221,6 +221,77 @@ a.addlink:hover {
   color: #e8eaec; }
 
 /* MODULE */
+#dashboard-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 1rem; }
+  @media screen and (max-width: 900px) {
+    #dashboard-container {
+      flex-direction: column; } }
+  #dashboard-container h2 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem; }
+  #dashboard-container .dashboard-quick-links {
+    margin-bottom: 2rem; }
+    #dashboard-container .dashboard-quick-links .quick-link-grid {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap; }
+      #dashboard-container .dashboard-quick-links .quick-link-grid .quick-link {
+        display: block;
+        background: #333a40;
+        border: 1px solid #3c444b;
+        border-radius: 0.75rem;
+        padding: 1rem 1.5rem;
+        text-decoration: none;
+        color: #9ba6b0;
+        font-size: 1.1rem;
+        font-weight: 500;
+        transition: background 0.2s ease; }
+        #dashboard-container .dashboard-quick-links .quick-link-grid .quick-link:hover {
+          background: #79e08c;
+          color: #333a40; }
+  #dashboard-container .dashboard-panel {
+    flex: 3;
+    padding: 1rem; }
+  #dashboard-container .dashboard-stats {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-top: 1rem; }
+    #dashboard-container .dashboard-stats .stat-card {
+      background: #333a40;
+      border: 1px solid #3c444b;
+      border-radius: 0.75rem;
+      padding: 1rem 1.5rem;
+      min-width: 160px;
+      flex: 1;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03); }
+      #dashboard-container .dashboard-stats .stat-card .stat-title {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #9ba6b0;
+        margin-bottom: 0.5rem; }
+      #dashboard-container .dashboard-stats .stat-card .stat-value {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: #9ba6b0; }
+        #dashboard-container .dashboard-stats .stat-card .stat-value a {
+          color: #9ba6b0;
+          text-decoration: none; }
+          #dashboard-container .dashboard-stats .stat-card .stat-value a:hover {
+            color: #79e08c;
+            text-decoration: underline; }
+      #dashboard-container .dashboard-stats .stat-card .stat-label {
+        font-size: 0.75rem;
+        color: #e8eaec;
+        margin-top: 0.25rem; }
+      #dashboard-container .dashboard-stats .stat-card .stat-separator {
+        color: #e8eaec;
+        margin: 0 0.25rem; }
+
 .module {
   margin-bottom: 1rem;
   background-color: #f4f6f9; }
