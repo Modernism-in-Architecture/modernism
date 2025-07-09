@@ -23,6 +23,7 @@ class MiaAdminSite(AdminSite):
             },
             "images": {
                 "published": BuildingImage.objects.filter(is_published=True).count(),
+                "unrelated": BuildingImage.objects.filter(building__isnull=True).count(),
                 "unpublished": BuildingImage.objects.filter(is_published=False).count(),
             }
         }

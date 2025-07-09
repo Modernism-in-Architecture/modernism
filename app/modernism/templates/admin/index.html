@@ -29,7 +29,7 @@
                                 <span class="stat-separator">/</span>
                                 <a href="{% url 'admin:mia_people_architect_changelist' %}?is_published__exact=0">{{ dashboard_data.architects.unpublished }}</a>
                             </div>
-                            <div class="stat-label">Published / Unpublished</div>
+                            <div class="stat-label">Published - Unpublished</div>
                         </div>
 
                         <div class="stat-card">
@@ -39,7 +39,7 @@
                                 <span class="stat-separator">/</span>
                                 <a href="{% url 'admin:mia_buildings_building_changelist' %}?is_published__exact=0">{{ dashboard_data.buildings.unpublished }}</a>
                             </div>
-                            <div class="stat-label">Published / Unpublished</div>
+                            <div class="stat-label">Published - Unpublished</div>
                         </div>
 
                         <div class="stat-card">
@@ -48,8 +48,10 @@
                                 <a href="{% url 'admin:mia_buildings_buildingimage_changelist' %}?is_published__exact=1">{{ dashboard_data.images.published }}</a>
                                 <span class="stat-separator">/</span>
                                 <a href="{% url 'admin:mia_buildings_buildingimage_changelist' %}?is_published__exact=0">{{ dashboard_data.images.unpublished }}</a>
+                                <span class="stat-separator">/</span>
+                                <a href="{% url 'admin:mia_buildings_buildingimage_changelist' %}?building__isnull=1">{{ dashboard_data.images.unrelated }}</a>
                             </div>
-                            <div class="stat-label">Uploaded / Unpublished</div>
+                            <div class="stat-label">Uploaded - Unpublished - Unrelated</div>
                         </div>
                     </div>
                     
