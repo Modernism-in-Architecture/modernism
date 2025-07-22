@@ -25,7 +25,7 @@
   <div id="content-main">
     <form method="post" class="bulkupload-form" enctype="multipart/form-data">
       {% csrf_token %}
-      
+
        <h3>Selected images:</h3>
       
       {% for selected_image in images %}
@@ -45,7 +45,7 @@
           </div>
         </div>
 
-        <p><strong>OR</strong></p>
+        <p>OR</p>
 
         <div class="form-row field-working_title">
           <div class="flex-container">
@@ -79,7 +79,7 @@
       </div>
     </form>
 
-    <h3>Selected images:</h3>
+    <h3>List of images:</h3>
     <ul>
       {% for img in images %}
         <li>{{ img.title }} (ID {{ img.id }})</li>

@@ -58,6 +58,7 @@ class BuildingImageAdmin(admin.ModelAdmin):
         "is_published",
         "is_feed_image",
         "building",
+        "todo_item",
         "photographer",
         "thumbnails_created",
         "created",

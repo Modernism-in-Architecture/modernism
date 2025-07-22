@@ -39,7 +39,7 @@ class CityAdmin(admin.ModelAdmin):
         "get_number_of_related_universities",
     ]
     search_fields = ["name"]
-    ordering = ["name"]
+    autocomplete_fields = ["country"]
 
     def get_number_of_related_buildings(self, obj):
         return obj.building_set.count()

@@ -118,3 +118,4 @@ class AssignOrCreateToDoItemForm(Form):
                 "Either select an existing ToDoItem or enter a title and city to create one."
             )
         return cleaned
+  
