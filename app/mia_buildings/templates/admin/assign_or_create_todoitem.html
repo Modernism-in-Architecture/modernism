@@ -26,14 +26,14 @@
     <form method="post" class="bulkupload-form" enctype="multipart/form-data">
       {% csrf_token %}
 
-       <h3>Selected images:</h3>
-      
-      {% for selected_image in images %}
+      <h3>Selected images:</h3>
       <p>
-        <img src="{{ selected_image.image|thumbnail_url:'preview' }}" alt="" />
-        <input type="hidden" name="_images" value="{{selected_image.pk}}" />
+         {% for selected_image in images %}
+          <img src="{{ selected_image.image|thumbnail_url:'preview' }}" alt="" />
+          <input type="hidden" name="_images" value="{{selected_image.pk}}" />
+         {% endfor %}
       </p>
-      {% endfor %}
+     
       <fieldset class="module aligned">
         {{ form.non_field_errors }}
 
