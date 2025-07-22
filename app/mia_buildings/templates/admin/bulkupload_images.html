@@ -11,7 +11,7 @@
     
     <script>
         $(document).ready(function() {
-            $("#id_photographer").select2();
+            $(".select2-field").select2();
         });
     </script>
 {% endblock %}
@@ -23,38 +23,29 @@
 {% endblock %}
 
 {% block content %}
-    <div id="con    tent-main">
+    <div id="content-main">
         <form method="post" class="bulkupload-form" enctype="multipart/form-data">
             {% csrf_token %}
+
             <fieldset class="module aligned">
-                
-                <div class="form-row field-multiple-images">    
-                    <div class="flex-container">
-                        <label for="id_multiple_images">{{ form.multiple_images.label }}</label>
-                        {{ form.multiple_images.errors }}
-                        {{ form.multiple_images }}
+            {% for field in form.visible_fields %}
+                <div class="form-row field-{{ field.name }}">
+                    <div>
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        <div class="form-input">
+                        {{ field }}
+                        {% if field.help_text %}
+                            <p class="help">{{ field.help_text }}</p>
+                        {% endif %}
+                        {{ field.errors }}
+                        </div>
                     </div>
                 </div>
-          
-                <div class="form-row field-photographer">    
-                    <div class="flex-container">
-                        <label for="id_photographer">{{ form.photographer.label }}</label>
-                        {{ form.photographer.errors }}
-                        {{ form.photographer }}
-                    </div>
-                </div>
-
-                <div class="form-row field-title">    
-                    <div class="flex-container">
-                        <label for="id_title">{{ form.title.label }}</label>
-                        {{ form.title.errors }}
-                        {{ form.title }}
-                    </div>
-                </div>
-
+            {% endfor %}
             </fieldset>
+
             <div class="submit-row">
-                <input class="default" type="submit" value="ADD NEW MIA IMAGES">
+                <input class="default" type="submit" value="Add images">
             </div>
         </form>
     </div>
