@@ -1,4 +1,9 @@
 {% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block content_title %}
+  <h1><small>{{ custom_index_date }}</small><br/>{{ custom_index_title|default:site_title }}</h1>
+{% endblock %}
 
 {% block content %}
     <div id="content-main" class="dashboard">
@@ -17,16 +22,19 @@
                             <a href="{% url 'admin:mia_buildings_buildingimage_changelist' %}" class="quick-link">
                             Images
                             </a>
+                            <a href="{% url 'admin:bulkupload-images' %}" class="quick-link">
+                            Bulk Upload
+                            </a>
                         </div>
                     </div>
 
-                    <h2>📊 Stats as of today, {% now "jS F Y" %}</h2>
+                    <h2>📊 Stats</h2>
                     <div class="dashboard-stats">
                         <div class="stat-card">
                             <div class="stat-title">Architects</div>
                             <div class="stat-value">
                                 <a href="{% url 'admin:mia_people_architect_changelist' %}?is_published__exact=1">{{ dashboard_data.architects.published }}</a>
-                                <span class="stat-separator">/</span>
+                                <span class="stat-separator">|</span>
                                 <a href="{% url 'admin:mia_people_architect_changelist' %}?is_published__exact=0">{{ dashboard_data.architects.unpublished }}</a>
                             </div>
                             <div class="stat-label">Published - Unpublished</div>
@@ -36,29 +44,57 @@
                             <div class="stat-title">Buildings</div>
                             <div class="stat-value">
                                 <a href="{% url 'admin:mia_buildings_building_changelist' %}?is_published__exact=1">{{ dashboard_data.buildings.published }}</a>
-                                <span class="stat-separator">/</span>
+                                <span class="stat-separator">|</span>
                                 <a href="{% url 'admin:mia_buildings_building_changelist' %}?is_published__exact=0">{{ dashboard_data.buildings.unpublished }}</a>
                             </div>
                             <div class="stat-label">Published - Unpublished</div>
                         </div>
-
+                        
                         <div class="stat-card">
                             <div class="stat-title">Images</div>
                             <div class="stat-value">
                                 <a href="{% url 'admin:mia_buildings_buildingimage_changelist' %}?is_published__exact=1">{{ dashboard_data.images.published }}</a>
-                                <span class="stat-separator">/</span>
+                                <span class="stat-separator">|</span>
                                 <a href="{% url 'admin:mia_buildings_buildingimage_changelist' %}?is_published__exact=0">{{ dashboard_data.images.unpublished }}</a>
-                                <span class="stat-separator">/</span>
+                                <span class="stat-separator">|</span>
                                 <a href="{% url 'admin:mia_buildings_buildingimage_changelist' %}?building__isnull=1">{{ dashboard_data.images.unrelated }}</a>
                             </div>
                             <div class="stat-label">Uploaded - Unpublished - Unrelated</div>
                         </div>
                     </div>
-                    
+                </div>               
+                <div class="dashboard-box">
+                    <h2>💼 ToDos ({{ todos_count}})</h2>
+                    <div class="dashboard-todos">
+                    {% for country, country_data in grouped_todo_items.items %}
+                        <div class="todo-group country-group">
+                        <div class="toggle-section country-toggle">{{ country }} ({{ country_data.count }})</div>
+
+                        <div class="country-content">
+                            {% for city, city_data in country_data.cities.items %}
+                            <div class="todo-group city-group">
+                                <div class="toggle-section city-toggle">{{ city }} ({{ city_data.count }})</div>
+                                <ul class="todo-list">
+                                {% for todo in city_data.items %}
+                                    <li>
+                                    {{ todo.title }}:
+                                    {{ todo.buildingimage_set.count }} image{{ todo.buildingimage_set.count|pluralize }}
+                                    [<a href="{% url 'admin:mia_buildings_buildingimage_changelist' %}?todo_item__id__exact={{ todo.id }}">View</a>]
+                                    </li>
+                                {% endfor %}
+                                </ul>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        </div>
+                    {% endfor %}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <script src="{% static 'lib/adminTodoCollapse.js' %}"></script>
+    <script>initializeToDoCollapse();</script>
+    
 {% endblock %}
-

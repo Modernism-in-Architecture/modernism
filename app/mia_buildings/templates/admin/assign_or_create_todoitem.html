@@ -1,0 +1,89 @@
+{% extends "admin/base_site.html" %}
+{% load static thumbnail %}
+
+{% block extrahead %}
+  {{ block.super }}
+  <script src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
+  <script src="{% static 'admin/js/vendor/select2/select2.full.js' %}"></script>
+  <link href="{% static 'admin/css/vendor/select2/select2.css' %}" rel="stylesheet">
+
+  <script>
+    $(document).ready(function() {
+        $('.select2').select2();
+    });
+  </script>
+{% endblock %}
+
+
+{% block breadcrumbs %}
+  <div class="breadcrumbs">
+    <a href="{% url 'admin:index' %}">Home</a> › <a href="/admin/mia_buildings/">MIA Buildings</a> › <a href="{% url 'admin:mia_buildings_buildingimage_changelist' %}">Building images</a> › {{ title }}
+  </div>
+{% endblock %}
+
+{% block content %}
+  <div id="content-main">
+    <form method="post" class="bulkupload-form" enctype="multipart/form-data">
+      {% csrf_token %}
+      
+       <h3>Selected images:</h3>
+      
+      {% for selected_image in images %}
+      <p>
+        <img src="{{ selected_image.image|thumbnail_url:'preview' }}" alt="" />
+        <input type="hidden" name="_images" value="{{selected_image.pk}}" />
+      </p>
+      {% endfor %}
+      <fieldset class="module aligned">
+        {{ form.non_field_errors }}
+
+        <div class="form-row field-todo_item">
+          <div class="flex-container">
+            <label for="{{ form.todo_item.id_for_label }}">{{ form.todo_item.label }}</label>
+            {{ form.todo_item.errors }}
+            {{ form.todo_item }}
+          </div>
+        </div>
+
+        <p><strong>OR</strong></p>
+
+        <div class="form-row field-working_title">
+          <div class="flex-container">
+            <label for="{{ form.working_title.id_for_label }}">{{ form.working_title.label }}</label>
+            {{ form.working_title.errors }}
+            {{ form.working_title }}
+          </div>
+        </div>
+
+        <div class="form-row field-city">
+          <div class="flex-container">
+            <label for="{{ form.city.id_for_label }}">{{ form.city.label }}</label>
+            {{ form.city.errors }}
+            {{ form.city }}
+          </div>
+        </div>
+
+        <div class="form-row field-notes">
+          <div class="flex-container">
+            <label for="{{ form.notes.id_for_label }}">{{ form.notes.label }}</label>
+            {{ form.notes.errors }}
+            {{ form.notes }}
+          </div>
+        </div>
+      </fieldset>
+
+      <div class="submit-row">
+        <input type="hidden" name="_selected_action" value="1" />
+        <input type="hidden" name="action" value="assign_or_create_todoitem"/>
+        <input type="submit" name="apply" class="default" value="Assign ToDoItem">
+      </div>
+    </form>
+
+    <h3>Selected images:</h3>
+    <ul>
+      {% for img in images %}
+        <li>{{ img.title }} (ID {{ img.id }})</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock %}

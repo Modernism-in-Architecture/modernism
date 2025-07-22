@@ -335,14 +335,14 @@ a.addlink:hover {
             border-radius: 0.75rem;
             padding: 1rem 1.5rem;
             text-decoration: none;
-            color: $dark-gray;
+            color: $accent-lightgreen;
             font-size: 1.1rem;
             font-weight: 500;
             transition: background 0.2s ease;
 
             &:hover {
-                background: $accent-lightgreen;
-                color: $accent-gray;
+                color: $accent-lightgreen;
+                text-decoration: underline;
             }
             }
         }
@@ -358,7 +358,7 @@ a.addlink:hover {
         gap: 1.5rem;
         flex-wrap: wrap;
         margin-top: 1rem;
-
+        
         .stat-card {
             background: $accent-gray;
             border: 1px solid $accent-gray-light;
@@ -368,37 +368,107 @@ a.addlink:hover {
             flex: 1;
             text-align: center;
             box-shadow: 0 2px 4px rgba(0,0,0,0.03);
-
             .stat-title {
                 font-size: 1rem;
                 font-weight: 600;
                 color: $dark-gray;
                 margin-bottom: 0.5rem;
             }
-
             .stat-value {
                 font-size: 1.6rem;
                 font-weight: 700;
                 color: $dark-gray;
                 a {
-                    color: $dark-gray;
+                    color: $accent-lightgreen;
                     text-decoration: none;
                     &:hover {
-                    color: $accent-lightgreen;
-                    text-decoration: underline;
+                        text-decoration: underline;
                     }
                 }
             }
-
             .stat-label {
                 font-size: 0.75rem;
                 color: $light-gray;
                 margin-top: 0.25rem;
             }
-
             .stat-separator {
                 color: $light-gray;
                 margin: 0 0.25rem;
+            }
+        }
+    }
+
+    .dashboard-todos {
+        overflow-y: auto;
+        padding-right: 1rem;
+        .todo-group {
+            margin-bottom: 0.5rem;
+            border-left: 3px solid $accent-lightgreen;
+            padding-left: 1rem;
+
+            .toggle-section {
+                padding: 0.5rem 1rem;
+                border-radius: 0.5rem;
+                margin: 0.5rem 0;
+                color: $accent-lightgreen;
+                cursor: pointer;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+        .country-group {
+            .country-toggle {
+                position: sticky;
+                top: 0;
+                background-color: $accent-gray;
+                z-index: 2;
+            }
+
+            .country-content {
+                display: none;
+                margin-left: 1rem;
+            }
+
+            &.open {
+                .country-content {
+                    display: block;
+                }
+            }
+        }
+        .city-group {
+            .city-toggle {
+                background-color: $accent-gray-light;
+            }
+            .todo-list {
+                display: none;
+                list-style-type: none;
+                padding-left: 1rem;
+                border-left: 1px dashed $accent-gray;
+                
+                li {
+                    margin: 0.25rem 0;
+                    padding: 0.5rem;
+                    background: $dark-gray;
+                    list-style-type: none;
+                    border-radius: 0.4rem;
+                    color: $accent-gray;
+
+                    a {
+                        color: $accent-lightgreen;
+                        text-decoration: none;
+
+                        &:hover {
+                            text-decoration: underline;
+                        }
+                    }
+                }
+            }
+            &.open {    
+                .todo-list {
+                    display: block;
+                }
             }
         }
     }
