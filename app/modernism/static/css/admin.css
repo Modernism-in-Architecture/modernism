@@ -392,6 +392,10 @@ a.addlink:hover {
   border-right: 0;
   color: #79e08c; }
 
+@media (max-width: 767px) {
+  #nav-sidebar, #toggle-nav-sidebar {
+    display: block; } }
+
 #nav-filter {
   display: None; }
 
@@ -529,14 +533,36 @@ a.active.selector-chooseall:hover, a.active.selector-clearall:hover {
   border: 1px solid #e8eaec !important; }
 
 .bulkupload-form .form-row, .imageadd-form .form-row {
-  padding: 1rem; }
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem; }
+  .bulkupload-form .form-row label, .imageadd-form .form-row label {
+    margin-bottom: 0.5rem;
+    font-weight: 600; }
+  .bulkupload-form .form-row .form-input, .imageadd-form .form-row .form-input {
+    width: 100%; }
+    .bulkupload-form .form-row .form-input select,
+    .bulkupload-form .form-row .form-input textarea,
+    .bulkupload-form .form-row .form-input input[type="text"],
+    .bulkupload-form .form-row .form-input input[type="file"],
+    .bulkupload-form .form-row .form-input .select2-container, .imageadd-form .form-row .form-input select,
+    .imageadd-form .form-row .form-input textarea,
+    .imageadd-form .form-row .form-input input[type="text"],
+    .imageadd-form .form-row .form-input input[type="file"],
+    .imageadd-form .form-row .form-input .select2-container {
+      width: 100% !important;
+      max-width: 600px;
+      box-sizing: border-box; }
 
-.bulkupload-form label, .imageadd-form label {
-  padding-right: 3rem; }
+.bulkupload-form .submit-row, .imageadd-form .submit-row {
+  margin-top: 2rem; }
+  .bulkupload-form .submit-row input[type="submit"], .imageadd-form .submit-row input[type="submit"] {
+    padding: 0.5rem 1rem;
+    font-size: 1rem; }
 
-.bulkupload-form .submit-row input, .imageadd-form .submit-row input {
-  height: 2.1875rem;
-  line-height: 0.9375rem; }
+@media (max-width: 767px) {
+  .bulkupload-form .form-row .form-input, .imageadd-form .form-row .form-input {
+    max-width: 100%; } }
 
 .object-tools a:link, .object-tools a:visited {
   color: #79e08c;

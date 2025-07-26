@@ -554,6 +554,12 @@ a.addlink:hover {
     color: $accent-lightgreen;
 }
 
+@media (max-width: 767px) {
+  #nav-sidebar, #toggle-nav-sidebar {
+    display: block;
+  }
+}
+
 #nav-filter {
     display: None;
 }
@@ -729,14 +735,43 @@ a.active.selector-chooseall:hover, a.active.selector-clearall:hover {
 
 .bulkupload-form, .imageadd-form {
     .form-row {
-        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1rem;
+
+        label {
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-input {
+            width: 100%;
+
+            select,
+            textarea,
+            input[type="text"],
+            input[type="file"],
+            .select2-container {
+                width: 100% !important;
+                max-width: 600px; // control max width on large screens
+                box-sizing: border-box;
+            }
+        }
     }
-    label {
-        padding-right: 3rem;
+
+    .submit-row {
+        margin-top: 2rem;
+
+        input[type="submit"] {
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+        }
     }
-    .submit-row input {
-        height: 2.1875rem;
-        line-height: 0.9375rem;
+
+    @media (max-width: 767px) {
+        .form-row .form-input {
+            max-width: 100%;
+        }
     }
 }
 

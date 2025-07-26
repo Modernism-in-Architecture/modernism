@@ -19,12 +19,13 @@
                             <a href="{% url 'admin:mia_people_architect_changelist' %}" class="quick-link">
                             Architects
                             </a>
-                            <a href="{% url 'admin:mia_buildings_buildingimage_changelist' %}" class="quick-link">
-                            Images
-                            </a>
                             <a href="{% url 'admin:bulkupload-images' %}" class="quick-link">
                             Bulk Upload
                             </a>
+                            <a href="{% url 'admin:mia_buildings_buildingimage_changelist' %}" class="quick-link">
+                            Images
+                            </a>
+                           
                         </div>
                     </div>
 
@@ -57,9 +58,11 @@
                                 <span class="stat-separator">|</span>
                                 <a href="{% url 'admin:mia_buildings_buildingimage_changelist' %}?is_published__exact=0">{{ dashboard_data.images.unpublished }}</a>
                                 <span class="stat-separator">|</span>
+                                <a href="{% url 'admin:mia_buildings_buildingimage_changelist' %}?building__isnull=1&todo_item__isnull=0">{{ dashboard_data.images.todos }}</a>
+                                <span class="stat-separator">|</span>
                                 <a href="{% url 'admin:mia_buildings_buildingimage_changelist' %}?building__isnull=1">{{ dashboard_data.images.unrelated }}</a>
                             </div>
-                            <div class="stat-label">Uploaded - Unpublished - Unrelated</div>
+                            <div class="stat-label">Uploaded - Unpublished - ToDos - Unrelated</div>
                         </div>
                     </div>
                 </div>               
@@ -96,5 +99,5 @@
 
     <script src="{% static 'lib/adminTodoCollapse.js' %}"></script>
     <script>initializeToDoCollapse();</script>
-    
+
 {% endblock %}
