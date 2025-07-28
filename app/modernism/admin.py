@@ -72,7 +72,7 @@ class MiaAdminSite(AdminSite):
             },
             "images": {
                 "published": BuildingImage.objects.filter(is_published=True).count(),
-                "unrelated": BuildingImage.objects.filter(building__isnull=True).count(),
+                "unrelated": BuildingImage.objects.filter(building__isnull=True, todo_item__isnull=True).count(),
                 "todos": BuildingImage.objects.filter(building__isnull=True, todo_item__isnull=False).count(),
                 "unpublished": BuildingImage.objects.filter(is_published=False).count(),
             }

@@ -60,7 +60,7 @@
                                 <span class="stat-separator">|</span>
                                 <a href="{% url 'admin:mia_buildings_buildingimage_changelist' %}?building__isnull=1&todo_item__isnull=0">{{ dashboard_data.images.todos }}</a>
                                 <span class="stat-separator">|</span>
-                                <a href="{% url 'admin:mia_buildings_buildingimage_changelist' %}?building__isnull=1">{{ dashboard_data.images.unrelated }}</a>
+                                <a href="{% url 'admin:mia_buildings_buildingimage_changelist' %}?building__isnull=1&todo_item__isnull=1">{{ dashboard_data.images.unrelated }}</a>
                             </div>
                             <div class="stat-label">Uploaded - Unpublished - ToDos - Unrelated</div>
                         </div>
