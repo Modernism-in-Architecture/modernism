@@ -10,7 +10,7 @@ class ToDoItem(BaseModel):
     is_completed = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.title
+        return f"{self.title} ({self.city})"
 
     class Meta:
         app_label = "mia_general"

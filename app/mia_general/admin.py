@@ -14,4 +14,5 @@ class ToDoItemAdmin(admin.ModelAdmin):
     list_display = ["title", "city", "is_completed", "created", "updated"]
     list_filter = ["is_completed", "city__country"]
     search_fields = ["title", "city__name", "city__country__name"]
+    autocomplete_fields = ["city"]
     inlines = [BuildingImageInline]
