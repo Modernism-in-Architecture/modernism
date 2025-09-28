@@ -24,7 +24,9 @@ def generate_test_image_file(name="test.jpg"):
 
 @pytest.fixture
 def staff_user(db):
-    return User.objects.create_user(username="admin", password="adminpass", is_staff=True)
+    return User.objects.create_user(
+        username="admin", password="adminpass", is_staff=True
+    )
 
 
 @pytest.fixture
@@ -69,7 +71,7 @@ def test_bulk_upload_creates_todoitem_and_assigns_images(mock_save, logged_in_cl
         url,
         data={**post_data, **file_data},
         content_type=MULTIPART_CONTENT,
-    )   
+    )
 
     assert response.status_code == 302
 

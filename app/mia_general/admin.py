@@ -9,6 +9,7 @@ class BuildingImageInline(admin.TabularInline):
     extra = 0
     fields = ["title", "image", "building", "todo_item"]
 
+
 @admin.register(ToDoItem)
 class ToDoItemAdmin(admin.ModelAdmin):
     list_display = ["title", "city", "is_completed", "created", "updated"]

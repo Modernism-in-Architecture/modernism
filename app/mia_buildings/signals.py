@@ -31,7 +31,7 @@ def cache_building_published_state(sender, instance, **kwargs):
             old_version = sender.objects.get(pk=instance.pk)
             instance._was_published = old_version.is_published
         except sender.DoesNotExist:
-           instance._was_published = None
+            instance._was_published = None
 
 
 @receiver(post_save, sender=Building)
@@ -39,7 +39,7 @@ def complete_todos_on_publish(sender, instance, created, **kwargs):
     was_published = getattr(instance, "_was_published", None)
 
     if instance.is_published and (created or was_published is False):
-        images = instance.buildingimage_set.select_related('todo_item')
+        images = instance.buildingimage_set.select_related("todo_item")
         todo_ids = [img.todo_item.id for img in images if img.todo_item]
         if todo_ids:
             ToDoItem.objects.filter(id__in=todo_ids).update(is_completed=True)

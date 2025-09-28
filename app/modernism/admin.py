@@ -13,19 +13,31 @@ class MiaAdminSite(AdminSite):
     index_title = "Dashboard"
 
     def get_grouped_todo_items(self):
-        grouped = defaultdict(lambda: {"count": 0, "cities": defaultdict(lambda: {"count": 0, "items": []})})
+        grouped = defaultdict(
+            lambda: {
+                "count": 0,
+                "cities": defaultdict(lambda: {"count": 0, "items": []}),
+            }
+        )
 
-        todos = ToDoItem.objects.select_related("city__country").prefetch_related("buildingimage_set").filter(is_completed=False)
+        todos = (
+            ToDoItem.objects.select_related("city__country")
+            .prefetch_related("buildingimage_set")
+            .filter(is_completed=False)
+        )
 
         for todo in todos:
-            country_name = todo.city.country.name if todo.city and todo.city.country else "Unknown Country"
+            country_name = (
+                todo.city.country.name
+                if todo.city and todo.city.country
+                else "Unknown Country"
+            )
             city_name = todo.city.name if todo.city else "Unknown City"
 
             grouped[country_name]["count"] += 1
             grouped[country_name]["cities"][city_name]["count"] += 1
             grouped[country_name]["cities"][city_name]["items"].append(todo)
 
-    
         result = {
             country: {
                 "count": data["count"],
@@ -35,7 +47,7 @@ class MiaAdminSite(AdminSite):
         }
 
         return result, todos.count()
-    
+
     def each_context(self, request):
         now = datetime.now()
         hour = now.hour
@@ -72,10 +84,14 @@ class MiaAdminSite(AdminSite):
             },
             "images": {
                 "published": BuildingImage.objects.filter(is_published=True).count(),
-                "unrelated": BuildingImage.objects.filter(building__isnull=True, todo_item__isnull=True).count(),
-                "todos": BuildingImage.objects.filter(building__isnull=True, todo_item__isnull=False).count(),
+                "unrelated": BuildingImage.objects.filter(
+                    building__isnull=True, todo_item__isnull=True
+                ).count(),
+                "todos": BuildingImage.objects.filter(
+                    building__isnull=True, todo_item__isnull=False
+                ).count(),
                 "unpublished": BuildingImage.objects.filter(is_published=False).count(),
-            }
+            },
         }
 
         return super().index(request, extra_context=extra_context)

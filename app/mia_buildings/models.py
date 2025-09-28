@@ -77,7 +77,9 @@ class BuildingImage(BaseModel):
     description = models.TextField(blank=True)
     tags = TaggableManager(blank=True)
     image_order = models.PositiveIntegerField(default=0, blank=False, null=False)
-    todo_item = models.ForeignKey("mia_general.ToDoItem", null=True, blank=True, on_delete=models.SET_NULL)
+    todo_item = models.ForeignKey(
+        "mia_general.ToDoItem", null=True, blank=True, on_delete=models.SET_NULL
+    )
 
     class Meta:
         ordering = ["image_order"]

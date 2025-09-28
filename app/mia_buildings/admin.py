@@ -13,7 +13,11 @@ from mia_general.models import ToDoItem
 from modernism.tools import validate_and_clean_content_markup
 
 from mia_buildings import admin_views
-from mia_buildings.admin_filters import CityListFilter, CountryListFilter
+from mia_buildings.admin_filters import (
+    CityListFilter,
+    CountryListFilter,
+    ImageBuildingEmptyFilter,
+)
 
 from .admin_forms import (
     AssignOrCreateToDoItemForm,
@@ -64,6 +68,7 @@ class BuildingImageAdmin(admin.ModelAdmin):
         "created",
         "updated",
     ]
+    list_filter = ["is_published", ImageBuildingEmptyFilter]
     readonly_fields = ["tags", "image_preview", "thumbnails_created"]
     fields = [
         "image_preview",
@@ -144,37 +149,36 @@ class BuildingImageAdmin(admin.ModelAdmin):
     def assign_or_create_todoitem(self, request, queryset):
         if "apply" in request.POST:
             form = AssignOrCreateToDoItemForm(request.POST)
-            
+
             if form.is_valid():
-                
                 selected_images = ast.literal_eval(form.cleaned_data["_images"])
                 queryset = BuildingImage.objects.filter(pk__in=selected_images)
                 todo = form.cleaned_data["todo_item"]
-               
+
                 if not todo:
                     todo = ToDoItem.objects.create(
                         title=form.cleaned_data["working_title"],
                         city=form.cleaned_data["city"],
-                        notes=form.cleaned_data.get("notes", "")
+                        notes=form.cleaned_data.get("notes", ""),
                     )
 
                 queryset.update(todo_item=todo)
 
                 self.message_user(
                     request,
-                    f"{queryset.count()} images assigned to ToDoItem '{todo.title}'."
+                    f"{queryset.count()} images assigned to ToDoItem '{todo.title}'.",
                 )
                 return redirect(request.get_full_path())
         else:
-            form = AssignOrCreateToDoItemForm(initial={
-                "_selected_action": [image.pk for image in queryset]
-            })
-        
-        return render(request, "admin/assign_or_create_todoitem.html", {
-            "form": form,
-            "images": queryset,
-            "title": "Assign images to ToDoItem"
-        })
+            form = AssignOrCreateToDoItemForm(
+                initial={"_selected_action": [image.pk for image in queryset]}
+            )
+
+        return render(
+            request,
+            "admin/assign_or_create_todoitem.html",
+            {"form": form, "images": queryset, "title": "Assign images to ToDoItem"},
+        )
 
     assign_or_create_todoitem.short_description = "Assign images to ToDoItem"
 

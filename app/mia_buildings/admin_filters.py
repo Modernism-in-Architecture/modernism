@@ -36,3 +36,21 @@ class CountryListFilter(SimpleListFilter):
     def queryset(self, request, queryset):
         if self.value():
             return queryset.filter(city__country=self.value())
+
+
+class ImageBuildingEmptyFilter(SimpleListFilter):
+    title = "Building"
+    parameter_name = "building__isnull"
+    empty_label = "Has no building"
+    not_empty_label = "Has building"
+
+    def lookups(self, request, model_admin):
+        return (("0", self.empty_label), ("1", self.not_empty_label))
+
+    def queryset(self, request, queryset):
+        if self.value():
+            return (
+                queryset.filter(building__isnull=True)
+                if self.value() == "0"
+                else queryset.filter(building__isnull=False)
+            )
