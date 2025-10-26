@@ -85,12 +85,12 @@ class MiaAdminSite(AdminSite):
             "images": {
                 "published": BuildingImage.objects.filter(is_published=True).count(),
                 "unrelated": BuildingImage.objects.filter(
-                    building__isnull=True, todo_item__isnull=True
+                    building__isnull=True, todo_item__isnull=True, is_archived=False
                 ).count(),
                 "todos": BuildingImage.objects.filter(
                     building__isnull=True, todo_item__isnull=False
                 ).count(),
-                "unpublished": BuildingImage.objects.filter(is_published=False).count(),
+                "archived": BuildingImage.objects.filter(is_archived=True).count(),
             },
         }
 

@@ -56,13 +56,13 @@
                             <div class="stat-value">
                                 <a href="{% url 'admin:mia_buildings_buildingimage_changelist' %}?is_published__exact=1">{{ dashboard_data.images.published }}</a>
                                 <span class="stat-separator">|</span>
-                                <a href="{% url 'admin:mia_buildings_buildingimage_changelist' %}?is_published__exact=0">{{ dashboard_data.images.unpublished }}</a>
+                                <a href="{% url 'admin:mia_buildings_buildingimage_changelist' %}?is_published__exact=0">{{ dashboard_data.images.archived }}</a>
                                 <span class="stat-separator">|</span>
                                 <a href="{% url 'admin:mia_buildings_buildingimage_changelist' %}?building__isnull=1&todo_item__isnull=0">{{ dashboard_data.images.todos }}</a>
                                 <span class="stat-separator">|</span>
                                 <a href="{% url 'admin:mia_buildings_buildingimage_changelist' %}?building__isnull=1&todo_item__isnull=1">{{ dashboard_data.images.unrelated }}</a>
                             </div>
-                            <div class="stat-label">Uploaded - Unpublished - ToDos - Unrelated</div>
+                            <div class="stat-label">Uploaded - archived - ToDos - Unrelated</div>
                         </div>
                     </div>
                 </div>               

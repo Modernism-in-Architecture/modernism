@@ -1,8 +1,9 @@
 import ast
+from gettext import ngettext
 
 from adminsortable2.admin import SortableAdminBase, SortableTabularInline
 from django import forms
-from django.contrib import admin
+from django.contrib import admin, messages
 from django.db import models
 from django.forms import Textarea, TextInput
 from django.http.response import HttpResponseRedirect
@@ -54,13 +55,14 @@ class BuildingImageAdmin(admin.ModelAdmin):
         "building__city__country__name",
     ]
     autocomplete_fields = ["building", "photographer"]
-    actions = ["add_images_to_building", "assign_or_create_todoitem"]
+    actions = ["add_images_to_building", "assign_or_create_todoitem", "archive_image"]
     list_display = [
         "title",
         "image_preview",
         "id",
         "is_published",
         "is_feed_image",
+        "is_archived",
         "building",
         "todo_item",
         "photographer",
@@ -68,13 +70,14 @@ class BuildingImageAdmin(admin.ModelAdmin):
         "created",
         "updated",
     ]
-    list_filter = ["is_published", ImageBuildingEmptyFilter]
+    list_filter = ["is_published", "is_archived", ImageBuildingEmptyFilter]
     readonly_fields = ["tags", "image_preview", "thumbnails_created"]
     fields = [
         "image_preview",
         "title",
         "is_published",
         "is_feed_image",
+        "is_archived",
         "thumbnails_created",
         "image",
         "building",
@@ -118,6 +121,7 @@ class BuildingImageAdmin(admin.ModelAdmin):
 
         obj.save()
 
+    @admin.action(description="Add images to a building gallery")
     def add_images_to_building(self, request, queryset):
         if "apply" in request.POST:
             form = BuildingForImageSelectionAdminForm(request.POST)
@@ -144,8 +148,17 @@ class BuildingImageAdmin(admin.ModelAdmin):
             },
         )
 
-    add_images_to_building.short_description = "Add images to a building gallery"
+    @admin.action(description="Archive selected images")
+    def archive_image(self, request, queryset):
+        updated = queryset.update(is_archived=True)
+        self.message_user(
+            request,
+            ngettext("%d image archived.", "%d images archived.", updated) % updated,
+            messages.SUCCESS,
+        )
+        return None
 
+    @admin.action(description="Assign images to ToDoItem")
     def assign_or_create_todoitem(self, request, queryset):
         if "apply" in request.POST:
             form = AssignOrCreateToDoItemForm(request.POST)
@@ -179,8 +192,6 @@ class BuildingImageAdmin(admin.ModelAdmin):
             "admin/assign_or_create_todoitem.html",
             {"form": form, "images": queryset, "title": "Assign images to ToDoItem"},
         )
-
-    assign_or_create_todoitem.short_description = "Assign images to ToDoItem"
 
 
 class BuildingImageInline(SortableTabularInline):
