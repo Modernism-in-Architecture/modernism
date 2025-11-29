@@ -45,12 +45,13 @@ class ImageBuildingEmptyFilter(SimpleListFilter):
     not_empty_label = "Has building"
 
     def lookups(self, request, model_admin):
-        return (("0", self.empty_label), ("1", self.not_empty_label))
+        # 1 = isnull=True, 0 = isnull=False
+        return (("1", self.empty_label), ("0", self.not_empty_label))
 
     def queryset(self, request, queryset):
-        if self.value():
-            return (
-                queryset.filter(building__isnull=True)
-                if self.value() == "0"
-                else queryset.filter(building__isnull=False)
-            )
+        value = self.value()
+        if value == "1":
+            return queryset.filter(building__isnull=True)
+        if value == "0":
+            return queryset.filter(building__isnull=False)
+        return queryset
