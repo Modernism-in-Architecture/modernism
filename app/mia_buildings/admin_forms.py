@@ -131,3 +131,15 @@ class AssignOrCreateToDoItemForm(Form):
                 "Either select an existing ToDoItem or enter a title and city to create one."
             )
         return cleaned
+
+
+class AssignPhotographerForm(Form):
+    _selected_action = CharField(widget=MultipleHiddenInput)
+    _images = CharField(widget=MultipleHiddenInput)
+
+    photographer = ModelChoiceField(
+        queryset=Photographer.objects.order_by("last_name"),
+        required=True,
+        label="Photographer",
+        widget=Select(attrs={"class": "select2"}),
+    )

@@ -1,0 +1,63 @@
+{% extends "admin/base_site.html" %}
+{% load static thumbnail %}
+
+{% block extrahead %}
+  {{ block.super }}
+  <script src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
+  <script src="{% static 'admin/js/vendor/select2/select2.full.js' %}"></script>
+  <link href="{% static 'admin/css/vendor/select2/select2.css' %}" rel="stylesheet">
+
+  <script>
+    $(document).ready(function() {
+        $('.select2').select2();
+    });
+  </script>
+{% endblock %}
+
+
+{% block breadcrumbs %}
+  <div class="breadcrumbs">
+    <a href="{% url 'admin:index' %}">Home</a> › <a href="/admin/mia_buildings/">MIA Buildings</a> › <a href="{% url 'admin:mia_buildings_buildingimage_changelist' %}">Building images</a> › {{ title }}
+  </div>
+{% endblock %}
+
+{% block content %}
+  <div id="content-main">
+    <form method="post" class="bulkupload-form" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      <h3>Selected images:</h3>
+      <p>
+         {% for selected_image in images %}
+          <img src="{{ selected_image.image|thumbnail_url:'preview' }}" alt="" />
+          <input type="hidden" name="_images" value="{{selected_image.pk}}" />
+         {% endfor %}
+      </p>
+     
+      <fieldset class="module aligned">
+        {{ form.non_field_errors }}
+
+        <div class="form-row field-todo_item">
+          <div class="flex-container">
+            <label for="{{ form.photograppher.id_for_label }}">{{ form.photographer.label }}</label>
+            {{ form.photographer.errors }}
+            {{ form.photographer }}
+          </div>
+        </div>
+      </fieldset>
+
+      <div class="submit-row">
+        <input type="hidden" name="_selected_action" value="1" />
+        <input type="hidden" name="action" value="assign_photographer"/>
+        <input type="submit" name="apply" class="default" value="Assign Photographer">
+      </div>
+    </form>
+
+    <h3>List of images:</h3>
+    <ul>
+      {% for img in images %}
+        <li>{{ img.title }} (ID {{ img.id }})</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock %}

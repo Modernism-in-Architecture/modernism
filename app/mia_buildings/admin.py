@@ -22,6 +22,7 @@ from mia_buildings.admin_filters import (
 
 from .admin_forms import (
     AssignOrCreateToDoItemForm,
+    AssignPhotographerForm,
     BuildingAdminForm,
     BuildingForImageSelectionAdminForm,
 )
@@ -55,7 +56,12 @@ class BuildingImageAdmin(admin.ModelAdmin):
         "building__city__country__name",
     ]
     autocomplete_fields = ["building", "photographer"]
-    actions = ["add_images_to_building", "assign_or_create_todoitem", "archive_image"]
+    actions = [
+        "add_images_to_building",
+        "assign_or_create_todoitem",
+        "archive_image",
+        "assign_photographer",
+    ]
     list_display = [
         "title",
         "image_preview",
@@ -191,6 +197,34 @@ class BuildingImageAdmin(admin.ModelAdmin):
             request,
             "admin/assign_or_create_todoitem.html",
             {"form": form, "images": queryset, "title": "Assign images to ToDoItem"},
+        )
+
+    @admin.action(description="Assign a photographer")
+    def assign_photographer(self, request, queryset):
+        if "apply" in request.POST:
+            form = AssignPhotographerForm(request.POST)
+
+            if form.is_valid():
+                selected_images = ast.literal_eval(form.cleaned_data["_images"])
+                queryset = BuildingImage.objects.filter(pk__in=selected_images)
+                photographer = form.cleaned_data["photographer"]
+
+                queryset.update(photographer=photographer)
+
+                self.message_user(
+                    request,
+                    f"{queryset.count()} images got a new photographer ({photographer.first_name}).",
+                )
+                return redirect(request.get_full_path())
+        else:
+            form = AssignPhotographerForm(
+                initial={"_selected_action": [image.pk for image in queryset]}
+            )
+
+        return render(
+            request,
+            "admin/assign_photographer.html",
+            {"form": form, "images": queryset, "title": "Assign photographer"},
         )
 
 
