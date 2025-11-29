@@ -12,6 +12,9 @@ class MiaAdminSite(AdminSite):
     site_title = "MIA Admin"
     index_title = "Dashboard"
 
+    index_template = "admin/dashboard.html"
+    app_index_template = "admin/app_index.html"
+
     def get_grouped_todo_items(self):
         grouped = defaultdict(
             lambda: {
