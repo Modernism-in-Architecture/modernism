@@ -125,8 +125,6 @@ class BuildingImageAdmin(admin.ModelAdmin):
         if obj.building and obj.building.city:
             obj.tags.add(obj.building.city.name)
 
-        obj.save()
-
     @admin.action(description="Add images to a building gallery")
     def add_images_to_building(self, request, queryset):
         if "apply" in request.POST:
@@ -245,7 +243,7 @@ class BuildingImageInline(SortableTabularInline):
             },
         ),
     )
-    readonly_fields = ("image_preview", "tags")
+    readonly_fields = ("image_preview", "tags", "thumbnails_created")
     autocomplete_fields = ["photographer"]
     classes = ["collapse"]
     extra = 0
