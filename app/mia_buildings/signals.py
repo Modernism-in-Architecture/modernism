@@ -17,11 +17,12 @@ def generate_thumbnails(sender, instance, created, **kwargs):
         generate_thumbnails_for_image(instance.image, instance.is_feed_image)
 
         logger.info(
-            f"Generated thumbnails for: {instance.title if instance.title else {instance.pk}}"
+            f"Generated thumbnails for: {instance.title if instance.title else instance.pk}"
         )
 
-        instance.thumbnails_created = timezone.now()
-        instance.save()
+        BuildingImage.objects.filter(pk=instance.pk).update(
+            thumbnails_created=timezone.now()
+        )
 
 
 @receiver(pre_save, sender=Building)
