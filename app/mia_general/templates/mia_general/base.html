@@ -11,6 +11,8 @@
   <link rel="icon" type="image/png" sizes="96x96" href="{% static 'img/favicon-96x96.png'%}">
   <link rel="stylesheet" type="text/css" href="{% static 'css/modernism.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'css/bulma-tooltip.min.css' %}">
+  <link rel="alternate" hreflang="en" href="{{ request.build_absolute_uri }}" />
+  <link rel="alternate" hreflang="x-default" href="{{ request.build_absolute_uri }}" />
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
   {% block extra_css %}{% endblock %}
